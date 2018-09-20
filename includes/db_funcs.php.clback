@@ -1,0 +1,3172 @@
+<?php
+
+//*********************************************************************************************************
+// Gelo 11.01.05
+function db_funcs_TableExists($tablename, $database = false)
+{ //gelo 110105
+
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
+
+    if (!$database)
+    {
+        $result = mysqli_query($connectionstring,"SELECT DATABASE()");
+        $database = mysqli_result($result, 0);
+    }
+
+    $result = mysqli_query($connectionstring,"
+        SELECT COUNT(*) AS count 
+        FROM information_schema.tables 
+        WHERE table_schema = '$database' 
+        AND table_name = '$tablename'
+    ");
+
+    return mysqli_result($result, 0) == 1;
+}
+//*********************************************************************************************************
+
+function mysqli_result($res,$row=0,$col=0){
+	if ($row >= 0 && mysqli_num_rows($res) > $row){
+		mysqli_data_seek($res,$row);
+		$resrow = mysqli_fetch_row($res);
+		if (isset($resrow[$col])){
+			return $resrow[$col];
+		}
+	}
+	return false;
+}
+
+
+function getOutSidePPDate($query,$type){
+	
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
+
+$retval = "";
+
+if($type=="sd"){
+
+$sql = $query . " LIMIT 1";
+$res = mysqli_query($connectionstring,$sql);
+$row = mysqli_fetch_array($res);
+
+$date_start = $row[0];
+$retval =  $date_start;
+	
+}else{
+
+$sql_sub = str_replace("ORDER BY A.Date, A.TimeIn ASC","",$query);
+$sql = $sql_sub . " ORDER BY ifnull(A.DateOut,A.Date) DESC LIMIT 1";
+$res = mysqli_query($connectionstring,$sql);
+$row = mysqli_fetch_array($res);
+
+$date_sd = $row[0]; //date start
+$date_ed = $row[2]; //date end
+
+
+  if(!empty($date_ed) && $date_ed >= $date_sd){
+     $date_value = $date_ed;	
+  }else{
+     $date_value = $date_sd;
+  }
+	
+$retval = $date_value;	
+}
+	
+return $retval;	
+	
+}
+
+function chkCrossingShift($dt,$shf,$action){
+	
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
+
+$sql = "SELECT TimeStart, TimeEnd FROM shifts WHERE ShiftCode='$shf'";
+$res = mysqli_query($connectionstring,$sql);
+$row = mysqli_fetch_array($res);
+
+$ts = $row[0];
+$te = $row[1];
+
+$StartDate = $dt;
+$TimeStart = $ts;
+$TimeEnd = $te;
+
+
+if($ts > $te){ // CrossOverShift
+
+$EndDate = date("Y-m-d",strtotime($StartDate . '+ 1day'));
+	
+}else{
+
+$EndDate = $dt;
+	
+}
+
+if($action=="ADD"){ //Add Shift Leave Code Request
+	
+$fields = "'$StartDate','$TimeStart','$TimeEnd','$EndDate',";
+}else{ // Edit Shift LeaveCodeRequest
+$fields = "WA.StartDate='$StartDate',WA.TimeStart='$TimeStart',WA.TimeEnd='$TimeEnd',WA.EndDate='$EndDate',";
+}
+
+return $fields;
+	
+}
+
+
+function db_Compute_Total($remno,$status){
+
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
+
+$query = "SELECT Status, WebReimbursementDetailNo, Particulars, VAT, 
+SUM(Amount) AS Amount , SUM(NetOfVatAmount) AS NetOfVatAmount, 
+SUM(VATAmount) AS VATAmount FROM webreimbursementdetails 
+WHERE WebReimbursementRequestNo=$remno ";
+$query .= ($status==0) ? "" : "AND Status=$status ";
+$query .="ORDER BY WebReimbursementDetailNo ASC";
+
+$result = mysqli_query($connectionstring,$query);
+$row = mysqli_fetch_array($result);
+
+$Amount = $row['Amount'];
+$NetOfVatAmount = $row['NetOfVatAmount'];
+$VATAmount = $row['VATAmount'];
+
+(empty($Amount)) ? $Amount = "00.00" : $Amount = $Amount;
+(empty($NetOfVatAmount)) ? $NetOfVatAmount = "00.00" : $NetOfVatAmount = $NetOfVatAmount;
+(empty($VATAmount)) ? $VATAmount = "00.00" : $VATAmount = $VATAmount;
+
+
+$totality = array("Amount"=>$Amount,"NetOfVatAmount"=>$NetOfVatAmount,"VATAmount"=>$VATAmount);
+
+return $totality;
+	
+}
+
+function prevRecofReim($reimno){
+	
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
+
+//$results_array= array();
+$queryx  = "SELECT RD.*, RP.Name, RP.TIN, RP.VAT FROM webreimbursementdetails RD INNER JOIN webreimbursementpayees RP ";
+$queryx .= "ON RD.WebReimbursementPayeeNo = RP.WebReimbursementPayeeNo AND WebReimbursementRequestNO = $reimno";
+
+//echo $queryx;
+$resultx = mysqli_query($connectionstring,$queryx);
+
+
+
+while($row = mysqli_fetch_assoc($resultx)){
+	
+$prev_rec[] = $row;
+
+}
+	
+return $prev_rec;
+
+}
+
+
+function getEmployeeDetailsEmpTable($emp,$fields){
+	
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
+	
+$sql = "SELECT IFNULL($fields,NULL) AS $fields FROM employees WHERE EmployeeNo=$emp";
+$res = mysqli_query($connectionstring,$sql);
+$row = mysqli_fetch_array($res);	
+$rep = $row[0];
+
+
+
+return $rep;
+
+	
+}
+
+
+function getLastReimbursementRequestNo(){
+	
+	$row_no = "";
+	$qry ="SELECT WebReimbursementRequestNo FROM webreimbursementrequests ORDER BY WebReimbursementRequestNo DESC LIMIT 1";
+	$result_qry = mysqli_query($connectionstring,$qry);
+	$rowx = mysqli_fetch_array($result_qry);
+	$row_no = $rowx['WebReimbursementRequestNo'] + 1;
+	$webrqn = $row_no;
+	
+	return $webrqn;
+	
+}
+
+function getPayeeNo($no){
+	
+	$row_no = "";
+	$qry ="SELECT WebReimbursementPayeeNo FROM webreimbursementdetails WHERE WebReimbursementDetailNo=$no";
+	$result_qry = mysqli_query($connectionstring,$qry);
+	$rowx = mysqli_fetch_array($result_qry);
+	$row_no = $rowx['WebReimbursementPayeeNo'];
+	
+	return $row_no;
+}
+
+function getReimDetailNo(){
+	
+	$row_no = "";
+	$qry ="SELECT WebReimbursementDetailNo FROM webreimbursementdetails ORDER BY WebReimbursementDetailNo DESC LIMIT 1";
+	$result_qry = mysqli_query($connectionstring,$qry);
+	$rowx = mysqli_fetch_array($result_qry);
+	$row_no = $rowx['WebReimbursementDetailNo'];
+	
+	return $row_no;
+}
+
+function countReimReq($rn){
+$qry = "select count(*) from webreimbursementdetails WHERE webreimbursementrequestno = $rn";
+$result_qry = mysqli_query($connectionstring,$qry);
+$rowx = mysqli_fetch_array($result_qry);
+$row_no = $rowx[0];
+
+return $row_no;
+	
+}
+
+function ReqFuncForPartial($an,$sd,$ed,$st,$et,$employee_no){
+	
+	
+if(!empty($sd) && empty($ed)){ //OB DT Start Only
+
+$start_date_2 = $sd." ".$st; 
+$condz = $start_date_2;
+
+$que = "SELECT COUNT(*) FROM webauthorizationrequests where StartDate = '$sd' AND EmployeeNo=$employee_no and `Type` in (1,2,3,4,5) ";
+$que .= (empty($an)) ? "" : "and WebAuthorizationRequestNo NOT IN ($an)";
+
+}else if(empty($sd) && !empty($ed)){ //OB DT End Only
+	
+$end_date_2 = $ed ." ".$et; 
+$condz = $end_date_2;
+$que = "SELECT COUNT(*) FROM webauthorizationrequests where EndDate = '$ed' AND EmployeeNo=$employee_no AND `Type` in (1,2,3,4,5) and TimeStart  BETWEEN '$st' and '$et' AND TimeEnd BETWEEN '$st' and '$et' ";
+$que .= (empty($an)) ? "" : "and WebAuthorizationRequestNo NOT IN ($an)";
+
+}else if(!empty($sd) && !empty($ed)){ // OB Both
+
+$start_date_2 = $sd." ".$st; 
+$end_date_2 = $ed ." ".$et; 
+$condz = "" .  $sd . " >= " . $end_date_2 . "";
+
+
+$que  = "SELECT COUNT(*) FROM webauthorizationrequests where StartDate BETWEEN '$sd' and '$ed' and EndDate ";
+$que .= "BETWEEN '$sd' AND '$ed' AND EmployeeNo=$employee_no  AND `Type` in (1,2,3,4,5) and TimeStart BETWEEN '$st' and '$et' AND TimeEnd BETWEEN '$st' and '$et' ";
+$que .= (empty($an)) ? "" : "and WebAuthorizationRequestNo NOT IN ($an) ";
+
+}
+
+return $que;
+	
+}
+
+
+function NotPartialforOBCOA($sd,$ed){
+	
+	if(!empty($sd) && !empty($ed)){
+		$pt = 1;
+	}else{
+		 $pt = 0;
+	}
+	
+	return $pt;
+	
+}
+
+function db_Get_Teams($teamno){
+	
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);		
+	
+$sql = "SELECT TeamName FROM webteams WHERE TeamNo=$teamno";
+$result = mysqli_query($connectionstring,$sql);
+$row = mysqli_fetch_array($result);
+$team_name = $row['TeamName'];
+	
+return $team_name;
+	
+}
+
+
+function db_get_vat_rate_value(){
+	
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
+
+
+$sql ="SELECT Value2 FROM webtoolconfig WHERE TypeName ='REIM_RULES' AND Code=1 ";
+$result = mysqli_query($connectionstring,$sql);
+$row = mysqli_fetch_array($result);
+
+$net_rate_value = $row['Value2'];
+
+return $net_rate_value;
+	
+}
+
+function db_get_vat_settings(){
+	
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
+
+$sql ="SELECT Value1 FROM webtoolconfig WHERE TypeName ='REIM_RULES' AND Code=2 ";
+$result = mysqli_query($connectionstring,$sql);
+$row = mysqli_fetch_array($result);
+
+$vat_set = $row['Value1'];
+
+return $vat_set;	
+	
+}
+
+
+function getAlertSettings($field){
+
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
+$sql = "SELECT Code FROM webtoolconfig WHERE TypeName='$field'";
+$res = mysqli_query($connectionstring,$sql);
+$row = mysqli_fetch_array($res);
+$enabled = $row[0];
+
+return $enabled;
+	
+}
+
+function send_request_email($emp,$rqno,$daterq,$reason){
+	
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);		
+$reason = stripslashes($reason);
+$daterq = date("M-d-Y H:i",strtotime($daterq));
+
+//check first if the employee is a team member of any team
+$sql = "SELECT group_concat(TeamNo) as Teams from webteammember WHERE EmployeeNo=$emp GROUP BY EmployeeNo";
+$res = mysqli_query($connectionstring,$sql);
+$row = mysqli_fetch_array($res);
+$team = $row[0];
+
+if(!empty($team)){	
+//check if the member has a supervisor
+$sql  = "SELECT group_concat(Approver) as Approver, group_concat(Email) as Email, group_concat(FiledAs SEPARATOR'--') AS FiledAs From ( "; 
+$sql .= "SELECT group_concat(distinct(wl.EmployeeNo)) as Approver, e.Email, e.FiledAs FROM webteamleader wl, employees e ";
+$sql .= "WHERE wl.TeamNo in ($team) AND wl.EmployeeNo = e.EmployeeNo AND E.Email IS NOT NULL GROUP BY wl.EmployeeNo,E.Email ) W";
+$result = mysqli_query($connectionstring,$sql);
+$row = mysqli_fetch_array($result);
+	$approvers = $row[0];
+	$emails = $row[1];
+	$filedas = $row[2];
+
+if(!empty($approvers)){
+	
+require_once('../webtool/includes/phpmailer_v2.0.0/class.phpmailer.php');
+require_once('../webtool/includes/phpmailer_v2.0.0/class.pop3.php');
+ini_set('max_execution_time', 500);
+
+
+    $dir_path =  dirname(__FILE__);
+    if(preg_match_all('/htdocs([^`]*)/', $dir_path, $matches)) {
+        $path_initial = join(" ", $matches[1]);		
+		$path_web_a = str_replace("\includes","",$path_initial);
+		$path_web = str_replace("\\","/",$path_web_a);
+    }
+
+	$employee_name = getEmployeeDetailsEmpTable($emp,"FiledAs");
+	$req_details = getrequestdetails($emp,$rqno);
+	$req_type =  $req_details[0];
+	$req_duration= $req_details[1];
+
+    $mailContent  = "<font face='Calibri' size=3><center><strong>------Schedule Request Notification------</strong></center>  <br><br>";
+    $mailContent .= "Employee $employee_name submitted $req_type on $daterq.<br><br>";
+	$mailContent .= "$req_duration<br><br>";
+	$mailContent .= "Reason: $reason<br><br>";	
+	$mailContent .= "Please make a decision to approve or reject this request as soon as possible.<br><br>";
+	$mailContent .= "You can process the request by logging <a href=\"http://".  getenv('COMPUTERNAME'). $path_web ."\">here</a>.<br>";
+	$mailContent .= "<br>This is a system generated email. Please do not reply. <br><br>";		
+	$mailContent .= "Thank you. <br><br>";
+	$mailContent .= "Phoenix Payroll Web </font>";		
+
+
+    $POP3Server = get_email_settings("Value3","POP3_SRVR");
+	$POP3Port = get_email_settings("Value1","POP3_PRT");
+    $POP3TimeOut = get_email_settings("Value1","POP3_TMT");
+    $POP3UserName = get_email_settings("Value3","POP3_SRNM");
+    $POP3Password = get_email_settings("Value3","POP3_PWORD");		
+    $MailNotificationEmailAccount=  get_email_settings("Value3","MAIL_PMA");	
+    $MailNotificationDisplayName = get_email_settings("Value3","MAIL_PMN");	
+
+	$Subject = "Schedule Request Notification";
+    $Body = $mailContent;	
+
+	$pop = new POP3();
+	$pop->Authorise($POP3Server, $POP3Port, intval($POP3TimeOut), intval($POP3UserName), $POP3Password, 0);
+	$mail = new PHPMailer();
+	$mail->IsSMTP();
+	$mail->SMTPDebug = 0;
+	//$mail->SMTPSecure = 'tls';
+	$mail->SMTPAuth =  FALSE;
+	$mail->IsHTML(true);
+	$mail->Host     = $POP3Server;
+	$mail->Port     = $POP3Port;
+	$mail->Username = $POP3UserName;
+	$mail->Password = $POP3Password;
+	$mail->From     = $MailNotificationEmailAccount;
+	$mail->FromName = $MailNotificationDisplayName;
+	$mail->Subject  = $Subject;
+	$mail->Body     = $Body;
+
+	$email = explode(",",$emails);
+	$recipeint = explode("--",$filedas);
+	for($x=0;$x<count($email);$x++){			
+	$mail->AddAddress($email[$x], $recipeint[$x]);
+	}
+	$mail->Send();
+}	
+}
+//exit();
+}
+
+function get_email_settings($field,$typename){
+	
+	$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER, PHOENIX_DB_PASS);
+    $dbconn = mysqli_select_db ($connectionstring,PHOENIX_DB_DATABASE);
+	
+	$query = "SELECT $field FROM webtoolconfig WHERE TypeName='$typename'";
+	$result = mysqli_query($connectionstring,$query);
+	$row = mysqli_fetch_array($result);
+	$retval  = $row[0];
+	
+	return $retval;
+
+}
+
+
+function getrequestdetails($emp,$rqno){
+	
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
+
+$sql = "SELECT * FROM webauthorizationrequests WHERE EmployeeNo=$emp AND WebAuthorizationRequestno=$rqno";
+$res = mysqli_query($connectionstring,$sql);
+$row = mysqli_fetch_array($res);
+
+$type  = $row['Type'];
+$start_date = $row['StartDate'];
+$end_date  = $row['EndDate'];
+$time_start = $row['TimeStart'];
+$time_end = $row['TimeEnd'];
+$shift_code = $row['ShiftCode'];
+$old_shift = $row['OldShiftCode'];
+$leave_code = $row['LeaveType'];
+
+$request_type = getleavetype($type,$leave_code,$start_date,$end_date,$time_start,$time_end,$shift_code,$old_shift);
+
+
+return array($request_type['Type'],$request_type['Details']);
+
+	
+}
+
+function getleavetype($type_code,$leave_code,$start_date,$end_date,$time_start,$time_end,$shift_code,$old_shift){
+	
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
+
+$start_date =(!empty($start_date)) ?  date("M-d-Y",strtotime($start_date)) : "";
+$end_date =(!empty($end_date)) ? date("M-d-Y",strtotime($end_date)) : "";
+$time_start =(!empty($time_start)) ? date("H:i",strtotime($time_start)) : "";
+$time_end =(!empty($time_end)) ? date("H:i",strtotime($time_end)) : "";
+
+if($type_code==0){
+$type = "an Overtime request";
+$details = "From: $start_date&nbsp;$time_start&nbsp; To: $end_date&nbsp;$time_end ";
+}
+
+else if($type_code==1){
+$sql = "SELECT DISTINCT Description FROM codelookups WHERE TypeName = 'ATTD' AND Code=$leave_code";
+$res = mysqli_query($connectionstring,$sql);
+$row = mysqli_fetch_array($res);
+$leave_desc = $row[0];
+$type = "a " .$leave_desc . " request";
+
+if(!empty($shift_code)){
+$details ="From: $start_date at Shift: ". getShiftCode($shift_code);	
+}else{	
+$details = "From: $start_date&nbsp;$time_start&nbsp; To: $end_date&nbsp;$time_end ";		
+}
+
+}
+
+else if($type_code==2){
+$type = "a Schedule Change request";
+
+	if(empty($old_shift) && !empty($shift_code)){
+		$details = "From: $start_date (Open Schedule) To: $end_date " . getShiftCode($shift_code); 
+	}else if(!empty($old_shift) && empty($shift_code)){
+		$details ="From $start_date " .getShiftCode($old_shift). " to Restday";
+	}else if(!empty($old_shift) && !empty($shift_code)){
+		$details = "From $start_date " .getShiftCode($old_shift). " to $end_date " . getShiftCode($shift_code);
+	}
+
+}
+else if($type_code==3){
+	
+$type = "a Time of in Lieu request";
+
+if(!empty($shift_code)){
+$details ="From: $start_date at Shift: " . getShiftCode($shift_code);	
+}else{	
+$details = "From: $start_date&nbsp;$time_start&nbsp; To: $end_date&nbsp;$time_end ";		
+}
+
+
+}
+else if($type_code==4){
+	
+	$type = "an Official Business request";
+
+	if(empty($start_date) && !empty($end_date)){
+		$details = "Date and Time Out: $end_date&nbsp;$time_end";		
+	}else if(!empty($start_date) && empty($end_date)){
+		$details = "Date and Time In: $start_date&nbsp;$time_start";			
+	}else if(!empty($start_date) && !empty($end_date)){
+		$details = "From: $start_date&nbsp;$time_start&nbsp; To: $end_date&nbsp;$time_end ";			
+	}
+
+}
+else if($type_code==5){
+	
+	$type = "a Certificate of Attendance request";
+
+	if(empty($start_date) && !empty($end_date)){
+		$details = "Date and Time Out: $end_date&nbsp;$time_end";		
+	}else if(!empty($start_date) && empty($end_date)){
+		$details = "Date and Time In: $start_date&nbsp;$time_start";			
+	}else if(!empty($start_date) && !empty($end_date)){
+		$details = "From: $start_date&nbsp;$time_start&nbsp; To: $end_date&nbsp;$time_end ";			
+	}
+
+}
+
+return array("Type"=>$type,"Details"=>$details);
+
+}
+
+function getShiftCode($sc){
+	
+	$connectionstring = mysqli_connect(PHOENIX_DB_DNS,PHOENIX_DB_USER,PHOENIX_DB_PASS);
+    $dbconn = mysqli_select_db ($connectionstring,PHOENIX_DB_DATABASE);
+	$query = "SELECT ShiftNo, ShiftCode, ShiftName, TimeStart, TimeEnd FROM shifts WHERE ShiftCode='$sc'";
+    $result = mysqli_query($connectionstring,$query);
+	//$cnt = 0;
+	$row = mysqli_fetch_array($result);
+	$ts = $row['TimeStart'];
+	$te = $row['TimeEnd'];
+	$timestart =   mktime(substr($ts,0,2),substr($ts,3,2),0,0,0,0);
+    $timeend =   mktime(substr($te,0,2),substr($te,3,2),0,0,0,0);
+	        
+	$desc =  $row['ShiftCode']." [".date("H:i",$timestart)."-".date("H:i",$timeend)."]";	 
+	return $desc;	
+}
+
+
+
+
+function db_get_reimbursement_payees($empno){
+	
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);		
+	
+$sql = "SELECT FiledAs,TIN,HomeAddress,StreetAddress,City,Province,RAZipCode,Country FROM employees WHERE EmployeeNo=$empno";
+$result = mysqli_query($connectionstring,$sql);
+$row = mysqli_fetch_array($result);
+$Name = $row['FiledAs'];
+$TIN = $row['TIN'];
+$Address1 = $row['HomeAddress'];
+$Address2 = $row['StreetAddress'];
+$City = $row['City'];
+$Province = $row['Province'];
+$Zip = $row['RAZipCode'];
+$Country = $row['Country'];
+
+$payees_date = array("Name"=>$Name,"TIN"=>$TIN,"Address1"=>$Address1,"Address2"=>$Address2,"City"=>$City,"Province"=>$Province,"Zip"=>$Zip,"Country"=>$Country);
+
+return $payees_date;
+	
+}
+
+
+function get_reimbursement_nos($p_name){
+	
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
+
+$reim_nos  ="";
+
+$sql = "SELECT WebReimbursementRequestNo FROM webreimbursementrequests ORDER BY WebReimbursementRequestNo DESC LIMIT 1 ";
+$result = mysqli_query($connectionstring,$sql);
+$row = mysqli_fetch_array($result);
+
+$reim_reqno = $row[0];
+
+$sql2 = "SELECT WebReimbursementPayeeNo from webreimbursementpayees WHERE Name='" . mysqli_real_escape_string($connectionstring,$p_name) . "'";
+$result2 = mysqli_query($connectionstring,$sql2);
+$row2 = mysqli_fetch_array($result2);
+
+$reim_payeeno = $row2[0];
+
+$reim_nos = array("Reim_RequestNo"=>$reim_reqno,"Reim_PayeeNo"=>$reim_payeeno);
+
+return $reim_nos;
+	
+}
+
+
+function db_Get_TeamNo($emp){
+	
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);		
+
+	
+$sql = "SELECT DISTINCT(wl.TeamNo) FROM webteamleader wl, webteams wt WHERE EmployeeNo=$emp
+and wl.TeamNo = wt.TeamNo
+ORDER BY wt.TeamName";
+$result = mysqli_query($connectionstring,$sql);
+
+while($row = mysqli_fetch_array($result)){
+	
+	$teamnos = $row['TeamNo'];
+	$team_collectno[] = $teamnos;
+
+}
+
+return $team_collectno;	
+
+}
+
+function default_TeamNo($emp){
+	
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);		
+	
+
+$sql = "SELECT count(DISTINCT(wl.TeamNo)) as cnt FROM webteamleader wl, webteams wt WHERE EmployeeNo=$emp
+and wl.TeamNo = wt.TeamNo
+ORDER BY wt.TeamName";
+$res = mysqli_query($connectionstring,$sql);
+
+$row_num = mysqli_result($res);
+
+
+	
+	
+//$sql = "SELECT DISTINCT(TeamNo) FROM webteamleader WHERE EmployeeNo=$emp ORDER BY TeamNo LIMIT 1";
+$sql = "SELECT DISTINCT(wl.TeamNo) FROM webteamleader wl, webteams wt WHERE EmployeeNo=$emp
+and wl.TeamNo = wt.TeamNo ORDER BY wt.TeamName LIMIT 1";
+$result = mysqli_query($connectionstring,$sql);
+$row = mysqli_fetch_array($result);
+	
+$teamnos = $row['TeamNo'];
+
+if(empty($row) || $row_num < 2){
+	$teamnos = -1;
+}
+
+return $teamnos;		
+	
+}
+
+function db_Get_TeamName($teamno){
+	
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);		
+	
+$sql = "SELECT TeamName FROM webteams WHERE TeamNo=$teamno";
+$result = mysqli_query($connectionstring,$sql);
+
+$row = mysqli_fetch_array($result);	
+$team_name = $row['TeamName'];
+
+return $team_name;		
+		
+}
+
+function dbCountTeamNo($emp){
+	
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
+
+$sql ="SELECT COUNT(DISTINCT(TeamNo)) AS TeamCount FROM webteamleader WHERE EmployeeNo=$emp";
+
+$result = mysqli_query($connectionstring,$sql);
+$row = mysqli_fetch_array($result);
+$cnt = $row[0];
+
+if($cnt < 2){
+	$show = 0;	
+}else{
+	$show = 1;
+}
+return $show;
+}
+
+
+
+function chk_already_approved($arno,$emp,$field){
+	
+	$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+	$dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
+
+	$sql = "SELECT $field FROM webauthorizationrequests WHERE WebAuthorizationRequestNo = $arno";
+	$result = mysqli_query($connectionstring,$sql);
+	$row = mysqli_fetch_array($result);	
+	$appv_field = $row[$field];
+
+	if($appv_field == "" || $appv_field == $emp){
+		
+		$show_chkbox = 1;
+		
+	}else{
+		
+		$show_chkbox = 0;
+	}
+		
+	//echo $show_chkbox;
+	return $show_chkbox;
+	
+}
+
+
+function db_funcs_PasswordSetting_Bool($code)
+{
+    $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
+        PHOENIX_DB_PASS);
+    $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
+
+    $query = "SELECT Bool FROM codelookups where TypeName = 'PASS' and Code=$code";
+    $result = mysqli_query($connectionstring,$query);
+    $row = mysqli_fetch_array($result);
+
+    $retval = $row['Bool'];
+    //echo $retval;
+    return $retval;
+
+}
+
+
+function db_getDaysinGivenDate($dayx, $emp)
+{
+
+    $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
+        PHOENIX_DB_PASS);
+    $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
+
+    $query = "SELECT $dayx FROM employees WHERE EmployeeNo=$emp";
+    $result = mysqli_query($connectionstring,$query);
+    $row = mysqli_fetch_array($result);
+
+    $retval = $row[$dayx];
+    //echo $retval;
+    return $retval;
+
+}
+
+function db_funcs_getShiftBased($emp)
+{
+
+    $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
+        PHOENIX_DB_PASS);
+    $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
+
+    $query = "SELECT ShiftBased FROM employees where EmployeeNo=$emp";
+    $result = mysqli_query($connectionstring,$query);
+    $row = mysqli_fetch_array($result);
+
+    $retval = $row['ShiftBased'];
+    //echo $retval;
+    return $retval;
+
+}
+
+function chk_time_or_duration($emp_table,$emp_no){
+	
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS,PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
+	
+$que = "SELECT COUNT(*) as ATTD FROM $emp_table WHERE EmployeeNo=$emp_no AND DateOut IS  NULL 
+AND AttendanceType IN (0,25)";
+$res = mysqli_query($connectionstring,$que);
+
+$row = mysqli_fetch_array($res);
+
+$attd = $row['ATTD'];
+
+if($attd==0){ #Time Entry
+
+$retvalue = 0;
+	
+}else{ #Duration
+
+$retvalue = 1;
+	
+}
+
+return $retvalue;	
+	
+}
+
+function get_absent_from_payroll($table,$emp_no){
+	
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS,PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);		
+	
+
+
+	#Get the total Required Hours
+
+	$req_row_val = getRequiredHoursSettings();
+
+
+$que = "SELECT SUM(IF(Unit = 1,Value / $req_row_val ,Value)) FROM payroll_$table where Type='ATTD' and Code=25 AND EmployeeNo=$emp_no";
+$res = mysqli_query($connectionstring,$que);
+
+$row = mysqli_fetch_array($res);
+
+
+
+$absence = $row[0] . " d(s)";
+
+return $absence;
+
+
+	
+}
+
+function getRequiredHoursSettings(){
+
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS,PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
+	
+$req_hours_query = "SELECT Value from codelookups WHERE TypeName='STWRK' and Code=0";
+$req_result = mysqli_query($connectionstring,$req_hours_query);
+$req_row  = mysqli_fetch_array($req_result);
+$req_row_val = $req_row['Value'];	
+
+return $req_row_val;
+	
+}
+
+function chkEmployeeAbsence($table,$emp){
+
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS,PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);		
+$sql = "SELECT COUNT(*) as ATTD FROM $table WHERE EmployeeNo=$emp AND  AttendanceType=25";
+$req_result = mysqli_query($connectionstring,$sql);
+$req_row  = mysqli_fetch_array($req_result);
+$req_row_val = $req_row[0];
+return $req_row_val;
+	
+}
+
+
+
+
+
+function getWages_Employee($empno){
+	
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS,PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);		
+
+$sql = "SELECT WageType FROM employees  WHERE EmployeeNo=$empno";
+
+$res = mysqli_query($connectionstring,$sql);
+$row = mysqli_fetch_array($res);
+$wg = $row['WageType'];
+
+return $wg;	
+	
+	
+}
+
+
+
+function db_funcs_PasswordSetting_Value($code)
+{
+
+    $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
+        PHOENIX_DB_PASS);
+    $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
+
+    $query = "SELECT Value FROM codelookups where TypeName = 'PASS' and Code=$code";
+    $result = mysqli_query($connectionstring,$query);
+    $row = mysqli_fetch_array($result);
+
+    $retval = $row['Value'];
+    //echo $retval;
+    return $retval;
+
+}
+
+function db_funcs_PassLastChange($empno)
+{
+
+    $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
+        PHOENIX_DB_PASS);
+    $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
+
+    $query  = "SELECT PassLastChange FROM webusers where EmployeeNo = $empno";
+    $result = mysqli_query($connectionstring,$query);
+    $row    = mysqli_fetch_array($result);
+
+    $retval = $row['PassLastChange'];
+    //echo $retval;
+    return $retval;
+
+}
+
+
+function getTeamName($teamno){
+	
+	$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+    $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
+	
+	$retval = "";
+    $query = "SELECT TeamName from webteams where TeamNo=$teamno";
+    $result = mysqli_query($connectionstring,$query);
+    $row = mysqli_fetch_array($result);
+    $retval = $row[0];
+
+    return $retval;
+	
+}
+
+
+function db_funcs_dbQ($strInput)
+{
+    $strInput = (get_magic_quotes_gpc()) ? stripslashes($strInput) : $strInput;
+    $output = str_replace("'", "''", $strInput);
+    $output = str_replace("\\", "\\\\", $output);
+    $output = "'" . $output . "'";
+    return $output;
+}
+
+function db_funcs_GetFieldValue($connectionstring, $dbconn, $table, $field, $filter =
+    "")
+{
+    $retval = "";
+    $query = "SELECT " . $field . " " . "FROM " . strtolower($table) . " ";
+    if (!empty($filter))
+        $query .= "WHERE " . $filter;
+    $result = mysqli_query($connectionstring,$query);
+    while ($row = @mysqli_fetch_array($result))
+    {
+        $retval = $row['$field'];
+    }
+    return $retval;
+}
+
+
+
+function LeaveFunc($emp,$leave_code =array(),$desc=array()){
+
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
+
+$same_con = $connectionstring;
+
+	$sql = "select PayPeriod into @ntPayPeriod from employees where EmployeeNo=$emp";
+	$result = mysqli_query($connectionstring,$sql);
+	
+	$sql = "SELECT DateEnd INTO @dtLastLockedCutoff FROM processed WHERE Protected = 1 AND PayPeriod = @ntPayPeriod ORDER BY Date DESC LIMIT 1";
+	$result = mysqli_query($connectionstring,$sql);
+	
+	$sql = "SET @dtYear1stCutoff = get_YearFirstCutOff(@ntPayPeriod, Year(now()))";
+	$result = mysqli_query($connectionstring,$sql);
+	
+	$sql = "CALL leaves_SetVariables($emp,@dtYear1stCutoff,@dtLastLockedCutOff)";
+	$result = mysqli_query($connectionstring,$sql);
+	
+	//print_r($leave_code);
+	
+	for($x=0;$x<count($leave_code);$x++){
+		
+	$sql  = "select leaves_getmaximum($leave_code[$x]) + leaves_getadditional($leave_code[$x]) + ifnull(leaves_getbalance($leave_code[$x]),0) Max,";
+	$sql .= "ifnull(leaves_getavailed($leave_code[$x]),0)+ leaves_getconversions($leave_code[$x]) Availed, ";
+	$sql .= "leaves_getmaximum($leave_code[$x]) + leaves_getadditional($leave_code[$x]) + ifnull(leaves_getbalance($leave_code[$x]),0) - ifnull(leaves_getavailed($leave_code[$x]),0)+ ";
+	$sql .= "leaves_getconversions($leave_code[$x]) Available;";
+	
+	
+	$result = mysqli_query($connectionstring,$sql);
+	
+	while($row = mysqli_fetch_array($result)){
+		
+		$Max             = $row['Max'];
+		$Available       = $row['Available'];
+		$Availed         = $row['Availed'];
+		
+		$max_lv[]        = $Max;
+		$avail_lv[]      = $Availed;
+		$available_lv[]  = $Available;	
+	}
+	}
+	
+	$leaves=array("Desc"=>$desc,"Max"=>$max_lv,"Availed"=>$avail_lv,"Available"=>$available_lv);
+
+	return $leaves;
+	
+}	
+
+
+function db_funcs_GetWebtoolConfigProfile($connectionstring, $dbconn, $feildx)
+{
+    $retval = "";
+    $query = "SELECT * from webtoolconfigprofile where `field`='$feildx'";
+
+    $result = mysqli_query($connectionstring,$query);
+    while ($row = @mysqli_fetch_array($result))
+    {
+        $retval = $row['show'];
+        //echo "$retval";
+    }
+    return $retval;
+}
+
+
+function db_funcs_GetWebtoolConfigProfile2($connectionstring, $dbconn, $feildx)
+{
+    $retval = "";
+    $query = "SELECT * from webtoolconfigprofile where `field`='$feildx'";
+
+    $result = mysqli_query($connectionstring,$query);
+    while ($row = @mysqli_fetch_array($result))
+    {
+        $retval = $row['allowedit'];
+        //echo "$retval";
+    }
+    return $retval;
+
+}
+
+function db_funcs_GrossPay($connectionstring, $dbconn, $tablex, $empnox)
+{
+
+    
+    $index = 0;
+    $count = count($tablex);
+    $collect_query = array();
+    for ($i = 0; $i < count($tablex); $i++)
+    {
+        $index++;
+
+        if ($index == $count)
+        {
+            $query = "SELECT * FROM payroll$tablex[$i] where EmployeeNo=$empnox ";
+        } else
+        {
+            $query = "SELECT * FROM payroll$tablex[$i] where EmployeeNo=$empnox UNION ";
+        }
+
+        $collect_query[] = $query;
+    }
+
+    $a = implode($collect_query, " ");
+    $new_query = $a;
+    $new_query2 = "DROP TABLE IF EXISTS tbl_year_to_date;" .
+        "CREATE TEMPORARY TABLE tbl_year_to_date $new_query";
+
+    $sql = "$new_query2";
+	//echo $sql;
+	//exit();
+    $queries = preg_split("/;+(?=([^'|^\\\']*['|\\\'][^'|^\\\']*['|\\\'])*[^'|^\\\']*[^'|^\\\']$)/",
+        $sql);
+
+    foreach ($queries as $query)
+    {
+        if (strlen(trim($query)) > 0)
+            mysqli_query($connectionstring,$query); // for multiple query
+    } //
+
+    $result = mysqli_query($connectionstring,$query);
+
+    $sql_query = "SELECT sum(Amount) FROM tbl_year_to_date WHERE Type='ATTD' OR (Type='RECUR' and amount > 0)";
+    $result2 = mysqli_query($connectionstring,$sql_query);
+    $row = mysqli_fetch_array($result2);
+
+    $retval = $row[0];
+
+    return $retval;
+	//exit();
+}
+
+function db_funcs_NetPay($connectionstring, $dbconn, $tablex, $empnox)
+{
+
+    $index = 0;
+    $count = count($tablex);
+    $collect_query = array();
+    for ($i = 0; $i < count($tablex); $i++)
+    {
+        $index++;
+
+        if ($index == $count)
+        {
+            $query = "SELECT * FROM payroll$tablex[$i] where EmployeeNo=$empnox ";
+        } else
+        {
+            $query = "SELECT * FROM payroll$tablex[$i] where EmployeeNo=$empnox UNION ";
+        }
+
+        $collect_query[] = $query;
+    }
+
+    $a = implode($collect_query, " ");
+    $new_query = $a;
+    $new_query2 = "DROP TABLE IF EXISTS tbl_year_to_date;" .
+        "CREATE TEMPORARY TABLE tbl_year_to_date $new_query";
+
+    $sql = "$new_query2";
+	//echo $sql;
+	//exit();
+    $queries = preg_split("/;+(?=([^'|^\\\']*['|\\\'][^'|^\\\']*['|\\\'])*[^'|^\\\']*[^'|^\\\']$)/",
+        $sql);
+
+    foreach ($queries as $query)
+    {
+        if (strlen(trim($query)) > 0)
+            mysqli_query($connectionstring,$query); // for multiple query
+    } //
+
+    $result = mysqli_query($connectionstring,$query);
+
+    $sql_query = "SELECT sum(Amount) *-1 FROM tbl_year_to_date WHERE Type='RECUR' and amount < 0";
+    $result2 = mysqli_query($connectionstring,$sql_query);
+    $row = mysqli_fetch_array($result2);
+
+    $retval = $row[0];
+
+    return $retval;
+}
+
+
+
+function db_funcs_SSS($connectionstring, $dbconn, $tablex, $empnox)
+{
+
+    $index = 0;
+    $count = count($tablex);
+    $collect_query = array();
+    for ($i = 0; $i < count($tablex); $i++)
+    {
+        $index++;
+
+        if ($index == $count)
+        {
+            $query = "SELECT * FROM payroll$tablex[$i] where EmployeeNo=$empnox ";
+        } else
+        {
+            $query = "SELECT * FROM payroll$tablex[$i] where EmployeeNo=$empnox UNION ";
+        }
+
+        $collect_query[] = $query;
+    }
+
+    $a = implode($collect_query, " ");
+    $new_query = $a;
+    $new_query2 = "DROP TABLE IF EXISTS tbl_year_to_date;" .
+        "CREATE TEMPORARY TABLE tbl_year_to_date $new_query";
+
+
+    $sql = "$new_query2";
+    $queries = preg_split("/;+(?=([^'|^\\\']*['|\\\'][^'|^\\\']*['|\\\'])*[^'|^\\\']*[^'|^\\\']$)/",
+        $sql);
+		
+    foreach ($queries as $query)
+    {
+        if (strlen(trim($query)) > 0)
+            mysqli_query($connectionstring,$query); // for multiple query
+    } //
+
+    $result = mysqli_query($connectionstring,$query);
+
+    $sql_query = "SELECT sum(Amount) *-1 FROM tbl_year_to_date where Type='SSS' and SubCode in ('SS_EE')";
+    $result2 = mysqli_query($connectionstring,$sql_query);
+    $row = mysqli_fetch_array($result2);
+
+    $retval = $row[0];
+
+    return $retval;
+}
+
+function db_funcs_PHILHEALTH($connectionstring, $dbconn, $tablex, $empnox)
+{
+
+    $index = 0;
+    $count = count($tablex);
+    $collect_query = array();
+    for ($i = 0; $i < count($tablex); $i++)
+    {
+        $index++;
+
+        if ($index == $count)
+        {
+            $query = "SELECT * FROM payroll$tablex[$i] where EmployeeNo=$empnox ";
+        } else
+        {
+            $query = "SELECT * FROM payroll$tablex[$i] where EmployeeNo=$empnox UNION ";
+        }
+
+        $collect_query[] = $query;
+    }
+
+    $a = implode($collect_query, " ");
+    $new_query = $a;
+    $new_query2 = "DROP TABLE IF EXISTS tbl_year_to_date;" .
+        "CREATE TEMPORARY TABLE tbl_year_to_date $new_query";
+
+
+    $sql = "$new_query2";
+    $queries = preg_split("/;+(?=([^'|^\\\']*['|\\\'][^'|^\\\']*['|\\\'])*[^'|^\\\']*[^'|^\\\']$)/",
+        $sql);
+    foreach ($queries as $query)
+    {
+        if (strlen(trim($query)) > 0)
+            mysqli_query($connectionstring,$query); // for multiple query
+    } //
+
+    $result = mysqli_query($connectionstring,$query);
+
+    $sql_query = "SELECT sum(Amount) *-1 FROM tbl_year_to_date where Type='PHLTH' and SubCode in ('PS')";
+    $result2 = mysqli_query($connectionstring,$sql_query);
+    $row = mysqli_fetch_array($result2);
+
+    $retval = $row[0];
+
+    return $retval;
+}
+
+function db_funcs_HDMF($connectionstring, $dbconn, $tablex, $empnox)
+{
+
+    $index = 0;
+    $count = count($tablex);
+    $collect_query = array();
+    for ($i = 0; $i < count($tablex); $i++)
+    {
+        $index++;
+
+        if ($index == $count)
+        {
+            $query = "SELECT * FROM payroll$tablex[$i] where EmployeeNo=$empnox ";
+        } else
+        {
+            $query = "SELECT * FROM payroll$tablex[$i] where EmployeeNo=$empnox UNION ";
+        }
+
+        $collect_query[] = $query;
+    }
+
+    $a = implode($collect_query, " ");
+    $new_query = $a;
+    $new_query2 = "DROP TABLE IF EXISTS tbl_year_to_date;" .
+        "CREATE TEMPORARY TABLE tbl_year_to_date $new_query";
+
+
+    $sql = "$new_query2";
+    $queries = preg_split("/;+(?=([^'|^\\\']*['|\\\'][^'|^\\\']*['|\\\'])*[^'|^\\\']*[^'|^\\\']$)/",
+        $sql);
+    foreach ($queries as $query)
+    {
+        if (strlen(trim($query)) > 0)
+            mysqli_query($connectionstring,$query); // for multiple query
+    } //
+
+    $result = mysqli_query($connectionstring,$query);
+
+    $sql_query = "SELECT sum(Amount) *-1 FROM tbl_year_to_date where Type='PBIG' and SubCode in ('EE')";
+    $result2 = mysqli_query($connectionstring,$sql_query);
+    $row = mysqli_fetch_array($result2);
+
+    $retval = $row[0];
+
+    return $retval;
+}
+
+function db_funcs_WTAX($connectionstring, $dbconn, $tablex, $empnox)
+{
+
+    $index = 0;
+    $count = count($tablex);
+    $collect_query = array();
+    for ($i = 0; $i < count($tablex); $i++)
+    {
+        $index++;
+
+        if ($index == $count)
+        {
+            $query = "SELECT * FROM payroll$tablex[$i] where EmployeeNo=$empnox ";
+        } else
+        {
+            $query = "SELECT * FROM payroll$tablex[$i] where EmployeeNo=$empnox UNION ";
+        }
+
+        $collect_query[] = $query;
+    }
+
+    $a = implode($collect_query, " ");
+    $new_query = $a;
+    $new_query2 = "DROP TABLE IF EXISTS tbl_year_to_date;" .
+        "CREATE TEMPORARY TABLE tbl_year_to_date $new_query";
+
+
+    $sql = "$new_query2";
+    $queries = preg_split("/;+(?=([^'|^\\\']*['|\\\'][^'|^\\\']*['|\\\'])*[^'|^\\\']*[^'|^\\\']$)/",
+        $sql);
+    foreach ($queries as $query)
+    {
+        if (strlen(trim($query)) > 0)
+            mysqli_query($connectionstring,$query); // for multiple query
+    } //
+
+    $result = mysqli_query($connectionstring,$query);
+
+    $sql_query = "SELECT sum(Amount) *-1 FROM tbl_year_to_date where Type='WTAX'";
+    $result2 = mysqli_query($connectionstring,$sql_query);
+    $row = mysqli_fetch_array($result2);
+
+    $retval = $row[0];
+
+    return $retval;
+}
+
+function db_funcs_Absence($connectionstring, $dbconn, $tablex, $empnox)
+{
+
+    $index = 0;
+    $count = count($tablex);
+    $collect_query = array();
+    for ($i = 0; $i < count($tablex); $i++)
+    {
+        $index++;
+
+        if ($index == $count)
+        {
+            $query = "SELECT * FROM payroll$tablex[$i] where EmployeeNo=$empnox ";
+        } else
+        {
+            $query = "SELECT * FROM payroll$tablex[$i] where EmployeeNo=$empnox UNION ";
+        }
+
+        $collect_query[] = $query;
+    }
+
+    $a = implode($collect_query, " ");
+    $new_query = $a;
+    $new_query2 = "DROP TABLE IF EXISTS tbl_year_to_date;" .
+        "CREATE TEMPORARY TABLE tbl_year_to_date $new_query";
+    //echo $new_query2;
+
+    $sql = "$new_query2";
+    $queries = preg_split("/;+(?=([^'|^\\\']*['|\\\'][^'|^\\\']*['|\\\'])*[^'|^\\\']*[^'|^\\\']$)/",
+        $sql);
+    foreach ($queries as $query)
+    {
+        if (strlen(trim($query)) > 0)
+            mysqli_query($connectionstring,$query); // for multiple query
+    } //
+
+    $result = mysqli_query($connectionstring,$query);
+
+    $sql_query = "SELECT ROUND(SUM(Value),2) FROM tbl_year_to_date where Type='ATTD' and Description like 'Absence%' AND Unit=2";
+    $result2 = mysqli_query($connectionstring,$sql_query);
+    $row = mysqli_fetch_array($result2);
+
+    $sql_query4 = "SELECT IFNULL(ROUND(SUM(Value),2),0) FROM tbl_year_to_date where Type='ATTD' and Description like 'Absence%' AND Unit=1";
+    $result4 = mysqli_query($connectionstring,$sql_query4);
+    $row4 = mysqli_fetch_array($result4);
+	
+	
+	$req_hours_query = "SELECT Value from codelookups WHERE TypeName='STWRK' and Code=0";
+	$req_result = mysqli_query($connectionstring,$req_hours_query);
+	$req_row  = mysqli_fetch_array($req_result);
+	$req_row_val = $req_row['Value'];
+	
+
+    $sql_query3 = "select SUM(IF(Unit = 1,Value / $req_row_val ,Value)) FROM tbl_year_to_date where Type='ATTD' and Description like 'Absence%'";
+    $result3 = mysqli_query($connectionstring,$sql_query3);
+    $row3 = mysqli_fetch_array($result3);
+
+    //$row3[0] - the total count
+    //$row[0] - the total hours
+
+    $retval = array($row3[0], $row[0], $row4[0]);
+    return $retval[0] . " " . "(" . $retval[1] . " days & " . $retval[2] . " hrs)";
+}
+
+function db_funcs_Tardy($connectionstring, $dbconn, $tablex, $empnox)
+{
+
+    $index = 0;
+    $count = count($tablex);
+    $collect_query = array();
+    for ($i = 0; $i < count($tablex); $i++)
+    {
+        $index++;
+
+        if ($index == $count)
+        {
+            $query = "SELECT * FROM employeeattendance$tablex[$i] where EmployeeNo=$empnox ";
+        } else
+        {
+            $query = "SELECT * FROM employeeattendance$tablex[$i] where EmployeeNo=$empnox UNION ";
+        }
+
+        $collect_query[] = $query;
+    }
+
+    $a = implode($collect_query, " ");
+    $new_query = $a;
+    $new_query2 = "DROP TABLE IF EXISTS tbl_year_to_date;" .
+        "CREATE TEMPORARY TABLE tbl_year_to_date $new_query";
+
+
+    $sql = "$new_query2";
+    $queries = preg_split("/;+(?=([^'|^\\\']*['|\\\'][^'|^\\\']*['|\\\'])*[^'|^\\\']*[^'|^\\\']$)/",
+        $sql);
+    foreach ($queries as $query)
+    {
+        if (strlen(trim($query)) > 0)
+            mysqli_query($connectionstring,$query); // for multiple query
+    } //
+
+    $result = mysqli_query($connectionstring,$query);
+
+    //$sql_query = "SELECT ROUND(SUM(Value),2) FROM tbl_year_to_date where Type='ATTD' and Description like 'Tardy%'";
+    $sql_query = "SELECT ROUND(SUM(totalHours),2) FROM tbl_year_to_date where AttendanceType=20";	
+    $result2 = mysqli_query($connectionstring,$sql_query);
+    $row = mysqli_fetch_array($result2);
+
+    $sql_query3 = "select count(*) FROM tbl_year_to_date where AttendanceType=20";
+    $result3 = mysqli_query($connectionstring,$sql_query3);
+    $row3 = mysqli_fetch_array($result3);
+
+    //$row3[0] - the total count
+    //$row[0] - the total hours
+
+    $retval = array($row3[0], $row[0]);
+
+    return $retval[0] . " " . "(" . $retval[1] . " hrs)";
+}
+
+function db_funcs_Undertime($connectionstring, $dbconn, $tablex, $empnox)
+{
+
+    $index = 0;
+    $count = count($tablex);
+    $collect_query = array();
+    for ($i = 0; $i < count($tablex); $i++)
+    {
+        $index++;
+
+        if ($index == $count)
+        {
+            $query = "SELECT * FROM employeeattendance$tablex[$i] where EmployeeNo=$empnox ";
+        } else
+        {
+            $query = "SELECT * FROM employeeattendance$tablex[$i] where EmployeeNo=$empnox UNION ";
+        }
+
+        $collect_query[] = $query;
+    }
+
+    $a = implode($collect_query, " ");
+    $new_query = $a;
+    $new_query2 = "DROP TABLE IF EXISTS tbl_year_to_date;" .
+        "CREATE TEMPORARY TABLE tbl_year_to_date $new_query";
+
+
+    $sql = "$new_query2";
+    $queries = preg_split("/;+(?=([^'|^\\\']*['|\\\'][^'|^\\\']*['|\\\'])*[^'|^\\\']*[^'|^\\\']$)/",
+        $sql);
+    foreach ($queries as $query)
+    {
+        if (strlen(trim($query)) > 0)
+            mysqli_query($connectionstring,$query); // for multiple query
+    } //
+
+    $result = mysqli_query($connectionstring,$query);
+
+   // $sql_query = "SELECT ROUND(SUM(Value),2) FROM tbl_year_to_date where Type='ATTD' and Description like 'Undertime%'";
+    $sql_query = "SELECT ROUND(SUM(totalHours),2) FROM tbl_year_to_date where AttendanceType=26";
+    $result2 = mysqli_query($connectionstring,$sql_query);
+    $row = mysqli_fetch_array($result2);
+
+    $sql_query3 = "select count(*) FROM tbl_year_to_date where AttendanceType=26";
+    $result3 = mysqli_query($connectionstring,$sql_query3);
+    $row3 = mysqli_fetch_array($result3);
+
+    //$row3[0] - the total count
+    //$row[0] - the total hours
+
+    $retval = array($row3[0], $row[0]);
+
+    return $retval[0] . " " . "(" . $retval[1] . " hrs)";
+}
+
+
+function db_funcs_DisplayBox($connectionstring, $dbconn, $feildx)
+{
+    $retval = "";
+    $query = "SELECT * from webtoolconfig where `TypeName`='$feildx'";
+
+    $result = mysqli_query($connectionstring,$query);
+    while ($row = @mysqli_fetch_array($result))
+    {
+        $retval = $row['Code'];
+        //echo "$retval";
+        //echo "AAAA";
+    }
+    return $retval;
+
+}
+
+function checkif_payrollprocess($target_date_start, $target_date_end)
+{
+
+    $retval = "";
+
+    $sql = "select count(*) from processed where ('$target_date_start' Between DateStart and DateEnd) AND
+           ('$target_date_end' Between DateStart and DateEnd) and Protected = 1";
+
+    //echo $sql;
+    $result = mysqli_query($connectionstring,$sql);
+    $row = mysqli_fetch_array($result);
+    $cnt = $row[0];
+
+    if ($cnt < 1)
+    {
+        $processed = 0;
+    } else
+    {
+        $processed = 1;
+    }
+    return $processed;
+
+}
+
+
+function db_funcs_GetGeneralSettings($connectionstring, $dbconn, $codex)
+{
+    $retval = "";
+
+    if ($codex == "1")
+    {
+
+        $query = "UPDATE codelookups SET Bool=1 where TypeName='STDED' and Description='SemiMonthDeductions'";
+
+    } else
+    {
+        $query = "UPDATE codelookups SET Bool=0 where TypeName='STDED' and Description='SemiMonthDeductions'";
+    }
+
+    $result = mysqli_query($connectionstring,$query);
+    db_funcs_GetGeneralSettingsMA($connectionstring,$dbconn);
+}
+
+function db_funcs_GetGeneralSettingsMA($connectionstring,$dbconn)
+{
+    $retval = "";
+
+    $query = "SELECT Bool from codelookups where Typename='STDED' and Description='SemiMonthDeductions'";
+
+    $result = mysqli_query($connectionstring,$query);
+    while ($row = @mysqli_fetch_array($result))
+    {
+        $retval = $row['Bool'];
+        //echo "$retval";
+    }
+    //echo "<script>alert('{$retval}')</script>";
+    return $retval;
+
+}
+
+function db_funcs_Get_STDED_SemiMonth($connectionstring, $dbconn)
+{
+    $retval = "";
+
+    $query = "SELECT Bool from codelookups where Typename='STDED' and Description='SemiMonthDeductions'";
+
+    $result = mysqli_query($connectionstring,$query);
+    while ($row = @mysqli_fetch_array($result))
+    {
+        $retval = $row['Bool'];
+        //echo "$retval";
+    }
+    //echo "<script>alert('{$retval}')</script>";
+    return $retval;
+
+}
+
+function db_funcs_Get_STPAY_Value($connectionstring, $dbconn, $code)
+{
+
+    $retval = "";
+
+    $query = "SELECT Value from codelookups where TypeName='STPAY' and Code=$code";
+    $result = mysqli_query($connectionstring,$query);
+
+    $row = mysqli_fetch_array($result);
+
+    $retval = $row['Value'];
+
+    return $retval;
+
+}
+
+
+function db_funcs_STPAY3($connectionstring, $dbconn)
+{
+    $retval = "";
+
+    $query = "SELECT Value from codelookups where Typename='STPAY' and Code=3";
+
+    $result = mysqli_query($connectionstring,$query);
+    $row = mysqli_fetch_array($result);
+    $retval = $row['Value'];
+
+    return $retval;
+}
+
+function get_cut_off_approval($start_date = array())
+{
+
+    $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
+        PHOENIX_DB_PASS);
+    $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
+
+
+    # Cut Off
+    $semi_start_first = db_funcs_Get_STPAY_Value($connectionstring, $dbconn, 2); // START 1st Half (Semi - Month)
+    $semi_end_first = db_funcs_Get_STPAY_Value($connectionstring, $dbconn, 3); // END 1st Half (Semi - Month)
+    $semi_start_second = db_funcs_Get_STPAY_Value($connectionstring, $dbconn, 4); // START 2nd Half (Semi - Month)
+    $semi_end_second = db_funcs_Get_STPAY_Value($connectionstring, $dbconn, 5); // END 2nd Half (Semi - Month)
+
+    $cur_day = date("d", strtotime($start_date));
+    $cur_month = date("n", strtotime($start_date));
+    $cur_year = date("Y", strtotime($start_date));
+
+    // if($cur_month < 10){$cur_month = "0".$cur_month;}
+
+    # End Day of the Current Month and Current Year
+
+    if ($semi_end_second >= 28)
+    {
+        $end_of_month = $cur_year . "-" . $cur_month;
+        $eom = date('t', strtotime($end_of_month));
+        ;
+        //echo $eom;
+    }
+
+    if ($CutOffStart1 < 10)
+    {
+        $CutOffStart1 = "0" . $CutOffStart1;
+    }
+    if ($CutOffEnd1 < 10)
+    {
+        $CutOffEnd1 = "0" . $CutOffEnd1;
+    }
+    if ($CutOffStart2 < 10)
+    {
+        $CutOffStart2 = "0" . $CutOffStart2;
+    }
+    if ($CutOffEnd2 < 10)
+    {
+        $CutOffEnd2 = "0" . $CutOffEnd2;
+    }
+
+
+    # Setting the CutOff Start & End
+    $CutOffStart1 = $semi_start_first;
+    $CutOffEnd1 = $semi_end_first;
+    $CutOffStart2 = $semi_start_second;
+    $CutOffEnd2 = $semi_end_second;
+
+
+    if (db_funcs_Get_STDED_SemiMonth($connectionstring, $dbconn) == 0)
+    { // STDED is UNCHECK
+
+        $CutOffStart1 = $semi_start_second;
+        $CutOffEnd1 = $semi_end_second;
+        $CutOffStart2 = $semi_start_first;
+        $CutOffEnd2 = $semi_end_first;
+
+
+        if ($cur_month < 10)
+        {
+            $cur_month = "0" . $cur_month;
+        }
+        if ($CutOffStart1 < 10)
+        {
+            $CutOffStart1 = "0" . $CutOffStart1;
+        }
+        if ($CutOffEnd1 < 10)
+        {
+            $CutOffEnd1 = "0" . $CutOffEnd1;
+        }
+        if ($CutOffStart2 < 10)
+        {
+            $CutOffStart2 = "0" . $CutOffStart2;
+        }
+        if ($CutOffEnd2 < 10)
+        {
+            $CutOffEnd2 = "0" . $CutOffEnd2;
+        }
+
+        if ($cur_day >= 16)
+        {
+            $dt_start = $cur_year . "-" . ($cur_month) . "-" . ($CutOffStart2);
+            $dt_end = $cur_year . "-" . ($cur_month) . "-" . ($CutOffEnd2);
+        } else
+        {
+
+            $dt_end = $cur_year . "-" . ($cur_month) . "-" . ($CutOffEnd1);
+            $cur_month--;
+
+            if ($cur_month == 0)
+            {
+                $cur_month = 12;
+                $cur_year--;
+            }
+
+            if ($cur_month < 10)
+            {
+                $cur_month = "0" . $cur_month;
+            }
+            $dt_start = $cur_year . "-" . ($cur_month) . "-" . ($CutOffStart1);
+        }
+
+    } else
+    { // IF STDED IS CHECK
+        if ($cur_month < 10)
+        {
+            $cur_month = "0" . $cur_month;
+        }
+
+        if ($cur_day >= 16)
+        {
+
+            $dt_start = $cur_year . "-" . ($cur_month) . "-" . ($CutOffStart2);
+            $dt_end = $cur_year . "-" . ($cur_month) . "-" . ($CutOffEnd2);
+
+        } else
+        {
+            $dt_end = $cur_year . "-" . ($cur_month) . "-" . ($CutOffEnd1);
+            $dt_start = $cur_year . "-" . ($cur_month) . "-" . ($CutOffStart1);
+        }
+    }
+
+    $target_dates = $dt_end . " " . $dt_start;
+
+    return $target_dates;
+}
+
+function db_funcs_get_approval_type($rqst_type_no = array(), $target_date =
+    array(), $start_date = array())
+{
+    $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
+        PHOENIX_DB_PASS);
+    $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
+
+   
+    if ($rqst_type_no == 0)
+    {
+        $rqst_type_no = 2;
+    } // OVERTIME (OT)
+    else
+        if ($rqst_type_no == 1)
+        {
+            $rqst_type_no = 3;
+        } // LEAVE
+        else
+            if ($rqst_type_no == 2)
+            {
+                $rqst_type_no = 4;
+            } // SCHEDULE CHANGE
+            else
+                if ($rqst_type_no == 3)
+                {
+                    $rqst_type_no = 5;
+                } // TIME OFF IN LIEU (TOIL)
+                else
+                    if ($rqst_type_no == 4)
+                    {
+                        $rqst_type_no = 6;
+                    } // OFFICIAL BUSINESS (OB)
+                    else
+                        if ($rqst_type_no == 5)
+                        {
+                            $rqst_type_no = 1;
+                        } // CERTIFICATE OF ATTENDANCE (COA)
+
+    $retvalue = "";
+    $query = "SELECT * FROM webtoolconfig where TypeName ='RQST_TYPE' AND Code=$rqst_type_no";
+    $result = mysqli_query($connectionstring,$query);
+    $row = mysqli_fetch_array($result);
+    $retvalue = $row['Value3'];
+    //echo $query;
+    return db_funcs_validate_approval($rqst_type_no, $retvalue, $target_date, $start_date);
+}
+
+function db_funcs_validate_approval($rqst_type_no = array(), $retvalue = array(),
+    $target_date = array(), $start_date = array())
+{
+    $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
+        PHOENIX_DB_PASS);
+    $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
+
+    //echo $rqst_type_no;
+    $retval = "";
+    $query = "SELECT * FROM webtoolconfig where TypeName ='APRV_RULES' AND Value2 like " .
+        "'%$rqst_type_no" . ".%'";
+    //	echo $query;
+    $result = mysqli_query($connectionstring,$query);
+
+    //$cutoff_date_start = $target_date_new[0]; // Target Date Start
+    //$cutoff_date_end = array();
+    $cutoff_date_end = $target_date; // Target Date End
+    $start_date = date('Y-m-d', strtotime($start_date));
+    $cur_date = date("Y-m-d");
+
+
+    while ($row = mysqli_fetch_array($result))
+    {
+
+        $retval1 = $row['Code'];
+        $retval2 = $row['Value1'];
+        $retval3 = $row['Value2'];
+        //ECHO $retval2;
+        if ($retval3 == $rqst_type_no + 0.1)
+        { // BEFORE THE CUT-OFF
+
+            if ($retval1 == 1)
+            { // check
+
+                $start_date2 = $start_date;
+                $start_date2 = strtotime("-$retval2 day", strtotime($start_date));
+                $start_date2 = date('Y-m-d', $start_date2);
+
+                $cutoff_date_end2 = $cutoff_date_end;
+                $cutoff_date_end2 = strtotime("-$retval2 day", strtotime($cutoff_date_end));
+                $cutoff_date_end2 = date('Y-m-d', $cutoff_date_end2);
+
+/*              echo $start_date . " OLD<br>";
+                echo $cutoff_date_end . " CUT-OFF ENDs <br>";
+                echo $start_date2. " NEW<br>";
+                echo $cutoff_date_end2 . "NEW CUT OFF ENDS <br>";*/
+
+/*                if ($start_date >= $cur_date && ($start_date >= $cutoff_date_end2 && $start_date2 <=
+                    $cutoff_date_end && $start_date <= $cutoff_date_end))
+                {*/
+				if($cutoff_date_end2 <= $cur_date && $cutoff_date_end >= $cur_date){				
+
+                    //return "Cannot make $retvalue request $retval2 day(s) before the cut-off.";
+                    return $display = "style=display:none;";
+
+                } else
+                {
+                    goto a; // if pass the validation, go to after the cut-off validation.
+                }
+            }
+        }
+
+
+        a : // AFTER THE CUT-OFF
+
+        if ($retval3 == $rqst_type_no + 0.2)
+        {
+            //echo "A<BR>";
+            if ($retval1 == 1)
+            { // check
+
+                $start_date2 = $start_date;
+                $start_date2 = strtotime("+$retval2 day", strtotime($start_date));
+                $start_date2 = date('Y-m-d', $start_date2);
+
+                $cutoff_date_end2 = $cutoff_date_end;
+                $cutoff_date_end2 = strtotime("+$retval2 day", strtotime($cutoff_date_end));
+                $cutoff_date_end2 = date('Y-m-d', $cutoff_date_end2);
+
+
+                /*	echo $start_date . " OLD<br>";
+                echo $cutoff_date_end. " CUT-OFF ENDs <br>";
+                echo $start_date2. " NEW<br>";
+                echo $cutoff_date_end2 . "NEW CUT OFF ENDS <br>";*/
+
+
+/*                if ($start_date >= $cur_date && ($start_date >= $cutoff_date_end2 && $start_date2 <=
+                    $cutoff_date_end && $start_date >= $cutoff_date_end))
+                {*/
+				if($cutoff_date_end <= $cur_date && $cutoff_date_end2 >= $cur_date){
+
+                    //return "Cannot make $retvalue request $retval2 day(s) after the cut-off.";
+                    return $display = "style=display:none;";
+
+                } else
+                {
+                    goto b; // if pass the validation, go to before the target date validation
+                }
+            }
+        }
+
+
+        b : // BEFORE THE TARGET DATE
+
+        if ($retval3 == $rqst_type_no + 0.3)
+        {
+
+            if ($retval1 == 1)
+            { // check
+
+                $start_date2 = $start_date;
+                $start_date2 = strtotime("-$retval2 day", strtotime($start_date));
+                $start_date2 = date('Y-m-d', $start_date2);
+
+
+                /*echo $start_date . " OLD<br>";
+                //echo $cutoff_date_end. " CUT-OFF ENDs <br>";
+                echo $start_date2. " NEW<br>";
+                //echo $cutoff_date_end2 . "NEW CUT OFF ENDS <br>";
+                echo $cur_date . "<br>";*/
+
+                if ($start_date >= $cur_date && $cur_date >= $start_date2)
+                {
+                    //echo "START ".$start_date ."<br>";
+                    //return "Cannot make $retvalue request $retval2 day(s) before the target date.";
+                    return $display = "style=display:none;";
+
+                } else
+                {
+                    goto c; // if pass the validation, go to before the target date validation
+                }
+            }
+        }
+
+        c : if ($retval3 == $rqst_type_no + 0.4)
+        {
+            if ($retval1 == 1)
+            { // check
+
+                $start_date2 = $start_date;
+                $start_date2 = strtotime("-$retval2 day", strtotime($start_date));
+                $start_date2 = date('Y-m-d', $start_date2);
+
+                $cur_date2 = $cur_date;
+                $cur_date2 = strtotime("-$retval2 day", strtotime($cur_date));
+                $cur_date2 = date('Y-m-d', $cur_date2);
+
+
+                /*echo $start_date . " OLD<br>";
+                //echo $cutoff_date_end. " CUT-OFF ENDs <br>";
+                echo $start_date2. " NEW<br>";
+                //echo $cutoff_date_end2 . "NEW CUT OFF ENDS <br>";
+                echo $cur_date . "<br>";
+                echo $cur_date2 . "NEW<br>";*/
+
+                if ($start_date >= $cur_date2 && $start_date <= $cur_date)
+                {
+                    //echo "START ".$start_date ."<br>";
+
+                    //return "Cannot make $retvalue request $retval2 day(s) after the target date.";
+                    return $display = "style=display:none;";
+
+                } else
+                {
+                    return null; // if pass the validation, go to before the target date validation
+                }
+            }
+        }
+
+    }
+
+
+}
+
+
+function db_funcs_get_request_type($connectionstring, $dbconn, $rqst_type_no, $target_date,
+    $start_date)
+{
+    $retvalue = "";
+    $query = "SELECT * FROM webtoolconfig where TypeName ='RQST_TYPE' AND Code=$rqst_type_no";
+    $result = mysqli_query($connectionstring,$query);
+    $row = mysqli_fetch_array($result);
+    $retvalue = $row['Value3'];
+
+
+    return db_funcs_validate_request($connectionstring, $dbconn, $rqst_type_no, $retvalue,
+        $target_date, $start_date);
+
+}
+
+
+function db_funcs_validate_request($connectionstring, $dbconn, $rqst_type_no, $retvalue,
+    $target_date, $start_date)
+{
+
+    $retval = "";
+    $query = "SELECT * FROM webtoolconfig where TypeName ='RQST_RULES' AND Value2 like " .
+        "'%$rqst_type_no" . ".%'";
+    $result = mysqli_query($connectionstring,$query);
+
+
+    //$cutoff_date_start = $target_date_new[0]; // Target Date Start
+    $cutoff_date_end = $target_date; // Target Date End
+
+    $cur_date = date("Y-m-d");
+
+
+    while ($row = mysqli_fetch_array($result))
+    {
+
+        $retval1 = $row['Code'];
+        $retval2 = $row['Value1'];
+        $retval3 = $row['Value2'];
+
+
+        if ($retval3 == $rqst_type_no + 0.1)
+        { // BEFORE THE CUT-OFF
+
+            if ($retval1 == 1)
+            { // check
+
+                $start_date2 = $start_date;
+                $start_date2 = strtotime("-$retval2 day", strtotime($start_date));
+                $start_date2 = date('Y-m-d', $start_date2);
+
+                $cutoff_date_end2 = $cutoff_date_end;
+                $cutoff_date_end2 = strtotime("-$retval2 day", strtotime($cutoff_date_end));
+                $cutoff_date_end2 = date('Y-m-d', $cutoff_date_end2);
+
+/*                echo $start_date . " OLD<br>";
+                echo $cutoff_date_end. " CUT-OFF ENDs <br>";
+                echo $start_date2. " NEW<br>";
+                echo $cutoff_date_end2 . "NEW CUT OFF ENDS <br>";
+				echo $cur_date;
+				exit();*/
+
+                /*if($start_date >= $cur_date  && ($start_date >= $cutoff_date_end2
+                && $start_date2 <= $cutoff_date_end  && $start_date <= $cutoff_date_end )){*/
+                
+                /* if ($start_date >= $cur_date && ($start_date >= $cutoff_date_end2 && $start_date2 <=
+                    $cutoff_date_end && $start_date <= $cutoff_date_end))
+                {*/
+/*				if($cutoff_date_end2 <= $cur_date && $cutoff_date_end >= $cur_date){
+                    return "Cannot make $retvalue request $retval2 day(s) before the cut-off.";
+                }*/
+				
+				
+				
+				
+/*				if($start_date >= $cur_date && ($start_date >= $cutoff_date_end2 && $start_date2 <=
+                    $cutoff_date_end && $start_date <= $cutoff_date_end)){
+                    return "Cannot make $retvalue request $retval2 day(s) before the cut-off.";
+                }	*/	
+				
+				
+				if($cur_date > $cutoff_date_end2){
+                    return "Cannot make $retvalue request $retval2 day(s) before the cut-off.";					
+				}
+						
+				
+				else
+                {
+
+                    goto a; // if pass the validation, go to after the cut-off validation.
+                }
+            }
+        }
+
+
+        a : // AFTER THE CUT-OFF
+
+        if ($retval3 == $rqst_type_no + 0.2)
+        {
+            //echo "A<BR>";
+            if ($retval1 == 1)
+            { // check
+
+                $start_date2 = $start_date;
+                $start_date2 = strtotime("+$retval2 day", strtotime($start_date));
+                $start_date2 = date('Y-m-d', $start_date2);
+
+                $cutoff_date_end2 = $cutoff_date_end;
+                $cutoff_date_end2 = strtotime("+$retval2 day", strtotime($cutoff_date_end));
+                $cutoff_date_end2 = date('Y-m-d', $cutoff_date_end2);
+
+
+                echo $start_date . " OLD<br>";
+                echo $cutoff_date_end. " CUT-OFF ENDs <br>";
+                echo $start_date2. " NEW<br>";
+                echo $cutoff_date_end2 . "NEW CUT OFF ENDS <br>";
+				echo $cur_date . "CUR DATE";
+				//exit();
+				
+/*                if ($start_date >= $cur_date && ($start_date >= $cutoff_date_end2 && $start_date2 <=
+                    $cutoff_date_end && $start_date >= $cutoff_date_end))
+                {*/
+				
+/*				if($cutoff_date_end <= $cur_date && $cutoff_date_end2 >= $cur_date){*/
+
+				if($cur_date > $cutoff_date_end2){
+					
+                    return "Cannot make $retvalue request $retval2 day(s) after the cut-off.";
+					
+                } else
+                {
+                    goto b; // if pass the validation, go to before the target date validation
+                }
+            }
+        }
+
+
+        b : // BEFORE THE TARGET DATE
+
+        if ($retval3 == $rqst_type_no + 0.3)
+        {
+
+            if ($retval1 == 1)
+            { // check
+
+                $start_date2 = $start_date;
+                $start_date2 = strtotime("-$retval2 day", strtotime($start_date));
+                $start_date2 = date('Y-m-d', $start_date2);
+
+
+                /*	echo $start_date . " OLD<br>";
+                echo $cutoff_date_end. " CUT-OFF ENDs <br>";
+                echo $start_date2. " NEW<br>";
+                echo $cutoff_date_end2 . "NEW CUT OFF ENDS <br>";
+                echo $cur_date . "<br>";*/
+
+                if ($start_date >= $cur_date && $cur_date >= $start_date2)
+                {
+                    //if($start_date <= $start_date ){
+                    //echo "START ".$start_date ."<br>";
+                    return "Cannot make $retvalue request $retval2 day(s) before the target date.";
+
+                } else
+                {
+                    goto c; // if pass the validation, go to before the target date validation
+                }
+            }
+        }
+
+        c : if ($retval3 == $rqst_type_no + 0.4)
+        {
+            if ($retval1 == 1)
+            { // check
+
+                $start_date2 = $start_date;
+                $start_date2 = strtotime("-$retval2 day", strtotime($start_date));
+                $start_date2 = date('Y-m-d', $start_date2);
+
+
+                $cur_date2 = $cur_date;
+                $cur_date2 = strtotime("-$retval2 day", strtotime($cur_date));
+                $cur_date2 = date('Y-m-d', $cur_date2);
+
+
+                /*echo $start_date . " OLD<br>";
+                echo $cutoff_date_end. " CUT-OFF ENDs <br>";
+                echo $start_date2. " NEW<br>";
+                echo $cutoff_date_end2 . "NEW CUT OFF ENDS <br>";
+                echo $cur_date . "<br>";
+                echo $cur_date2 . "NEW<br>";*/
+
+                if($start_date >=$cur_date2 && $start_date <= $cur_date  ){
+/*                if ($start_date2 <= $cur_date)
+                {*/
+                    //echo "START ".$start_date ."<br>";
+
+                    return "Cannot make $retvalue request $retval2 day(s) after the target date.";
+
+                } else
+                {
+                    return null; // if pass the validation, go to before the target date validation
+                }
+            }
+        }
+
+    }
+
+
+}
+
+
+function get_cutoff($start_date)
+{
+
+    $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
+        PHOENIX_DB_PASS);
+    $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
+
+
+    function add_zero($nos)
+    {
+
+        if ($nos < 10)
+        {
+            $add_zero = "0" . $nos;
+        } else
+        {
+            $add_zero = $nos;
+        }
+
+        return $add_zero;
+    }
+
+    # Cut Off
+    $semi_start_first = db_funcs_Get_STPAY_Value($connectionstring, $dbconn, 2); // START 1st Half (Semi - Month)
+    $semi_end_first = db_funcs_Get_STPAY_Value($connectionstring, $dbconn, 3); // END 1st Half (Semi - Month)
+    $semi_start_second = db_funcs_Get_STPAY_Value($connectionstring, $dbconn, 4); // START 2nd Half (Semi - Month)
+    $semi_end_second = db_funcs_Get_STPAY_Value($connectionstring, $dbconn, 5); // END 2nd Half (Semi - Month)
+
+    # Current Date
+    /*$cur_day = date("d"); // current day
+    $cur_month = date("n"); // current month
+    $cur_year = date("Y"); // current year*/
+
+
+    # Target Date - for Request / Approval Settings
+
+
+    $cur_day = date("d", strtotime($start_date));
+    $cur_month = date("n", strtotime($start_date));
+    $cur_year = date("Y", strtotime($start_date));
+
+    //echo $target_day;
+
+
+    # End Day of the Current Month and Current Year
+
+    if ($semi_end_second >= 28)
+    {
+        $end_of_month = $cur_year . "-" . $cur_month;
+        $eom = date('t', strtotime($end_of_month));
+        ;
+        //echo $eom;
+    }
+
+    # Setting the CutOff Start & End
+    $CutOffStart1 = $semi_start_first;
+    $CutOffEnd1 = $semi_end_first;
+    $CutOffStart2 = $semi_start_second;
+    $CutOffEnd2 = $semi_end_second;
+
+
+    if (db_funcs_Get_STDED_SemiMonth($connectionstring, $dbconn) == 0)
+    { // STDED is UNCHECK
+
+        $CutOffStart1 = $semi_start_second;
+        $CutOffEnd1 = $semi_end_second;
+        $CutOffStart2 = $semi_start_first;
+        $CutOffEnd2 = $semi_end_first;
+
+        if ($cur_day >= 16)
+        {
+
+            $dt_start = $cur_year . "-" . add_zero($cur_month) . "-" . add_zero($CutOffStart2);
+            $dt_end = $cur_year . "-" . add_zero($cur_month) . "-" . add_zero($CutOffEnd2);
+
+        } else
+        {
+
+            $dt_end = $cur_year . "-" . add_zero($cur_month) . "-" . add_zero($CutOffEnd1);
+            $cur_month--;
+
+            if ($cur_month == 0)
+            {
+                $cur_month = 12;
+                $cur_year--;
+            }
+
+            $dt_start = $cur_year . "-" . add_zero($cur_month) . "-" . add_zero($CutOffStart1);
+
+        }
+
+    } else
+    { // IF STDED IS CHECK
+
+        if ($cur_day >= 16)
+        {
+
+            $dt_start = $cur_year . "-" . add_zero($cur_month) . "-" . add_zero($CutOffStart2);
+            $dt_end = $cur_year . "-" . add_zero($cur_month) . "-" . add_zero($CutOffEnd2);
+
+        } else
+        {
+            $dt_end = $cur_year . "-" . add_zero($cur_month) . "-" . add_zero($CutOffEnd1);
+            $dt_start = $cur_year . "-" . add_zero($cur_month) . "-" . add_zero($CutOffStart1);
+        }
+    }
+
+    $target_dates = $dt_end;
+
+    return $target_dates;
+
+}
+
+
+function db_funcs_GetBloodType($connectionstring, $dbconn, $feildx, $empno)
+{
+    $retval = "";
+    $query = "select a.BloodType, b.Description  from employees a inner join codelookups b on a.BloodType = b.Code where b.TypeName='BLDTP' and a.EmployeeNo=$empno and a.BloodType=$feildx";
+
+    $result = mysqli_query($connectionstring,$query);
+    while ($row = @mysqli_fetch_array($result))
+    {
+        $retval = $row['Description'];
+        //echo "$retval";
+    }
+    return $retval;
+
+}
+
+function db_funcs_approval_rules_settings($field_name, $rqst_type_no = array())
+{ // REQUIRED 2nd Level Approver
+
+    $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
+        PHOENIX_DB_PASS);
+    $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
+    $retval = "";
+
+    if ($rqst_type_no == 0)
+    {
+        $rqst_type_no = 2.5;
+    } // OVERTIME (OT)
+    else
+        if ($rqst_type_no == 1)
+        {
+            $rqst_type_no = 3.5;
+        } // LEAVE
+        else
+            if ($rqst_type_no == 2)
+            {
+                $rqst_type_no = 4.5;
+            } // SCHEDULE CHANGE
+            else
+                if ($rqst_type_no == 3)
+                {
+                    $rqst_type_no = 5.5;
+                } // TIME OFF IN LIEU (TOIL)
+                else
+                    if ($rqst_type_no == 4)
+                    {
+                        $rqst_type_no = 6.5;
+                    } // OFFICIAL BUSINESS (OB)
+                    else
+                        if ($rqst_type_no == 5)
+                        {
+                            $rqst_type_no = 1.5;
+                        } // CERTIFICATE OF ATTENDANCE (COA)
+
+    $query = "SELECT Code from webtoolconfig where Typename='$field_name' and Value2=$rqst_type_no ";
+    $result = mysqli_query($connectionstring,$query);
+    $row = mysqli_fetch_array($result);
+    $retval = $row['Code'];
+
+    //echo $retval;
+    return $retval;
+}
+
+
+function db_funcs_approval_rules_settings2($field_name, $rqst_type_no = array())
+{
+    //2nd Level Approver Overrides 1st Level Approver
+
+    $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
+        PHOENIX_DB_PASS);
+    $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
+    $retval = "";
+
+    if ($rqst_type_no == 0)
+    {
+        $rqst_type_no = 2.6;
+    } // OVERTIME (OT)
+    else
+        if ($rqst_type_no == 1)
+        {
+            $rqst_type_no = 3.6;
+        } // LEAVE
+        else
+            if ($rqst_type_no == 2)
+            {
+                $rqst_type_no = 4.6;
+            } // SCHEDULE CHANGE
+            else
+                if ($rqst_type_no == 3)
+                {
+                    $rqst_type_no = 5.6;
+                } // TIME OFF IN LIEU (TOIL)
+                else
+                    if ($rqst_type_no == 4)
+                    {
+                        $rqst_type_no = 6.6;
+                    } // OFFICIAL BUSINESS (OB)
+                    else
+                        if ($rqst_type_no == 5)
+                        {
+                            $rqst_type_no = 1.6;
+                        } // CERTIFICATE OF ATTENDANCE (COA)
+
+    $query = "SELECT Code from webtoolconfig where Typename='$field_name' and Value2=$rqst_type_no ";
+    $result = mysqli_query($connectionstring,$query);
+    $row = mysqli_fetch_array($result);
+    $retval = $row['Code'];
+    //echo $retval;
+    return $retval;
+}
+
+function db_funcs_gettemptype($rqtypeno = array())
+{
+
+    $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
+        PHOENIX_DB_PASS);
+    $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
+
+    $query = "SELECT Type from webauthorizationrequests where WebAuthorizationRequestNo=$rqtypeno ";
+    $result = mysqli_query($connectionstring,$query);
+    $row = mysqli_fetch_array($result);
+    $retval = $row['Type'];
+    //echo $retval;
+    return $retval;
+}
+
+
+function db_funcs_schedchange_reflectpayroll($old_date, $new_date, $old_shifts,
+    $new_shifts, $sched_table, $empno, $approval_type)
+{
+
+    $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
+        PHOENIX_DB_PASS);
+    $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
+
+
+    if ($approval_type == 0)
+    { // CLEAR
+
+        $query = "UPDATE $sched_table SET `$old_date` ='$old_shifts', $new_date='' WHERE EmployeeNo=$empno ";
+
+    } elseif ($approval_type == 1)
+    { // APPROVE
+
+        $query = "UPDATE $sched_table SET `$old_date` ='', $new_date='$new_shifts' WHERE EmployeeNo=$empno ";
+
+    } elseif ($approval_type == -1)
+	
+    { // DISAPPROVE
+        $query = "UPDATE $sched_table SET `$old_date` ='$old_shifts', $new_date='' WHERE EmployeeNo=$empno ";
+
+    }
+
+}
+
+
+function db_funcs_GetAlertSection($field_name)
+{
+
+    $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
+        PHOENIX_DB_PASS);
+    $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
+    $retval = "";
+
+    $query = "SELECT Code from webtoolconfig where Typename='$field_name'";
+    $result = mysqli_query($connectionstring,$query);
+    $row = mysqli_fetch_array($result);
+    $retval = $row['Code'];
+
+    return $retval;
+
+}
+
+function reim_detailapp_chk($web_rno,$empno){
+	
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS,PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
+
+$sql = "SELECT ApprovedAmount FROM webreimbursementrequests WHERE WebReimbursementRequestNo=$web_rno AND EmployeeNo=$empno";
+$result = mysqli_query($connectionstring,$sql);
+$row = mysqli_fetch_array($result);
+$ta_amt = $row['ApprovedAmount'];
+
+if(empty($ta_amt) || $ta_amt == "0.00"){
+$retvalue = 0;
+}else{
+$retvalue = 1;
+}
+return $retvalue;	
+}
+
+
+function db_funcs_GetChkBoxPerApprovalLevel($team_num, $employeeno, $requesttype,$approvlvl)
+{
+
+    $connectionstring = mysqli_connect(PHOENIX_DB_DNS,PHOENIX_DB_USER,PHOENIX_DB_PASS);
+    $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
+    $retval = "";
+    //echo $team_num;
+    $query = "SELECT ApproveLevel from webteamleader where EmployeeNo='$employeeno' 
+	AND RequestType=$requesttype AND ApproveLevel=$approvlvl AND TeamNo=$team_num";
+    $result = mysqli_query($connectionstring,$query);
+    $row = mysqli_fetch_array($result);
+    $retval = $row['ApproveLevel'];
+	
+    return $retval;
+
+}
+
+
+function chkProcessSched($rqno){
+	
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS,PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
+	
+$query = "SELECT COUNT(*) FROM webauthorizationrequests WHERE WebAuthorizationRequestNo=$rqno AND Status IN (2,3)";
+$result = mysqli_query($connectionstring,$query);
+$row = mysqli_fetch_array($result);
+$cnt = $row[0];
+
+return $cnt;
+	
+	
+}
+
+function chkIfNoDefaultEmpSetting(){
+	
+    $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+    $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
+	
+    $query = "SELECT count(allowedit) as cnt FROM webtoolconfigprofile WHERE  allowedit=1 and `show`=1";
+    $result = mysqli_query($connectionstring,$query);
+    $row = mysqli_fetch_array($result);	
+	$cnt = $row['cnt'];
+	
+	$retval = ($cnt > 0 ) ? 1 : 0;
+	
+	//echo $retval;
+
+	return $retval;
+	
+}
+
+function db_funcs_GetApprovalOtherSettings($field_name, $code)
+{
+
+    $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+    $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
+    $retval = "";
+
+    $query = "SELECT Value1 from webtoolconfig where Typename='$field_name' AND Code=$code";
+    $result = mysqli_query($connectionstring,$query);
+    $row = mysqli_fetch_array($result);
+    $retval = $row['Value1'];
+
+    return $retval;
+
+}
+
+
+//db_funcs_GetWebtoolConfigProfile();
+//db_funcs_GetWebtoolConfigProfile($connectionstring,$dbconn);
+
+
+//*********************************************************************************************************
+// Brian 09.05.19
+function db_funcs_GetFieldValue2($connectionstring, $table, $field, $filter = "")
+{
+    $retval = array();
+    $query = "SELECT `" . $field . "` \n" . "FROM " . strtolower($table) . " \n";
+    if (!empty($filter))
+        $query .= "WHERE " . $filter;
+
+    $result = mysqli_query($connectionstring,$query);
+    while ($row = mysqli_fetch_array($result))
+    {
+        array_push($retval, $row[$field]);
+    }
+    return $retval;
+}
+//*********************************************************************************************************
+
+//*********************************************************************************************************
+// Brian 09.05.19
+function db_funcs_GetFieldValueTwo($connectionstring)
+{
+    $retval = array();
+    $query = "SELECT `" . $field . "` \n" . "FROM " . strtolower($table) . " \n";
+    if (!empty($filter))
+        $query .= "WHERE " . $filter;
+
+    $result = mysqli_query($connectionstring,$query);
+    /*	while($row = mysql_fetch_array($result)){
+    array_push($retval, $row[$field]);
+    }*/
+    return $retval;
+}
+//*********************************************************************************************************
+
+
+function db_funcs_GetFieldValuesFromSQLSingle($connectionstring, $table, $field,
+    $filter = "")
+{
+
+    $retval = "";
+    $query = "SELECT `" . $field . "` \n" . "FROM " . strtolower($table) . " \n";
+    if (!empty($filter))
+        $query .= "WHERE " . $filter;
+
+    $result = mysqli_query($connectionstring,$query);
+    $retval = mysqli_result($result, 0);
+    return $retval;
+
+}
+//*********************************************************************************************************
+// Brian 09.05.20
+function db_funcs_GetFieldValue3($connectionstring, $dbconn, $sql, $field)
+{
+    $retval = "";
+    $result = mysqli_query($connectionstring,$sql);
+    while ($row = mysqli_fetch_array($result))
+    {
+        $retval = $row['$field'];
+    }
+    return $retval;
+}
+//*********************************************************************************************************
+function db_funcs_GetFieldValuesFromSQL($sql, $returnFields)
+{
+    $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
+        PHOENIX_DB_PASS);
+    $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
+    $retval = array();
+    // Get return Fields
+    $fields = array();
+    $fields = explode(",", $returnFields);
+    $result = mysqli_query($connectionstring,$sql) or die("Database error: " .
+        mysqli_error($connectionstring));
+    while ($row = mysqli_fetch_array($result))
+    {
+        $field_values = array();
+        foreach ($fields as $value)
+        {
+            $field_values[$value] = $row[$value];
+        }
+        array_push($retval, $field_values);
+    }
+    return $retval;
+}
+//------------------------------------------------------------------------------------
+function db_funcs_GetRecordCount($tablename, $filter = "")
+{
+    $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+    $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
+    $retval = "";
+    $query = "SELECT COUNT(*) AS Count " . "FROM " . strtolower($tablename);
+    if (!empty($filter))
+    {
+        $query .= " WHERE " . $filter;
+    }
+    //echo $query;
+	//exit();
+    //execute query
+    $result = mysqli_query($connectionstring,$query);
+    while ($row = @mysqli_fetch_array($result))
+    {
+        $retval = $row[0];
+    }
+    return $retval;
+}
+
+
+
+
+
+function db_funcs_GetRecordCount2($tablename, $teamlead)
+{
+    $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
+        PHOENIX_DB_PASS);
+    $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
+    //$retval = "";
+    $query = "SELECT COUNT(*) AS RecordCount " . "FROM $tablename ";
+    $query .= "where employeeno in (SELECT DISTINCT(E.EmployeeNo) ";
+    $query .= "FROM employees E, webteammember TM ";
+    $query .= "WHERE TM.EmployeeNo = E.EmployeeNo AND ";
+    $query .= "TM.TeamNo IN (SELECT TeamNo FROM webteamleader ";
+    $query .= "WHERE EmployeeNo=$teamlead) AND E.PayPeriod IS NOT NULL)";
+
+    $result = mysqli_query($connectionstring,$query);
+    $row = mysqli_fetch_array($result);
+    $retval = $row['RecordCount'];
+    //echo $retval;
+    return $retval;
+}
+
+
+function db_funcs_GetMaxOfField($connectionstring, $dbconn, $tablename, $fieldname,
+    $filter = "")
+{
+    $retval = "";
+    $query = "SELECT MAX(" . $fieldname . ") AS MAX" . "FROM " . strtolower($tablename);
+    if (!empty($filter))
+    {
+        $query .= " WHERE " . $filter;
+    }
+    $result = mysqli_query($connectionstring,$query);
+    while ($row = mysqli_fetch_array($result))
+    {
+        $retval = $row['MAX'];
+    }
+    return $retval;
+}
+function db_funcs_GetDepartment($department_code, $connectionstring)
+{
+    $retval = "";
+    $query = "SELECT Description " . "FROM codelookups " .
+        "WHERE TypeName='DEPT' AND Code=" . $department_code;
+    //execute query
+    $result = mysqli_query($connectionstring,$query);
+    while ($row = mysqli_fetch_array($result))
+    {
+        $retval = $row['Description'];
+    }
+    return $retval;
+}
+
+function db_funcs_AttTypeCode($AttType, $connectionstring)
+{
+    $retval = "";
+    $query = "SELECT Description " . "FROM codelookups " .
+        "WHERE TypeName='ATTD' AND Code=" . $AttType;
+    //execute query
+    $result = mysqli_query($connectionstring,$query);
+    while ($row = mysqli_fetch_array($result))
+    {
+        $retval = $row['Description'];
+    }
+    return $retval;
+}
+
+
+function db_funcs_GetEmployeeType($employee_type, $connectionstring, $dbconn)
+{
+    $retval = "";
+    $query = "SELECT Description " . "FROM codelookups " .
+        "WHERE TypeName='EMTYP' AND Code=" . $employee_type;
+    //execute query
+    $result = mysqli_query($connectionstring,$query);
+    while ($row = mysqli_fetch_array($result))
+    {
+        $retval = $row['Description'];
+    }
+    return $retval;
+}
+
+function db_funcs_GetTeamName($team_no, $connectionstring, $dbconn)
+{
+    $retval = "";
+    $query = "SELECT TeamName " . "FROM webteams " . "WHERE TeamNo=" . $team_no;
+    //execute query
+    $result = mysqli_query($connectionstring,$query);
+    while ($row = mysqli_fetch_array($result))
+    {
+        $retval = $row['TeamName'];
+    }
+    return $retval;
+}
+
+function db_funcs_Get_AddDetails($nos, $field, $table, $where)
+{
+	
+	$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER, PHOENIX_DB_PASS);
+    $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
+    $retval = "";
+    $query = "SELECT $field FROM $table " . "WHERE $where=$nos";
+
+    $result = mysqli_query($connectionstring,$query);
+    $row = mysqli_fetch_array($result);
+    $retval = $row[$field];
+    return $retval;
+}
+
+function displayStatustxt($stno){
+	
+	$retval = ""; 
+	if($stno=="0"){
+		$stno = "Pending";
+	}elseif($stno=="1"){
+		$stno ="Approved";
+	}elseif($stno=="-1"){
+		$stno ="Disapproved";
+	}elseif($stno=="2"){
+		$stno = "Payroll Processed";
+	}else{
+		$stno ="Pending";
+	}
+	return $stno;
+}
+
+
+function db_funcs_FormatTimeStamp($format, $timestamp = "")
+{
+    $retval = "";
+    if (!empty($timestamp))
+    {
+        $explode_timestamp = array();
+        $explode_date = array();
+        $explode_time = array();
+        $explode_timestamp = explode(" ", $timestamp);
+        $explode_date = explode("-", trim($explode_timestamp[0])); // YYYY-MM-DD
+        $explode_time = explode(":", trim($explode_timestamp[1])); // HH:MM:SS
+        $retval = date($format, mktime(intval($explode_time[0]), //hour
+            intval($explode_time[1]), //minute
+            intval($explode_time[2]), //second
+
+        intval($explode_date[1]), //month
+            intval($explode_date[2]), //day
+            (intval($explode_date[0]) < 1901) ? 1901 : intval($explode_date[0]))); //year
+    }
+    return $retval;
+}
+
+function db_funcs_formatTime($time_format, $timestamp)
+{
+    $retval = "";
+    if (!empty($timestamp))
+    {
+        $exploded_time = array();
+        $exploded_time = explode(":", trim($timestamp));
+        $retval = date($time_format, mktime(intval($exploded_time[0]), intval($exploded_time[1]),
+            intval($exploded_time[2]), 0, 0, 0));
+    }
+    return $retval;
+}
+
+function db_funcs_FormatShiftCodeDetails($shiftcode_details = array())
+{
+    $shiftcode = $shiftcode_details['ShiftCode'];
+    if ($shiftcode == '' || $shiftcode == null)
+    {
+        return "";
+    }
+    $ts = $shiftcode_details['TimeStart'];
+    $timestart = mktime(substr($ts, 11, 2), substr($ts, 14, 2), 0, 0, 0, 0);
+    $te = $shiftcode_details['TimeEnd'];
+    $timeend = mktime(substr($te, 11, 2), substr($te, 14, 2), 0, 0, 0, 0);
+    return $shiftcode . "&nbsp;[" . strtotime($timestart) . date("H:i", $timestart) .
+        " - " . date("H:i", $timeend) . "]";
+}
+
+function db_funcs_GetShiftCodeDetails($connectionstring)
+{
+    $retval = array();
+    $query = "SELECT * FROM shifts";
+    $result = mysqli_query($connectionstring,$query);
+    if (!result)
+    {
+        $msg = mysqli_error($connectionstring);
+        echo "Database Error: $msg";
+        die();
+    }
+    while ($row = mysqli_fetch_array($result))
+    {
+        $retval[$row['ShiftCode']]['ShiftCode'] = $row['ShiftCode'];
+        $retval[$row['ShiftCode']]['Shiftname'] = $row['Shiftname'];
+        $retval[$row['ShiftCode']]['TimeStart'] = date("h:i a", strtotime($row['TimeStart']));
+        $retval[$row['ShiftCode']]['TimeEnd'] = date("h:i a", strtotime($row['TimeEnd']));
+        $retval[$row['ShiftCode']]['DayStart'] = $row['DayStart'];
+        $retval[$row['ShiftCode']]['DayEnd'] = $row['DayEnd'];
+        $retval[$row['ShiftCode']]['BreakLength'] = $row['BreakLength'];
+    }
+    return $retval;
+}
+function db_funcs_GetEmployeeStandardShifts($empno, $shiftcodes = array(), $connectionstring,
+    $dbconn)
+{
+    $retval = array();
+    $query = "SELECT ShiftCodes, Mon, Tue, Wed, Thu, Fri, Sat, Sun FROM employees WHERE EmployeeNo=" .
+        $empno;
+    $result = mysqli_query($connectionstring,$query);
+    if (!result)
+    {
+        $msg = mysqli_error($connectionstring);
+        echo "Database Error: $msg";
+        die();
+    }
+    //$shiftcode 	   = FormatShiftCodeDetails($shiftcodes[substr(odbc_result($result,"ShiftCodes"), 0, 2)]);
+    $shiftcode = FormatShiftCodeDetails($shiftcodes[substr(mysqli_result($result, 1),
+        0, 2)]);
+    $retval['Mon'] = (mysqli_result($result, 2) >= 1) ? $shiftcode : "";
+    $retval['Tue'] = (mysqli_result($result, 3) >= 1) ? $shiftcode : "";
+    $retval['Wed'] = (mysqli_result($result, 4) >= 1) ? $shiftcode : "";
+    $retval['Thu'] = (mysqli_result($result, 5) >= 1) ? $shiftcode : "";
+    $retval['Fri'] = (mysqli_result($result, 6) >= 1) ? $shiftcode : "";
+    $retval['Sat'] = (mysqli_result($result, 7) >= 1) ? $shiftcode : "";
+    $retval['Sun'] = (mysqli_result($result, 8) >= 1) ? $shiftcode : "";
+    return $retval;
+}
+//Modified by gelo: looping within dates
+function db_funcs_GetEmployeeShifts($empno, $datestart, $dateend, $shiftcodes =
+    array(), $connectionstring)
+{ //date formats Y-m-d
+    $retval = array();
+    $day = substr($datestart, 8, 2);
+    $month = substr($datestart, 5, 2);
+    $year = substr($datestart, 0, 4);
+    $date_arr = array($day, $month, $year);
+    while ($check_date != $dateend)
+    {
+        $check_date = gmdate('Y-m-d', gmmktime(0, 0, 0, $date_arr[1], $date_arr[0]++, $date_arr[2]));
+        $field = date("d-M", mktime(0, 0, 0, substr($check_date, 5, 2), substr($check_date,
+            8, 2), substr($check_date, 0, 4)));
+        $year = date("Y", mktime(0, 0, 0, substr($check_date, 5, 2), substr($check_date,
+            8, 2), substr($check_date, 0, 4)));
+
+        $query = "SELECT `" . $field . "` FROM schedule_" . $year . " \n" .
+            "WHERE EmployeeNo = " . $empno;
+        $result = mysqli_query($connectionstring,$query);
+        $scode = @mysqli_result($result, 0);
+        $shiftdate = $check_date;
+        if (!empty($scode))
+        {
+            $retval[$shiftdate] = $shiftcodes[$scode];
+        }
+    }
+    return $retval;
+}
+
+function db_funcs_AllowModifyRequest($employeeno, $requeststartdate, $requestenddate,
+    $cutoff, $connectionstring, $dbconn)
+{
+    $retval = false;
+    // GET Employee PayPeriod...
+    $result_set = array();
+    $result_set = db_funcs_GetFieldValuesFromSQL("SELECT PayPeriod " .
+        "FROM employees " . "WHERE EmployeeNo=" . $employeeno, "PayPeriod");
+    $payperiod = (!empty($result_set[0]['PayPeriod'])) ? $result_set[0]['PayPeriod'] :
+        "";
+    switch ($payperiod)
+    {
+        case '1': // Daily
+            //$payperiod_startdate = date("Y-m-d H:i:s");
+            break;
+        case '2': // Weekly (code 0,1)
+            $result_set = db_funcs_GetFieldValuesFromSQL("SELECT Value " .
+                "FROM codelookups " . "WHERE TypeName='STPAY' AND Code IN(0,1) ORDER BY Code",
+                "Value");
+            $payperiod_startday = $result_set[0]['Value'];
+            $payperiod_endday = $result_set[1]['Value'];
+            break;
+        case '3': // Semi - Monthly (code 1st half: 2,3 2nd half: 4,5)
+            $result_set = db_funcs_GetFieldValuesFromSQL("SELECT Value " .
+                "FROM codelookups " . "WHERE TypeName='STPAY' AND Code IN(4,5) ORDER BY Code",
+                "Value");
+            $payperiod_startday = $result_set[0]['Value'];
+            $payperiod_endday = $result_set[1]['Value'];
+            break;
+        case '4': // Monthly (code 6,7)
+            $result_set = db_funcs_GetFieldValuesFromSQL("SELECT Value " .
+                "FROM codelookups " . "WHERE TypeName='STPAY' AND Code IN(6,7) ORDER BY Code",
+                "Value");
+            $payperiod_startday = $result_set[0]['Value'];
+            $payperiod_endday = $result_set[1]['Value'];
+            break;
+        default:
+            return $retval;
+            break;
+    }
+
+    // compose dates
+    return $retval;
+}
+
+function db_funcs_GetShiftCodeDetails2($connectionstring, $sc)
+{
+    $retval = "Open schedule";
+    //$connectionstring = odbc_connect(PHOENIX_DB_DNS,PHOENIX_DB_USER,PHOENIX_DB_PASS);
+    //$query = "SELECT ShiftNo, ". // Brian 09.05.19 - Changed for New Patch on Shifts.DB (ShiftsNo was removed)
+    $query = "SELECT " . "ShiftCode, " . "ShiftName, " . "TimeStart, " . "TimeEnd " .
+        "FROM shifts " . "WHERE ShiftCode='$sc'";
+    $result = mysqli_query($connectionstring,$query);
+
+    while ($row = mysqli_fetch_array($result))
+    {
+        #13:30:00
+        $ts = $row['TimeStart'];
+        $timestart = mktime(substr($ts, 0, 2), substr($ts, 3, 2), 0, 0, 0, 0);
+        $te = $row['TimeEnd'];
+        $timeend = mktime(substr($te, 0, 2), substr($te, 3, 2), 0, 0, 0, 0);
+        $retval = "[" . $row['ShiftCode'] . ": " . /*$row['ShiftName'].*/ " " . date("H:i",
+            $timestart) . "-" . date("H:i", $timeend) . "]";
+    }
+    //odbc_close($connectionstring);
+
+    return $retval;
+}
+
+
+function db_funcs_GetShiftCodeDetails3($connectionstring, $sc)
+{
+    $retval = "Open Schedule";
+    //$connectionstring = odbc_connect(PHOENIX_DB_DNS,PHOENIX_DB_USER,PHOENIX_DB_PASS);
+    //$query = "SELECT ShiftNo, ". // Brian 09.05.19 - Changed for New Patch on Shifts.DB (ShiftsNo was removed)
+    $query = "SELECT " . "ShiftCode, " . "ShiftName, " . "TimeStart, " . "TimeEnd " .
+        "FROM shifts " . "WHERE ShiftCode='$sc'";
+    $result = mysqli_query($connectionstring,$query);
+
+    while ($row = mysqli_fetch_array($result))
+    {
+        #13:30:00
+        $ts = $row['TimeStart'];
+        $timestart = mktime(substr($ts, 0, 2), substr($ts, 3, 2), 0, 0, 0, 0);
+        $te = $row['TimeEnd'];
+        $timeend = mktime(substr($te, 0, 2), substr($te, 3, 2), 0, 0, 0, 0);
+        $retval =  $row['ShiftCode'] . ": " . $row['ShiftName']. " " . date("H:i",
+            $timestart) . "-" . date("H:i", $timeend);
+    }
+    return $retval;
+}
+
+
+function db_funcs_GetEmployeeShiftForDate($connectionstring, $empno, $this_date)
+{
+    $retval = "";
+    $explode_value = array();
+    #01/10/2011
+    $explode_value = explode("/", $this_date);
+    if (count($explode_value) != 3)
+    {
+        return $retval;
+    } //validate date
+
+    $this_date = date("d-M", mktime(0, 0, 0, $explode_value[0], $explode_value[1], $explode_value[2])); // -
+	
+    $query = "SELECT `" . $this_date . "` FROM schedule_" . $explode_value[2] . " " . "WHERE EmployeeNo = " . $empno;
+
+    $result = mysqli_query($connectionstring,$query) or die(mysqli_error($connectionstring));
+    $row = mysqli_fetch_array($result);
+    $retval = $row[$this_date];
+    //echo $retval;
+    return $retval;
+}
+
+function is_leap_year($year)
+{
+    is_numeric($year) || $year = date('Y', $year);
+    return checkdate(2, 29, (int)$year);
+}
+
+function db_funcs_ImplodeResult($query, $separator)
+{
+    $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
+        PHOENIX_DB_PASS);
+    $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
+    $retval = "";
+    $result = mysqli_query($connectionstring,$query);
+    $arr = array();
+    while ($row = mysqli_fetch_array($result))
+    {
+        $arr[] = $row['EmployeeNo'];
+    }
+    return $retval = implode($separator, $arr);
+}
+
+
+function dbCountOldDisapproval($webno){
+	
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
+
+$sql ="SELECT COUNT(DisapprovalRemark) AS cnt FROM webauthorizationrequestremarks WHERE WebAuthorizationRequestNo=$webno and Remark IS NULL;";
+
+$result = mysqli_query($connectionstring,$sql);
+$row = mysqli_fetch_array($result);
+$cnt = $row[0];
+
+if($cnt < 1){
+	$show = 0;	
+}else{
+	$show = 1;
+}
+return $show;
+}
+
+function dbSickLeaveValidation($sl1_chk_enable,$leave_type,$Lstart_time,$Lend_time,$Lstart_date,$Lend_date,$chkWholeDay){
+	
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
+//echo $sl1_chk_enable;
+
+/*$dt1 = date("Y-m-d",strtotime($Lstart_date));
+$dt2 = date("Y-m-d",strtotime($Lend_date));
+echo date("d",strtotime($dt2 - $dt1));*/
+//echo $Lend_time;
+//echo $Lstart_date;
+if(isset($chkWholeDay)){
+	
+$datetime1 = date_create($Lstart_date);
+$datetime2 = date_create($Lend_date);
+$interval = date_diff($datetime1, $datetime2);
+$tot =  $interval->format('%a');
+echo $tot; // Total Days
+
+}else{
+
+$dt_ts = $Lstart_date." ".$Lstart_time; 
+$de_te = $Lend_date." ".$Lend_time; 
+
+$dt = date("Y-m-d H:i",strtotime($dt_ts));
+$de = date("Y-m-d H:i",strtotime($de_te));
+$datetime1 = date_create($dt);
+$datetime2 = date_create($de);
+/*$interval = date_diff($datetime1, $datetime2);
+$tot =  $interval->format('%a');*/
+$minutes = 1000*60;
+$hours = $minutes*60;
+$days = $hours*24;
+$diff_date = ($datetime2 - $datetime1)/$hours; // total hours
+
+
+$s = floor(($datetime2 - ($datetime1))/1000);
+$m = floor($s/60);
+$h = floor($m/60);
+$d = floor($h/24);
+
+if($datetime2 > $datetime1){
+	$hours = $h-($d*24);
+
+echo $hours;
+echo "H";
+}
+}
+
+if($sl1_chk_enable==1 && $leave_type == 22){	
+$ret = 1;	
+}else{
+$ret = 0;
+}
+	
+return $ret;			
+}
+
+
+?>
+
+
+

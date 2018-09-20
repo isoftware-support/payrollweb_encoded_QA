@@ -1,0 +1,218 @@
+
+.body {
+	background-image: url(includes/templates/hardinflowerworks/images/bg1.gif);
+}
+
+a:link { TEXT-DECORATION:underline; FONT-SIZE: 11px; FONT-WEIGHT: none; COLOR: #000000; FONT-FAMILY: arial; background: none
+}
+
+a:visited { TEXT-DECORATION:underline ; FONT-SIZE: 11px; FONT-WEIGHT: none; COLOR: #000000; FONT-FAMILY: arial; background: none}
+
+a:active { TEXT-DECORATION:underline; FONT-SIZE: 11px; FONT-WEIGHT: none; COLOR: #000000; FONT-FAMILY: arial; background: none}
+
+a:hover { FONT-SIZE: 12px; FONT-WEIGHT: none; COLOR: #FFCC00; FONT-FAMILY: arial; TEXT-DECORATION: none  }
+
+
+a.link:link { TEXT-DECORATION: none; FONT-SIZE: 10px; FONT-WEIGHT: none; COLOR: #000000; FONT-FAMILY: arial; background: none
+}
+
+a.link:visited { TEXT-DECORATION: none; FONT-SIZE: 9px; FONT-WEIGHT: none; COLOR: #000000; FONT-FAMILY: arial; background: none}
+
+a.link:active { TEXT-DECORATION: none; FONT-SIZE: 9px; FONT-WEIGHT: none; COLOR: #000000; FONT-FAMILY: arial; background: none}
+
+a.link:hover { FONT-SIZE: 10px; FONT-WEIGHT: bold; COLOR: #000000; FONT-FAMILY: arial; TEXT-DECORATION: none  }
+
+
+
+
+a.cart:link { TEXT-DECORATION: underline; FONT-SIZE: 10px; FONT-WEIGHT: none; COLOR: #339900; FONT-FAMILY: verdana; background: none
+}
+
+a.cart:visited { TEXT-DECORATION: underline; FONT-SIZE: 10px; FONT-WEIGHT: none; COLOR: #339900; FONT-FAMILY: verdana; background: none}
+
+a.cart:active { TEXT-DECORATION: underline; FONT-SIZE: 10px; FONT-WEIGHT: none; COLOR: #339900; FONT-FAMILY: verdana; background: none}
+
+a.cart:hover { FONT-SIZE: 10px; FONT-WEIGHT: none; COLOR: #333333; FONT-FAMILY: verdana; TEXT-DECORATION: underline  }
+
+
+a.footer:link { TEXT-DECORATION: none; FONT-SIZE: 10px; FONT-WEIGHT: none; COLOR: #009900; FONT-FAMILY: verdana; background: none
+}
+
+a.footer:visited { TEXT-DECORATION: none; FONT-SIZE: 10px; FONT-WEIGHT: none; COLOR: #009900; FONT-FAMILY: verdana; background: none}
+
+a.footer:active { TEXT-DECORATION: none; FONT-SIZE: 10px; FONT-WEIGHT: none; COLOR: #009900; FONT-FAMILY: verdana; background: none}
+
+a.footer:hover { FONT-SIZE: 10px; FONT-WEIGHT: none; COLOR: #003300; FONT-FAMILY: verdana; TEXT-DECORATION: none  }
+
+
+
+a.leftmenu:link { TEXT-DECORATION: none; FONT-SIZE: 11px; FONT-WEIGHT: none; COLOR: #333333; FONT-FAMILY: verdana; background: none
+}
+
+a.leftmenu:visited { TEXT-DECORATION: none; FONT-SIZE: 11px; FONT-WEIGHT: none; COLOR: #333333; FONT-FAMILY: verdana; background: none}
+
+a.leftmenu:active { TEXT-DECORATION: none; FONT-SIZE: 11px; FONT-WEIGHT: none; COLOR: #333333; FONT-FAMILY: verdana; background: none}
+
+a.leftmenu:hover { FONT-SIZE: 11px; FONT-WEIGHT: none; COLOR: #339900; FONT-FAMILY: verdana; TEXT-DECORATION: none  }
+
+
+
+a.menu:link { TEXT-DECORATION: none; FONT-SIZE: 10px; FONT-WEIGHT: none; COLOR: #FFFFFF; FONT-FAMILY: sans-serif; background: none
+}
+
+a.menu:visited { TEXT-DECORATION: none; FONT-SIZE: 10px; FONT-WEIGHT: none; COLOR: #FFFFFF; FONT-FAMILY: sans-serif; background: none}
+
+a.menu:active { TEXT-DECORATION: none; FONT-SIZE: 10px; FONT-WEIGHT: none; COLOR: #FFFFFF; FONT-FAMILY: sans-serif; background: none}
+
+a.menu:hover { FONT-SIZE: 10px; FONT-WEIGHT: none; COLOR: #FFFF00; FONT-FAMILY: sans-serif; TEXT-DECORATION: none  }
+
+
+
+a.main_bold:link { TEXT-DECORATION: underline; FONT-SIZE: 10px; FONT-WEIGHT: bold; COLOR: #0066FF; FONT-FAMILY: verdana; background: none
+}
+
+a.main_bold:visited { TEXT-DECORATION: none; FONT-SIZE: 10px; FONT-WEIGHT: none; COLOR: #0066FF; FONT-FAMILY: verdana; background: none}
+
+a.main_bold:active { TEXT-DECORATION: none; FONT-SIZE: 10px; FONT-WEIGHT: none; COLOR: #0066FF; FONT-FAMILY: verdana; background: none}
+
+a.main_bold:hover { FONT-SIZE: 12px; FONT-WEIGHT: bold; COLOR: #FFCC00; FONT-FAMILY: verdana; TEXT-DECORATION: none  }
+
+
+a.link:link { TEXT-DECORATION: none; FONT-SIZE: 10px; FONT-WEIGHT: none; COLOR: #000000; FONT-FAMILY: arial; background: none
+}
+
+.bar_title { TEXT-DECORATION: none; FONT-SIZE: 10px; FONT-WEIGHT: bold; COLOR: #FFFFFF; FONT-FAMILY: Verdana
+}
+
+.option { TEXT-DECORATION: none; FONT-SIZE: 10px; FONT-WEIGHT: bold; COLOR: #666666; FONT-FAMILY: arial
+}
+
+
+.inner_links { TEXT-DECORATION: none; FONT-SIZE: 10px; FONT-WEIGHT: none; COLOR: #333333; FONT-FAMILY: Verdana
+}
+
+.text07 { TEXT-DECORATION: none; FONT-SIZE: 7Px; FONT-WEIGHT: none; COLOR: #000000; FONT-FAMILY: Verdana
+}
+
+.text08 { TEXT-DECORATION: none; FONT-SIZE: 8Px; FONT-WEIGHT: none; COLOR: #000000; FONT-FAMILY: Verdana
+}
+
+.text09 { TEXT-DECORATION: none; FONT-SIZE: 9Px; FONT-WEIGHT: none; COLOR: #000000; FONT-FAMILY: Verdana
+}
+
+.text10 { TEXT-DECORATION: none; FONT-SIZE: 10Px; FONT-WEIGHT: none; COLOR: #000000; FONT-FAMILY: Verdana
+}
+
+.text10tahoma { TEXT-DECORATION: none; FONT-SIZE: 10Px; FONT-WEIGHT: none; COLOR: #000000; FONT-FAMILY: tahoma
+}
+
+.text11tahoma { TEXT-DECORATION: none; FONT-SIZE: 11Px; FONT-WEIGHT: none; COLOR: #000000; FONT-FAMILY: tahoma
+}
+
+.text12tahoma { TEXT-DECORATION: none; FONT-SIZE: 12Px; FONT-WEIGHT: none; COLOR: #000000; FONT-FAMILY: tahoma
+}
+
+
+.text11 .text12 .text13 .text14 { 
+	TEXT-DECORATION: none; FONT-WEIGHT: none; COLOR: #000000; FONT-FAMILY: Verdana;
+}
+.text11 { FONT-SIZE: 11px;}
+.text12 { FONT-SIZE: 12px;}
+.text13 { FONT-SIZE: 13px;}
+.text14 { FONT-SIZE: 14px;}
+.text15 { FONT-SIZE: 15px;}
+
+
+.times10 .times11 .times12 .times13 .times14 .times17 .times18 { 
+	TEXT-DECORATION: none; FONT-WEIGHT: none; COLOR: #000000; FONT-FAMILY: times;
+}
+
+.times10 { FONT-SIZE: 10px;}
+
+.times11 { FONT-SIZE: 11px;}
+
+.times12 { FONT-SIZE: 12px;}
+
+.times13 { FONT-SIZE: 13px; COLOR: #666666;}
+
+.times14 { FONT-SIZE: 14px; }
+
+.times18 { FONT-SIZE:18; COLOR: #FFCC00;}
+
+.times17 { FONT-SIZE:17; COLOR: #FFFFFF;}
+
+.welcome { TEXT-DECORATION: none; FONT-SIZE: 17px; FONT-WEIGHT: bold; COLOR: #FF9900; FONT-FAMILY: times
+}
+
+
+
+
+
+
+
+
+.transMenu {
+	LEFT: -1000px; OVERFLOW: hidden; POSITION: absolute; TOP: -1000px
+}
+.transMenu .content {
+	POSITION: absolute
+}
+.transMenu .items {
+	Z-INDEX: 2; LEFT: 0px; POSITION: relative; TOP: 0px
+}
+.top .items {
+	BORDER-TOP: medium none
+}
+.transMenu .item {
+	FONT-WEIGHT: normal; FONT-SIZE: 10px; CURSOR: hand; COLOR: #000000; FONT-FAMILY: verdana, arial, sans-serif; TEXT-DECORATION: none
+}
+.transMenu .background {
+	Z-INDEX: 1; FILTER: alpha(opacity=100); LEFT: 0px; POSITION: absolute; TOP: 0px; moz-opacity: 1
+}
+.transMenu .shadowRight {
+	Z-INDEX: 3; FILTER: alpha(opacity=40); WIDTH: 2px; POSITION: absolute; TOP: 3px; moz-opacity: .4
+}
+.transMenu .shadowBottom {
+	Z-INDEX: 1; FILTER: alpha(opacity=40); LEFT: 3px; POSITION: absolute; HEIGHT: 2px; moz-opacity: .4
+}
+.transMenu .hover {
+	BACKGROUND: #eaeef2; COLOR: #000000
+}
+.transMenu .item IMG {
+	MARGIN-LEFT: 10px
+}
+
+
+ul#shopfor {
+	margin-right: 8px;
+	padding: 0 0 8px 6px;
+	}
+
+ul#shopfor li {
+	margin: 3px 0;
+	list-style-type: none;
+	list-style-position: outside;
+	}
+
+* html ul#shopfor li {
+	background: url(images/diamond.gif) 0 6px no-repeat;
+	}
+
+ul#shopfor li a {
+	padding-left: 8px;
+	color: #333333;
+	text-decoration: none;
+	font-size: 1.1em;
+	}
+	
+ul#shopfor li.here {
+	background-color: #EEE9E0;
+	}
+	
+ul#shopfor li ul {
+	margin-left: 6px;
+	}
+	
+ul#shopfor li ul li {
+	background: none;
+	}
