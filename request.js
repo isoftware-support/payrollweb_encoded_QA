@@ -356,7 +356,7 @@ function ShowDetails(n){
 	document.getElementById('row_sched').style.display = "none";	
 	document.getElementById('row_sched2').style.display = "none";	
 
-	if(n == 0 || n == 4 || n == 5){  //OT , COA, OB
+	if(n == 0 || n== 3 || n == 4 || n == 5){  //OT , COA, OB
 		document.getElementById('row_ot_coa_ob').style.display = "";		
 
 	}else if(n == 1){	//leave	

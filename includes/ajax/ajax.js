@@ -1,4 +1,6 @@
 function GetHTMLContent(id,url) {
+
+	
     new Ajax.Updater(id,url,{asynchronous:true});
     //alert("HI");   
 }   

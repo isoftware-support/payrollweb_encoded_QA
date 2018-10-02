@@ -7,7 +7,6 @@
 	var dttmFrom_Leave = document.getElementById('dttmFrom_Leave');
 	var dttmTo_Leave = document.getElementById('dttmTo_Leave');
 
-	dttmFrom.onchange = function(){ computeHours(); };
 	dttmTo.onchange = function(){ computeHours(); };
 	dttmFrom_Leave.onchange = function(){ computeHours(true); };
 	dttmTo_Leave.onchange = function(){ computeHours(true); };
@@ -95,11 +94,12 @@
 		var dttmTo = document.getElementById('dttmTo');
 		var option = document.querySelector("input[name='request_type']:checked");
 
-		if ( option.value === "0"){   //suggest in OT only
+		if ( option.value === "0" || option.value === "3"){   //suggest in OT & TOIL only
 			if ( ! dttmTo.value){  //empty
 				dttmTo.value = this.value;
 			}
 		}
+		computeHours();
 	}
 
 	//schedule change
@@ -176,7 +176,7 @@
 
 		// alert( param.requestType);
 		//total hours for ob, coa, ot
-		if ( param.requestType == "4" || param.requestType == "5" || param.requestType == "0"){
+		if ( param.requestType == "4" || param.requestType == "5" || param.requestType == "0" || param.requestType == "3"){
 			computeHours();
 		}		
 
@@ -216,6 +216,7 @@
 		switch(request_types){						
 
 		case '0':		// OT
+		case '3': 		// TOIL
 
 			if (! reason ){
 				retval = false;
@@ -236,6 +237,25 @@
 				}
 			}			
 			break;
+
+		case '4':  // OB
+		case '5':  //coa		
+		
+				if (! reason ){
+					retval = false;
+					msg = "Please input reason for this request.";
+				}
+				if (! dttmTo && ! dttmFrom ){
+					retval = false;
+					msg = "Please input valid date time";
+				}
+				if ( dttmTo && dttmFrom ){
+					if ( Date.parse(dttmFrom) > Date.parse(dttmTo) ){
+						retval = false;
+						msg = "Please input valid date time";	
+					}
+				}
+			break;		
 
 		case '1':     		//leave
 
@@ -278,7 +298,6 @@
 				retval = false;
 				msg = "Please select Leave Type";				
 			}
-
 			break;
 
 		case '2':   //sched change
@@ -299,43 +318,7 @@
 				retval = false;
 				msg = "From and To shift schedule are the same.";
 			}
-			break;
-			
-		case '3':	//toil
-				
-				
-				retval = !(trim_string(f.reqL_SDate.value) == '' && trim_string(f.reqLS_ToDate.value) =='');     
-				if(!retval){ alert('Please select a start date!');	break; }	
-				
-				retval = !(trim_string(f.reqL_EDate.value) == ''  && trim_string(f.reqLS_ToDate.value) =='');     
-				if(!retval){ alert('Please select an end date!');	break; }	
-				
-				
-				if((trim_string(f.reqL_SDate.value) !== '' &&  trim_string(f.reqL_EDate.value) !== '') || f.reqLS_ToDate.value !=='')
-				{							
-					retval = !(trim_string(f.l_comments.value) == null || trim_string(f.l_comments.value) == '');     				
-					if(!retval){ alert('Reason must be stated for this request!');	break; }
-                }				
-			break;
-						
-		case '4':  // OB
-		case '5':  //coa		
-		
-				if (! reason ){
-					retval = false;
-					msg = "Please input reason for this request.";
-				}
-				if (! dttmTo && ! dttmFrom ){
-					retval = false;
-					msg = "Please input valid date time";
-				}
-				if ( dttmTo && dttmFrom ){
-					if ( Date.parse(dttmFrom) > Date.parse(dttmTo) ){
-						retval = false;
-						msg = "Please input valid date time";	
-					}
-				}
-			break;				
+			break;						
 		}
 		
 		if ( !retval) alert(msg);		
@@ -363,46 +346,10 @@
 	}
 
 
-	/*
-	// TOIL Leave Type Hiding
-	$(document).ready(function(){
-		document.getElementById('sl_check').value = leave_sel.value;	
-
-		if(leave_sel.value==22){ // Sick Leave(22);
-	    document.getElementById('sl_check').value = 1;
-	    document.getElementById('med_attach').style.display='';	
-		}else{
-	    document.getElementById('sl_check').value = 0;
-	    document.getElementById('med_attach').style.display='none';
-		document.getElementById('content_file').value='';
-		document.getElementById('med_file_txt').value='';
-		document.getElementById('cttype').value='';
-				
-		}
-		
-		 $('#leaver').click(function(){
-		 $('#reqL1').show();
-	    
-		});	
-	});
-
-	$(document).ready(function(){
-		
-		//document.getElementById('med_file_txt').value ='a';	
-		$('#toilr').click(function(){
-		$('#reqL1').hide();
-		
-		});	
-
-
-	});
-	*/
-
-
-
 	document.getElementById('leave_type').onchange = function() {
 		leave_SL_view();		
 	}
+
 
 	function leave_SL_view(){
 
@@ -418,21 +365,6 @@
 			document.getElementById('cttype').value='';
 		}
 		
-	    //alert(leave_sel.value);	
-		// document.getElementById('sl_check').value = leave_sel.value;	
-	
-		// if(leave_sel.value==22){ // Sick Leave(22);
-		//     document.getElementById('sl_check').value = 1;
-		//     document.getElementById('med_attach').style.display='';	
-		// }else{
-		//     document.getElementById('sl_check').value = 0;
-		//     document.getElementById('med_attach').style.display='none';
-		// 	document.getElementById('content_file').value='';
-		// 	document.getElementById('med_file_txt').value='';
-		// 	document.getElementById('cttype').value='';
-				
-		// }
-
 	}
 
 	function CopyMe(oFileInput, sTargetID) {
