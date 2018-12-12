@@ -363,11 +363,11 @@
 			document.getElementById('content_file').value='';
 			document.getElementById('med_file_txt').value='';
 			document.getElementById('cttype').value='';
-		}
-		
+		}		
 	}
 
 	function CopyMe(oFileInput, sTargetID) {
 	    var arrTemp = oFileInput.value.split('\\');
-	    document.getElementById(sTargetID).value = arrTemp[arrTemp.length - 1];
+	    // alert(sTargetID);
+	    document.getElementById(sTargetID).value = arrTemp[arrTemp.length - 1] ;
 	}

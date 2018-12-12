@@ -19,6 +19,7 @@
 
 
     function BusyGif(){	
+        
 
     	//remove first
         var div = $("div#busygif");
@@ -27,8 +28,8 @@
         $('body').append("<div id='busygif'><img src=images/loading-gif.gif width=20px/></div>");          
         $('div#busygif').css({'display':'block', 'position':'absolute'}).hide();   
 
-    	this.show = function(){
 
+    	this.show = function(){            
             $(document).ajaxStart(function(){
                 CenterDiv('div#busygif');
                 $("div#busygif").show();    
@@ -268,4 +269,22 @@ function isOnScreen(elem)
     
     return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
 }
+
+function xxhr(method, path, func){
+    
+    //XHR
+    var xhr = new XMLHttpRequest();
+    xhr.open(method, path, true);
+
+    xhr.onload = function(){
+        if (this.status == 200){
+            func(this.responseText);                     
+        // }else if( this.status == 404){
+        //  p.innerHTML = " not found";
+        }
+    };
+    xhr.send();         
+}
+
+
 //---------------functions-----------------

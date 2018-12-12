@@ -371,6 +371,21 @@ function ShowDetails(n){
 		document.getElementById('row_toil').style.display = "";		
 	}
 	document.forms[0].request_shown_detail.value = n;
+
+	
+
+	//show highlight border
+	var box = getById("req_type_back");
+	var id = ["ot", "leave", "sc", "toil", "ob", "coa"];
+	var sID = id[n];
+	
+	var w =  [ 75, 60, 120, 90, 115, 50];
+    
+	var xy = $( "#type_"+ sID ).offset();
+	box.style.left = (xy.left - 5) + "px";
+	box.style.width = w[n] + "px";
+	box.style.top = (xy.top - 12) + "px";
+	
 }
 
 // JavaScript Document
