@@ -384,7 +384,7 @@ function ShowDetails(n){
 	var xy = $( "#type_"+ sID ).offset();
 	box.style.left = (xy.left - 5) + "px";
 	box.style.width = w[n] + "px";
-	box.style.top = (xy.top - 12) + "px";
+	box.style.top = (xy.top - 12 ) + "px";
 	
 }
 

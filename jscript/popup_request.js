@@ -10,11 +10,13 @@
 	dttmTo.onchange = function(){ computeHours(); };
 	dttmFrom_Leave.onchange = function(){ computeHours(true); };
 	dttmTo_Leave.onchange = function(){ computeHours(true); };
-	
+		
 	function computeHours( isLeaves = false ){
 
 		var inDays = false;
-		var txt = "Actual Total Hours: 0";
+		var txt = "Actual Total Hours: 0";		
+
+		console.log( 'here');
 
 		if ( isLeaves == true ){
 
@@ -107,6 +109,8 @@
 		showSchedStatus(this);
 	};
 
+
+
 	function showSchedStatus(e){
 
 		var xhttp = new XMLHttpRequest();
@@ -148,9 +152,9 @@
 
 
 	document.getElementById('body').onload = function(){
-		
+				
 		//leave
-		leave_SL_view();
+		// leave_SL_view();
 
 		//schedule
 		if ( param.requestType == "2"){
@@ -158,9 +162,11 @@
 			showSchedStatus(dt);
 		}
 
+		
+
 		//leave
 		if ( param.requestType == "1"){
-			leave_SL_view();
+			// leave_SL_view();
 			computeHours(true);
 		}
 
@@ -345,25 +351,20 @@
 		return str.replace(/^\s+|\s+$/g, '');
 	}
 
-
-	document.getElementById('leave_type').onchange = function() {
-		leave_SL_view();		
-	}
-
-
 	function leave_SL_view(){
 
-		var span = document.getElementById('med_attach');
-		var leavetype = document.getElementById('leave_type').value;
-		span.style.display = "none";
-		if ( leavetype === "22"){
-			span.style.display = "";
-		}else{
-			//reset attachments
-			document.getElementById('content_file').value='';
-			document.getElementById('med_file_txt').value='';
-			document.getElementById('cttype').value='';
-		}		
+		// var span = document.getElementById('med_attach');
+		// var leavetype = document.getElementById('leave_type').value;
+		// span.style.display = "none";
+		// if ( leavetype === "22"){
+		// 	span.style.display = "";
+		// }else{
+		// 	//reset attachments
+		// 	document.getElementById('content_file').value='';
+		// 	document.getElementById('med_file_txt').value='';
+		// 	document.getElementById('cttype').value='';
+		// }		
+
 	}
 
 	function CopyMe(oFileInput, sTargetID) {
