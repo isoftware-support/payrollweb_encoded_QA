@@ -55,7 +55,7 @@ fieldset{
 .grid_row, .grid_row_sub, .web_subpage, .grid_color{
 	background-color: white;	
 	border-bottom: solid 1px;
-    border-color: #D8D1D1;	    
+    border-color: #D8D1D1;	   
 }
 
 .grid_row{	
@@ -1164,4 +1164,65 @@ input[type='datetime-local']{
 	border: 1px solid yellow;
 	z-index: 1;
 	pointer-events: none;	
+}
+
+/*my recrurring*/
+.tab-all{
+	padding: 5px !important;
+}
+.rec-all{
+	max-height: 300px;
+	overflow-y: scroll;
+}
+.rec-all tr:nth-child(even){
+	/*background-color: #fff9e5;*/
+}
+
+.rec-all tr:hover{
+	background-color: #F2F2F2;
+}
+
+.rec-history{
+	max-height: 200px;
+	overflow-y: scroll;	
+}
+
+#rec_info{
+	width: 35%;
+}
+#rec_details{
+	width: 60%;
+}
+#div_info{
+	display: block;	
+	background-color: white;
+	min-height: 20px;
+	padding: 10px 20px;
+}
+
+.clearfix{
+	overflow: auto;
+}
+
+/*padding*/
+.py-2{
+	padding-top: 10px;
+	padding-bottom: 10px;
+}
+.py-1{
+	padding-top: 5px !important;
+	padding-bottom: 5px !important;
+}
+.px-1{
+	padding-left: 5px !important;
+	padding-right: 5px !important;
+}
+.px-2{
+	padding-left: 10px !important;
+	padding-right: 10px !important;
+}
+
+/*read only checkbox*/
+input[type="checkbox"][readonly] {
+  pointer-events: none;
 }
