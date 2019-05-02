@@ -209,6 +209,7 @@ Input.TextNormal
     font-weight:normal;
     color:#333333;
 }
+
 Input.SmallIntField
 {
 	font-size:10px;

@@ -1,23 +1,27 @@
 		
+	
 
 	//comput time	
 	var dttmFrom = document.getElementById('dttmFrom');
 	var dttmTo = document.getElementById('dttmTo');
-
+  
 	var dttmFrom_Leave = document.getElementById('dttmFrom_Leave');
 	var dttmTo_Leave = document.getElementById('dttmTo_Leave');
 
 	dttmTo.onchange = function(){ computeHours(); };
-	dttmFrom_Leave.onchange = function(){ computeHours(true); };
-	dttmTo_Leave.onchange = function(){ computeHours(true); };
-		
-	function computeHours( isLeaves = false ){
+	if (dttmFrom_Leave) dttmFrom_Leave.onchange = function(){ computeHours(true); };
+	if (dttmTo_Leave) dttmTo_Leave.onchange = function(){ computeHours(true); };
 
+	
+
+	function computeHours( isLeaves = false ){
+		
 		var inDays = false;
 		var txt = "Actual Total Hours: 0";		
 
 		console.log( 'here');
-
+		console.log("indays="+ inDays);
+		
 		if ( isLeaves == true ){
 
 			txt = "Lenght: 0 day";
@@ -41,12 +45,13 @@
 			var min = sec / 60;
 			hr = min / 60;			
 
+			
 			if (inDays){			
 				var days = parseInt(hr / 24) + 1;
 				txt = "Length: " + days + " day";
 				if (days > 1) txt = txt + "s";
 
-				document.getElementById('leave_days').value = days;
+				if ( isLeaves ) document.getElementById('leave_days').value = days;
 
 			}else{
 				if (hr >= 1){
@@ -57,19 +62,20 @@
 					txt = "Actual Total Seconds:" + sec.toFixed(0).toString();
 				}
 
-				document.getElementById('leave_hours').value = hr.toFixed(2).toString();				
+				if ( isLeaves ) document.getElementById('leave_hours').value = hr.toFixed(2).toString();				
 			}
+			
 		}
 			
 		//ot hours regardless of type selected
 		getById('ot_hours').value = hr;
-
 		if ( isLeaves == true ){
 			var span = document.getElementById('leaves_hours');
 		}else{
 			var span = document.getElementById('total_hours');
 		}
 		span.textContent = txt;
+
 	}
 
 	function wholeDays(e){ 
@@ -193,16 +199,16 @@
 
 		var retval = true;		
 		var f = document.forms[0];
-		//alert(b);
+
 		var request_types;
 		for (i = 0; i < f.elements.length; i++) {
 	        if ((f.elements[i].name == "request_type") && 
 				(f.elements[i].type == "radio") && (f.elements[i].checked)) {
 				request_types = f.elements[i].value;
 	        }
-	    }  
+	    }  	  
 
-	    //hid request error
+    //hid request error
 		var err = document.querySelector(".request-error");
 		if ( err ) err.style.display = "none";
 
@@ -210,9 +216,6 @@
 
 		var dttmFrom = document.getElementById('dttmFrom').value;
 		var dttmTo = document.getElementById('dttmTo').value;
-
-		var dttmFrom_Leave = document.getElementById('dttmFrom_Leave').value;
-		var dttmTo_Leave = document.getElementById('dttmTo_Leave').value;
 
 		var reason = getById("reason").value.trim();
 
@@ -230,16 +233,16 @@
 			}
 			if (! dttmTo ){
 				retval = false;
-				msg = "Please input valid end date time";
+				msg = "Please input valid end date time.";
 			}
 			if (! dttmFrom ){
 				retval = false;
-				msg = "Please input valid start date time";
+				msg = "Please input valid start date time.";
 			}
 			if ( dttmTo && dttmFrom ){
 				if ( Date.parse(dttmFrom) > Date.parse(dttmTo) ){
 					retval = false;
-					msg = "Please input valid date time";	
+					msg = "Please input valid date time.";	
 				}
 			}			
 			break;
@@ -253,45 +256,65 @@
 				}
 				if (! dttmTo && ! dttmFrom ){
 					retval = false;
-					msg = "Please input valid date time";
+					msg = "Please input valid date time.";
 				}
 				if ( dttmTo && dttmFrom ){
 					if ( Date.parse(dttmFrom) > Date.parse(dttmTo) ){
 						retval = false;
-						msg = "Please input valid date time";	
+						msg = "Please input valid date time.";	
 					}
 				}
 			break;		
 
 		case '1':     		//leave
 
-			var inDays = document.getElementById('leave_inDays').checked;			
 			var leavetype = document.getElementById('leave_type').value;
-			var days = document.getElementById('leave_days').value;
-			var isDuration = document.querySelector('input#duration').checked;
-	
+			var mode = get("input[name='leave_mode']:checked").value;
+			
 			if (! reason ){
 				retval = false;
 				msg = "Please input reason for this leave request.";
 			}
+			
+			if ( mode == "2" ){  //selective
+				//selective hours mode				
+				var dt = get('#dtSelective').value;
+				if (! dt ){
+					retval = false;
+					msg = "Please input valid date.";
+				}
 
-			if ( isDuration ){
+				var hours = get('#selective_hours').value; 
+				if ( hours == "-1"){
+					retval = false;
+					msg = "Please select leave hours value.";
+				}
+
+			}else if( mode == "0") {  //duration
+
+				var dttmFrom_Leave = document.getElementById('dttmFrom_Leave').value;
+				var dttmTo_Leave = document.getElementById('dttmTo_Leave').value;
+
+				var inDays = document.getElementById('leave_inDays').checked;							
+				var days = document.getElementById('leave_days').value;
+				var isDuration = document.querySelector('input#duration').checked;
+
 				if (! dttmTo_Leave ){
 					retval = false;
-					msg = "Please input valid end date";
+					msg = "Please input valid end date.";
 				}
 				if (! dttmFrom_Leave ){
 					retval = false;
-					msg = "Please input valid start date";
+					msg = "Please input valid start date.";
 				}
 				if ( ! retval && ! inDays) msg = msg + " time";
 
 				if ( parseInt(days) <= 0 && inDays == 1 ){
 					retval = false;
-					msg = "Please select valid date";								
+					msg = "Please select valid date.";								
 				}
 
-			}else{  //shift
+			}else if( mode == "1"){  //shift
 
 				var dttm = document.getElementById('dttmShift').value;
 				if ( !dttm ){
@@ -302,7 +325,7 @@
 
 			if ( leavetype == "-1"){
 				retval = false;
-				msg = "Please select Leave Type";				
+				msg = "Please select Leave Type.";				
 			}
 			break;
 

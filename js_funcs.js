@@ -11,16 +11,17 @@
         return document.getElementsByClassName(cclass);
     }
     function get( selector ){
+        //using # for ID and . for class
         return document.querySelector( selector );
     }
     function getAll( selector ){
+        //using # for ID and . for class
         return document.querySelectorAll( selector );
     }
 
 
     function BusyGif(){	
         
-
     	//remove first
         var div = $("div#busygif");
     	if (div.length) $(div).remove();
@@ -47,7 +48,6 @@
         	$("div#busygif").hide();
         }
     }
-
 
     function MyDateClass(dateString, dateFormat){        
 
@@ -272,6 +272,9 @@ function isOnScreen(elem)
 
 function xxhr(method, path, func){
     
+    //ex:  xxhr("GET", 'xhtml_response.php?q=myRecEntry&id='+ e.dataset.id, show);
+    //    function show(ret){  ... to show return html }
+
     //XHR
     var xhr = new XMLHttpRequest();
     xhr.open(method, path, true);

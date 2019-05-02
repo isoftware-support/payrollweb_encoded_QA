@@ -11,6 +11,9 @@ $(document).ready(function(){
     //$('td #exclamation').css({'width':'16px','padding':'0 0 2px 0'});
     
     $('tr.web_subpage:odd').css('background-color','#FFF9ED');
+
+    //selected from home
+    $('tr.home-select').css('background-color','#E0EBEB');
         
     $('a.req_remarks,.req_disapproved').click(function(){	
 			return false;
@@ -301,49 +304,25 @@ function formPost(url, postStr)
 }
 
 
-function StatsDetails(n){	
-	if(n == 0){
+function LeaveFilingMode(n){	
 
-		document.getElementById('leaves_duration').style.display='';
-		document.getElementById('leaves_shift').style.display='none';
+	var duration =	document.getElementById('leaves_duration');
+	var shift = document.getElementById('leaves_shift');
+	var selective = document.getElementById('leaves_selective');
 
-		//document.forms[0].mytext.value='duration';
-		// document.getElementById('f_btnLeaveStart').style.display='';
-		// document.getElementById('f_dateLeaveStart').style.display='';
-		// document.getElementById('f_dateLeaveEnd').style.display='';
-		// document.getElementById('f_btnLeaveEnd').style.display='';
-		// document.getElementById('to2').style.display='';
-		// document.getElementById('f_dateLSchedEnd').style.display='none';
-		// document.getElementById('f_btnLSchedEnd').style.display='none';
-		// document.getElementById('selid').style.display='none';
-		// document.getElementById('total_LHours').style.display='';		
-		// document.getElementById('wholeDaysec').style.display='';	
+	if( duration ) duration.style.display='none';
+	if( shift ) shift.style.display='none';
+	if( selective ) selective.style.display='none';
+
+	if(n == 0){ //duration mode
+		duration.style.display='';
 		
-	}else{
-		document.getElementById('leaves_duration').style.display='none';
-		document.getElementById('leaves_shift').style.display='';
-
+	}else if(n == 1){	//shift mode
+		shift.style.display='';
 		
-		// //document.forms[0].mytext.value='shift'
-		// document.getElementById('f_btnLeaveStart').style.display='none';
-		// document.getElementById('f_dateLeaveStart').style.display='none';
-		// document.getElementById('f_dateLeaveEnd').style.display='none';
-		// document.getElementById('f_btnLeaveEnd').style.display='none';
-		// document.getElementById('to2').style.display='none';
-		// document.getElementById('f_dateLSchedEnd').style.display='';
-		// document.getElementById('f_btnLSchedEnd').style.display='';
-		// document.getElementById('selid').style.display='';
-		// document.getElementById('f_dateLSchedEnd').style.marginTop='-5px';
-		// document.getElementById('f_btnLSchedEnd').style.marginTop='-5px';
-		// document.getElementById('selid').style.marginTop='-4px';
-		// document.getElementById('f_dateLSchedEnd').style.marginLeft='-26px';
-		// document.getElementById('f_btnLSchedEnd').style.marginLeft='110px';
-		// document.getElementById('selid').style.marginLeft='122px';
-		// document.getElementById('total_LHours').style.display='none';
-		// document.getElementById('wholeDaysec').style.display='none';			
-		// var s = document.getElementById('f_dateLeaveStart').value;
-		// document.getElementById('f_dateLSchedEnd').value =s.substring(0,10);
-	}
+	}else if( n == 2){	//selective mode
+		selective.style.display='';
+	}	
 	
 }
 
@@ -385,6 +364,7 @@ function ShowDetails(n){
 	box.style.left = (xy.left - 5) + "px";
 	box.style.width = w[n] + "px";
 	box.style.top = (xy.top - 12 ) + "px";
+
 	
 }
 
