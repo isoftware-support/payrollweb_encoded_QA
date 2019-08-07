@@ -436,7 +436,8 @@ td.CalendarBlockToday
     
 }
 td.ContentTextSmall_remarks {
-	padding: 0 5px;
+	padding: 5px;
+
 }
 
 
@@ -802,7 +803,7 @@ table{
 
 /* ticket request */
 
-	#tktDetails{
+	#tktDetails, #editRequest{
 		text-decoration: none;	
 		font-size: 15px	;
 		color:orange;

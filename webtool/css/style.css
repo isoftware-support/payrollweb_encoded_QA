@@ -88,7 +88,7 @@ td.ErrorMessageSmall
 	border-bottom: solid;
 	border-color: #D8D1D1;
 	border-width: 1px;
-	border-spacing: 5px;
+	border-spacing: 5px;	
 }
 
 table{
@@ -112,6 +112,10 @@ table{
 .w-all{width: 100%;}
 .h-all{height: 100%;}
 
+.ptb-5{
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
 
 .ContentTextExtraSmall
 {
@@ -445,5 +449,8 @@ input.ButtonBox
 	width: 200%;
 }
 
+.ta-center{ text-align: center; }
+.ta-right{ text-align: right; }
+.ta-left{ text-align: left; }
 
 

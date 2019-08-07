@@ -151,11 +151,12 @@ function listbox_moveacross4(sourceID, destID) {
 	
     var src = document.getElementById(destID);
     var dest = document.getElementById(sourceID);
-    //alert('a');
+    //alert('a');  
 
     for(var count=0; count < src.options.length; count++) {
  
         if(src.options[count].selected == true) {
+
                 var option = src.options[count];
  
                 var newOption = document.createElement("option");
@@ -163,6 +164,16 @@ function listbox_moveacross4(sourceID, destID) {
                 newOption.value = option.value;
                 newOption.text = option.text;
                 newOption.selected = true;
+
+                newOption.dataset.tl = option.dataset.tl;
+                newOption.style.fontStyle = option.style.fontStyle;
+
+                // newOption.dataset.tl = 0
+                // if ( option.dataset.tl == 1){
+                //     newOption.dataset.tl = 1;
+                //     newOption.style.fontStyle = "italic";
+                // }
+
                 try {
                          dest.add(newOption, null); //Standard
                          src.remove(count, null);
@@ -186,11 +197,19 @@ function listbox_moveacross3(sourceID, destID) {
     for(var count=0; count < src.options.length; count++) {
       
         if(src.options[count].selected == true) {
+
+
                 var option = src.options[count]; 
+
                 var newOption = document.createElement("option");
                 newOption.value = option.value;
                 newOption.text = option.text;
                 newOption.selected = true;
+                
+                newOption.dataset.tl = option.dataset.tl;
+                newOption.style.fontStyle = option.style.fontStyle;
+
+                // newOption.style.fontStyle = "italic";
                 try {
                          dest.add(newOption, null); //Standard
                          src.remove(count, null);
@@ -238,7 +257,8 @@ function findControl(f, s)
 }
 
 function sortList(d)
-{
+{   
+
     var i, j;
     for (i = 0; i < d.options.length - 1; i++) {
         for (j = i+1; j < d.options.length; j++) {

@@ -270,6 +270,26 @@ function isOnScreen(elem)
     return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
 }
 
+function popWindow(url, _width, _height, specs = ""){
+
+    var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : window.screenX;    
+    var dualScreenTop = window.screenTop != undefined ? window.screenTop : window.screenY;
+
+    var width = window.innerWidth ? window.innerWidth : document.documentElement.clientWidth ? document.documentElement.clientWidth : screen.width;
+    var height = window.innerHeight ? window.innerHeight : document.documentElement.clientHeight ? document.documentElement.clientHeight : screen.height;
+
+    var systemZoom = width / window.screen.availWidth;
+    var left = (width - _width) / 2 / systemZoom + dualScreenLeft;
+    var top = (height - _height) / 2 / systemZoom + dualScreenTop;   
+    
+    if ( specs == "" ){
+        specs = 'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=1';
+    }
+
+    var newWindow = window.open(url, 'name', specs + ', top='+ top +', left='+ left +', width='+ _width  +', height='+ _height  );
+    newWindow.focus();
+}
+
 function xxhr(method, path, func){
     
     //ex:  xxhr("GET", 'xhtml_response.php?q=myRecEntry&id='+ e.dataset.id, show);

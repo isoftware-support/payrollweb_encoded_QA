@@ -219,6 +219,17 @@
 
 		var reason = getById("reason").value.trim();
 
+		//request mode: 01 = Add, 02 = Edit, 03 = approver override		
+		if (getById("isApproverEdit").value == "1" ){		//
+			
+			var comment = getById("override_comment").value.trim();
+			if ( ! comment ){
+				retval = false;
+				msg = "Please input an override comment.";
+			}
+
+		}
+
 		//submit var
 		getById('submit').name = param.submit_var;	
 
@@ -245,6 +256,7 @@
 					msg = "Please input valid date time.";	
 				}
 			}			
+
 			break;
 
 		case '4':  // OB

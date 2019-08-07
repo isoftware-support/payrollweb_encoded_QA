@@ -154,8 +154,8 @@ function checkCalendar()
     if (param == "") return alert("Please select at least one record.");
     window.location = "cm.php?qid=03&en=" + escape(param) + "&t=" + document.forms[0].AssignTeam.value + getCurrent();
 }
-function popitup(url, w, h, r) {
 
+function popitup(url, w, h, r) {
 
 	var left = (screen.width/2)-(w/2);
 	var top = (screen.height/2)-(h/2) - 20;
@@ -166,7 +166,7 @@ function popitup(url, w, h, r) {
 		return false;
 	}	
 	
-    newwindow=window.open(url, 'name', 'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=1, top='+top+', left='+left+', width='+w+', height='+h);
+  newwindow=window.open(url, 'name', 'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=1, top='+top+', left='+left+', width='+w+', height='+h);
 	newwindow.focus();
 }
 

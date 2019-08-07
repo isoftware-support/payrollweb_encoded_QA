@@ -5,7 +5,7 @@
 function db_funcs_TableExists($tablename, $database = false)
 { //gelo 110105
 
-$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
 $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
 
     if (!$database)
@@ -39,7 +39,7 @@ function mysqli_result($res,$row=0,$col=0){
 
 function getOutSidePPDate($query,$type){
 	
-$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
 $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
 
 $retval = "";
@@ -79,7 +79,7 @@ return $retval;
 
 function chkCrossingShift($dt,$shf,$action){
 	
-$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
 $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
 
 $sql = "SELECT TimeStart, TimeEnd FROM shifts WHERE ShiftCode='$shf'";
@@ -118,7 +118,7 @@ return $fields;
 
 function db_Compute_Total($remno,$status){
 
-$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
 $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
 
 $query = "SELECT Status, WebReimbursementDetailNo, Particulars, VAT, 
@@ -148,7 +148,7 @@ return $totality;
 
 function prevRecofReim($reimno){
 	
-$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
 $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
 
 //$results_array= array();
@@ -173,7 +173,7 @@ return $prev_rec;
 
 function getEmployeeDetailsEmpTable($emp,$fields){
 	
-$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
 $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
 	
 $sql = "SELECT IFNULL($fields,NULL) AS $fields FROM employees WHERE EmployeeNo=$emp";
@@ -284,7 +284,7 @@ function NotPartialforOBCOA($sd,$ed){
 
 function db_Get_Teams($teamno){
 	
-$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
 $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);		
 	
 $sql = "SELECT TeamName FROM webteams WHERE TeamNo=$teamno";
@@ -299,7 +299,7 @@ return $team_name;
 
 function db_get_vat_rate_value(){
 	
-$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
 $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
 
 
@@ -315,7 +315,7 @@ return $net_rate_value;
 
 function db_get_vat_settings(){
 	
-$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
 $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
 
 $sql ="SELECT Value1 FROM webtoolconfig WHERE TypeName ='REIM_RULES' AND Code=2 ";
@@ -331,7 +331,7 @@ return $vat_set;
 
 function getAlertSettings($field){
 
-$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
 $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
 $sql = "SELECT Code FROM webtoolconfig WHERE TypeName='$field'";
 $res = mysqli_query($connectionstring,$sql);
@@ -344,7 +344,7 @@ return $enabled;
 
 function send_request_email($emp,$rqno,$daterq,$reason){
 	
-$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
 $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);		
 $reason = stripslashes($reason);
 $daterq = date("M-d-Y H:i",strtotime($daterq));
@@ -437,7 +437,7 @@ ini_set('max_execution_time', 500);
 
 function get_email_settings($field,$typename){
 	
-	$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER, PHOENIX_DB_PASS);
+	$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER, PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
     $dbconn = mysqli_select_db ($connectionstring,PHOENIX_DB_DATABASE);
 	
 	$query = "SELECT $field FROM webtoolconfig WHERE TypeName='$typename'";
@@ -452,7 +452,7 @@ function get_email_settings($field,$typename){
 
 function getrequestdetails($emp,$rqno){
 	
-$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
 $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
 
 $sql = "SELECT * FROM webauthorizationrequests WHERE EmployeeNo=$emp AND WebAuthorizationRequestno=$rqno";
@@ -478,7 +478,7 @@ return array($request_type['Type'],$request_type['Details']);
 
 function getleavetype($type_code,$leave_code,$start_date,$end_date,$time_start,$time_end,$shift_code,$old_shift){
 	
-$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
 $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
 
 $start_date =(!empty($start_date)) ?  date("M-d-Y",strtotime($start_date)) : "";
@@ -563,7 +563,7 @@ return array("Type"=>$type,"Details"=>$details);
 
 function getShiftCode($sc){
 	
-	$connectionstring = mysqli_connect(PHOENIX_DB_DNS,PHOENIX_DB_USER,PHOENIX_DB_PASS);
+	$connectionstring = mysqli_connect(PHOENIX_DB_DNS,PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
     $dbconn = mysqli_select_db ($connectionstring,PHOENIX_DB_DATABASE);
 	$query = "SELECT ShiftNo, ShiftCode, ShiftName, TimeStart, TimeEnd FROM shifts WHERE ShiftCode='$sc'";
     $result = mysqli_query($connectionstring,$query);
@@ -583,7 +583,7 @@ function getShiftCode($sc){
 
 function db_get_reimbursement_payees($empno){
 	
-$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
 $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);		
 	
 $sql = "SELECT FiledAs,TIN,HomeAddress,StreetAddress,City,Province,RAZipCode,Country FROM employees WHERE EmployeeNo=$empno";
@@ -607,7 +607,7 @@ return $payees_date;
 
 function get_reimbursement_nos($p_name){
 	
-$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
 $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
 
 $reim_nos  ="";
@@ -633,7 +633,7 @@ return $reim_nos;
 
 function db_Get_TeamNo($emp){
 	
-$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
 $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);		
 
 	
@@ -655,7 +655,7 @@ return $team_collectno;
 
 function default_TeamNo($emp){
 	
-$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
 $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);		
 	
 
@@ -687,7 +687,7 @@ return $teamnos;
 
 function db_Get_TeamName($teamno){
 	
-$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
 $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);		
 	
 $sql = "SELECT TeamName FROM webteams WHERE TeamNo=$teamno";
@@ -702,7 +702,7 @@ return $team_name;
 
 function dbCountTeamNo($emp){
 	
-$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
 $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
 
 $sql ="SELECT COUNT(DISTINCT(TeamNo)) AS TeamCount FROM webteamleader WHERE EmployeeNo=$emp";
@@ -723,7 +723,7 @@ return $show;
 
 function chk_already_approved($arno,$emp,$field){
 	
-	$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+	$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
 	$dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
 
 	$sql = "SELECT $field FROM webauthorizationrequests WHERE WebAuthorizationRequestNo = $arno";
@@ -749,7 +749,7 @@ function chk_already_approved($arno,$emp,$field){
 function db_funcs_PasswordSetting_Bool($code)
 {
     $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
-        PHOENIX_DB_PASS);
+        PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
     $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
 
     $query = "SELECT Bool FROM codelookups where TypeName = 'PASS' and Code=$code";
@@ -767,7 +767,7 @@ function db_getDaysinGivenDate($dayx, $emp)
 {
 
     $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
-        PHOENIX_DB_PASS);
+        PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
     $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
 
     $query = "SELECT $dayx FROM employees WHERE EmployeeNo=$emp";
@@ -784,7 +784,7 @@ function db_funcs_getShiftBased($emp)
 {
 
     $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
-        PHOENIX_DB_PASS);
+        PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
     $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
 
     $query = "SELECT ShiftBased FROM employees where EmployeeNo=$emp";
@@ -799,7 +799,7 @@ function db_funcs_getShiftBased($emp)
 
 function chk_time_or_duration($emp_table,$emp_no){
 	
-$connectionstring = mysqli_connect(PHOENIX_DB_DNS,PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS,PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
 $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
 	
 $que = "SELECT COUNT(*) as ATTD FROM $emp_table WHERE EmployeeNo=$emp_no AND DateOut IS  NULL 
@@ -826,7 +826,7 @@ return $retvalue;
 
 function get_absent_from_payroll($table,$emp_no){
 	
-$connectionstring = mysqli_connect(PHOENIX_DB_DNS,PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS,PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
 $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);		
 	
 
@@ -853,7 +853,7 @@ return $absence;
 
 function getRequiredHoursSettings(){
 
-$connectionstring = mysqli_connect(PHOENIX_DB_DNS,PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS,PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
 $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
 	
 $req_hours_query = "SELECT Value from codelookups WHERE TypeName='STWRK' and Code=0";
@@ -867,7 +867,7 @@ return $req_row_val;
 
 function chkEmployeeAbsence($table,$emp){
 
-$connectionstring = mysqli_connect(PHOENIX_DB_DNS,PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS,PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
 $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);		
 $sql = "SELECT COUNT(*) as ATTD FROM $table WHERE EmployeeNo=$emp AND  AttendanceType=25";
 $req_result = mysqli_query($connectionstring,$sql);
@@ -883,7 +883,7 @@ return $req_row_val;
 
 function getWages_Employee($empno){
 	
-$connectionstring = mysqli_connect(PHOENIX_DB_DNS,PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS,PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
 $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);		
 
 $sql = "SELECT WageType FROM employees  WHERE EmployeeNo=$empno";
@@ -903,7 +903,7 @@ function db_funcs_PasswordSetting_Value($code)
 {
 
     $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
-        PHOENIX_DB_PASS);
+        PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
     $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
 
     $query = "SELECT Value FROM codelookups where TypeName = 'PASS' and Code=$code";
@@ -920,7 +920,7 @@ function db_funcs_PassLastChange($empno)
 {
 
     $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
-        PHOENIX_DB_PASS);
+        PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
     $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
 
     $query  = "SELECT PassLastChange FROM webusers where EmployeeNo = $empno";
@@ -936,7 +936,7 @@ function db_funcs_PassLastChange($empno)
 
 function getTeamName($teamno){
 	
-	$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+	$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
     $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
 	
 	$retval = "";
@@ -978,7 +978,7 @@ function db_funcs_GetFieldValue($connectionstring, $dbconn, $table, $field, $fil
 
 function LeaveFunc($emp,$leave_code =array(),$desc=array()){
 
-$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
 $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
 
 $same_con = $connectionstring;
@@ -1649,7 +1649,7 @@ function get_cut_off_approval($start_date = array())
 {
 
     $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
-        PHOENIX_DB_PASS);
+        PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
     $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
 
 
@@ -1782,7 +1782,7 @@ function db_funcs_get_approval_type($rqst_type_no = array(), $target_date =
     array(), $start_date = array())
 {
     $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
-        PHOENIX_DB_PASS);
+        PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
     $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
 
    
@@ -1829,7 +1829,7 @@ function db_funcs_validate_approval($rqst_type_no = array(), $retvalue = array()
     $target_date = array(), $start_date = array())
 {
     $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
-        PHOENIX_DB_PASS);
+        PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
     $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
 
     //echo $rqst_type_no;
@@ -2214,7 +2214,7 @@ function get_cutoff($start_date)
 {
 
     $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
-        PHOENIX_DB_PASS);
+        PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
     $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
 
 
@@ -2343,7 +2343,7 @@ function db_funcs_approval_rules_settings($field_name, $rqst_type_no = array())
 { // REQUIRED 2nd Level Approver
 
     $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
-        PHOENIX_DB_PASS);
+        PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
     $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
     $retval = "";
 
@@ -2392,7 +2392,7 @@ function db_funcs_approval_rules_settings2($field_name, $rqst_type_no = array())
     //2nd Level Approver Overrides 1st Level Approver
 
     $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
-        PHOENIX_DB_PASS);
+        PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
     $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
     $retval = "";
 
@@ -2438,7 +2438,7 @@ function db_funcs_gettemptype($rqtypeno = array())
 {
 
     $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
-        PHOENIX_DB_PASS);
+        PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
     $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
 
     $query = "SELECT Type from webauthorizationrequests where WebAuthorizationRequestNo=$rqtypeno ";
@@ -2455,7 +2455,7 @@ function db_funcs_schedchange_reflectpayroll($old_date, $new_date, $old_shifts,
 {
 
     $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
-        PHOENIX_DB_PASS);
+        PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
     $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
 
 
@@ -2483,7 +2483,7 @@ function db_funcs_GetAlertSection($field_name)
 {
 
     $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
-        PHOENIX_DB_PASS);
+        PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
     $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
     $retval = "";
 
@@ -2498,7 +2498,7 @@ function db_funcs_GetAlertSection($field_name)
 
 function reim_detailapp_chk($web_rno,$empno){
 	
-$connectionstring = mysqli_connect(PHOENIX_DB_DNS,PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS,PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
 $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
 
 $sql = "SELECT ApprovedAmount FROM webreimbursementrequests WHERE WebReimbursementRequestNo=$web_rno AND EmployeeNo=$empno";
@@ -2518,7 +2518,7 @@ return $retvalue;
 function db_funcs_GetChkBoxPerApprovalLevel($team_num, $employeeno, $requesttype,$approvlvl)
 {
 
-    $connectionstring = mysqli_connect(PHOENIX_DB_DNS,PHOENIX_DB_USER,PHOENIX_DB_PASS);
+    $connectionstring = mysqli_connect(PHOENIX_DB_DNS,PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
     $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
     $retval = "";
     //echo $team_num;
@@ -2535,7 +2535,7 @@ function db_funcs_GetChkBoxPerApprovalLevel($team_num, $employeeno, $requesttype
 
 function chkProcessSched($rqno){
 	
-$connectionstring = mysqli_connect(PHOENIX_DB_DNS,PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS,PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
 $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
 	
 $query = "SELECT COUNT(*) FROM webauthorizationrequests WHERE WebAuthorizationRequestNo=$rqno AND Status IN (2,3)";
@@ -2550,7 +2550,7 @@ return $cnt;
 
 function chkIfNoDefaultEmpSetting(){
 	
-    $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+    $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
     $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
 	
     $query = "SELECT count(allowedit) as cnt FROM webtoolconfigprofile WHERE  allowedit=1 and `show`=1";
@@ -2569,7 +2569,7 @@ function chkIfNoDefaultEmpSetting(){
 function db_funcs_GetApprovalOtherSettings($field_name, $code)
 {
 
-    $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+    $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
     $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
     $retval = "";
 
@@ -2653,7 +2653,7 @@ function db_funcs_GetFieldValue3($connectionstring, $dbconn, $sql, $field)
 function db_funcs_GetFieldValuesFromSQL($sql, $returnFields)
 {
     $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
-        PHOENIX_DB_PASS);
+        PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
     $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
     $retval = array();
     // Get return Fields
@@ -2675,7 +2675,7 @@ function db_funcs_GetFieldValuesFromSQL($sql, $returnFields)
 //------------------------------------------------------------------------------------
 function db_funcs_GetRecordCount($tablename, $filter = "")
 {
-    $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+    $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
     $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
     $retval = "";
     $query = "SELECT COUNT(*) AS Count " . "FROM " . strtolower($tablename);
@@ -2701,7 +2701,7 @@ function db_funcs_GetRecordCount($tablename, $filter = "")
 function db_funcs_GetRecordCount2($tablename, $teamlead)
 {
     $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
-        PHOENIX_DB_PASS);
+        PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
     $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
     //$retval = "";
     $query = "SELECT COUNT(*) AS RecordCount " . "FROM $tablename ";
@@ -2794,7 +2794,7 @@ function db_funcs_GetTeamName($team_no, $connectionstring, $dbconn)
 function db_funcs_Get_AddDetails($nos, $field, $table, $where)
 {
 	
-	$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER, PHOENIX_DB_PASS);
+	$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER, PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
     $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
     $retval = "";
     $query = "SELECT $field FROM $table " . "WHERE $where=$nos";
@@ -3075,7 +3075,7 @@ function is_leap_year($year)
 function db_funcs_ImplodeResult($query, $separator)
 {
     $connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,
-        PHOENIX_DB_PASS);
+        PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
     $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);
     $retval = "";
     $result = mysqli_query($connectionstring,$query);
@@ -3090,7 +3090,7 @@ function db_funcs_ImplodeResult($query, $separator)
 
 function dbCountOldDisapproval($webno){
 	
-$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
 $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
 
 $sql ="SELECT COUNT(DisapprovalRemark) AS cnt FROM webauthorizationrequestremarks WHERE WebAuthorizationRequestNo=$webno and Remark IS NULL;";
@@ -3109,7 +3109,7 @@ return $show;
 
 function dbSickLeaveValidation($sl1_chk_enable,$leave_type,$Lstart_time,$Lend_time,$Lstart_date,$Lend_date,$chkWholeDay){
 	
-$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS);
+$connectionstring = mysqli_connect(PHOENIX_DB_DNS, PHOENIX_DB_USER,PHOENIX_DB_PASS, PHOENIX_DB_DATABASE,PHOENIX_DB_PORT);
 $dbconn = mysqli_select_db($connectionstring,PHOENIX_DB_DATABASE);	
 //echo $sl1_chk_enable;
 
