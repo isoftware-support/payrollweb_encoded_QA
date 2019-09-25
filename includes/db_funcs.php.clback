@@ -992,7 +992,7 @@ $same_con = $connectionstring;
 	$sql = "SET @dtYear1stCutoff = get_YearFirstCutOff(@ntPayPeriod, Year(now()))";
 	$result = mysqli_query($connectionstring,$sql);
 	
-	$sql = "CALL leaves_SetVariables($emp,@dtYear1stCutoff,@dtLastLockedCutOff)";
+	$sql = "CALL leaves_SetVariables($emp, null, @dtLastLockedCutOff)";
 	$result = mysqli_query($connectionstring,$sql);
 	
 	//print_r($leave_code);
