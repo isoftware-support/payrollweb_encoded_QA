@@ -89,6 +89,7 @@ td.ErrorMessageSmall
 	border-color: #D8D1D1;
 	border-width: 1px;
 	border-spacing: 5px;	
+	line-height: 20px;
 }
 
 table{
@@ -365,7 +366,7 @@ a.link_simple:hover { FONT-SIZE: 10px; FONT-WEIGHT: none; COLOR: #ed2140; FONT-F
     font-weight:normal;
     color:#FFFFFF;
 }*/
-tr.ColumnHeader
+tr.DataHeading
 {	
 	font-size:10px;
     font-family:sans-serif;	
@@ -414,8 +415,6 @@ margin-left: 150px;
 }
 
 
-
-
 input.ButtonBox
 {
 	font-size:10px;
@@ -441,9 +440,9 @@ input.ButtonBox
 	width: 200%;
 }
 
-.ta-center{ text-align: center; }
-.ta-right{ text-align: right; }
-.ta-left{ text-align: left; }
+.ta-c{ text-align: center; }
+.ta-r{ text-align: right; }
+.ta-l{ text-align: left; }
 
 .w-30{width: 30px;}
 .w-60{width: 60px;}
@@ -458,3 +457,11 @@ input.ButtonBox
 .w-all{width: 100%;}
 .h-all{height: 100%;}
 
+.c-silver{
+	color: silver;
+}
+
+.aligner {
+  display: flex;
+  align-items: center;  
+}

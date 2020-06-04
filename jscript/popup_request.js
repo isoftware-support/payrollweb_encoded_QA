@@ -102,11 +102,20 @@
 		var dttmTo = document.getElementById('dttmTo');
 		var option = document.querySelector("input[name='request_type']:checked");
 
-		if ( option.value === "0" || option.value === "3"){   //suggest in OT & TOIL only
+		
+		let bln = false;
+		if ( option ){
+			if ( option.value === "0" || option.value === "3") bln = true; //suggest in OT & TOIL only
+		}
+
+		if ( isApproverAdd ) bln = true;
+
+		if ( bln ){   
 			if ( ! dttmTo.value){  //empty
 				dttmTo.value = this.value;
 			}
 		}
+
 		computeHours();
 	}
 
@@ -182,6 +191,7 @@
 			for( var i = 0; i < e.length; i++ ){				
 				if ( parseInt(e[i].value) != parseInt(param.requestType) ){
 					e[i].disabled = true;
+					// e[i].parentNode.removeChild(e[i]);
 				}
 			}
 		}

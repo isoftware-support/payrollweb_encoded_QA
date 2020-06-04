@@ -7,18 +7,28 @@
 		});
   
         var busy = new BusyGif();        
-        var selected;
+        var selected = null;
 
 
         $(document).ready( function(){    
 
             function showDetails(e){
                 busy.show2();
-                xxhr("GET", 'xhtml_response.php?q=myRecEntry&id='+ e.dataset.id, show);                    
+                xxhr("GET", 'xhtml_response.php?q=myRecEntry&id='+ e.dataset.id + _session_vars, show);                    
 
+                // prev selected
+                if ( selected ) selected.classList.remove("DataRowSelected");
+
+                // current selected
+                selected = e;
+                e.classList.add("DataRowSelected");
+
+                /*
                 if ( selected ) selected.style = "background-color: white";
                 selected = e;
                 e.style=" background-color: #D6D6D6";
+                */
+
             };
 
             function show(res){
@@ -37,9 +47,9 @@
                 
                 console.log(txt);
                 busy.show2();
-                xxhr("GET", 'xhtml_response.php?q=recAll&f='+ txt, showAll);                    
+                xxhr("GET", 'xhtml_response.php?q=recAll&f='+ txt + _session_vars, showAll);                    
             }            
-            function showAll(res){
+            function showAll(res){                
 
                 busy.hide();
                 getById('rec-all').innerHTML = res;                                

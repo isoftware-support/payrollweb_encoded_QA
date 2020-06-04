@@ -40,7 +40,7 @@
 
         //add event click event to columns
         function setSortColumnEvent(){
-            var cols = document.querySelectorAll(".column-sort");
+            var cols = document.querySelectorAll(".DataHeadingLink");
             for (var i = 0; i < cols.length; i++) {                            
                 cols[i].addEventListener("click", setColumnToOrder );
             }                    
