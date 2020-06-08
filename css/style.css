@@ -419,15 +419,17 @@ label, .label{
 .d-hide{
 	display: none;
 }
+
+
 /* ---- generics ------ */
 
 .shadow-5 {box-shadow: 5px 5px 5px #aaaaaa;	}
 .shadow-circle { border-radius: 100px; }
 
-.p-0   { padding: 0; }
+.p-0   { padding: 0 !important; }
 .p-2   { padding: 2px; }
 .p-5   { padding: 5px; }
-.p-10   { padding: 10px; }
+.p-10   { padding: 10px !important; }
 .p-20   { padding: 20px; }
 .p-50   { padding: 50px; }
 
@@ -1766,4 +1768,6 @@ a.jobs-link-sub{
 	position: absolute;
 	left: -500;
 }
+
+
 /*----------------------*/

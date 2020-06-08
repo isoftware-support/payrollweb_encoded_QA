@@ -8,6 +8,7 @@ altdomains = altDomains.toLowerCase();
 let domains = altDomains.split(',');
 
 var pdfParams = '1'; 
+var newDispute = true;
 
 function _suggestEmail(){
 
@@ -109,6 +110,8 @@ function generatePayroll(){
     xxhrPost("_payroll/payroll_ajax.php?q=payrollHistory"+ _session_vars, posts, 
     function( res ){
 
+        console.log(res);
+        
         let data = JSON.parse(res);
 
         pdfParams = data.pdfParams;
@@ -164,17 +167,23 @@ function acknowledgePayslip(t){
       console.log(res);
       let data = JSON.parse(res);
 
-      var remarks = "";
-      if ( data.remarks ){
-         remarks = data.remarks;
+      let txt = get("#dispute_remarks");      
 
+      var remarks = "";
+      if ( data.remarks ){  // already have dispute remarks
+        remarks = data.remarks;
         cancel_dispute_btn.style.display = "";
+        txt.dataset.new = '0';
+
+        newDispute = false;
 
       }else{
         cancel_dispute_btn.style.display = "none";  //hide cancel button
-      }
-
-      get("#dispute_remarks").value = remarks;
+        newDispute = true;
+      }      
+      
+      txt.value = remarks;
+      
 
       _showDisputeBox();
       busy.hide();
@@ -188,9 +197,14 @@ function acknowledgePayslip(t){
 
       busy.show2();
 
+      if ( newDispute )
+        _err_msg( "Sending dispute payslip alert." );        
+
       let r = "&r="+ remarks;
       xxhrGet( PAYROLLWEB_URI + "/_payroll/payroll_ajax.php?q=disputeLog"+ ds + d + r + _session_vars,
       function(res){      
+
+        console.log( res);
 
         let data = JSON.parse(res);
         console.log(data);

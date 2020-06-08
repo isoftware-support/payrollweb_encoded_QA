@@ -271,9 +271,8 @@ function dimBack(dimIt){
     }
 }
 //-------------------------------
-
 function CenterDiv(id, topAdj = 0) {    
-    
+        
     var elem = $(id);   
     var top = (($(window).height() - $(elem).outerHeight()) / 2) + $(window).scrollTop();
     var left = (($(window).width() - $(elem).outerWidth()) / 2) + $(window).scrollLeft();
@@ -283,6 +282,28 @@ function CenterDiv(id, topAdj = 0) {
     $(elem).css({'top':top, 'left':left});  
 }
 //-------------------------------
+
+function CenterItem(id){
+
+    if ( id.indexOf("#") == -1 ) id = "#" + id;
+
+    let e = get(id);
+
+    let wh = window.innerHeight;
+    let ww = window.innerWidth;
+    let sy = window.scrollY;
+    let sx = window.scrollX;
+
+    let eh = e.clientHeight;
+    let ew = e.clientWidth;
+
+    let x = (ww / 2) - (ew / 2) + sx;
+    let y = (wh / 2) - (eh / 2) + sy;
+
+    e.style.top = y;
+    e.style.left = x;    
+}
+
 
 function CalendarDateTime(imgID, inputTextID, showTime, dateFormat){
 
