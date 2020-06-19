@@ -5,12 +5,15 @@
 	margin:0;
 } 
 */
+
+
 body 
 {
+
 	font-size : 11px;
 	font-family: Helvetica, Sans-serif, Arial;
 	margin : 0;
-	background-color:#e0e0e0;
+	background-color: #D3D3D3;
 	
 }
 
@@ -37,7 +40,8 @@ body
 	/*transform: translateY(-50%);*/
 }
 
-h1,h2,h3,h4, tr, td, label, div, p, button, fieldset{
+h1,h2,h3,h4, tr, td, label, div, p, button, fieldset, input {
+
 	padding: 0;
 	margin: 0;
 }
@@ -123,7 +127,7 @@ a.ContenTableDetailLInk:hover { font-weight: bold; font-size: 11px; color: #ed21
 }
 a.ContentTextLink:hover { font-weight: bold; font-size: 11px; color: #ed2140; text-decoration: none  }
 
-.DataHeading{
+.DataHeading {
 	font-size:11px;
     font-weight:normal;
 	background:#d72202;
@@ -228,63 +232,64 @@ a.ContentTextLink:hover { font-weight: bold; font-size: 11px; color: #ed2140; te
 .PageOption:active { font-weight: bold; font-size: 11px; color: #ed2140; text-decoration: none  }
 .PageOption:visited { font-weight: bold; font-size: 11px; color: #ed2140; text-decoration: none  }
 
-.EditBox{
+input[type="text"], input[type="password"], .EditBox {
 	font-family: Helvetica, Sans-serif, Arial;	
-	font-size:12px;
+	font-size:11px;
     font-weight:normal;
-    color:#333333; 
+    color: #333333; 
     width: 100%;
     box-sizing: border-box;
-    margin: 0px 0;
-    padding-left: 5px;
+    padding: 1px 5px !important;
     vertical-align: center;
 }
 
-.MemoBox{
+.MemoBox, textarea{
 	font-size:12px;
 	font-family: Helvetica, Sans-serif, Arial;
     font-weight:normal;
-    color:#333333; 
+    color: #333333; 
     width: 100%;    
-    padding: 0 5px;
-    /*margin: 1px auto;*/
+    padding: 2px 5px;
     box-sizing: border-box;
 }
 
 .Button{
 	font-size:11px;    
 	font-weight: normal; 
-	width:100%;
+	width:100px;
 	height:20px;
 	box-sizing: border-box;
 	padding: 1px;
 }
 
-.GroupBox{
+.GroupBox, fieldset{
 	font-family: Helvetica, Sans-serif, Arial;
 	font-size:11px;    
 	font-weight: bold; 
 	color:#333333;
+	padding: 20px 20px 30px 20px;
 	/*width:98%;*/
 	/*height:100%;	*/
 	/*box-sizing: border-box;*/
 }
-
-.CheckBox{
-	margin-right: 5px;
+legend{
+	padding: 0 5px ;
+}
+.CheckBox, input[type='checkbox']{
+	margin: 2px 0;
 }
 .CheckBoxLabel{
-	font-family: Helvetica, Sans-serif, Arial;
-	font-size:11px;    
-	font-weight: normal; 
-	color:#333333; 
+	margin-left: 5px;
 }
 
-label, .label{
+label, .CheckBoxLabel, .label, .label-i {
 	font-family: Helvetica, Sans-serif, Arial;
 	font-size:11px;    
 	font-weight: normal; 
 	color: *#333333; 
+}
+.label-i{
+	font-style: italic;
 }
 
 .LabelHighlight{
@@ -295,9 +300,9 @@ label, .label{
 	color:#333333; 
 }
 
-.DropDownList{
+.DropDownList, select{
 	font-family: Helvetica, Sans-serif, Arial;	
-	font-size:12px;
+	font-size:11px;
     font-weight:normal;
     color:#333333; 
     width: 100%;
@@ -420,6 +425,27 @@ label, .label{
 	display: none;
 }
 
+.flex{
+	display: flex;
+}
+.flex-column{
+	flex-direction: column;
+}
+.flex-justify-center{
+	justify-content: center;
+}
+
+.flex-1{
+	flex: 1;
+}
+
+.flex-2{
+	flex: 2;
+}
+
+.flex-3{
+	flex: 3;
+}
 
 /* ---- generics ------ */
 
@@ -431,6 +457,8 @@ label, .label{
 .p-5   { padding: 5px; }
 .p-10   { padding: 10px !important; }
 .p-20   { padding: 20px; }
+.p-30   { padding: 30px; }
+.p-40   { padding: 40px; }
 .p-50   { padding: 50px; }
 
 .pl-5  { padding-left: 5px !important; }
@@ -453,10 +481,12 @@ label, .label{
 .plp-20 { padding-left: 20% !important; }
 .plp-30 { padding-left: 30% !important; }
 
-
+.pt-2  { padding-top: 2px; }
 .pt-3  { padding-top: 3px; }
 .pt-5  { padding-top: 5px; }
 .pt-10  { padding-top: 10px; }
+.pt-20  { padding-top: 20px; }
+.pt-100  { padding-top: 100px; }
 .pb-2  { padding-bottom: 2px !important; }
 .pb-5  { padding-bottom: 5px !important; }
 .pb-10  { padding-bottom: 10px !important; }
@@ -475,14 +505,20 @@ label, .label{
 .px-5  { padding-left: 5px; padding-right: 5px; }
 .px-10 { padding-left: 10px; padding-right: 10px; }
 .px-20 { padding-left: 20px; padding-right: 20px; }
+.px-30 { padding-left: 30px; padding-right: 30px; }
+.px-40 { padding-left: 40px; padding-right: 40px; }
+.px-50 { padding-left: 50px; padding-right: 50px; }
 
 /*---- margins -------------*/
 .m-0  { margin: 0; }
 .m-a  { margin: auto; }
 .m-5  { margin: 5px; }
-.my-2 { margin: 2px; }
+.m-20  { margin: 20px; }
+.my-2 { margin-top: 2px !important; margin-bottom: 2px !important; }
+.my-3 { margin-top: 3px !important; margin-bottom: 3px !important; }
 .my-5 { margin-top: 5px !important; margin-bottom: 5px !important; }
 .my-10{ margin-top: 10px !important; margin-bottom: 10px !important; }
+.my-20{ margin-top: 20px !important; margin-bottom: 20px !important; }
 
 .mp-2{ margin-left: 2% !important; margin-right: 5% !important; }
 .mp-5{ margin-left: 5% !important; margin-right: 5% !important; }
@@ -490,6 +526,7 @@ label, .label{
 
 .mx-5{ margin-left: 5px !important; margin-right: 5px !important; }
 .mx-10{ margin-left: 10px !important; margin-right: 10px !important; }
+.mx-20{ margin-left: 20px !important; margin-right: 20px !important; }
 
 .ml-5{ margin-left: 5px !important; }
 .ml-10{ margin-left: 10px !important; }
@@ -515,7 +552,7 @@ label, .label{
 .w-60, .fw-60  {width: 60px !important; }
 .w-70, .fw-70  {width: 70px !important; }
 .w-80, .fw-80  {width: 80px !important; }
-.w-90, .fw-90  {width: 80px !important; }
+.w-90, .fw-90  {width: 90px !important; }
 .w-100, .fw-100 {width: 100px !important; }
 .w-110, .fw-110 {width: 110px !important; }
 .w-115, .fw-115 {width: 115px !important; }
@@ -561,20 +598,25 @@ label, .label{
 .wp-98 { width: 98%; }
 
 .h-all {height: 100%;}
-.h-20  {height: 20px;}
-.h-15  {height: 15px;}
-.h-10  {height: 10px;}
 .h-5   {height: 5px;}
+.h-10  {height: 10px;}
+.h-15  {height: 15px;}
+.h-20  {height: 20px;}
+.h-30  {height: 30px;}
+.h-80 { height: 80px;}
 .h-100 { height: 100px;}
 .h-200 { height: 200px;}
 .h-300 { height: 300px;}
+.h-600 { height: 600px;}
 
+.hp-100 {height: 100%;}
 
 .ta-c { text-align: center; padding-left: 0; padding-right: 0; }
 .ta-r { text-align: right; padding-right: 5px; }
 .ta-l { text-align: left; padding-left: 5px; }
 
-.va-c{vertical-align: center;}
+.va-c{vertical-align: middle;}
+.va-t{vertical-align: top;}
 
 .c-white {color: white !important; }	 
 .c-red   {color: red; }	 
@@ -620,10 +662,6 @@ label, .label{
 	width: 85%;
 	margin: 20px auto; 
 	
-}
-
-fieldset{
-	padding: 20px 20px;
 }
 
 .table_company_head{	
@@ -674,10 +712,11 @@ a.MainMenu{
 	color: #FFFFFF;
  	float: left; 
  	width: 6em; 
- 	vertical-align: bottom; 
+ 	vertical-align: top; 
  	text-decoration: none; 
- 	color: white; background-color: 
- 	purple; padding: 0.6em 0.6em; 
+ 	color: white; 
+ 	background-color: purple; 
+ 	padding: 0.6em 0.6em; 
  	border-right: 1px solid #000000;	
 }
 
@@ -788,7 +827,7 @@ a.menu:active { TEXT-DECORATION: none; FONT-SIZE: 12px; FONT-WEIGHT: none; COLOR
 
 .Menu
 {
-	font-size : 10px;
+	font-size : 12px;
 	font-family : sans-serif;
 }
 td.CompanyHeading	
@@ -1331,6 +1370,7 @@ allan changes
 table{
 	border-collapse: collapse;
 	border-spacing: 0		
+	background-color: white;
 }
 
 

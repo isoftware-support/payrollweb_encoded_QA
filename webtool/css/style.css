@@ -90,6 +90,7 @@ td.ErrorMessageSmall
 	border-width: 1px;
 	border-spacing: 5px;	
 	line-height: 20px;
+	background-color: #f3f3f3;
 }
 
 table{
@@ -366,7 +367,7 @@ a.link_simple:hover { FONT-SIZE: 10px; FONT-WEIGHT: none; COLOR: #ed2140; FONT-F
     font-weight:normal;
     color:#FFFFFF;
 }*/
-tr.DataHeading
+.DataHeading
 {	
 	font-size:10px;
     font-family:sans-serif;	
@@ -389,7 +390,7 @@ tr.DataHeading
 }
 */
 
-input.Button
+input.Button_x
 {
 	font-size:10px;
     font-family:sans-serif;

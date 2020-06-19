@@ -24,6 +24,8 @@ function _suggestEmail(){
 function _isValidDomain( email )
 {
 
+  //alert(domains);
+
   if (domains.length == 0) return true;  // no domain setting
 
   let ret = false;
@@ -51,10 +53,10 @@ function _err_msg( msg ){
 
 }
 
-function email_ajax(params){
+function email_ajax(){
 
   let email = employee_email;   // actual employee email
-
+  
   if ( isSendToAltEmail == "1" ){
 
     email = getById("send_to_email").value;  // input email
@@ -72,9 +74,9 @@ function email_ajax(params){
 
   }
     
-  xxhr("GET", "_payroll/pdf_print.php?pd="+params +"&ea="+email,
+  xxhr("GET", "_payroll/pdf_print.php?pd="+pdfParams +"&ea="+email,
     function(msg){
-      alert(msg);
+      alert('Payroll payslip successfully sent to '+ email);        
     });
 
   alert('Please wait for a moment while sending an email to your email account.');  

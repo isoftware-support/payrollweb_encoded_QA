@@ -203,7 +203,7 @@
 
 		//ticket approval
 		$("#btnTicketRule_apr").click(function(){
-			alert(1);
+			//alert(1);
 			// var busy = new BusyGif("#btnTicketRule_apr");
 			busy.show2();
 
