@@ -20,6 +20,7 @@
 				mode = true;
 			}
 				
+
 			params = '&fm=' + true + '&fds=' + escape(f.startdate.value); 
 			params = params + '&fde=' + escape(f.enddate.value) + '&fts=' + escape(f.targetstart.value);
 			params = params + '&fte=' + escape(f.targetend.value);
@@ -33,6 +34,7 @@
 			// alert(path);
 			xxhr("GET", path, function(msg){
 				
+				// alert( msg);
 				// console.log(msg);
 				filter_reloadParent(params);	
 
