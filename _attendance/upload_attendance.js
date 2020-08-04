@@ -108,7 +108,7 @@
 
     function showUploadedAttdLogs(res){        
         
-        console.log(res);
+        // console.log(res);
 
         busy.hide();        
         let file =  getById("import-log-file");
@@ -177,9 +177,12 @@
         busy.show2(); 
 
         deletedNos = a.join(",");
+
+        // alert( deletedNos);
+
         xxhr('GET', 'xhtml_response.php?q=delUploadAttd&no='+ deletedNos + tmm + _session_vars,             
         function(){
-                
+               
             let ids = deletedNos.split(",");        
 
             for(var i = ids.length -1; i >= 0; i--){            
@@ -254,6 +257,8 @@
 
         xxhrPost("xhtml_response.php?q=apprAttd"+ _session_vars, data, 
         function(res){
+
+            //console.log( res );
 
             let data = JSON.parse(res);
             

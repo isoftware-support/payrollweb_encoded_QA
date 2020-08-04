@@ -53,7 +53,7 @@ function OnSubmitProfileValidation(thisform) {
 		
 		
 		if(MobilePhone.value.length > 0){
-			if  (!validateGSMNum(MobilePhone)) {
+			if  ( !validateGSMNum(MobilePhone)) {
     			return false;
 		    }
 	    }
@@ -145,27 +145,38 @@ function onValidEmail(emailStr) {
     return true;
   }
 function validateGSMNum(field) {
-        var valid = "0123456789"
-        var ok = "yes";
-        var temp;
-        var length = field.value.length;
-        for (var i=0; i<field.value.length; i++) {
-                temp = "" + field.value.substring(i, i+1);
-                if (valid.indexOf(temp) == "-1") ok = "no";
-        }
-        if (ok == "no") {
-          alert("Only numbers are accepted in this field.");
-          field.focus();
-          field.select();
-          return false;
-        }else if(length != 12 || (field.value.substring(0,3) != "639")){
-            alert("Invalid Mobile Number format.  (i.e. 639171234567)");
-            field.focus();
-            field.select();
-            return false;
-        }
-    return true;
+
+
+  if ( ! validateCharsOnly(field.value, "0123456789-+() ") ){
+    alert("Invalid Mobile Number. ( accepted characters are -+( )09171234567 ) ");
+    field.focus();
+    field.select();
+    return false;
+  }
+  return true;
+
+    //     var valid = "0123456789"
+    //     var ok = "yes";
+    //     var temp;
+    //     var length = field.value.length;
+    //     for (var i=0; i<field.value.length; i++) {
+    //             temp = "" + field.value.substring(i, i+1);
+    //             if (valid.indexOf(temp) == "-1") ok = "no";
+    //     }
+    //     if (ok == "no") {
+    //       alert("Only numbers are accepted in this field.");
+    //       field.focus();
+    //       field.select();
+    //       return false;
+    //     }else if(length != 12 || (field.value.substring(0,3) != "639")){
+    //         alert("Invalid Mobile Number format.  (i.e. 639171234567)");
+    //         field.focus();
+    //         field.select();
+    //         return false;
+    //     }
+    // return true;
 }
+
 function validateNum(field) {
     var valid = "0123456789"
     var ok = "yes";

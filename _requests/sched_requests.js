@@ -248,7 +248,9 @@
 
     function ajaxCall(approves,array_countx,approve_rqno,approve_lvlno,userno,teamnos,stats){
     	
-        
+        // called from Scheduled request
+
+        // alert(1);
     // alert(approves);
     //alert(userno);
     //alert(teamnos);

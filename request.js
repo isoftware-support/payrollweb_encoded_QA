@@ -89,9 +89,9 @@ $(document).ready(function(){
     	$('body').append("<div id='busygif'><img src=images/loading-gif.gif width=20px/></div>");  
     	$('div#busygif').css({'display':'block', 'position':'absolute', 'top':xy.top ,'left':xy.left + width});    	
 		
-    	if (this.id != 'disapprove_x'){
+    	// if (this.id != 'disapprove_x'){
     		$('img#floating_busygif').css('display','block');
-    	}
+    	// }
 		
 
     });    

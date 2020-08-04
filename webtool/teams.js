@@ -77,7 +77,8 @@ function verifyDeleteTeam(n,t)
     }
 	//alert(n);
 	//alert("teams.inc.php?save=save&m=03&t="+escape(n)); 
-	window.location="del_this.php?no="+n+"&ty="+t+"";	
+	window.location="del_this.php?no="+n+"&ty="+t+"&u="+ userId;	
+    
 	//nn = formPost("teams.inc.php?save=save&m=03&t="+escape(n), "");
    // window.location.reload();
 }

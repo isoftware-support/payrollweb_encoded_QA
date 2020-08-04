@@ -1,3 +1,4 @@
+
 function extractVals()
 {
     param = "";
@@ -96,7 +97,7 @@ function verifyDeleteUserGroup(n,t)
    // nn = formPost("security.php?qid=03&ug="+escape(n), "");
     //window.location.reload();
 	
-window.location="del_this.php?no="+n+"&ty="+t+"";		
+	window.location="del_this.php?no="+n+"&ty="+t+"&u="+ userId;		
 	
 }
 function formPost(url, postStr)
@@ -289,6 +290,8 @@ function GetSelectedRadioButton(ObjRadioButtonName)
 }
 function UpdateWebUser(mode)
 {
+
+
 	var x     = document.forms[0];;	
 	var url   = "";
 	var param = "";
@@ -316,7 +319,7 @@ function UpdateWebUser(mode)
 				
 				//var nos = document.getElementById('')
 				var t = 4; // for Delete Users
-				window.location="del_this.php?no="+param+"&ty="+t+"";	
+				window.location="del_this.php?no="+ param + "&ty="+ t + "&u="+ userId;	
 				
 								
 			break;

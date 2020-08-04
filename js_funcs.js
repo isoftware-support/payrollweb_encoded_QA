@@ -34,6 +34,20 @@
         }
     }
 
+    function validateCharsOnly(string, chars, isSensitive = false) {
+
+        var char;
+        var ret = true;
+        for (var i=0; i < string.length; i++) {
+            
+            char = string.substring(i, i+1 );            
+            if ( chars.indexOf(char) == "-1"){
+                ret = false;
+                break;
+            }
+        }
+        return ret;
+    }
 
     function BusyGif(){	
                 

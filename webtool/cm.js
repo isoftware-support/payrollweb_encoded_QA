@@ -231,8 +231,8 @@ function delete_this(n,t){
         return;	
 	}	
 		
-
-window.location="del_this.php?no="+n+"&ty="+t+"";	
+    
+    window.location="del_this.php?no="+n+"&ty="+t+ "&u="+ userId;	
 	
 }
 
