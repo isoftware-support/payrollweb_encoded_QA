@@ -31,10 +31,10 @@ function registerOnline(e){
 
 	busy.show2();
 
-	const company = encodeURI(e.dataset.name);
+	const company = encodeURIComponent(e.dataset.name);
 	const key = e.dataset.key;
 	const o = e.dataset.p;
-
+		
 	//live
 	let url = reg_online_link + "?c="+ company + "&k="+ key + "&o="+o;	
 	//url = url.replace("http", "https");
@@ -46,7 +46,7 @@ function registerOnline(e){
 	
 	xxhrGet(url, (res)=>{
 
-		log(res);
+		// log(res);
 
 		const ret = JSON.parse(res);
 		
