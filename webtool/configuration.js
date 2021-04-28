@@ -506,6 +506,18 @@ function onSubmitForm(FormName){
 	return true;
 }
 
+// others
+function approvalEmailTxt()
+{
+	const checked = getById("other_approval_email_line_chk").checked;	
+	getById("other_approval_email_line_txt").disabled = !checked;
+
+	// capture texts to temp element event chkbox is unchecked
+	getById("other_approval_email_line_txt_tmp").value =
+	getById("other_approval_email_line_txt").value;
+}
+
+
 
 function trim(s){   
 	return s.replace(/^\s+|\s+$/g, '');

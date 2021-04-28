@@ -360,7 +360,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .ErrorMessage {
 	font-family: Helvetica, Sans-serif, Arial;
 	font-size: 12px;
-	font-weight: bold;
+	/*font-weight: bold;*/
 	background-color: #E8E8E8;
 	border-radius: 2px;
 	margin-bottom: 5px;
@@ -455,6 +455,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .p-0   { padding: 0 !important; }
 .p-2   { padding: 2px; }
 .p-5   { padding: 5px; }
+.p-15   { padding: 15px !important; }
 .p-10   { padding: 10px !important; }
 .p-20   { padding: 20px; }
 .p-30   { padding: 30px; }
@@ -465,6 +466,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .pl-10 { padding-left: 10px !important; }
 .pl-15 { padding-left: 15px !important; }
 .pl-20 { padding-left: 20px !important; }
+.pl-25 { padding-left: 25px !important; }
 .pl-30 { padding-left: 30px !important; }
 .pl-40 { padding-left: 40px !important; }
 .pl-50 { padding-left: 50px !important; }
@@ -586,12 +588,12 @@ label, .CheckBoxLabel, .label, .label-i {
 
 .wp-100{width: 100%; }
 .wp-10 { width: 10%; }
-.wp-20 { width: 20%; }
+.wp-20 { width: 20%  }
 .wp-30 { width: 30%; }
 .wp-40 { width: 40%; }
-.wp-50 { width: 50%; }
+.wp-50 { width: 50% ; }
 .wp-60 { width: 60%; }
-.wp-70 { width: 70%; }
+.wp-70 { width: 70% !important; }
 .wp-80 { width: 80%; }
 .wp-90 { width: 90%; }
 .wp-93 { width: 93%; }
@@ -604,7 +606,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .h-15  {height: 15px;}
 .h-20  {height: 20px;}
 .h-30  {height: 30px;}
-.h-80 { height: 80px;}
+.h-80 { height: 80px !important;}
 .h-100 { height: 100px;}
 .h-200 { height: 200px;}
 .h-300 { height: 300px;}
@@ -1208,7 +1210,9 @@ a.link_simple:active { TEXT-DECORATION: underline; FONT-SIZE: 11px; FONT-WEIGHT:
 
 a.link_simple:hover { FONT-SIZE: 11px; FONT-WEIGHT: bold; COLOR: #ed2140; FONT-FAMILY: Helvetica,Arial,Sans-serif; TEXT-DECORATION: none  }
 
-
+a.disabled {
+    pointer-events: none;
+}
 
 
 .welcome_user 

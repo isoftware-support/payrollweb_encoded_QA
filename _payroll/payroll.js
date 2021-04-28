@@ -107,13 +107,11 @@ function generatePayroll(){
     }
 
     // posts['debug'] = 1;
-    console.log( posts);
+    //console.log( posts);
 
     xxhrPost("_payroll/payroll_ajax.php?q=payrollHistory"+ _session_vars, posts, 
     function( res ){
-
-        console.log(res);
-        
+       
         let data = JSON.parse(res);
 
         pdfParams = data.pdfParams;
@@ -141,7 +139,7 @@ function generatePayroll(){
 
         busy.hide();
 
-        console.log(data);
+        //console.log(data);
 
     });
 }

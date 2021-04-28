@@ -46,19 +46,39 @@
 
         busy.show2();
 
-        //$.post('ajax_calls.php', {func:'getCutoff_start_end_date', t:type, d:date, p:<?php echo $cutoff_nav_payperiod; ?>}, 
-        var param = {'func':'getCutoff_start_end_date', 't':type, 'd':date, 'p': cutoff_nav_payperiod};
-        // console.log(param);
-        
+        const param = {'func':'getCutoff_start_end_date', 't':type, 'd':date, 'p': cutoff_nav_payperiod};
+       
         $.post('ajax_calls.php', param, 
         function(data){   
-                        
-            // alert(data);
-            
-            var a = JSON.parse(data);
+                                  
+            const a = JSON.parse(data);            
             
             $("#cutoff_nav_start").val(a.start);
-            $("#cutoff_nav_end").val(a.end);               
+            $("#cutoff_nav_end").val(a.end);          
+
+            // #2320
+            // hide non existing emps in member filter
+            if ( isTeamMode ){
+                
+                const attd_table_emps = a.emps; 
+
+                if ( cutoff_nav_is_attendance ){
+                    const chks = getByName('team_emps');
+                    chks.forEach((chk)=>{
+                        
+                        const empNo = chk.dataset.no;
+                        
+                        if ( attd_table_emps.indexOf(empNo) >= 0 ){
+                            chk.parentElement.classList.remove("d-none");
+                        }else{
+                            chk.parentElement.classList.add("d-none");
+                        }
+                    });
+                }
+
+                hideInactiveMembers( a.emps );
+            }
+
 
             busy.hide();
         });				
@@ -156,6 +176,40 @@
             busy.hide();
         });
 
+    }
+
+
+
+    // #2320
+    // hide team members dropdownlist not in cutoff
+    function hideInactiveMembers( emps ){
+
+        if ( isTeamMode ){
+
+            let members = [];
+
+            if ( cutoff_nav_is_attendance ){
+                members = getById("attd_team_members").options;
+            }else{
+                // payroll
+                members = getByName("team_emp")[0].options;
+            }                 
+            
+            const attd_table_emps = emps.split(",");
+
+            for(let i = 0; i < members.length; i++){
+                
+                const e = members[i];
+                const empNo = e.value;
+
+                if ( attd_table_emps.indexOf(empNo) >= 0 ){
+                    e.classList.remove("d-none");
+                }else{
+                    e.classList.add("d-none");
+                }
+            }                
+        }
+            
     }
 
     /*

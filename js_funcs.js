@@ -5,6 +5,7 @@
     var trs = $('tr.row-stripe:odd');
     if (trs) $(trs).addClass('DataRowStripe');    
     
+
 //classes
 
     function getById( id ){
@@ -49,13 +50,13 @@
         return ret;
     }
 
-    function BusyGif(){	
+    function BusyGif( w="30px"){	
                 
     	//remove first
         var div = $("div#busygif");
     	if (div.length) $(div).remove();
 
-        $('body').append("<div id='busygif'><img src=images/loading-gif.gif width=30px/></div>");          
+        $('body').append("<div id='busygif'><img src=images/loading-gif.gif width="+ w +"/></div>");          
         $('div#busygif').css({'display':'block', 'position':'absolute'}).hide();   
 
 
@@ -71,7 +72,7 @@
 
         this.show2 = function(topAdj = 0){
             CenterDiv('div#busygif', topAdj );
-            // $("div#busygif").css("zindex",99);
+            $("div#busygif").css("zindex",99999);
         	$("div#busygif").show();    
         }
         this.hide = function(){
@@ -216,7 +217,6 @@ function selectChecbox(e, id="", id2=""){
         
     }  
 }
-
 
 function log(s)
 {
@@ -426,10 +426,9 @@ function xxhr(method, path, func){
     //ex:  xxhr("GET", 'xhtml_response.php?q=myRecEntry&id='+ e.dataset.id, show);
     //    function show(ret){  ... to show return html }
 
-    //XHR
     var xhr = new XMLHttpRequest();
-    xhr.open(method, path, true);
 
+    xhr.open(method, path, true);  
     xhr.onload = function(){
         if (this.status == 200){
 

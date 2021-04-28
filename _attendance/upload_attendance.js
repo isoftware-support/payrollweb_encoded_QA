@@ -16,7 +16,7 @@
         let end = get("input[name='cutoff_nav_end']").value;
 
         if (! confirm('Uploaded attendances will be saved in cut-off  ' +  
-            DateFormat(start, 'd-M-y') + " - " + DateFormat(end, 'd-M-y') ) ){
+            DateFormat(start, 'd-M-Y') + " - " + DateFormat(end, 'd-M-Y') ) ){
 
             // rest file selected
             let file =  getById("import-log-file");
@@ -45,7 +45,11 @@
         formData.append("import-log-file", file); 
         formData.append("dt", start);
         xhr.open("POST", 'xhtml_response.php?q=UploadAttdLogs' + _session_vars, true);
-        xhr.onload = function(){
+        xhr.onload = function( res ){
+            
+            // alert(this.responseText);
+            //console.log( this.responseText);
+
             if (this.status == 200) showUploadedAttdLogs(this.responseText);                     
         };
         xhr.send(formData);
@@ -147,7 +151,7 @@
                 }                
             }
 
-        console.log(data);
+        //console.log(data);
             
     }
 
@@ -183,11 +187,11 @@
         xxhr('GET', 'xhtml_response.php?q=delUploadAttd&no='+ deletedNos + tmm + _session_vars,             
         function(){
                
-            let ids = deletedNos.split(",");        
+            const ids = deletedNos.split(",");        
 
             for(var i = ids.length -1; i >= 0; i--){            
-                let chk = get("#chk-attd-"+ ids[i]);
-                let row = chk.dataset.row;
+                const chk = get("#chk-attd-"+ ids[i]);
+                const row = chk.parentElement.parentElement.rowIndex;
                 get('#table-upload-attd').deleteRow(row);
             }
 
@@ -195,6 +199,12 @@
 
             $('tr.row-stripe').removeClass("DataRowStripe");
             $('tr.row-stripe:odd').addClass('DataRowStripe');    
+
+            // delete total row display
+            const tr = get("#attd-total-row");
+            if (tr) {
+                get('#table-upload-attd').deleteRow(tr.rowIndex);
+            }
 
             busy.hide(); 
 

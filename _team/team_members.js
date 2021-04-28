@@ -180,73 +180,34 @@ function getEmpThis(emp){
 }
 
 
-function show_team_name_res(res){
 
-    document.getElementById("teamprofile_div").innerHTML= res;
-	document.getElementById('ddteam_member').disabled=false;
-	
-}
 
 function show_team_name(tm,en,m){
 	
-	xxhr("GET", "_team/team_profile_ajax.php?q="+tm+"&e="+en+"&m="+m, show_team_name_res);
-
-	// var xmlhttp;
-
-	// if (window.XMLHttpRequest)
-	//   {// code for IE7+, Firefox, Chrome, Opera, Safari
-	//   xmlhttp=new XMLHttpRequest();
-	//   }
-	// else
-	//   {// code for IE6, IE5
-	//   xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-	//   }
-	// xmlhttp.onreadystatechange=function()
-	//   {
-	//   if (xmlhttp.readyState==4 && xmlhttp.status==200)
-	//     {
-	// 		alert(2);
-
-	// 	    document.getElementById("teamprofile_div").innerHTML=xmlhttp.responseText;
-	// 		document.getElementById('ddteam_member').disabled=false;
-	//     }else{
-	// 		document.getElementById('ddteam_member').disabled=true;	
-	// 	    document.getElementById("teamprofile_div").innerHTML= "<center><img src='images/loader.gif' width=50 border=0></center>";
-	// 	}
-	//   }
-
-	// let url = "team_profile_ajax.php?q="+tm+"&e="+en+"&m="+m;
-	// alert(url);
-	// xmlhttp.open("GET", url,true);
-	// xmlhttp.send();
+	busy.show2();
 		
+	xxhr("GET", "_team/team_profile_ajax.php?q="+tm+"&e="+en+"&m="+m, (res)=>{
+		
+	    getById("teamprofile_div").innerHTML= res;
+	    busy.hide();
+
+		//getById('ddteam_member').disabled=false;
+
+		
+	});
+	
 }
 
 
 function show_team_name_dd(tm,en){ // for dropdown
 
-	//var val=frm.dd_teamname.options[frm.dd_teamname.options.selectedIndex].value;
 
-	var xmlhttp;
+	xxhrGet("includes/team_member_dropdown.php?q="+tm+"&e="+en +"&o=tp", (res)=>{
 
-	if (window.XMLHttpRequest)
-	  {// code for IE7+, Firefox, Chrome, Opera, Safari
-	  xmlhttp=new XMLHttpRequest();
-	  }
-	else
-	  {// code for IE6, IE5
-	  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-	  }
-	xmlhttp.onreadystatechange=function()
-	  {
-	  if (xmlhttp.readyState==4 && xmlhttp.status==200)
-	    {
-	    document.getElementById("ddteam_member").innerHTML=xmlhttp.responseText;
-	    }
-	  }
-	//alert(tm);
-	xmlhttp.open("GET","includes/team_member_dropdown.php?q="+tm+"&e="+en,true);
-	xmlhttp.send();
+		getById("ddteam_member").innerHTML = res;
+
+		
+	});
 
 }			
 

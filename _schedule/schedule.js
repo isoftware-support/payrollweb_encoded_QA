@@ -1,5 +1,9 @@
 
 
+
+const busy = new BusyGif();
+
+
 function parseScript(strcode) {
 
     // www.webdeveloper.com 
@@ -49,7 +53,18 @@ function collectChecked(){
 
 function show_team_name(tm,en,m,w,y){
     
-    // alert(3);
+    busy.show2() ;
+
+    
+    xxhrGet( "_schedule/team_schedules_ajax.php?q="+tm+"&e="+en+"&m="+m+"&w="+w+"&y="+y, 
+    (res)=> {
+      
+        getById("weekly_sched_tab").innerHTML= res;
+        busy.hide();
+    });
+
+
+    /*
 
     var xmlhttp;
 
@@ -79,6 +94,7 @@ function show_team_name(tm,en,m,w,y){
 
     xmlhttp.open("GET", url,true);
     xmlhttp.send();
+    */
 
 }
 
