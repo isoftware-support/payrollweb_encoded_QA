@@ -242,6 +242,16 @@
 				if (!d) d = 0;
 				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v2|v1', v:tn+'|'+val+'|8.4|'+ d, xp:xp});
 
+				// $ticket_expiry_rule = GetSetting_SetReturn( "typename='REQ_APR_GENERAL_RULES' and description='ticket_expiry_rule'", "code", "1", "checked", "", $con);	
+				// $ticket_expiry_days = GetSetting( "typename='REQ_APR_GENERAL_RULES' and description='ticket_expiry_rule'", "value1", "", $con); 
+				// expiry
+				val = $("input#ticket_expiry_rule").prop('checked') ? 1 :0;
+				xp = "t='REQ_APR_GENERAL_RULES' and d='TicketExpiryRule'";
+				tn = "'REQ_APR_GENERAL_RULES'";	
+				d = "'TicketExpiryRule'";
+				days = $("input#ticket_expiry_days").val();
+				if (!d) days = 0;
+				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|d|c|v1', v:tn+'|'+d+'|'+val+'|'+ days, xp:xp} );
 
 			//selected attendances
 			var chk = $("input[name='chkTRA']");

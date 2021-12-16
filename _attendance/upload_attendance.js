@@ -265,15 +265,22 @@
         data.role = chks[0].dataset.role;
         // data.debug = 1;
 
+        data.dts = get("input[name='cutoff_nav_start']").value;
+        data.tmm = get("select[name='team_emp']").value;
+
+        // console.log(data);
+
         xxhrPost("xhtml_response.php?q=apprAttd"+ _session_vars, data, 
         function(res){
-
-            //console.log( res );
-
-            let data = JSON.parse(res);
+                       
+            let ret = JSON.parse(res);
             
+            let data = ret.data;
+            let approved_hours = ret.approved_hours;
+
             // alert(1);
-            // console.log(data);
+            //console.log( data);
+            console.log( approved_hours);
 
             for(var i = 0; i < data.length; i++){
 
@@ -312,6 +319,12 @@
             let chk = get('#select_all_apr');
             if ( chk ) chk.checked= false;
             busy.hide(); 
+
+            // approved hours
+            let td = getById("totalApproved");
+            if ( td)
+                td.innerHTML = "Approved: " + approved_hours;
+            
 
         });        
     }

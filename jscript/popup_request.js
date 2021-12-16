@@ -19,8 +19,8 @@
 		var inDays = false;
 		var txt = "Actual Total Hours: 0";		
 
-		console.log( 'here');
-		console.log("indays="+ inDays);
+		// console.log( 'here');
+		// console.log("indays="+ inDays);
 		
 		if ( isLeaves == true ){
 

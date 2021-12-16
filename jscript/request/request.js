@@ -27,16 +27,18 @@ function request_SelectAll(check){
 	request_AllSelected();
 }
 function request_AllSelected(){
+
 	var check = true;
 	f = document.forms[0];
-    for (i = 0; i < f.elements.length; i++) {
-        if ((f.elements[i].name == "id[]") && (f.elements[i].type == "checkbox") && (f.elements[i].checked == false && !f.elements[i].disabled)) {
+  for (i = 0; i < f.elements.length; i++) {
+  	if ((f.elements[i].name == "id[]") && (f.elements[i].type == "checkbox") && (f.elements[i].checked == false && !f.elements[i].disabled)) {
 			check = false;            
 			break;	
-        }
-    }
-	f.select_all.checked = check; 
+      }
+  }  
+	// f.select_all.checked = check; 
 }
+
 function request_getCurrent()
 {
     pp = window.location.href;

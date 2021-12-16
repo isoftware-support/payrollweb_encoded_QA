@@ -337,31 +337,54 @@ function LeaveFilingMode(n){
 }
 
 
-function ShowDetails(n){	
+function ShowDetails(rqType, isResizeWindow = false){	
 
-	document.getElementById('row_ot_coa_ob').style.display = "none";		
-	document.getElementById('row_leave').style.display = "none";
-	document.getElementById('row_leave2').style.display = "none";	
-	document.getElementById('row_sched').style.display = "none";	
-	document.getElementById('row_sched2').style.display = "none";	
+	let n = rqType;
+	
+
+	let e = document.getElementById('row_ot_coa_ob');
+	if (e) e.style.display = "none";		
+
+	e = document.getElementById('row_leave');
+	if (e) e.style.display = "none";
+
+	e = document.getElementById('row_leave2');
+	if (e) e.style.display = "none";	
+
+	e = document.getElementById('row_sched'); 
+	if (e) e.style.display = "none";	
+
+	e = document.getElementById('row_sched2');
+	if (e) e.style.display = "none";	
 
 	if(n == 0 || n== 3 || n == 4 || n == 5){  //OT , COA, OB
-		document.getElementById('row_ot_coa_ob').style.display = "";		
+
+		e = document.getElementById('row_ot_coa_ob');
+		if (e) e.style.display = "";		
 
 	}else if(n == 1){	//leave	
-		document.getElementById('row_leave').style.display = "";
-		document.getElementById('row_leave2').style.display = "";	
+
+		e = document.getElementById('row_leave');
+		if (e) e.style.display = "";
+
+		e = document.getElementById('row_leave2');
+		if (e) e.style.display = "";	
 
 	}else if(n == 2){  //sched
-		document.getElementById('row_sched').style.display = "";	
-		document.getElementById('row_sched2').style.display = "";	
+		
+		e = document.getElementById('row_sched');
+		if (e) e.style.display = "";	
 
-    }else if(n == 3){  //toil
-		document.getElementById('row_toil').style.display = "";		
+		e = document.getElementById('row_sched2');
+		if (e) e.style.display = "";	
+
+  }else if(n == 3){  //toil
+		e = document.getElementById('row_toil');
+		if (e) e.style.display = "";		
 	}
+
 	document.forms[0].request_shown_detail.value = n;
 
-	
 
 	//show highlight border
 	var box = getById("req_type_back");
@@ -371,11 +394,19 @@ function ShowDetails(n){
 	var w =  [ 75, 60, 120, 90, 115, 50];
     
 	var xy = $( "#type_"+ sID ).offset();
-	box.style.left = (xy.left - 5) + "px";
-	box.style.width = w[n] + "px";
-	box.style.top = (xy.top - 12 ) + "px";
 
-	
+	if ( box ){
+		box.style.left = (xy.left - 5) + "px";
+		box.style.width = w[n] + "px";
+		box.style.top = (xy.top - 12 ) + "px";	
+	}
+
+
+	if ( isResizeWindow || n == 1 )
+		 popWindowResize(); 
+
+	// console.log( "details");	
+
 }
 
 // JavaScript Document

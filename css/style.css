@@ -40,7 +40,7 @@ body
 	/*transform: translateY(-50%);*/
 }
 
-h1,h2,h3,h4, tr, td, label, div, p, button, fieldset, input {
+h1,h2,h3,h4, tr, td, label, div, p, button, fieldset, input, form {
 
 	padding: 0;
 	margin: 0;
@@ -487,11 +487,13 @@ label, .CheckBoxLabel, .label, .label-i {
 .pt-3  { padding-top: 3px; }
 .pt-5  { padding-top: 5px; }
 .pt-10  { padding-top: 10px; }
+.pt-15  { padding-top: 15px; }
 .pt-20  { padding-top: 20px; }
 .pt-100  { padding-top: 100px; }
 .pb-2  { padding-bottom: 2px !important; }
 .pb-5  { padding-bottom: 5px !important; }
 .pb-10  { padding-bottom: 10px !important; }
+.pb-20  { padding-bottom: 20px !important; }
 
 .pr-5  { padding-right: 5px !important; }
 .pr-10 { padding-right: 10px !important; }
@@ -501,6 +503,9 @@ label, .CheckBoxLabel, .label, .label-i {
 .py-3  { padding: 3px 0 !important; }
 .py-5  { padding-top: 5px !important; padding-bottom: 5px !important; }
 .py-10 { padding-top: 10px; padding-bottom: 10px; }
+.py-20 { padding-top: 20px; padding-bottom: 20px; }
+.py-50 { padding-top: 50px; padding-bottom: 50px; }
+.py-100 { padding-top: 100px; padding-bottom: 100px; }
 
 .px-1  { padding-left: 1px !important; padding-right: 1px !important; }
 .px-2  { padding-left: 2px !important; padding-right: 2px !important; }
@@ -529,6 +534,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .mx-5{ margin-left: 5px !important; margin-right: 5px !important; }
 .mx-10{ margin-left: 10px !important; margin-right: 10px !important; }
 .mx-20{ margin-left: 20px !important; margin-right: 20px !important; }
+.mx-50{ margin-left: 50px !important; margin-right: 50px !important; }
 
 .ml-3{ margin-left: 3px !important; }
 .ml-5{ margin-left: 5px !important; }
@@ -540,12 +546,13 @@ label, .CheckBoxLabel, .label, .label-i {
 .mr-3  { margin-right: 3px !important; }
 .mr-5  { margin-right: 5px !important; }
 .mr-10 { margin-right: 10px !important; }
+.mr-20 { margin-right: 20px !important; }
 
 .mb-2  { margin-bottom: 2px !important; }
 .mb-5  { margin-bottom: 5px !important; }
 .mb-10 { margin-bottom: 10px !important; }
 
-/*---- widths -----*/
+/*---- widths --- fixwidths ----*/
 .w-10, .fw-10 {width: 10px !important; }
 .w-20, .fw-20 {width: 20px !important; }
 
@@ -578,6 +585,12 @@ label, .CheckBoxLabel, .label, .label-i {
 .w-250 {width: 230px !important; }
 .w-300 {width: 300px !important; }
 
+
+.wp-min-5 {min-width: : 5% !important; }
+.wp-min-15 {min-width: : 10% !important; }
+.wp-min-20 {min-width: : 20% !important; }
+
+
 /* label fix width*/
 .fw-10,  .fw-20,
 .fw-30,  .fw-40,  .fw-50,  .fw-60,  .fw-70,  .fw-80,  .fw-90,  .fw-100,
@@ -589,12 +602,15 @@ label, .CheckBoxLabel, .label, .label-i {
 .wp-100{width: 100%; }
 .wp-10 { width: 10%; }
 .wp-20 { width: 20%  }
+.wp-25 { width: 25%  }
 .wp-30 { width: 30%; }
 .wp-40 { width: 40%; }
-.wp-50 { width: 50% ; }
+.wp-50 { width: 50% }
+.wp-55 { width: 55% ; }
 .wp-60 { width: 60%; }
 .wp-70 { width: 70% !important; }
 .wp-80 { width: 80%; }
+.wp-85 { width: 85%; }
 .wp-90 { width: 90%; }
 .wp-93 { width: 93%; }
 .wp-95 { width: 95%; }
@@ -633,6 +649,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .bg-silver{background-color: silver; }
 .bg-grey{background-color: grey; }
 .bg-lightgrey{background-color: #e0e0e0; }
+.bg-lightgrey-2{background-color: #ebebeb;}
 .bg-menu{ background-color: #525453; }
 
 /* --- font size ---------*/

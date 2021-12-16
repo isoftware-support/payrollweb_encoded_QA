@@ -27,8 +27,10 @@
 
 function registerOnline(e){
 
+	log("xxxx")	;
 	const busy = new BusyGif();
 
+	log("yyyy");
 	busy.show2();
 
 	const company = encodeURIComponent(e.dataset.name);
@@ -37,13 +39,13 @@ function registerOnline(e){
 		
 	//live
 	let url = reg_online_link + "?c="+ company + "&k="+ key + "&o="+o;	
-	//url = url.replace("http", "https");
-
-	//log(url);
+	//url = url.replace("http", "https");	
 
 	// debug
 	//url = "http://localhost/license-generator/custom/generator.php?c="+ company + "&k="+ key + "&o="+o;
 	
+	log(url);
+
 	xxhrGet(url, (res)=>{
 
 		// log(res);
@@ -69,7 +71,7 @@ function registerOnline(e){
 				// log(res);
 
 				const reg = JSON.parse(res);
-				// log(reg);
+				log(reg);
 
 				if ( reg.status == "success" ){
 

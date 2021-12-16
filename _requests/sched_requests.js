@@ -2,7 +2,7 @@
     function team_action( mode ){
         
         if (mode == 1){ //add            
-            popWindow("popup_request.php?qid=04&rt=0", 850,450);
+            popWindow("popup_request.php?qid=04&rt=0", 850,300);
 
         }else if(mode == -1){ //delete
 
@@ -19,10 +19,10 @@
         
         e = e.parentNode;
         let no = e.dataset.no;
-        let type = e.dataset.type;
+        let _type = e.dataset.type;
         let eno = e.dataset.eno;       
 
-        if (confirm("Are you sure you want to delete employee "+ type +" request?") ){
+        if (confirm("Are you sure you want to delete employee "+ _type +" request?") ){
             
             let url = "xhtml_response.php?q=aprDelReq&a="+ userno +"&r="+ no +"&e="+ eno + "&t="+ e.dataset.type + _session_vars;                        
 

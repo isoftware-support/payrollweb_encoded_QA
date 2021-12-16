@@ -1,25 +1,26 @@
 		
 
  		$(document).ready(function(){
+ 			
  			xy();
+
  		});
 
  		function xy(){
 
+
  			let bln = false; 			
- 			// let type = <?= $type ?>;
  			var div =  $("div#floatingbtn");
 
  			if ( type != 4){  // if not team add request 
 
-	 			//var f = "<?php echo 'input:button#'.$id[0]; ?>";
-	 			var elem = $(f);
-	 			
+	 			var elem = $(f);	 			
+
 	 			bln = isOnScreen(elem);	 			
 	 			if (bln) $(div).fadeOut();
 
 			}else{
-				bln = false;		// always false if type 4
+				bln = false;		// always false if type 4 or with add OT, dont hide floating buttons
 			}
 
 			// show button
@@ -29,7 +30,6 @@
 
         	$(div).css({"top":y, "left":x});	        
         	$(div).fadeIn();
-
 		  }
 
  		}

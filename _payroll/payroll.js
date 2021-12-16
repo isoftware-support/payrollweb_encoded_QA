@@ -106,12 +106,12 @@ function generatePayroll(){
         posts['rp'] = p;
     }
 
-    // posts['debug'] = 1;
+     // posts['debug'] = 1;
     //console.log( posts);
 
     xxhrPost("_payroll/payroll_ajax.php?q=payrollHistory"+ _session_vars, posts, 
     function( res ){
-       
+        
         let data = JSON.parse(res);
 
         pdfParams = data.pdfParams;
@@ -139,7 +139,7 @@ function generatePayroll(){
 
         busy.hide();
 
-        //console.log(data);
+        console.log(data);
 
     });
 }
@@ -164,7 +164,7 @@ function acknowledgePayslip(t){
     xxhrGet( PAYROLLWEB_URI + "/_payroll/payroll_ajax.php?q=getDisputeLog"+ ds + d + _session_vars,
     function(res){      
 
-      console.log(res);
+      //nsole.log(res);
       let data = JSON.parse(res);
 
       let txt = get("#dispute_remarks");      

@@ -1,11 +1,11 @@
 
-    //alert('js_funcs');
+    // console.log( "js_funcs.js");
     
     // row stripes
     var trs = $('tr.row-stripe:odd');
-    if (trs) $(trs).addClass('DataRowStripe');    
-    
+    if (trs) $(trs).addClass('DataRowStripe');        
 
+    
 //classes
 
     function getById( id ){
@@ -54,7 +54,9 @@
                 
     	//remove first
         var div = $("div#busygif");
-    	if (div.length) $(div).remove();
+        if (div){
+   	        if (div.length) $(div).remove();
+        }
 
         $('body').append("<div id='busygif'><img src=images/loading-gif.gif width="+ w +"/></div>");          
         $('div#busygif').css({'display':'block', 'position':'absolute'}).hide();   
@@ -393,6 +395,7 @@ function isOnScreen(elem)
 
 function popWindow(url, _width, _height, specs = ""){
 
+    /*
     var dualScreenLeft = window.screenLeft != undefined ? window.screenLeft : window.screenX;    
     var dualScreenTop = window.screenTop != undefined ? window.screenTop : window.screenY;
 
@@ -402,13 +405,62 @@ function popWindow(url, _width, _height, specs = ""){
     var systemZoom = width / window.screen.availWidth;
     var left = (width - _width) / 2 / systemZoom + dualScreenLeft;
     var top = (height - _height) / 2 / systemZoom + dualScreenTop;   
+    */
     
+    // console.log("pop window - js_funcs");
+
+    let left = (window.outerWidth/2)-( _width/2);
+    left += window.screenX;
+
+    let top = (window.outerHeight/2)-(_height/2);
+    top += window.screenY;
+  
     if ( specs == "" ){
         specs = 'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=1,resizable=1';
     }
-
     var newWindow = window.open(url, 'name', specs + ', top='+ top +', left='+ left +', width='+ _width  +', height='+ _height  );
     newWindow.focus();
+}
+
+
+function popWindowResize()
+{
+    
+    console.log("popWindowsResize()");
+
+    const body = document.body,
+          html = document.documentElement; 
+
+    // height
+    let innerH = Math.max(html.scrollHeight, body.scrollHeight);
+    let outerH = Math.min(html.clientHeight, window.outerHeight)
+
+     console.log( html.clientHeight, body.scrollHeight, innerH, outerH);
+
+    if ( outerH < innerH )
+        window.resizeTo( window.outerWidth, innerH + 100);   
+    
+    // width
+    let width = html.scrollWidth;
+    //console.log( html.clientHeight , height);
+    if ( html.clientWidth < width )
+        window.resizeTo( width + 20, window.outerHeight, );   
+
+    // move window center to opener window
+    let parentW = window.opener;
+    if ( parentW ){    
+
+        let h = window.outerHeight;
+        let w = window.outerWidth;
+
+        let left = (parentW.outerWidth/2)-(w/2);
+        left += parentW.screenX;
+
+        let top = (parentW.outerHeight/2)-(h/2);
+        top += parentW.screenY;
+
+        window.moveTo(left, top);
+    }
 }
 
 function isEmailValid( email )
@@ -462,5 +514,5 @@ function xxhrPost(url, data=[], callBackFunc){
     xhr.send(formData);
 }
 
-
+// console.log( "js_funcs.js - end");
 //---------------functions-----------------

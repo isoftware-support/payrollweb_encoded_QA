@@ -1,7 +1,9 @@
-function GetHTMLContent(id,url) {
 
+
+function GetHTMLContent(id,url) {
 	
-    new Ajax.Updater(id,url,{asynchronous:true});
+  new Ajax.Updater(id,url,{asynchronous:true});
+
     //alert("HI");   
 }   
 function OpenArticleSource(url) {

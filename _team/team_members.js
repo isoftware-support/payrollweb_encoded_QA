@@ -173,8 +173,7 @@ function delegates(svno,tmno,empno,rq_lvl,deg_val){
 	*/
 }
 
-function getEmpThis(emp){
-			
+function getEmpThis(emp){	
 	document.getElementById('hidden1').value=emp;
 	document.getElementById('button_sub').click();
 }

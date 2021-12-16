@@ -184,8 +184,10 @@
     // hide team members dropdownlist not in cutoff
     function hideInactiveMembers( emps ){
 
-        if ( isTeamMode ){
+        if ( isTeamMode ){            
 
+            log(cutoff_active_emps);
+            
             let members = [];
 
             if ( cutoff_nav_is_attendance ){
@@ -202,7 +204,8 @@
                 const e = members[i];
                 const empNo = e.value;
 
-                if ( attd_table_emps.indexOf(empNo) >= 0 ){
+                if ( attd_table_emps.indexOf(empNo) >= 0 || 
+                    cutoff_active_emps.indexOf(empNo) >= 0 ){
                     e.classList.remove("d-none");
                 }else{
                     e.classList.add("d-none");
