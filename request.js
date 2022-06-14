@@ -182,7 +182,6 @@ function popitup(url, w, h, r) {
 
 function popitup_request(url,ar,w,h) {
 	
-	alert(1);
 	var left = (screen.width/2)-(w/2);
 	var top = (screen.height/2)-(h/2);
 	var f = document.forms[0];
@@ -227,6 +226,7 @@ function CalendarSection()
 function verifyDeleteRequest(q,n,m,r,l)
 {
 	
+	console.log(q,n,m,r,l);
 	
 	if(q=="07"){ //webauthorization request only
 		
@@ -268,6 +268,23 @@ function verifyDeleteRequest(q,n,m,r,l)
 	// 	alert("Reimbursement record deleted.");
 	// }
 	
+	if (l == "rq"){  // requests
+
+		// create  a trigger before delete
+		const posts = [];
+		posts["func"] = "x";
+		posts["t"] = 5;
+		posts['d'] = -1;
+		posts['xp'] = `WebAuthorizationRequestNo = ${n}`; 
+		xxhrPost('ajax_calls.php', posts, () => location.reload() );    // request
+
+		return;
+
+		// reimbursements has own delete code in ReimbursementsDeletePostAction
+		// tickets has own delelete code in requests_ticket_window.php - > clicked(this) js function
+
+	}
+	
 
 	//window.location = "index.php?qid="+escape(q)+"&rn="+escape(r)+"&ar="+escape(n)+"&uen="+escape(m) + addpath;
      //alert(n);
@@ -276,10 +293,7 @@ function verifyDeleteRequest(q,n,m,r,l)
 	 document.getElementById('hidden_uen').value = m;
 	 document.getElementById('hidden_filr').value = addpath;
 	 document.getElementById('hidden_locr').value = l;
-	 document.getElementById('button_sub2').click();	 
-	 
-	 
-	 
+	 document.getElementById('button_sub2').click();	 	 	 
 	 
 	//window.location.replace('index.php?qid=07&rq=&rp=0');	
 	//window.location=document.referrer;
