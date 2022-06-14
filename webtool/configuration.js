@@ -203,6 +203,7 @@
 
 		//ticket approval
 		$("#btnTicketRule_apr").click(function(){
+			//alert(1);
 			// var busy = new BusyGif("#btnTicketRule_apr");
 			busy.show2();
 
@@ -372,7 +373,6 @@ function getchecked2() {
 function onSubmitForm(FormName){	
 
 	f = document.forms[FormName];
-	
 	switch(FormName){
 		case 'ActivityLogConfig':
 				x = findControl(f, 'Actions[]');
