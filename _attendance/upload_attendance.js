@@ -278,7 +278,6 @@
             let data = ret.data;
             let approved_hours = ret.approved_hours;
 
-            // alert(1);
             //console.log( data);
             console.log( approved_hours);
 
