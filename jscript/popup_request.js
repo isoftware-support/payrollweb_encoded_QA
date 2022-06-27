@@ -175,9 +175,7 @@
 		if ( param.requestType == "2"){
 			var dt = getById('dttmSched');
 			showSchedStatus(dt);
-		}
-
-		
+		}	
 
 		//leave
 		if ( param.requestType == "1"){
@@ -191,7 +189,9 @@
 			for( var i = 0; i < e.length; i++ ){				
 				if ( parseInt(e[i].value) != parseInt(param.requestType) ){
 					e[i].disabled = true;
-					// e[i].parentNode.removeChild(e[i]);
+					e[i].removeAttribute('onclick');
+					e[i].removeAttribute('id');
+					e[i].removeAttribute('value');					
 				}
 			}
 		}
@@ -202,6 +202,11 @@
 			computeHours();
 		}		
 
+		// resize submit button
+		if ( isApproverEdit ){
+			 getById("submit").classList.remove("w-100");
+			 getById("submit").classList.add("w-150");
+		}
 
 	}
 

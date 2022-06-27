@@ -503,7 +503,7 @@ function xxhrPost(url, data=[], callBackFunc){
     let xhr = new XMLHttpRequest();
     let formData = new FormData();
 
-    for( var name in data ){        
+    for( const name in data ){        
         formData.append(name, data[name]);                                
     }
 

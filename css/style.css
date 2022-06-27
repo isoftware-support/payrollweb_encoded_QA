@@ -531,6 +531,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .mp-5{ margin-left: 5% !important; margin-right: 5% !important; }
 .mp-10{ margin-left: 10% !important; margin-right: 10% !important; }
 
+.mx-2{ margin-left: 2px !important; margin-right: 2px !important; }
 .mx-5{ margin-left: 5px !important; margin-right: 5px !important; }
 .mx-10{ margin-left: 10px !important; margin-right: 10px !important; }
 .mx-20{ margin-left: 20px !important; margin-right: 20px !important; }
@@ -616,6 +617,11 @@ label, .CheckBoxLabel, .label, .label-i {
 .wp-95 { width: 95%; }
 .wp-98 { width: 98%; }
 
+/* max widths */
+.wm-500 {max-width: 500; }
+.wm-400 {max-width: 400; }
+.wm-350 {max-width: 350; }
+
 .h-all {height: 100%;}
 .h-5   {height: 5px;}
 .h-10  {height: 10px;}
@@ -653,16 +659,19 @@ label, .CheckBoxLabel, .label, .label-i {
 .bg-menu{ background-color: #525453; }
 
 /* --- font size ---------*/
-.fs-12{ font-size: 12px; }
-.fs-14{ font-size: 14px; }
-.fs-16{ font-size: 16px; }
-.fs-18{ font-size: 18px; }
-.fs-20{ font-size: 20px; }
-.fs-25{ font-size: 25px; }
+.fs-8{ font-size: 8px !important; }
+.fs-10{ font-size: 10px !important; }
+.fs-12{ font-size: 12px !important; }
+.fs-14{ font-size: 14px !important; }
+.fs-16{ font-size: 16px !important; }
+.fs-18{ font-size: 18px !important; }
+.fs-20{ font-size: 20px !important; }
+.fs-25{ font-size: 25px !important;  }
 
  /* ----------------------------- */
 
 /* border radius */
+.br-5{ border-radius: 5px; }
 .br-10{ border-radius: 10px; }
 .br-20{ border-radius: 20px; }
 .brtl-20{ border-top-left-radius: 20px; }

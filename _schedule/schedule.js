@@ -51,52 +51,7 @@ function collectChecked(){
 }    
 
 
-function show_team_name(tm,en,m,w,y){
-    
-    busy.show2() ;
 
-    
-    xxhrGet( "_schedule/team_schedules_ajax.php?q="+tm+"&e="+en+"&m="+m+"&w="+w+"&y="+y, 
-    (res)=> {
-      
-        getById("weekly_sched_tab").innerHTML= res;
-        busy.hide();
-    });
-
-
-    /*
-
-    var xmlhttp;
-
-    if (window.XMLHttpRequest)
-      {// code for IE7+, Firefox, Chrome, Opera, Safari
-      xmlhttp=new XMLHttpRequest();
-      }
-    else
-      {// code for IE6, IE5
-      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-      }
-    xmlhttp.onreadystatechange=function()
-      {
-      if (xmlhttp.readyState==4 && xmlhttp.status==200)
-        {
-
-        var res = xmlhttp.responseText.split("NEW_LINE");
-        
-        document.getElementById("weekly_sched_tab").innerHTML=xmlhttp.responseText;    
-        }else{ 
-        document.getElementById("weekly_sched_tab").innerHTML= "<center><img src='images/loader.gif' width=50 border=0></center>";
-        }
-      }
-
-    let url = "_schedule/team_schedules_ajax.php?q="+tm+"&e="+en+"&m="+m+"&w="+w+"&y="+y;
-    console.log( url);
-
-    xmlhttp.open("GET", url,true);
-    xmlhttp.send();
-    */
-
-}
 
 
 
@@ -165,33 +120,6 @@ function show_sched_month(tm,en,mb,d,mn,y){
 }
 
 
-function show_weekdate_dd(w,y){ // for dropdown
-  
-    var xmlhttp;
-
-    if (window.XMLHttpRequest)
-      {// code for IE7+, Firefox, Chrome, Opera, Safari
-      xmlhttp=new XMLHttpRequest();
-      }
-    else
-      {// code for IE6, IE5
-      xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-      }
-    xmlhttp.onreadystatechange=function()
-      {
-      if (xmlhttp.readyState==4 && xmlhttp.status==200)
-        {
-        document.getElementById("weeks").innerHTML=xmlhttp.responseText;
-        //document.getElementById('weekly_sched_tab').innerHTML = responseText;
-        }
-      }
-    //alert(tm);
-    xmlhttp.open("GET","includes/teamsched_weekly_dd.php?w="+w+"&y="+y,true);
-    xmlhttp.send();
-
-}
-
-
 function chkAll(source,nm,dt,chkgrp) {
 
     
@@ -218,48 +146,6 @@ function chkAll(source,nm,dt,chkgrp) {
        
 }  
 
-function UsePreviousSched(){
-   
-    var busy = new BusyGif("#replicate_sched");
-
-    var year = $('#week_year').val();
-    var chks = $('input:checkbox');
-    var aNames = new Array;    
-    var aEmpNos = new Array;    
-
-    $(chks).each(function(){
-
-        var name = this.name;
-        if (this.checked && !this.disabled && name.indexOf(year) > 0){            
-
-            aNames.push(name);            
-            var empno = name.substr(0, name.indexOf('_'));
-            if (aEmpNos.indexOf(empno) == -1) aEmpNos.push(empno);
-
-        }
-    });    
-
-    if (aNames.length > 0){
-
-        if (confirm('Values from Previous week Schedules will overwrite current selection.\rAre you sure?')){
-
-            busy.show();
-
-            $.post("ajax_calls.php",{func:'GetPrevSched', yr:year, nos:aEmpNos, names:aNames}, function(data){     
-
-                for(x in data){                        
-                    var id = "'input:text#SHFT" + x + "'";
-                    $(id).val(data[x]);                                
-                }
-
-            }, 'json');
-        }
-
-    }else{
-        alert("Please select date Schedule.");
-    }
-
-}
 
 
  function getcheckedx1(nm,dt) {
@@ -327,15 +213,7 @@ function getchecked2() {
     document.f1.p_name3.value = newtxt;
 }
 
-function select_all(source){
 
-
-    var checkboxes = document.getElementsByName('emp_chkall');
-    for(var i=0, n=checkboxes.length;i<n;i++) {
-        checkboxes[i].click();
-        checkboxes[i].checked = source.checked;
-    }
-}
 
 
 
@@ -431,9 +309,10 @@ function myfunction(){
         }
     }
     
-    var busy = new BusyGif("#replicate_sched");
+    // var busy = new BusyGif("#replicate_sched");
+    const busy = new BusyGif();
 
-    var ans = confirm('Are you sure you want to clear the selected schedules?');
+    const ans = confirm('Are you sure you want to clear the selected schedules?');
  
     if(ans){
  //alert(url);  
@@ -489,13 +368,12 @@ function repSelected(l){
 
     if(l=="m"){
         document.getElementById("dd_teamname").selectedIndex = document.getElementById("ddm_teamname").selectedIndex;
-        document.getElementById("week_year").selectedIndex = document.getElementById("weekm_year").selectedIndex;
+        document.getElementById("weekm_year").selectedIndex = document.getElementById("weekm_year").selectedIndex;
     }else{
         document.getElementById("ddm_teamname").selectedIndex = document.getElementById("dd_teamname").selectedIndex;
-        document.getElementById("weekm_year").selectedIndex = document.getElementById("week_year").selectedIndex;
+        document.getElementById("week_year").selectedIndex = document.getElementById("week_year").selectedIndex;
 
     }    
 }
-
 
 
