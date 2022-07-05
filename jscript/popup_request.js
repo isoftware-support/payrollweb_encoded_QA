@@ -9,34 +9,35 @@
 	var dttmTo_Leave = document.getElementById('dttmTo_Leave');
 
 	dttmTo.onchange = function(){ computeHours(); };
-	if (dttmFrom_Leave) dttmFrom_Leave.onchange = function(){ computeHours(true); };
-	if (dttmTo_Leave) dttmTo_Leave.onchange = function(){ computeHours(true); };
+
+	if (dttmFrom_Leave) dttmFrom_Leave.onchange = () => {  loadLeaveDates(); computeHours(true); };
+	if (dttmTo_Leave) dttmTo_Leave.onchange = () => { loadLeaveDates(); computeHours(true); };
 
 	
 
 	function computeHours( isLeaves = false ){
 		
-		var inDays = false;
-		var txt = "Actual Total Hours: 0";		
+		let inDays = false;
+		let txt = "Actual Total Hours: 0";		
+	
+		let _start_v = "", _end_v = "";
 
-		// console.log( 'here');
-		// console.log("indays="+ inDays);
-		
 		if ( isLeaves == true ){
 
 			txt = "Lenght: 0 day";
-			var _start_v = dttmFrom_Leave.value;
-			var _end_v =  dttmTo_Leave.value;
+			_start_v = dttmFrom_Leave.value;
+			_end_v =  dttmTo_Leave.value;
 
 			inDays = document.getElementById("leave_inDays").checked;
 
 		}else{
-			var _start_v = dttmFrom.value;
-			var _end_v =  dttmTo.value;
+			_start_v = dttmFrom.value;
+			_end_v =  dttmTo.value;
 		}
 		
-		var hr = 0;
+		let hr = 0;
 		if ( _start_v && _end_v ){
+
 			var _start = new Date(_start_v);
 			var _end = new Date( _end_v );
 
@@ -44,10 +45,19 @@
 			var sec = diff / 1000;
 			var min = sec / 60;
 			hr = min / 60;			
-
 			
 			if (inDays){			
-				var days = parseInt(hr / 24) + 1;
+
+				let days = parseInt( hr / 24) + 1;			
+				if ( isLeaveBatchFiling ){
+
+					let chks = getAll("input[name='leave_batch_dates']");
+					if ( chks.length ){   // if leave batch dates are created
+						chks = getAll("input[name='leave_batch_dates']:checked");
+						days = chks.length;
+					}
+				}
+
 				txt = "Length: " + days + " day";
 				if (days > 1) txt = txt + "s";
 
@@ -69,32 +79,162 @@
 			
 		//ot hours regardless of type selected
 		getById('ot_hours').value = hr;
-		if ( isLeaves == true ){
-			var span = document.getElementById('leaves_hours');
-		}else{
-			var span = document.getElementById('total_hours');
-		}
-		span.textContent = txt;
+		let spanId = "total_hours";
+		if ( isLeaves == true )
+			spanId = "leaves_hours";
+
+		getById( spanId).textContent = txt;
 
 	}
 
 	function wholeDays(e){ 
 
+		const inDays = e.checked;
+	
+    const eFrom = document.getElementById("dttmFrom_Leave");
+		const eTo = document.getElementById("dttmTo_Leave");    	
+   	
+   	const dateFrom = eFrom.value,
+   		dateTo = eTo.value;
 
-		var inDays = e.checked;
-		
-    	var dttmFrom_Leave = document.getElementById("dttmFrom_Leave");
-    	var dttmTo_Leave = document.getElementById("dttmTo_Leave");    	
+   	let dateFormat = "Y-m-d";
+    if( inDays ){			
+    	eFrom.type = "date";
+    	eTo.type = "date";
+    }else{
+    	eFrom.type = "datetime-local";
+    	eTo.type = "datetime-local";
+    	dateFormat += " 00:00:00";
+    }		    		  	 
 
-	    if( inDays ){			
-	    	dttmFrom_Leave.type = "date";
-	    	dttmTo_Leave.type = "date";
+  	if ( dateFrom )
+  	 	eFrom.value = DateFormat( dateFrom, dateFormat );
+  	
+  	if ( dateTo )
+  		eTo.value = DateFormat( dateTo, dateFormat );
 
-	    }else{
-	    	dttmFrom_Leave.type = "datetime-local";
-	    	dttmTo_Leave.type = "datetime-local";
-	    }		    		  	 
+    loadLeaveDates();
 	}		
+
+	function loadLeaveDates()
+	{
+
+		if ( ! isLeaveBatchFiling ) return;
+
+		const isInDays = getById('leave_inDays').checked;	
+		let isDates = false;
+
+		const div = getById('leave_batch_filing_box');
+		let dtFrom = getById('dttmFrom_Leave').value;
+		let dtTo = getById('dttmTo_Leave').value;
+
+		let dates = [];
+
+		if ( dtFrom && dtTo ){
+
+      dtFrom = new Date( dtFrom );
+      dtTo = new Date( dtTo );
+      if ( dtFrom < dtTo ){
+				
+				isDates = true;
+
+				const listedDates = getAll("input[name='leave_batch_dates']");
+
+				let dates1 = [], dates2 = [];
+				let cnt = 1, index = 1;
+				while(true){
+
+					const date = DateFormat( dtFrom, "d-M-Y D" );
+					const day = DateFormat( dtFrom, "D");
+					const v = DateFormat( dtFrom, "Y-m-d" );
+
+					const id = `leave_dates_${cnt}`;
+
+					let color = "";
+					if ( day == "Sun" || day == "Sat")
+						color = "c-red";
+
+					if ( Array.isArray(holidays) ){
+						if ( holidays.includes(v) )
+							color = "c-red bold";
+					}
+					
+
+					let checked = 'checked';
+					if ( listedDates.length ){
+
+						checked = "";
+						for(let i = 0; i < listedDates.length; i++ ){
+							const chk = listedDates[i];
+							if ( chk.dataset.dt == v && chk.checked ){
+								checked = "checked";
+								break;
+							}
+						}
+
+					}
+
+					if ( cnt > listedDates.length )
+						checked = "checked";
+
+					// from posting eith error
+					if ( posted_leave_batch_filing_dates.length ){
+
+						checked = "";						
+						const dates = posted_leave_batch_filing_dates.split(",");
+						if ( Array.isArray(dates) ){
+							if ( dates.includes(v) ){
+								checked = "checked";
+								console.log(v);									
+							}
+						}
+					}
+
+
+					const chk = 
+						`<input class='mr-3' type='checkbox' name='leave_batch_dates' id='${id}' ${checked} data-dt='${v}' ` +
+						" onclick='computeHours(true)' />"+
+						`<label class='fw-130 ${color}' for='${id}'>${date}</label>`;
+
+					if (index == 1){
+						dates1.push( chk );
+					}else{
+						dates2.push( chk );
+					}
+
+					if (dtFrom >= dtTo) break;
+					dtFrom.setDate( dtFrom.getDate() + 1);
+
+					cnt++;
+					index++;
+					if (index > 2) index = 1;
+
+				} // end while
+
+				dates1.forEach( (item, index) => {
+
+					let  e = "<div class='aligner'>" + item;
+
+					if ( index < dates2.length){
+						e+= dates2[index];
+					}
+					e += "</div>";
+					dates.push(e);					
+				})								
+			}
+		}
+		div.innerHTML = dates.join("");  // dates
+
+		let show = isInDays && isDates ? "" : "none";
+
+		div.style.display = show;
+
+		if ( posted_leave_batch_filing_dates.length )
+			computeHours(true);
+
+		popWindowResize();
+
+	}
 	  
 	//coa ot ob date to suggestion
 	document.getElementById('dttmFrom').onchange = function(){
@@ -208,6 +348,8 @@
 			 getById("submit").classList.add("w-150");
 		}
 
+		loadLeaveDates();
+	
 	}
 
 	function validate_onSubmit(){	
@@ -339,6 +481,23 @@
 				if ( parseInt(days) <= 0 && inDays == 1 ){
 					retval = false;
 					msg = "Please select valid date.";								
+				}
+
+				let chks = getAll("input[name='leave_batch_dates']");
+				console.log(chks.length);
+				if ( isLeaveBatchFiling && chks.length ){
+
+					chks = getAll("input[name='leave_batch_dates']:checked");
+					if (! chks.length){
+						retval = false;
+						msg = "Please select date.";
+					}
+
+					let v = [];
+					chks.forEach( (e)=>{
+						v.push( e.dataset.dt );
+					})
+					getById('leave_batch_filing_dates').value = v.join();
 				}
 
 			}else if( mode == "1"){  //shift

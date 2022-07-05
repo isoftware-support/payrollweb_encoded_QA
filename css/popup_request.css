@@ -1,0 +1,17 @@
+
+/* 
+  ==================================
+
+	all pop request elements CSS formatting should be added here
+
+	==================================
+*/ 
+
+
+#leave_batch_filing_box{
+	/*background-color: green;*/
+	margin-top: 5px;
+	border: 1px solid grey;
+	max-height: 100px;
+	overflow-y: scroll;
+}

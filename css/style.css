@@ -6,6 +6,17 @@
 } 
 */
 
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
 
 body 
 {
@@ -400,8 +411,9 @@ label, .CheckBoxLabel, .label, .label-i {
 /* straght align item horizontaly inside div */
 .aligner {
   display: flex;
-  align-items: center;  
+  /*align-items: center;  */
   padding: 1px 0;
+  
 }
 
 .float-r{
@@ -435,6 +447,9 @@ label, .CheckBoxLabel, .label, .label-i {
 	justify-content: center;
 }
 
+.flex-grow{
+	flex-grow: 1;
+}
 .flex-1{
 	flex: 1;
 }
@@ -497,6 +512,8 @@ label, .CheckBoxLabel, .label, .label-i {
 
 .pr-5  { padding-right: 5px !important; }
 .pr-10 { padding-right: 10px !important; }
+.pr-50 { padding-right: 50px !important; }
+.pr-100 { padding-right: 100px !important; }
 
 .py-1  { padding: 1px 0 !important; }
 .py-2  { padding: 2px 0 !important; }
@@ -518,7 +535,7 @@ label, .CheckBoxLabel, .label, .label-i {
 
 /*---- margins -------------*/
 .m-0  { margin: 0; }
-.m-a  { margin: auto; }
+.m-a  { margin: auto !important; }
 .m-5  { margin: 5px; }
 .m-20  { margin: 20px; }
 .my-2 { margin-top: 2px !important; margin-bottom: 2px !important; }
@@ -552,6 +569,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .mb-2  { margin-bottom: 2px !important; }
 .mb-5  { margin-bottom: 5px !important; }
 .mb-10 { margin-bottom: 10px !important; }
+.mb-20 { margin-bottom: 20px !important; }
 
 /*---- widths --- fixwidths ----*/
 .w-10, .fw-10 {width: 10px !important; }
@@ -573,6 +591,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .w-150, .fw-150 {width: 150px !important; }
 .w-200, .fw-200 {width: 200px !important; }
 .w-250, .fw-250 {width: 250px !important; }
+.w-270, .fw-270 {width: 270px !important; }
 .w-300, .fw-300 {width: 300px !important; }
 .w-160 {width: 160px !important; }
 .w-170 {width: 170px !important; }
@@ -618,9 +637,26 @@ label, .CheckBoxLabel, .label, .label-i {
 .wp-98 { width: 98%; }
 
 /* max widths */
-.wm-500 {max-width: 500; }
-.wm-400 {max-width: 400; }
-.wm-350 {max-width: 350; }
+.wm-500 {min-width: 500; }
+.wm-400 {min-width: 450; }
+.wm-400 {min-width: 400; }
+.wm-350 {min-width: 350; }
+.wm-300 {min-width: 300; }
+
+.wmx-600 {max-width: 600; }
+.wmx-500 {max-width: 500; }
+.wmx-450 {max-width: 450; }
+.wmx-400 {max-width: 400; }
+.wmx-350 {max-width: 350; }
+.wmx-300 {max-width: 300; }
+.wmx-200 {max-width: 200; }
+.wmx-150 {max-width: 150; }
+.wmx-100 {max-width: 100; }
+.wmx-50 {max-width: 50; }
+.wmx-40 {max-width: 40; }
+.wmx-35 {max-width: 35; }
+.wmx-30 {max-width: 30; }
+.wmx-20 {max-width: 20; }
 
 .h-all {height: 100%;}
 .h-5   {height: 5px;}
@@ -644,7 +680,8 @@ label, .CheckBoxLabel, .label, .label-i {
 .va-t{vertical-align: top;}
 
 .c-white {color: white !important; }	 
-.c-red   {color: red; }	 
+.c-red   {color: red; }	
+.c-orange  {color: orange;} 
 .c-cyan  {color: cyan; }
 .c-green {color: green; }
 .c-icon-dark  {color: #292929;}
@@ -656,6 +693,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .bg-grey{background-color: grey; }
 .bg-lightgrey{background-color: #e0e0e0; }
 .bg-lightgrey-2{background-color: #ebebeb;}
+.bg-lightgrey-3{background-color: #E5E5E5;}
 .bg-menu{ background-color: #525453; }
 
 /* --- font size ---------*/

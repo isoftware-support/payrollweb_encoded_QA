@@ -5,95 +5,147 @@
 	//UPDATE Ticket Rule	
 	$(document).ready(function(){
 		
-		//save req max hours settings
-		$("#UpdateReqRules").click(function(){						
+		// remove input text auto suggest
+		const txts = getAll("input[type='text']");
+		txts.forEach((e) => {
+			e.autocomplete = 'off';
+		})
 
-			var f=[], v=[], xp=[];
+
+		//save req max hours settings
+		$("#UpdateReqRules").click( function(){						
+
+			let f=[], v=[], xp=[];
+			let chks, v2, v3;
 
 			//coa
-			var c = $("input#coa_max").prop('checked') ? 1 : 0;
-			var v1 = $("input#coa_max_hours").val();
+			let c = $("input#coa_max").prop('checked') ? 1 : 0;
+			let v1 = $("input#coa_max_hours").val();
 			if (isEmpty(v1)) v1 = 0;			
 			
-			var t = "'RQST_RULES'";
+			let t = "'RQST_RULES'";
 
-			f.push('t|c|v1|v2');
-			v.push(t+"|"+c+"|"+v1+"|1.5");
-			xp.push("t="+t+" and v2 = 1.5");
+				f.push('t|c|v1|v2');
+				v.push(t+"|"+c+"|"+v1+"|1.5");
+				xp.push("t="+t+" and v2 = 1.5");
 
-			//ot
-			c = $("input#ot_max").prop('checked') ? 1 : 0;
-			v1 = $("input#ot_max_hours").val();			
-			if (isEmpty(v1)) v1 = 0;
-			f.push('t|c|v1|v2')
-			v.push(t+"|"+c+"|"+v1+"|2.5");
-			xp.push("t="+t+" and v2 = 2.5");
+				//ot
+				c = $("input#ot_max").prop('checked') ? 1 : 0;
+				v1 = $("input#ot_max_hours").val();			
+				if (isEmpty(v1)) v1 = 0;
+				f.push('t|c|v1|v2')
+				v.push(t+"|"+c+"|"+v1+"|2.5");
+				xp.push("t="+t+" and v2 = 2.5");
 
-			//leaves Max
-			c = $("input#leave_max").prop('checked') ? 1 : 0;
-			v1 = $("input#leave_max_hours").val();			
-			if (isEmpty(v1)) v1 = 0;
-			f.push('t|c|v1|v2');
-			v.push(t+"|"+c+"|"+v1+"|3.5");
-			xp.push("t="+t+" and v2 = 3.5");
-				
-			//leaves Min
-			c = $("input#leave_min").prop('checked') ? 1 : 0;
-			v1 = $("input#leave_min_hours").val();			
-			if (isEmpty(v1)) v1 = 0;
-			f.push('t|c|v1|v2');
-			v.push(t+"|"+c+"|"+v1+"|3.6");
-			xp.push("t="+t+" and v2 = 3.6");
+				//leaves Max
+				c = $("input#leave_max").prop('checked') ? 1 : 0;
+				v1 = $("input#leave_max_hours").val();			
+				if (isEmpty(v1)) v1 = 0;
+				f.push('t|c|v1|v2');
+				v.push(t+"|"+c+"|"+v1+"|3.5");
+				xp.push("t="+t+" and v2 = 3.5");
+					
+				//leaves Min
+				c = $("input#leave_min").prop('checked') ? 1 : 0;
+				v1 = $("input#leave_min_hours").val();			
+				if (isEmpty(v1)) v1 = 0;
+				f.push('t|c|v1|v2');
+				v.push(t+"|"+c+"|"+v1+"|3.6");
+				xp.push("t="+t+" and v2 = 3.6");
 
-			//leaves - disable via shift
-			c = $("input#leave_disable_shift").prop('checked') ? 1 : 0;
-			f.push('t|c|v2');
-			v.push(t+"|"+c+"|3.7");
-			xp.push("t="+t+" and v2 = 3.7");
+				//leaves - disable via shift
+				c = $("input#leave_disable_shift").prop('checked') ? 1 : 0;
+				f.push('t|c|v2');
+				v.push(t+"|"+c+"|3.7");
+				xp.push("t="+t+" and v2 = 3.7");
 
-			//leaves - disable via shift
-			c = $("input#leave_disable_hours").prop('checked') ? 1 : 0;
-			f.push('t|c|v2');
-			v.push(t+"|"+c+"|3.8");
-			xp.push("t="+t+" and v2 = 3.8");
+				//leaves - disable via shift
+				c = $("input#leave_disable_hours").prop('checked') ? 1 : 0;
+				f.push('t|c|v2');
+				v.push(t+"|"+c+"|3.8");
+				xp.push("t="+t+" and v2 = 3.8");
 
-			//leaves - disable duration
-			c = $("input#leave_disable_duration").prop('checked') ? 1 : 0;
-			f.push('t|c|v2');
-			v.push(t+"|"+c+"|3.9");
-			xp.push("t="+t+" and v2 = 3.9");
+				//leaves - disable duration
+				c = $("input#leave_disable_duration").prop('checked') ? 1 : 0;
+				f.push('t|c|v2');
+				v.push(t+"|"+c+"|3.9");
+				xp.push("t="+t+" and v2 = 3.9");
 
-			//leaves - enable selective hours mode + list hours
-			c = $("input#leave_selective_hours").prop('checked') ? 1 : 0;
-			v3 = $("input#leave_hours_list").val();
-			f.push('t|c|v2|v3');
-			v.push(t+"|"+c+"|3.11"+"|"+v3);
-			xp.push("t="+t+" and v2 = 3.11");
+				//leaves - enable selective hours mode + list hours
+				c = $("input#leave_selective_hours").prop('checked') ? 1 : 0;
+				v3 = $("input#leave_hours_list").val();
+				f.push('t|c|v2|v3');
+				v.push(t+"|"+c+"|3.11"+"|"+v3);
+				xp.push("t="+t+" and v2 = 3.11");
+
+				// leaves - enable batch filing			
+				c = getById("leave_batch_filing").checked ? 1 : 0;
+				f.push( 't|c|v2');
+				v.push( [t,c,3.12].join("|") );
+				xp.push( "t="+ t +" and v2 = 3.12");
+
+			// leave specific rule - AFTER				
+				chks = getByName("lv_specific_rule");
+				chks.forEach((e) => {
+
+					let t = "'RQST_RULES_LV_BEFORE'";
+					if ( e.dataset.t == 'after')
+						t = "'RQST_RULES_LV_AFTER'";
+
+					v1 = getById( e.dataset.tx ).value;  
+					if ( !v1 || isNaN(v1) ) v1 = 0;
+
+					v2 = e.dataset.c;													
+					c = e.checked ? 1 : 0;
+
+					f.push( 't|c|v1|v2')
+					v.push( [t, c, v1, v2 ].join("|") );
+					xp.push( 't='+ t +" and v2 ="+ v2 );
+				})
 
 			$.post('../ajax_calls.php', 
 				{func:'UpdateSettings', f:f.join("|:|"), v:v.join("|:|"), xp:xp.join("|:|") },
 				function(data){
-					//console.log(data);
-					//alert(1);
+					 // console.log(data);
 				}
-			);
+			);		
+		});
+		
+
+		// put leaves specific rules
+		xxhrPost('../ajax_calls.php', {func:'GetMultiRecs', t:1, f:"fc|fv1|fv2|f1", 
+		xp:"f1 in ('RQST_RULES_LV_BEFORE','RQST_RULES_LV_AFTER')"},  
+		( res ) => {
+
+			const ret = JSON.parse(res);			
+			Object.values(ret).forEach( item => {
+
+				const type = item['typename'] == 'RQST_RULES_LV_BEFORE' ? 'before' : 'after';
+
+				let id = `lv_${type}_chk_` + item.value2;
+				getById(id).checked = item.code == 1 ? true : false;
+
+				id = `lv_${type}_` + item.value2;
+				getById(id).value = item.value1;
+
+			});
 			
 		});
-	
+
 
 		//put setting value
-		var e = $("input#coa_max");
+		const e = $("input#coa_max");
 		if (e.length){
 			
 			$.post('../ajax_calls.php', {func:'GetMultiRecs', t:1, f:"code|value1|value2|value3", k:"value2",
-				xp:"typename='RQST_RULES' and value2 in (1.5, 2.5, 3.5, 3.6, 3.7, 3.8, 3.9, 3.11)"}, 
+				xp:"typename='RQST_RULES' and value2 in (1.5, 2.5, 3.5, 3.6, 3.7, 3.8, 3.9, 3.11, 3.12)"}, 
 			function(data){
 
 
-				var aRet = JSON.parse(data);			
+				const aRet = JSON.parse(data);			
 				if (!isEmpty(aRet)){
 
-					var row = aRet['1.5'];
+					let row = aRet['1.5'];
 					$("input#coa_max").prop('checked', ( (row.code == "1") ? true : false) );
 					$("input#coa_max_hours").prop('value', row.value1);
 					
@@ -121,6 +173,9 @@
 					row = aRet['3.11'];
 					$("input#leave_selective_hours").prop('checked', ( (row.code == "1") ? true : false) );
 					$("input#leave_hours_list").val(row.value3);
+
+					row = aRet['3.12'];
+					getById('leave_batch_filing').checked = ( (row.code == "1") ? true : false);
 
 				}
 			});
@@ -369,7 +424,7 @@ function getchecked2() {
 
 
 
-function onSubmitForm(FormName){	
+function onSubmitForm(FormName){		
 
 	f = document.forms[FormName];
 	

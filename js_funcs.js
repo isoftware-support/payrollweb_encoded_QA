@@ -85,18 +85,20 @@
 
     function DateFormat(sDate, format){
 
-        // format : Y-m-d , y-M-d
+        // format : Y-m-d , y-M-d, y-M-d D
 
         let date = new Date(sDate);
 
         let day = date.getDate();
         let month = date.getMonth();
         let year = date.getFullYear();
-
+        let dayOfWeek = date.getDay();
+        
         let months = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+        let days = ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
 
-        let m = month +1;
-        let d = day;
+        let m = (month +1).toString().padStart(2, "0");
+        let d = day.toString().padStart(2, "0");
         let y = year;
         let y2 = y.toString().substr(0,2);
         var ret = format;
@@ -111,6 +113,9 @@
 
         // day
         ret = ret.replace("d", d);
+
+        // Day name
+        ret = ret.replace("D", days[dayOfWeek]);
 
         
         return ret;
@@ -426,7 +431,7 @@ function popWindow(url, _width, _height, specs = ""){
 function popWindowResize()
 {
     
-    console.log("popWindowsResize()");
+    //console.log("popWindowsResize()");
 
     const body = document.body,
           html = document.documentElement; 
@@ -435,7 +440,7 @@ function popWindowResize()
     let innerH = Math.max(html.scrollHeight, body.scrollHeight);
     let outerH = Math.min(html.clientHeight, window.outerHeight)
 
-     console.log( html.clientHeight, body.scrollHeight, innerH, outerH);
+    //console.log( html.clientHeight, body.scrollHeight, innerH, outerH);
 
     if ( outerH < innerH )
         window.resizeTo( window.outerWidth, innerH + 100);   
@@ -444,7 +449,7 @@ function popWindowResize()
     let width = html.scrollWidth;
     //console.log( html.clientHeight , height);
     if ( html.clientWidth < width )
-        window.resizeTo( width + 20, window.outerHeight, );   
+        window.resizeTo( width + 20, window.outerHeight + 20, );   
 
     // move window center to opener window
     let parentW = window.opener;
@@ -462,6 +467,7 @@ function popWindowResize()
         window.moveTo(left, top);
     }
 }
+
 
 function isEmailValid( email )
 {
