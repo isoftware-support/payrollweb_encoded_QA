@@ -504,7 +504,7 @@ function xxhrGet(url, callBackFunc = ""){
    xxhr("GET", url, callBackFunc);
 }
 
-function xxhrPost(url, data=[], callBackFunc){
+function xxhrPost(url, data=[], callBackFunc = ""){
 
     let xhr = new XMLHttpRequest();
     let formData = new FormData();
@@ -513,10 +513,12 @@ function xxhrPost(url, data=[], callBackFunc){
         formData.append(name, data[name]);                                
     }
 
-    xhr.open("POST", url, true);
-    xhr.onload = function(){
-        if (this.status == 200) callBackFunc(this.responseText);                     
-    };
+    xhr.open("POST", url, true );
+    if ( callBackFunc ){
+        xhr.onload = function(){
+            if (this.status == 200) callBackFunc(this.responseText);                     
+        };
+    }
     xhr.send(formData);
 }
 

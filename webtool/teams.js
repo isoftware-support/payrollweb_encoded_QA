@@ -1,5 +1,44 @@
 
 
+function filterEmployees()
+{   
+
+    const txt = getById('name_filter').value.toLowerCase();
+    console.log(txt);
+
+    const select = getById('available_id');
+
+    for (let i = 0; i < select.options.length; i++) {
+
+        const option = select.options[i];
+
+        console.log(option);
+        let display = "block";
+        if ( txt ){
+            
+            const name = option.text.toLowerCase();
+            display = name.indexOf(txt) == -1 ? "none" : "block";
+        }
+
+        option.style.display = display;
+        
+
+        // for (j = i+1; j < d.options.length; j++) {
+        //     if (d.options[i].text > d.options[j].text) {
+        //         t1 = d.options[i].text;
+        //         t2 = d.options[i].value;
+        //         d.options[i].text = d.options[j].text;
+        //         d.options[i].value = d.options[j].value;
+        //         d.options[j].text = t1;
+        //         d.options[j].value = t2;
+
+        //     }
+        // }
+    }
+
+    return false;
+}
+
 function togglecheckbox()
 {
 	f = document.forms[0];
@@ -277,15 +316,17 @@ function sortList(d)
 }
 function submitTeamMembers()
 {
+
     f = document.forms[0];
     z = findControl(f, 'supervisors[]');
     for (i = 0; i < z.options.length; i++) {
         z.options[i].selected = true;
     }
+
 	z = findControl(f, 'members[]');
     for (i = 0; i < z.options.length; i++) {
         z.options[i].selected = true;
-    }
+    }    
     f.submit();
 }
 function SelectAll(FormName, ObjName, check){

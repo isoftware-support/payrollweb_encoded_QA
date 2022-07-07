@@ -299,6 +299,8 @@ label, .CheckBoxLabel, .label, .label-i {
 	font-weight: normal; 
 	color: *#333333; 
 }
+
+
 .label-i{
 	font-style: italic;
 }
@@ -437,29 +439,20 @@ label, .CheckBoxLabel, .label, .label-i {
 	display: none;
 }
 
-.flex{
+.flex{ display: flex; }
+.flex-column{ flex-direction: column; }
+.flex-justify-center{ justify-content: center; }
+
+.flex-grow{ 	flex-grow: 1; }
+.flex-1{ flex: 1; }
+
+.flex-2{ flex: 2; }
+
+.flex-3{ flex: 3; }
+
+.flex-center-items{		
 	display: flex;
-}
-.flex-column{
-	flex-direction: column;
-}
-.flex-justify-center{
-	justify-content: center;
-}
-
-.flex-grow{
-	flex-grow: 1;
-}
-.flex-1{
-	flex: 1;
-}
-
-.flex-2{
-	flex: 2;
-}
-
-.flex-3{
-	flex: 3;
+	align-items: center;
 }
 
 /* ---- generics ------ */
@@ -570,6 +563,9 @@ label, .CheckBoxLabel, .label, .label-i {
 .mb-5  { margin-bottom: 5px !important; }
 .mb-10 { margin-bottom: 10px !important; }
 .mb-20 { margin-bottom: 20px !important; }
+.mb-50 { margin-bottom: 50px !important; }
+.mb-100 { margin-bottom: 100px !important; }
+
 
 /*---- widths --- fixwidths ----*/
 .w-10, .fw-10 {width: 10px !important; }
@@ -670,11 +666,17 @@ label, .CheckBoxLabel, .label, .label-i {
 .h-300 { height: 300px;}
 .h-600 { height: 600px;}
 
-.hp-100 {height: 100%;}
+.hp-50 {height: 50% !important;}
+.hp-90 {height: 90% !important;}
+.hp-100 {height: 100% !important;}
 
 .ta-c { text-align: center; padding-left: 0; padding-right: 0; }
 .ta-r { text-align: right; padding-right: 5px; }
 .ta-l { text-align: left; padding-left: 5px; }
+
+.align-bottom{
+	align-items: bottom;
+}
 
 .va-c{vertical-align: middle;}
 .va-t{vertical-align: top;}
