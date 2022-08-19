@@ -1,6 +1,6 @@
 	
 
-	var busy = new BusyGif();
+	
 	
 	//UPDATE Ticket Rule	
 	$(document).ready(function(){
@@ -113,25 +113,27 @@
 		
 
 		// put leaves specific rules
-		xxhrPost('../ajax_calls.php', {func:'GetMultiRecs', t:1, f:"fc|fv1|fv2|f1", 
-		xp:"f1 in ('RQST_RULES_LV_BEFORE','RQST_RULES_LV_AFTER')"},  
-		( res ) => {
+		if ( currentSection == "RequestSchedule" || currentSection == "RequestRules" ){
+		
+			xxhrPost('../ajax_calls.php', {func:'GetMultiRecs', t:1, f:"fc|fv1|fv2|f1", 
+			xp:"f1 in ('RQST_RULES_LV_BEFORE','RQST_RULES_LV_AFTER')"},  
+			( res ) => {
 
-			const ret = JSON.parse(res);			
-			Object.values(ret).forEach( item => {
+				const ret = JSON.parse(res);			
+				Object.values(ret).forEach( item => {
 
-				const type = item['typename'] == 'RQST_RULES_LV_BEFORE' ? 'before' : 'after';
+					const type = item['typename'] == 'RQST_RULES_LV_BEFORE' ? 'before' : 'after';
 
-				let id = `lv_${type}_chk_` + item.value2;
-				getById(id).checked = item.code == 1 ? true : false;
+					let id = `lv_${type}_chk_` + item.value2;
+					getById(id).checked = item.code == 1 ? true : false;
 
-				id = `lv_${type}_` + item.value2;
-				getById(id).value = item.value1;
+					id = `lv_${type}_` + item.value2;
+					getById(id).value = item.value1;
 
+				});
+				
 			});
-			
-		});
-
+		}
 
 		//put setting value
 		const e = $("input#coa_max");
@@ -352,6 +354,16 @@
 
 	});
 
+
+function passwordRuleLabel( e ){
+
+	const id = `s${e.id}`, orig = e.defaultValue, num = e.value;
+	const label = getById(id);
+
+	const txt = label.innerHTML;
+
+	label.innerHTML = txt.replace(orig, num);
+}
 
 function alert_validate(){
 	

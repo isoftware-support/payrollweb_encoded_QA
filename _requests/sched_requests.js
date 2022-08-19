@@ -1,4 +1,4 @@
-
+    
     function team_action( mode ){
         
         if (mode == 1){ //add            
@@ -250,12 +250,6 @@
     	
         // called from Scheduled request
 
-    // alert(approves);
-    //alert(userno);
-    //alert(teamnos);
-    //alert(stats);
-
-
         var xmlhttpxxx;
 
         if(window.XMLHttpRequest){
@@ -267,6 +261,9 @@
         xmlhttpxxx.onreadystatechange=function(){
             if (xmlhttpxxx.readyState==4 && xmlhttpxxx.status==200){
                 
+                // console.log(1);
+                // console.log(xmlhttpxxx.responseText);
+
 
                 var ajaxDisplay = xmlhttpxxx.responseText;
                 console.log = ajaxDisplay;
@@ -305,8 +302,8 @@
             }            
         }
 
-        //alert('team_request_ajax.php?tdcontent='+approves+'&userno='+userno+'&tn='+teamnos+'&stats='+stats+'&tbl=WA');
-        
+        // console.log( approves,array_countx,approve_rqno,approve_lvlno,userno,teamnos,stats );
+
         let url = 'team_request_ajax.php?tdcontent='+ approves +'&userno='+userno+'&tn='+teamnos+'&stats='+stats+'&tbl=WA';
         xmlhttpxxx.open('GET', url,true);
         xmlhttpxxx.send();

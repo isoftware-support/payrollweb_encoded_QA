@@ -77,7 +77,8 @@
         // filters
         // get show invalid        
         e = get("#cutoff_nav_show_raw:checked");
-        if (e) posts['fi'] = "1";
+        posts['fi'] = 1;
+        if (e) posts['fi'] = "0";
 
         // attendance filter
         var attds = [];        
@@ -112,7 +113,7 @@
 
     function showUploadedAttdLogs(res){        
         
-        // console.log(res);
+        console.log(res);
 
         busy.hide();        
         let file =  getById("import-log-file");

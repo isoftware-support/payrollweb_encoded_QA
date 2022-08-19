@@ -111,7 +111,7 @@ function generatePayroll(){
 
     xxhrPost("_payroll/payroll_ajax.php?q=payrollHistory"+ _session_vars, posts, 
     function( res ){
-        
+
         let data = JSON.parse(res);
 
         pdfParams = data.pdfParams;

@@ -6,8 +6,6 @@
     if (trs) $(trs).addClass('DataRowStripe');        
 
     
-//classes
-
     function getById( id ){
         return document.getElementById(id);
     }
@@ -26,6 +24,31 @@
         return document.querySelectorAll( selector );
     }
 
+    function removeChild(id){ 
+        const e = getById(id);
+        e.parentElement.removeChild(e);        
+    }
+
+    function removeChildren(id){
+        getById(id).innerHTML = "";
+    }
+
+    function removeParent(id){
+        const parent = getById(id).parentElement;
+        parent.parentElement.removeChild(parent);
+    }
+    function removeGrandParent(id, isObject = false){
+
+        let parent;
+        if ( isObject ){
+            parent = id.parentElement;
+        }else{
+            parent = getById(id).parentElement;
+        }
+        const grandParent = parent.parentElement;
+        grandParent.parentElement.removeChild(grandParent);
+
+    }
 
     function addClass(groupSelector, className){
 
@@ -50,6 +73,12 @@
         return ret;
     }
 
+    function setProp( el, prop, value){
+        if ( ! el ) return
+        el[prop] = value
+    }
+
+// classes
     function BusyGif( w="30px"){	
                 
     	//remove first
@@ -225,9 +254,11 @@ function selectChecbox(e, id="", id2=""){
     }  
 }
 
-function log(s)
+function log(...all)
 {
-    console.log(s);
+    for( let i in all){
+        console.log( all[i])
+    }
 }
 
 function quoteText(sString, lWrap = true){
@@ -281,7 +312,7 @@ function slideUpDown(id, lDown, sDuration){
 }
 //-------------------------------
 
-function dimBack(dimIt){
+function dimBack(dimIt, id='dimback'){
     
     if (typeof dimIt == 'undefined' || dimIt == null) dimIt = true;
 
@@ -290,22 +321,25 @@ function dimBack(dimIt){
         var h2 = window.innerHeight;
         if (h2 > h) h = h2;
 
-        $('body').append("<div id='dim'></div>");
-        $('div#dim').css({"left":"0", "height": h, "position":"absolute", 'display': 'block',
+        $('body').append(`<div id='${id}'></div>`);
+
+        $(`div#${id}`).css({"left":"0", "height": h, "position":"absolute", 'display': 'block',
             'top': 0, 'left': 0, 'width':'100%', 'margin-top': '0px',
-            'z-index': 99 , 'background-color':'Black', 'opacity': 0.4 });
+            'z-index': 99 , 'background-color':'Black', 'opacity': 0.6 });
             
-        $('div#dim').fadeIn("normal");                                  
+        $(`div#${id}`).fadeIn("normal");                                  
     }else{
-        $('div#dim').remove();
+        $(`div#${id}`).remove();
     }
+
 }
+
 //-------------------------------
 function CenterDiv(id, topAdj = 0) {    
         
-    var elem = $(id);   
-    var top = (($(window).height() - $(elem).outerHeight()) / 2) + $(window).scrollTop();
-    var left = (($(window).width() - $(elem).outerWidth()) / 2) + $(window).scrollLeft();
+    const elem = $(id);      
+    let top = (($(window).height() - $(elem).outerHeight()) / 2) + $(window).scrollTop();
+    let left = (($(window).width() - $(elem).outerWidth()) / 2) + $(window).scrollLeft();
 
     top = top + topAdj;
 
@@ -313,12 +347,19 @@ function CenterDiv(id, topAdj = 0) {
 }
 //-------------------------------
 
+function hideItem(id){
+    
+    if ( id.indexOf("#") == -1 ) id = "#" + id;
+    const e = get(id);
+    e.style.left = -999;
+}
+
+
 function CenterItem(id){
 
     if ( id.indexOf("#") == -1 ) id = "#" + id;
 
     let e = get(id);
-
     let wh = window.innerHeight;
     let ww = window.innerWidth;
     let sy = window.scrollY;
@@ -332,6 +373,7 @@ function CenterItem(id){
 
     e.style.top = y;
     e.style.left = x;    
+
 }
 
 
@@ -479,6 +521,21 @@ function isEmailValid( email )
     }    
 }
 
+function overrideFormEnterKey( formID, elementID, runFunc = "" )
+{
+    const frm = getById('frm_team_setup');
+    if ( frm ){
+        frm.onkeydown = event => {            
+            if (event.keyCode == 13 && event.target.id == elementID ){
+                console.log( event);
+                event.preventDefault();                             
+                if ( runFunc) runFunc();           
+                return false;
+            }
+        }
+    }
+}
+
 function xxhr(method, path, func){
     
     //ex:  xxhr("GET", 'xhtml_response.php?q=myRecEntry&id='+ e.dataset.id, show);
@@ -505,14 +562,14 @@ function xxhrGet(url, callBackFunc = ""){
 }
 
 function xxhrPost(url, data=[], callBackFunc = ""){
-
+    
     let xhr = new XMLHttpRequest();
     let formData = new FormData();
 
     for( const name in data ){        
         formData.append(name, data[name]);                                
     }
-
+    
     xhr.open("POST", url, true );
     if ( callBackFunc ){
         xhr.onload = function(){

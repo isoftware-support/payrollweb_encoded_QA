@@ -5,7 +5,6 @@ PAYROLLWEB.disapproved = {};
 PAYROLLWEB.reimbursements = {};
 
 
-
 $(document).ready(function(){
 
     //$('td #exclamation').css({'width':'16px','padding':'0 0 2px 0'});
@@ -226,7 +225,7 @@ function CalendarSection()
 function verifyDeleteRequest(q,n,m,r,l)
 {
 	
-	console.log(q,n,m,r,l);
+	// console.log(q,n,m,r,l);
 	
 	if(q=="07"){ //webauthorization request only
 		

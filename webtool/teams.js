@@ -11,8 +11,6 @@ function filterEmployees()
     for (let i = 0; i < select.options.length; i++) {
 
         const option = select.options[i];
-
-        console.log(option);
         let display = "block";
         if ( txt ){
             
@@ -20,20 +18,7 @@ function filterEmployees()
             display = name.indexOf(txt) == -1 ? "none" : "block";
         }
 
-        option.style.display = display;
-        
-
-        // for (j = i+1; j < d.options.length; j++) {
-        //     if (d.options[i].text > d.options[j].text) {
-        //         t1 = d.options[i].text;
-        //         t2 = d.options[i].value;
-        //         d.options[i].text = d.options[j].text;
-        //         d.options[i].value = d.options[j].value;
-        //         d.options[j].text = t1;
-        //         d.options[j].value = t2;
-
-        //     }
-        // }
+        option.style.display = display;       
     }
 
     return false;

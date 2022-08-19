@@ -69,6 +69,8 @@ function loginAttempt()
 
     xxhrPost( PAYROLLWEB_URI + "/_home/home_login.php", _post, (res)=>{
         
+        log( res);
+        
         let ret = JSON.parse(res);
         if ( ret.ret == "success") {
             window.location.replace( PAYROLLWEB_URI +"/index.php?qid=01");
