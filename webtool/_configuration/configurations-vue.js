@@ -36,12 +36,12 @@ if (currentSection == "Emails") {
 			</div>	
 			<div v-if="active" class='aligner'>
 				<label class="fw-110 pr-5" for=""></label>
-				<button @click="update(true)" class="button">Test</button>				
+				<button @click="test" class="button">Test</button>				
 			</div>
 
 			<div v-if="test_result" class='aligner'>
 				<label class="fw-110 pr-5" for=""></label>
-				<label :class="error_class">{{ test_result }}</label>
+				<label :class="{ 'ErrorMessage': isError }">{{ test_result }}</label>
 			</div>
 			<br>
 			
@@ -59,13 +59,13 @@ if (currentSection == "Emails") {
 
 			<div v-if="recover_response" class="aligner">
 				<label class='fw-110 pr-5 ' for=""></label>
-				<textarea class="flex-1" rows=6>{{ recover_response }}</textarea>
+				<textarea class="flex-1" readonly rows=8>{{ recover_response }}</textarea>
 			</div>	
 			<br>
 
 			<div class='aligner'>
 				<label class="fw-110 pr-5" for=""></label>
-				<button @click="update()" class="button">Update</button>				
+				<button @click="update" class="button">Update</button>				
 			</div>
 
 		</div>
@@ -83,62 +83,118 @@ if (currentSection == "Emails") {
                 date_end: "",
                 mail_server: "",
                 test_result: "",
-                error_class: "",
+                isError: false,
                 recover_response: "",
+                isTest: false,
+                isCheckRecoverDates: false,
             }
         },
 
         methods: {
 
             async check_account() {
+            	
+              const res = await fetch("../ajax_calls.php?func=checkMailBox")
+              const ret = await res.json();
 
-                const res = await fetch("../ajax_calls.php?func=checkMailBox")
-                const ret = await res.json();
-
-                if (ret.connected) {
-                    this.error_class = ""
-                    this.test_result = "Mailbox test successful."
-                } else {
-                    this.error_class = "ErrorMessage"
-                    this.test_result = ret.error;
-                }
+								if (ret.connected) {
+										this.msg("Mailbox test successful.", false);
+			          } else {
+										this.msg( ret.error, true);
+			          }
                 busy.hide();
 
             },
 
             recover() {
 
-            	this.update();
+							this.isTest = false;
+            	this.isCheckRecoverDates = true;
+            	if ( ! this.save()) return;
+
 
             	busy.show2();
 
             	const p = {func: 'lazy_apr', f: 'INBOX.Processed'};
             	const url = payrollwebURI + '/cli/lazy_approvals.php';
+
+            	log( 'recover ', url, p);
+
             	xxhrPost( url, p, ( res ) => {
 
-            		console.log( res);
+            		console.log( 'recover result -', res);
             		const ret = JSON.parse(res);
 
-            		let response = 'Recover details: \r\n \r\n'+
-            			`Total Emals: ${ret.total} \r\n` +
-            			`Retrieved: ${ret.retrieved} \r\n` +
-            			`Validated: ${ret.validated} \r\n` +
-            			`Re-applied approval: ${ret.applied}`;
+            		if ( ret.connected ){
 
-            		if ( ret.notes ){
-            			response += "\r\n\r\n";
-            			ret.notes.forEach( (note)=>{
-            				response = response + note + "\r\n";
-            			})
-            		}
-            		this.recover_response = response;
+	            		let response = 'Recover details: \r\n\r\n'+
+	            			`  Total Emails: ${ret.total} \r\n` +
+	            			`  Retrieved: ${ret.retrieved} \r\n` +
+	            			`  Validated: ${ret.validated} \r\n` +
+	            			`  Re-applied approval: ${ret.applied}`;
+
+	            		if ( ret.notes ){
+	            			response += "\r\n\r\n";
+	            			ret.notes.forEach( (note)=>{
+	            				response = response + note + "\r\n";
+	            			})
+	            		}
+	            		this.recover_response = response;
+	            	
+	            	}else{
+	            		this.msg("Can't open server mailbox. Connection failed.", true);
+	            	}
 
             		busy.hide();
             	});
 
             },
 
-            update(isTest = false) {
+            checkFields(){
+
+            	let msg = [];
+
+            	if ( this.active ){
+
+	            	if ( ! this.mail_server ) msg.push( "Mail Server" );
+	              if ( ! this.email ) 			msg.push( "Email account" );
+	              if ( ! this.password ) 		msg.push( "Password" );
+
+            		if ( this.isCheckRecoverDates ){
+	              	if ( ! this.date_start )  msg.push( "Recover date start" );
+	              	if ( ! this.date_end )		msg.push( "Recover date end" );
+	            	}
+
+	              if ( msg.length ){
+	              	const txt = combine( msg ) + ( msg.length > 1 ? " are" : " is" ) + " empty.";
+									this.msg(txt, true );
+		            }
+
+	            }
+
+	            return msg.length ? false : true;
+            },
+
+            update(){
+
+            	this.isTest = false;
+            	this.isCheckRecoverDates = false;
+            	this.save();
+            },
+
+            test(){
+
+            	this.isTest = true;
+            	this.isCheckRecoverDates = false;
+            	this.save();
+            },
+
+            save() {
+
+            		// check fields
+            		if ( ! this.checkFields() ) return false;
+
+            		console.log( 'save');
 
                 busy.show2();
 
@@ -185,23 +241,34 @@ if (currentSection == "Emails") {
                 v.push(`${t}, 7, ${this.mail_server}, Mail server`.replaceAll(", ", "|"))
                 xp.push(`t='${t}' and c = 7`)
 
-                let p = { func: 'UpdateSettings', f: f.join("|:|"), v: v.join("|:|"), xp: xp.join("|:|") }
+                let p = { func: 'UpdateSettings', f: f.join("|:|"), v: v.join("|:|"), xp: xp.join("|:|"), x:1 }
 
                 const saveSetting = () => {
                     xxhrPost("../ajax_calls.php", p, res => {
 
-                        if (isTest) {
-                            this.check_account();
-                        } else {
-                            busy.hide();
-                        }
+                      if ( this.isTest ) {
+                          this.check_account();
+                      } else {
+                          busy.hide();
+                      }
+
                     })
                 }
 
                 saveSetting();
+
+                return true;
             },
 
+            msg( msg, isError = false, sec = 5000){
+
+		      		this.isError = isError;
+		          this.test_result = msg;
+
+		          setTimeout( ()=> this.test_result = "" , sec);
+		        },
         },
+
         beforeMount() {
 
             busy.show2();
@@ -234,7 +301,7 @@ if (currentSection == "Emails") {
 
         },
     });
-
+		
     const proxyLazyApproval = appLazyApproval.mount("#lazyMailbox");
 
 }

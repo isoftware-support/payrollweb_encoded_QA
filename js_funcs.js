@@ -78,6 +78,25 @@
         el[prop] = value
     }
 
+    function combine( any, sep = ", ", lastOccurence = " and")
+    {
+
+        let txt = "";
+        any.map( (item, index) => {
+
+            if ( index > 0 ){
+                if ( index == any.length-1 ){
+                    item = " and "+ item;
+                }else{
+                    item = ", "+ item;
+                }
+            }
+
+            txt += item;
+        })        
+        return txt;
+    }
+    
 // classes
     function BusyGif( w="30px"){	
                 
