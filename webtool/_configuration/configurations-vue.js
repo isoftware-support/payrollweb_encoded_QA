@@ -93,15 +93,15 @@ if (currentSection == "Emails") {
         methods: {
 
             async check_account() {
-            	
-              const res = await fetch("../ajax_calls.php?func=checkMailBox")
-              const ret = await res.json();
+                
+                const res = await fetch("../ajax_calls.php?func=checkMailBox")
+                const ret = await res.json();
 
-								if (ret.connected) {
-										this.msg("Mailbox test successful.", false);
-			          } else {
-										this.msg( ret.error, true);
-			          }
+				if (ret.connected) {
+					this.msg("Mailbox test successful.", false);
+   	            } else {
+					this.msg( ret.error, true);
+  	            }
                 busy.hide();
 
             },
