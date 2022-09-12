@@ -39,13 +39,13 @@
 
             function getAllRec( clear = false ){
 
-                console.log( clear);
+                // console.log( clear);
                 if ( clear ) getById("filter-text").value = ""   ;
                 
                 var txt = getById("filter-text").value;
                 getById('div_info').innerHTML = ""; 
                 
-                console.log(txt);
+                // console.log(txt);
                 busy.show2();
                 xxhr("GET", 'xhtml_response.php?q=recAll&f='+ txt + _session_vars, showAll);                    
             }            

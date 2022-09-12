@@ -181,7 +181,7 @@ function PicViewer( params ){
 	  const y = e.pageY - slider.offsetTop;
 	  walk = (y - start.y) * 3;
 	  slider.scrollTop = scroll.top - walk;
-	  console.log(walk);
+	  // console.log(walk);
 	});
 
 

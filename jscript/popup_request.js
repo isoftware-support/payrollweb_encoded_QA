@@ -185,7 +185,7 @@
 						if ( Array.isArray(dates) ){
 							if ( dates.includes(v) ){
 								checked = "checked";
-								console.log(v);									
+								// console.log(v);									
 							}
 						}
 					}
@@ -484,7 +484,7 @@
 				}
 
 				let chks = getAll("input[name='leave_batch_dates']");
-				console.log(chks.length);
+				// console.log(chks.length);
 				if ( isLeaveBatchFiling && chks.length ){
 
 					chks = getAll("input[name='leave_batch_dates']:checked");
@@ -550,7 +550,7 @@
 		var ret = true;
 		if ( days == 0 || ( hours == 0 && mins == 0)) ret = false;
 
-		console.log( date, '- ', days, ' - ', hours, ' - ', mins );
+		// console.log( date, '- ', days, ' - ', hours, ' - ', mins );
 
 		return ret;
 	}

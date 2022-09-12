@@ -113,13 +113,16 @@
 
     function showUploadedAttdLogs(res){        
         
-        console.log(res);
+        // console.log('res :', res);
 
         busy.hide();        
         let file =  getById("import-log-file");
-        if (file) file.value = "";  // rest file selected
+        if (file) file.value = "";  // reset file selected
 
         var data = JSON.parse(res);
+
+        // console.log('data :', data);
+
         getById('uploaded-attds').innerHTML = data.html;
 
         if ( data.error ) alert(data.error);
@@ -259,7 +262,7 @@
             }
         }
 
-        var data = {};
+        var data = {func: 'apprAttd'};
         data.nos = nos.join('|');
         data.hours = hours.join('|');     
         data.approval = approval;   
@@ -271,16 +274,13 @@
 
         // console.log(data);
 
-        xxhrPost("xhtml_response.php?q=apprAttd"+ _session_vars, data, 
+        xxhrPost(PAYROLLWEB_URI + "/_approvals/attendance_approval.php?"+ _session_vars, data, 
         function(res){
                        
             let ret = JSON.parse(res);
             
             let data = ret.data;
             let approved_hours = ret.approved_hours;
-
-            //console.log( data);
-            console.log( approved_hours);
 
             for(var i = 0; i < data.length; i++){
 

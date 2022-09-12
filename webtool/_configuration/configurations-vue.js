@@ -118,11 +118,12 @@ if (currentSection == "Emails") {
             	const p = {func: 'lazy_apr', f: 'INBOX.Processed'};
             	const url = payrollwebURI + '/cli/lazy_approvals.php';
 
-            	log( 'recover ', url, p);
+            	// log( 'recover ', url, p);
 
             	xxhrPost( url, p, ( res ) => {
 
-            		console.log( 'recover result -', res);
+            		// console.log( 'recover result -', res);
+                    
             		const ret = JSON.parse(res);
 
             		if ( ret.connected ){
@@ -191,10 +192,10 @@ if (currentSection == "Emails") {
 
             save() {
 
-            		// check fields
-            		if ( ! this.checkFields() ) return false;
+        		// check fields
+        		if ( ! this.checkFields() ) return false;
 
-            		console.log( 'save');
+            		// console.log( 'save');
 
                 busy.show2();
 

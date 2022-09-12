@@ -234,7 +234,7 @@ function clearSelected(){
 
         busy.hide();
         const ret = JSON.parse( data );
-        console.log(ret);
+        // console.log(ret);
         if ( ret.result == 'Error'){
           alert('An error occurred.\r\n\r\n' + ret.msg);
           return;
@@ -266,7 +266,7 @@ function UsePreviousSched(){
       
       
       const ret = JSON.parse(res);
-      console.log(ret);     
+      // console.log(ret);     
 
       loadTeamSchedule( () => {              
 
@@ -323,7 +323,7 @@ function collectSelected( errorMsg ){
   ret.sc_count = sc_count;
   ret.ids = ids;
 
-  console.log(ret);
+  // console.log(ret);
   return ret;
 
 }

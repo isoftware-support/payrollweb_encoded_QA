@@ -1,5 +1,6 @@
 
-if ( busy == 'undefined')
+
+if ( busy == undefined)
 	var busy = new BusyGif();
 
 var timer;
@@ -82,7 +83,7 @@ const app  =  Vue.createApp({
 		  const p = { func:"UserAccount", d:-1, id:no }
 		  xxhrPost( rootURI + "/ajax_calls.php", p, (res)=>{
 		  	
-		  	console.log(res);
+		  	// console.log(res);
 
 		  	const ret = JSON.parse(res);
   	  	if ( ret.success ){
@@ -136,7 +137,7 @@ const app  =  Vue.createApp({
 
 	  },
 	  show(){
-	  	dimBack();
+	  	dimBack(true, '', this.cancel);
 			CenterItem('ua_box');
 			
 			this.$refs._username.focus()
@@ -202,7 +203,7 @@ const app  =  Vue.createApp({
 
 	  name_change(){	  	
 	  	this.isEmployee = this.employee_no > 0 ? true : false
-	  	console.log( this.isEmployee)
+	  	// console.log( this.isEmployee)
 	  },
 
 		reset(){

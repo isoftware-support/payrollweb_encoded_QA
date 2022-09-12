@@ -1,9 +1,8 @@
 
-PAYROLLWEB = {};
+let PAYROLLWEB = {};
 PAYROLLWEB.requests = {};
 PAYROLLWEB.disapproved = {};
 PAYROLLWEB.reimbursements = {};
-
 
 $(document).ready(function(){
 

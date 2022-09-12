@@ -1,7 +1,8 @@
+	
+	if ( busy == undefined)
+		var busy = new BusyGif();
 
-	  
-	  
-		
+
 		function linkItem(){
 
 			let editLinkNo = 0;
@@ -17,14 +18,16 @@
 				// save 
 				getById('link_save').onclick = () => {
 
+					busy.show2();
+					
 					const title = getById('link_title').value,
 						intro = getById('link_intro').value,
 						link = getById('link_url').value;
 
 					let p = {
-						func: 'x', t: 7, d: 1,
-						f: 'cmtype|:|title|:|intro|:|location',
-						v: `3|:|'${title}'|:|'${intro}'|:|'${link}'`,
+						func: 'x', t: 7, d: 1, sep: '|:|',
+						f: 'cmtype, title, intro, location'.replaceAll(", ", "|:|"),
+						v: `3|:|${title}|:|${intro}|:|${link}`,
 						el: "AllowAddLinks",
 					};
 
@@ -49,6 +52,9 @@
 					const no = linkNo();
 
 					if (no){
+
+						busy.show2();
+
 						const p = { func: 'GetRec', t: 7, xp:`f3 = 3 and f2 =${no}`, 
 							f: 'title|intro|location'
 						};
@@ -57,7 +63,8 @@
 
 						xxhrPost(rootURI + "/ajax_calls.php", p, ( res ) => {							
 
-							console.log( res);
+							// console.log( res);
+							
 							const ret = JSON.parse(res);
 
 							getById('link_caption').innerHTML = "Update Link Item";
@@ -66,7 +73,7 @@
 							getById('link_url').value = ret.location;
 							show();
 
-							
+							busy.hide();
 						});		
 					}
 				}
@@ -80,6 +87,8 @@
 
 						if ( ! confirm("Delete Link item?") ) return;
 
+						busy.show2();
+
 						let p = { func: 'x', t: 7, d:-1, xp:`f3 = 3 and f2 =${no}`, el: 'AllowDeleteLinks'};
 						xxhrPost(rootURI + "/ajax_calls.php", p, ( res ) => {				
 
@@ -90,6 +99,8 @@
 							e = get("input[type='radio']");			
 							if (e)
 								e.checked = true;
+
+							busy.hide();
 						});								
 					}
 				}
@@ -117,8 +128,9 @@
 					}
 					getById('link_caption').innerHTML = caption;
 
-					dimBack();
-					CenterItem(boxId);		  					
+					dimBack(true, '', hide );
+					CenterItem(boxId);		
+
 			}
 
 			function hide(){
@@ -131,6 +143,4 @@
 		const boxId = 'link_box';			
 		const link = new linkItem();
 		link.bindItems();
-		
-		
 		

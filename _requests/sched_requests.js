@@ -261,24 +261,25 @@
         xmlhttpxxx.onreadystatechange=function(){
             if (xmlhttpxxx.readyState==4 && xmlhttpxxx.status==200){
                 
-                // console.log(1);
-                // console.log(xmlhttpxxx.responseText);
+                const result = xmlhttpxxx.responseText;
+                const ret = JSON.parse(result);
 
+                var ajaxDisplay = ret.result;
 
-                var ajaxDisplay = xmlhttpxxx.responseText;
-                console.log = ajaxDisplay;
+                // console.log(ajaxDisplay);
+                // console.log(ret);
 
                 //var res = ajaxDisplay.split(','); // Supervisor Approvers
             	
             	// SEPARATE FINAL STATUS to Approver Info Display Starts
 
-                var replace_st = Array("<br />_0_","<br />_1_","<br />_-1_");
+                var replace_st = Array("<br>_0_","<br>_1_","<br>_-1_");
                 var regexp_st = new RegExp(replace_st.join('|'),'g');  
                 var sep_st = ajaxDisplay.replace(regexp_st,''); 
                   
                  
-                var flag_x = ajaxDisplay.match(/<br \/>_([^_]*)/gi);
-                var flag_st_x = flag_x.join(",").replace(/<br \/>_/gi,""); 
+                var flag_x = ajaxDisplay.match(/<br>_([^_]*)/gi);
+                var flag_st_x = flag_x.join(",").replace(/<br>_/gi,""); 
 
             	var res = sep_st.split(','); // Supervisor Approvers
             	var flag_res = flag_st_x.split(","); // Final Status Display
@@ -304,7 +305,7 @@
 
         // console.log( approves,array_countx,approve_rqno,approve_lvlno,userno,teamnos,stats );
 
-        let url = 'team_request_ajax.php?tdcontent='+ approves +'&userno='+userno+'&tn='+teamnos+'&stats='+stats+'&tbl=WA';
+        let url = '_approvals/request_approval.php?tdcontent='+ approves +'&userno='+userno+'&tn='+teamnos+'&stats='+stats+'&tbl=WA';
         xmlhttpxxx.open('GET', url,true);
         xmlhttpxxx.send();
 

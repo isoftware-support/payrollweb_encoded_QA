@@ -1,4 +1,8 @@
 
+if ( busy == undefined)
+	var busy = new BusyGif();
+
+// console.log(busy);
 
 let divIndex = 1;
 
@@ -45,9 +49,11 @@ function NewsEvents(){
 			return;
 		}
 
+		busy.show2();
+
 		let p = {func: 'NewsEvents', t: 7, sep: "||", d: 1};
 		p.f = "f3,startdate,title,intro,content,location".replaceAll(",", p.sep);
-		p.v = `${cmType},'${dt}','${title}','${intro}','${content}','${link}'`.replaceAll(",", p.sep);
+		p.v = encodeURIComponent(`${cmType}||${dt}||${title}||${intro}||${content}||${link}`);
 		p.cm = cmType;
 
 		// include files
@@ -68,7 +74,9 @@ function NewsEvents(){
 		}
 
 		xxhrPost(rootURI + "/ajax_calls.php", p, ( res ) => {						
+			// console.log( res);
 			location.reload();
+
 		});		
 
 		editNewsEventNo = 0;						
@@ -85,6 +93,8 @@ function NewsEvents(){
 		if (! confirm("Are you sure you want to delete this item?"))
 			return;
 
+		busy.show2();
+
 		const no = radio.value;
 
 		// delete rec
@@ -92,7 +102,7 @@ function NewsEvents(){
 		p.x = 1;
 		xxhrPost(rootURI + "/ajax_calls.php", p, ( res ) => {			
 
-			console.log( res);
+			// console.log( res);
 
 			removeGrandParent(radio.id); //remove row
 
@@ -104,7 +114,9 @@ function NewsEvents(){
 
 		// delete files
 		p = {func:'x', t:8, xp: `f2=${no}`, d:-1};
-		xxhrPost(rootURI + "/ajax_calls.php", p);				
+		xxhrPost(rootURI + "/ajax_calls.php", p, ()=>{
+			busy.hide();
+		});				
 
 	}
 
@@ -126,11 +138,15 @@ function NewsEvents(){
 				return;
 			}
 
+			busy.show2();
+
 			editNewsEventNo = e.value;						
 			let p = {func:'GetRec', t:7, xp: `f3=${cmType} and f2=${editNewsEventNo}`, d:0};
 			p.f = 'startdate|title|intro|location|content';
 
 			xxhrPost(rootURI + "/ajax_calls.php", p, ( res ) => {			
+
+				// console.log( res);
 
 				const ret = JSON.parse(res);
 				ret.caption = `Update ${cmName}`;
@@ -140,8 +156,11 @@ function NewsEvents(){
 
 			// get files
 			p = {func:'GetMultiRecs', t:8, f:'nos|filename', xp:`f2=${editNewsEventNo}`}
+
 			xxhrPost(rootURI + "/ajax_calls.php", p, ( res ) => {			
 				
+				// log(res);
+
 				const ret = JSON.parse(res);
 				const div = getById('edit_file_list');
 
@@ -160,6 +179,8 @@ function NewsEvents(){
 				}
 				div.innerHTML = es;
 				
+				busy.hide();
+
 			})
 
 		}
@@ -186,7 +207,7 @@ function NewsEvents(){
 		getById('f_content').value = data.content ? data.content : '';
 		getById('f_link').value = data.location ? data.location : '';
 
-		dimBack();
+		dimBack(true, '', hide);
 		CenterItem(boxId);
 
 	}

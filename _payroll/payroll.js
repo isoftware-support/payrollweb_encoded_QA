@@ -139,7 +139,7 @@ function generatePayroll(){
 
         busy.hide();
 
-        console.log(data);
+        // console.log(data);
 
     });
 }
@@ -204,10 +204,10 @@ function acknowledgePayslip(t){
       xxhrGet( PAYROLLWEB_URI + "/_payroll/payroll_ajax.php?q=disputeLog"+ ds + d + r + _session_vars,
       function(res){      
 
-        console.log( res);
+        // console.log( res);
 
         let data = JSON.parse(res);
-        console.log(data);
+        // console.log(data);
 
         var msg = "Dispute for payslip has been submitted.";
         if ( data.success == "0" )
@@ -264,7 +264,7 @@ function acknowledgePayslip(t){
 
         busy.hide();
 
-        console.log(data);
+        // console.log(data);
       });
       
     }

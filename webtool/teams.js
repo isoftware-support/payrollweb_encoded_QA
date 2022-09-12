@@ -4,7 +4,7 @@ function filterEmployees()
 {   
 
     const txt = getById('name_filter').value.toLowerCase();
-    console.log(txt);
+    // console.log(txt);
 
     const select = getById('available_id');
 

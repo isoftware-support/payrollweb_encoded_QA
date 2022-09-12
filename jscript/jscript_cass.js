@@ -405,7 +405,7 @@ function TransMenu(oActuator, iDirection, iLeft, iTop, iReferencePoint, parentMe
                         if (_this.items[this._index].url) 
                                 location.href = _this.items[this._index].url;
                 }
-                console.log("item clicked");
+                // console.log("item clicked");
         }
 
         function actuator_mouseover() {

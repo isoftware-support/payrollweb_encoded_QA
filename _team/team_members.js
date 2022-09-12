@@ -65,7 +65,8 @@ function options_apply()
 
 	options.forEach(function(opt){
 
-		console.log(opt);
+		// console.log(opt);
+		
 		if (opt.value == "Delegate"){
 			isDelegate = true;
 			emp_options = "Delegated";

@@ -318,7 +318,7 @@
 				var tn = $(this).data('t');
 				var cd = $(this).data('c');
 
-				console.log(val + " . " + xp + " . " + tn + " . " + cd);
+				// console.log(val + " . " + xp + " . " + tn + " . " + cd);
 
 				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v1', v:tn+'|'+cd+'|'+val, xp:xp}, function(data){
 						//alert(data);

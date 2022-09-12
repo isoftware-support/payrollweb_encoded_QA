@@ -26,7 +26,8 @@
 
     function removeChild(id){ 
         const e = getById(id);
-        e.parentElement.removeChild(e);        
+        if ( e )
+            e.parentElement.removeChild(e);        
     }
 
     function removeChildren(id){
@@ -331,9 +332,12 @@ function slideUpDown(id, lDown, sDuration){
 }
 //-------------------------------
 
-function dimBack(dimIt, id='dimback'){
+function dimBack(dimIt, id='dimback', hideCallback = ""){
     
     if (typeof dimIt == 'undefined' || dimIt == null) dimIt = true;
+
+    // id is blank
+    if ( ! id ) id = "dimback";
 
     if (dimIt){
         var h = parseInt($("html").css("height"));
@@ -346,7 +350,11 @@ function dimBack(dimIt, id='dimback'){
             'top': 0, 'left': 0, 'width':'100%', 'margin-top': '0px',
             'z-index': 99 , 'background-color':'Black', 'opacity': 0.6 });
             
-        $(`div#${id}`).fadeIn("normal");                                  
+        $(`div#${id}`).fadeIn("normal");              
+
+        if ( hideCallback ){
+            $(`div#${id}`).click(hideCallback);
+        }
     }else{
         $(`div#${id}`).remove();
     }
@@ -447,16 +455,20 @@ function isOnScreen(elem)
     var elem = $(elem);
     var scr = $(window);
 
-    var docViewTop = $(scr).scrollTop();
-    var docViewBottom = docViewTop + $(scr).height();
+    if ( elem ){
+        var docViewTop = $(scr).scrollTop();
+        var docViewBottom = docViewTop + $(scr).height();
 
-    var elemTop = $(elem).offset().top;
-    var elemBottom = elemTop + $(elem).height();
+        var elemTop = $(elem).offset().top;
+        var elemBottom = elemTop + $(elem).height();
 
-    // console.log(elemTop);
-    // console.log(elemBottom);
-    
-    return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+        // console.log(elemTop);
+        // console.log(elemBottom);
+        
+        return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
+    }else{
+        return false;
+    }
 }
 
 function popWindow(url, _width, _height, specs = ""){
@@ -588,14 +600,14 @@ function xxhrPost(url, data=[], callBackFunc = ""){
     for( const name in data ){        
         formData.append(name, data[name]);                                
     }
-    
     xhr.open("POST", url, true );
+    xhr.send(formData);
+
     if ( callBackFunc ){
         xhr.onload = function(){
             if (this.status == 200) callBackFunc(this.responseText);                     
         };
     }
-    xhr.send(formData);
 }
 
 // console.log( "js_funcs.js - end");
