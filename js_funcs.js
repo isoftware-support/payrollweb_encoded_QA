@@ -333,24 +333,29 @@ function slideUpDown(id, lDown, sDuration){
 //-------------------------------
 
 function dimBack(dimIt, id='dimback', hideCallback = ""){
-    
+   
     if (typeof dimIt == 'undefined' || dimIt == null) dimIt = true;
 
     // id is blank
     if ( ! id ) id = "dimback";
-
+ 
     if (dimIt){
+
+
         var h = parseInt($("html").css("height"));
         var h2 = window.innerHeight;
         if (h2 > h) h = h2;
 
+ 
         $('body').append(`<div id='${id}'></div>`);
 
+  
         $(`div#${id}`).css({"left":"0", "height": h, "position":"absolute", 'display': 'block',
             'top': 0, 'left': 0, 'width':'100%', 'margin-top': '0px',
             'z-index': 99 , 'background-color':'Black', 'opacity': 0.6 });
-            
+           
         $(`div#${id}`).fadeIn("normal");              
+ 
 
         if ( hideCallback ){
             $(`div#${id}`).click(hideCallback);

@@ -83,8 +83,6 @@ const app  =  Vue.createApp({
 		  const p = { func:"UserAccount", d:-1, id:no }
 		  xxhrPost( rootURI + "/ajax_calls.php", p, (res)=>{
 		  	
-		  	// console.log(res);
-
 		  	const ret = JSON.parse(res);
   	  	if ( ret.success ){
 					removeGrandParent(e.id);
@@ -95,7 +93,6 @@ const app  =  Vue.createApp({
 	  },
 		add(){
 
-			
 			this.reset()			
 			this.$refs._employees.innerHTML = emps_add_list.join("");
 			this.show()
@@ -120,6 +117,7 @@ const app  =  Vue.createApp({
 
 	    xxhrPost( rootURI + "/ajax_calls.php", p, (res)=>{
 	      
+	      // console.log('res', res);
 	      const ret = JSON.parse(res)
 	      this.id = no
 	      this.username = ret.f4
@@ -137,15 +135,14 @@ const app  =  Vue.createApp({
 
 	  },
 	  show(){
-	  	dimBack(true, '', this.cancel);
+	  	dimBack(true, 'dim_back', () => this.cancel() );
 			CenterItem('ua_box');
-			
 			this.$refs._username.focus()
 
 	  },
 	  cancel(){
 	  	this.reset()
-	  	dimBack(false);
+	  	dimBack(false, 'dim_back');
 	  	hideItem('ua_box');
 
 	  },

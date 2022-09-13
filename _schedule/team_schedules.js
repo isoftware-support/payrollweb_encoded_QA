@@ -136,17 +136,18 @@ function uploadTeamSchedules(){
       
       // prompt invalid ids and dates
 
-      if ( ret.invalids.dates || ret.invalids.ids ){
+      if ( ret.invalids.dates || ret.invalids.ids || ret.invalids.shiftcodes ){
         
         let msg = "Invalid entries found in importation template.";
 
-        if ( ret.invalids.dates ){
+        if ( ret.invalids.dates )
           msg += "\r\n\r\nInvalid Date Columns:\r\n" + ret.invalids.dates.join(", ");
-        }
 
-        if ( ret.invalids.ids ){
+        if ( ret.invalids.ids )
           msg += "\r\n\r\nInvalid Employee Ids:\r\n" + ret.invalids.ids.join(", ");
-        }
+
+        if ( ret.invalids.shiftcodes)
+          msg += "\r\n\r\nInvalid Shift Codes:\r\n" + ret.invalids.shiftcodes.join(", ");
 
         alert(msg);
       }
