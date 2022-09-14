@@ -59,7 +59,7 @@ const shiftcode_picker = Vue.createApp({
 
   		this._showShifts( false );
 
-  		this.shifts = [sc];
+  		this.shifts = sc.split(",");
   		this.edit = { eno: div.dataset.eno, sc: sc, dt: div.dataset.dt };
 
   		// single edit
@@ -76,7 +76,7 @@ const shiftcode_picker = Vue.createApp({
   	ok(){
 
   		// selected shiftcodes
-  		const shifts = this.shifts;
+  		let shifts = this.shifts;
   		if ( shifts.length ){
 
   			busy.show2();
@@ -84,7 +84,14 @@ const shiftcode_picker = Vue.createApp({
   			let p = {fn : 'sa'};
   			let items = [];
 
-  			p.shifts = Array(shifts).join(",");
+        // remove empty in array
+        if ( Array.isArray(shifts) ){
+          shifts = shifts.filter((sc)=> sc );
+        }
+
+        p.shifts = Array(shifts).join(",");
+        // console.log( 'shift', shifts, '2', p.shifts);
+        // return;
 
   			if ( Object.keys(this.edit).length ){   // set 1
 
@@ -106,8 +113,11 @@ const shiftcode_picker = Vue.createApp({
 	  			p.items = items.join(",");
 	  		}
 
+        // console.log( p);
+
   			xxhrPost(`${rootURI}/_schedule/team_schedules_ajax.php`, p, (res)=>{
   				// console.log(res);
+
   				loadTeamSchedule();
   				busy.hide();
   			});
