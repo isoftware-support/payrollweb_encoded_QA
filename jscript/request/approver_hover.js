@@ -9,6 +9,8 @@
         // delete first
         removeChild(div_id);
 
+        console.log( data);
+
         const body = get(parentTagName);
         if ( body ){
     
@@ -35,6 +37,7 @@
 
                 const text = data[ prop_val ][ dataTextField ];
                 // console.log( el);
+
                 el.onmouseover = (event)=>{
 
                     const hover_div = getById( div_id );

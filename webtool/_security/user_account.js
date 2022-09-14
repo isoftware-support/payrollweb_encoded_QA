@@ -41,7 +41,7 @@ const app  =  Vue.createApp({
 	  	let p = {func:'UserAccount', d:1, sep:'||' };
 	  	p.f = "id1, f4, f5, filedas, email, wugno, alertssumm".replaceAll( ", ", p.sep )
 
-	  	p.v = `${this.employee_no} | '${this.username}' | '${this.password}' | '${this.filed_as}' | `
+	  	p.v = `${this.employee_no} | '${this.username}' | '${this.password}' | '${this.filed_as}' | `;
 	  	p.v += `'${this.email}' | ${this.privilege_no} | ${this.email_alert ? 1 : 0}`
 	  	p.v = p.v.replaceAll(" | ", p.sep)
 
@@ -49,10 +49,13 @@ const app  =  Vue.createApp({
 	  		p.d = '0';
 	  		p.id = this.id
 	  	}
-
+	  	// p.x = 1;
 	  	xxhrPost( rootURI + "/ajax_calls.php", p, (res)=>{
 
+	  		// console.log( res);
 	 			const ret = JSON.parse(res)
+	 			// console.log( ret);
+
 	  		if ( ret.errors ){	  	
 	  			let sec = ret.errors.length * 3;
 	  			sec = sec < 5 ? 5 : sec
@@ -83,9 +86,12 @@ const app  =  Vue.createApp({
 		  const p = { func:"UserAccount", d:-1, id:no }
 		  xxhrPost( rootURI + "/ajax_calls.php", p, (res)=>{
 		  	
+		  	console.log( res);
+		  	
 		  	const ret = JSON.parse(res);
   	  	if ( ret.success ){
-					removeGrandParent(e.id);
+  	  		location.reload();
+					// removeGrandParent(e.id);
 		  	}
 		  	busy.hide();
 		  })

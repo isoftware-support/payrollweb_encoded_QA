@@ -2101,7 +2101,28 @@ a.jobs-link-sub{
 	color: black;
 	font-size: 11px;
 	/*display = "none";*/
+	left: -999;
 }
 
 
+/*-----------------------------*/
+
+
+/* ----- shiftcode picker -----*/
+#shiftcode_picker{
+	/*display: absolute;*/
+	background-color: white;
+	width: 250px;
+	height: 350px;
+	padding: 10px;
+}
+
+#shiftcode_picker_box{
+	border: 1px solid grey;
+	height: 90%;
+	width: 95%;
+	padding: 5px;
+	overflow: auto;
+
+}
 /*-----------------------------*/

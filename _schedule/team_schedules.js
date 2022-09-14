@@ -61,6 +61,9 @@ function loadTeamSchedule( cbf = undefined ){
           cbf();  // call back function
         }
 
+        // set sched date click event
+        proxy_shiftcode_picker._schedDatesClick();
+
         busy.hide();
     });   
 
@@ -83,22 +86,6 @@ function reloadTeamSchedule( weekORyear, upORdown ){
     const year = getById("week_year").value;
     loadYearWeeks(year);
   }
-
-}
-
-function changeSched(e){
- 
-  // collect ids
-  const parent = e.parentElement;
-  const id = parent.dataset.eno + "_" + parent.dataset.dt;
-  const sc = e.value;
-
-  const h = 420, w = 300;
-  var left = (screen.width/2)-(w/2);
-  var top = (screen.height/2)-(h/2);    
-
-  let url = 'multipleshift.php?ids=' + id +'&sc='+ sc;
-  popWindow(url, w, h, 'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=0,resizable=0');
 
 }
 
@@ -191,26 +178,6 @@ function select_all(e){
     chks.forEach( (chk) =>{
         chk.checked = e.checked;
     });
-}
-
-function setAs()
-{
-
-    const selected = collectSelected( "Please select date schedules to set." );
-
-    if ( selected.no_dt_sc == undefined )
-      return;
-
-    const selected_ids = selected.no_dt.join(",");
-
-    const h = 420, w = 300;
-    var left = (screen.width/2)-(w/2);
-    var top = (screen.height/2)-(h/2);    
-
-    // let url = 'multipleshift.php?tl='+tl_empno +"&sc="+shiftCodes;
-    let url = 'multipleshift.php?ids='+selected_ids;
-    popWindow(url, w, h, 'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=0,resizable=0');
-
 }
 
 
@@ -331,6 +298,42 @@ function collectSelected( errorMsg ){
 
 /*
 
+// function changeSched(e){
+ 
+//   // collect ids
+//   const parent = e.parentElement;
+//   const id = parent.dataset.eno + "_" + parent.dataset.dt;
+//   const sc = e.value;
+
+//   const h = 420, w = 300;
+//   var left = (screen.width/2)-(w/2);
+//   var top = (screen.height/2)-(h/2);    
+
+//   let url = 'multipleshift.php?ids=' + id +'&sc='+ sc;
+//   popWindow(url, w, h, 'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=0,resizable=0');
+
+// }
+
+
+// function setAs()
+// {
+
+//     const selected = collectSelected( "Please select date schedules to set." );
+
+//     if ( selected.no_dt_sc == undefined )
+//       return;
+
+//     const selected_ids = selected.no_dt.join(",");
+
+//     const h = 420, w = 300;
+//     var left = (screen.width/2)-(w/2);
+//     var top = (screen.height/2)-(h/2);    
+
+//     // let url = 'multipleshift.php?tl='+tl_empno +"&sc="+shiftCodes;
+//     let url = 'multipleshift.php?ids='+selected_ids;
+//     popWindow(url, w, h, 'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=0,resizable=0');
+
+// }
     // $(document).ready(function(){
 
     //     $('#titled_arrow').hide();

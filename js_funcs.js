@@ -132,6 +132,35 @@
         }
     }
 
+    function TimeFormat( sTime, format = "h:m ap"){
+        // format : h:m a = 09:30 AM
+
+        const anyDate = "1/1/2022 ";
+
+        let time = new Date( anyDate + sTime);
+
+        let hour = String(time.getHours()).padStart(2, "0");
+        let minute = String(time.getMinutes()).padStart(2, "0");
+        let sec = String(time.getSeconds()).padStart(2, "0");
+
+        let ap = "AM";
+        if ( format.indexOf("ap") > -1 ){
+            
+            if ( hour > 12 ){
+                hour = hour - 12;
+                ap = "PM";
+            }
+        }
+
+        let ret = format;
+        ret = ret.replace("h", hour);
+        ret = ret.replace("m", minute);
+        ret = ret.replace("s", sec);
+        ret = ret.replace("ap", ap);
+
+        return ret;
+    }
+
     function DateFormat(sDate, format){
 
         // format : Y-m-d , y-M-d, y-M-d D
@@ -392,6 +421,7 @@ function CenterItem(id){
     if ( id.indexOf("#") == -1 ) id = "#" + id;
 
     let e = get(id);
+
     let wh = window.innerHeight;
     let ww = window.innerWidth;
     let sy = window.scrollY;
