@@ -116,6 +116,7 @@ const shiftcode_picker = Vue.createApp({
         // console.log( p);
 
   			xxhrPost(`${rootURI}/_schedule/team_schedules_ajax.php`, p, (res)=>{
+          
   				// console.log(res);
 
   				loadTeamSchedule();

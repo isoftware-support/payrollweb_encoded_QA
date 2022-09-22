@@ -1,5 +1,8 @@
 
-let PAYROLLWEB = {};
+if ( PAYROLLWEB === undefined){
+	var PAYROLLWEB = {};
+}
+
 PAYROLLWEB.requests = {};
 PAYROLLWEB.disapproved = {};
 PAYROLLWEB.reimbursements = {};

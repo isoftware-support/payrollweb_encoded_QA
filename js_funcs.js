@@ -306,7 +306,10 @@ function selectChecbox(e, id="", id2=""){
 function log(...all)
 {
     for( let i in all){
-        console.log( all[i])
+        const l = all[i];
+
+        if (typeof l !== 'function')
+            console.log( l );
     }
 }
 
@@ -593,7 +596,7 @@ function overrideFormEnterKey( formID, elementID, runFunc = "" )
     if ( frm ){
         frm.onkeydown = event => {            
             if (event.keyCode == 13 && event.target.id == elementID ){
-                console.log( event);
+                //console.log( event);
                 event.preventDefault();                             
                 if ( runFunc) runFunc();           
                 return false;
