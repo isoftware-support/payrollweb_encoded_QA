@@ -1,18 +1,39 @@
-!odMbo!
-QGWziTt3KloKCmFpb5E0cW40000000009EazdHyvB9X2GBorl4IQ6gTndVtSJpketAOwLumQYD7B
-pesjbZFeYOcvj2yEbLkyaCsZdGvDIXmph9p5xonnlxTOnQLCS9OhkWuBkZaKTG7TKfe9r0vPkycR
-Q7wKzs6eSEgH0aFKKt/jlrmcUsWMEAr0oBdvS44IALdpkh8OpMngh/tigFs4M09f8wY8lVyVqE77
-wA7Z8UJ+p5fF/glzBFYXe8LBYeyFU3HjwH38mjoDmIDlYaKmX2aNe8yVpCCKr83ZxgdnKpU6bPqG
-Q8XHcNR7Lepxwj25AgZcQuZrU6xIoshG1LlLeQ0s/M2Zga1Uze/WE4NdKkFzXIYHAQkRfgIBBo00
-V2d+djmZDhg/aFDk/6GgPPXjAPpy960B5BO52mKaG+VscnHUNnWwlf1v6jYLr7zh+2z96v9XPZXB
-FZSqtD02gmcfZU33yHQgjpz+rcrMZzq4Aa3awlLBUJ3nJgzhJH+Br4x43pA59w+3C89AIR+tD2wG
-s4RuEOSTYWyb8G01BVOBggZ8MmZs5eWfHuLSqmqT8Ml6SmtdO8K4IaVJJ8I0P7fYcTdW2fEpBz3P
-UKHyaOEoLMCqRYgVaeP9HgrckdxEd6Ua4rm+rxhddvONmDEw2aWjNs0FEqCdjvkx+RZit+M2fpwZ
-j+FFooNpU5RKumREsF7RTFrWa+xKpI2gYvAH97WT4zupacFoTrCC7/FeuE3bYvr6kwefqn8lix4L
-aeou6qVKtVvxLdOVDiNuK7Avu341SBAcBdrp00mBvZ/8RUUuiDD9In4A9kFNeHFu+JQF1H/3o6Hc
-o1X2XOt01EiaEDR3AyhmTBoyTh29C9NdrMVxMii3y//H5DztuftSiuOM5I5Lqf27NTEDbkCxNaU6
-4Xqb2hWbG9hWL47F5JgsN+wlLHWudL3p00fzlOxl6HWgpP7/jrk7Dv5Ao5AU5VTCmtTWXLjJr8vz
-cCTtSc4EccvQ+iklituKscYo49iKIQFh5CTiV+ngpfT0pwZVjszbRTlr0Zt62ZbGac+MwMgHitP3
-oE6h5ex4VyGXExFf+RpX3/DI81qxOe0kJZKJ83/pV53hXYL6V7gAl71iCXT/HmhskYrj74ihaiEJ
-IEXvb3xWfpZ+qdHM0hEd2xN6BCjmyeEHYQ8xuQCBO7xoKOmwYp7l/mCQC16ep2u+n93jLcerLK1y
-QrxDnX41PhgAKf2J/dYytd6NhfvXU6YD+ASalwA7lD3T
+function Coordinate1(name,drop,dropheight) {
+	var c = getAnchorPosition(name);
+ //alert("X = "+c.x+" , Y = "+c.y);
+  if (document.getElementById) {
+	  var o = document.getElementById(drop);
+  	if (o.style) {
+		o.style.left = (c.x) + 2;
+		ShowMe(drop,dropheight);
+	//      o.style.top = c.y;
+  	}
+  }
+}
+function HideMe(objName){
+var x = document.getElementById(objName);
+var h = x.style.height;
+	for(i = h; i <= 1; i--){
+		x.style.height= i + 'px'
+	}
+	x.style.display = "none";	
+	/*
+	if (h != 1){
+		x.style.height = 2;
+	//	alert(x.style.height);
+		setTimeout('HideMe(objName)',50000);		
+	}else{
+		x.style.display = "none";
+	}*/
+	
+}
+function ShowMe(objName,objHeight){
+var x = document.getElementById(objName);
+//var h = objHeight + 'px';
+	x.style.display = "inline";
+	for(i=0; i <= objHeight; i++){
+		var h = i + 'px';	
+		x.style.height= h;
+		//alert('test delay');		
+	}
+}

@@ -1,27 +1,61 @@
-!odMbo!
-Q/aRwBEAgwDqfhgYO5fJy04000000000B0UlO8csSfxoXMXzw+Muou0wXYfyT48aWNxp775laZ4o
-zwbJk5b46ixDxgl3R/7s/XMddzme6PJSeLndhfQJecfwh752Y39oj+NRhg3gDptW8JW9sVETaaBx
-f3bSOEKh48Tfq3l07IFtxkXzUgM/M2O2eq5JeALabl2oAzrXyIqf6detS7VLSkM4NPXAWku9zSKS
-7M4yy8I5IZNQMvoRIto66Hwr6UbYP/wM1mdKOvHWwaUlhaadaDpJUyrkeLVlf9CnDBll4KFkYEX4
-T6fcygEmkXYRkOyFCYQ9bR8mSpKhGRt5q/vLw/1B+pLjAeYGdU10aqUCFuyiyy+rCZ61bki/0ypw
-IPVqOMhEUbXBK+NP9XEcPrXrB1xHvtbV0cceQm+anRYbEg+T0TuX5U1UuhttyVTTaONBU4Av+D9e
-hO3pMsnSvRrNHV0IEcHvtr9ue+1hE4e8I8pJ77yPfovK+ze0x4xD7zFiFmS6Uk+6qFEoqTMGBO7P
-99Pli8Kb6wHJZOPpY6AtqDUZmz0IHlVyH3535yk1GMF9tdXKE0q0snlYQ3gfd5HaukAuQqy/nMa0
-aQDiSxNwsB6bHd1+s+6fgcw+DkZDBIjDJJYy0mtb44MXP2bbVSgk6F3MjRtXfm7IDe4QJokmGUD4
-UCKGXEguWJizv4+JbnNnlUaZEGOm11MJvv9Vq2FeIGUIng6nGgldn2Fkr3hJS9vzLSCVUClVE4bx
-jsrjaDudCV0mliiKG+Qvv/eChGBGBc3pHwNbhn7AOs3GPMrejVlDYi/qh/cB54DxM2WenbWTp6aF
-yTM8KMuLXoNVyNjhaVOGMym91GstNAoMQzhFMofArZgzemDuz6Mc6zvE/+a+noKWzDioee97mJpC
-E1o4uG1xym+NaM5rVFWH1cVhTGk3VXYKYsKEq2uqxRbhNFwcHxvNqkZD3CCRQCorCkZBFS8rZiuX
-2QLbhD1DURW3sQprRedFyNPBFlug63yj9r2dddEh2ZdPE5i/q14BPwrvwjBfT/UG4RUMbUp1GhwS
-8OHBnlzuA6Nmd0MgRjlGcbjm2r9StC2AUFPkl4x6RXB3RcY4vCYnjuKeE3w4yQCpnhrLavrHcrRp
-JvGuDV2IN8GSatdLDFK4k9Xwx8qzlSoqKsyOnuJsW1yfgdenTz021+xis2TrmNFgq7t3sa9Ne6yz
-7Xij1qxr7TJa5FRb0Kfff6mNY80+nmIXW3v/e9F/4NhylpoNqnkF+X8Ek48zM6kcQ2G4YK39atsd
-K6k1fE6VWSrm2wreIo6LrTI24c1V9aofZoLx9+s5yhtb1AvZkbpPVBwk3XXFaR6/kpEZPwy0FeTg
-3ojPL+Z5h103c22YuNZH4UYOSM27ny7KYTFnzwIoODbHuRX+vsn415Z5vNKNgdekyW0cfYyB8PeU
-XU6OiksU8xxzqeMLKDbZJEluN3G5fPgllq9E7PLXU1b4hDq3ryi6trg+pDpnV5TNOpNzeOahp6Ha
-n0mUCtLqTIb7/u85GRKOzlavv6UEbOeqkGsD4BKs9UFiujTHKoXi9QnlSYyokM/X5O5Mm0vkyAIU
-2nsTKhFapWnQ/fOwSz+2sgl83NDD7sjLTEbIsXHAFTIW+C6wLQI4xjQz1UpCr/QOFKIj84Oa7MTx
-hzat/fZ00ORpBBepMTh5H5mhm+zVexCugJvTSNsW5KBUF5FwCWPnGpb5ZAAm33H1NeVWIsloJ+FJ
-1R7/mHRgTBOVVhWeIPypQz7tsrdg6EITfoN6zz62yPq/aIWligoSxnb6BKfQBnDlBBKvpdEaUBda
-cw0inV16mM7MGW8fRP9gldWJHNDiopv0PjmWuKjEk53ltwIdP05UHFUxC00XWrqlSRw5/vaRXzQ4
-pJJhgWRcUbf0lm==
+Calendar.LANG("ro", "Română", {
+
+        fdow: 1,                // first day of week for this locale; 0 = Sunday, 1 = Monday, etc.
+
+        goToday: "Astăzi",
+
+        today: "Astăzi",         // appears in bottom bar
+
+        wk: "săp.",
+
+        weekend: "0,6",         // 0 = Sunday, 1 = Monday, etc.
+
+        AM: "am",
+
+        PM: "pm",
+
+        mn : [ "Ianuarie",
+               "Februarie",
+               "Martie",
+               "Aprilie",
+               "Mai",
+               "Iunie",
+               "Iulie",
+               "August",
+               "Septembrie",
+               "Octombrie",
+               "Noiembrie",
+               "Decembrie" ],
+
+        smn : [ "Ian",
+                "Feb",
+                "Mar",
+                "Apr",
+                "Mai",
+                "Iun",
+                "Iul",
+                "Aug",
+                "Sep",
+                "Oct",
+                "Noi",
+                "Dec" ],
+
+        dn : [ "Duminică",
+               "Luni",
+               "Marţi",
+               "Miercuri",
+               "Joi",
+               "Vineri",
+               "Sâmbătă",
+               "Duminică" ],
+
+        sdn : [ "Du",
+                "Lu",
+                "Ma",
+                "Mi",
+                "Jo",
+                "Vi",
+                "Sâ",
+                "Du" ]
+
+});

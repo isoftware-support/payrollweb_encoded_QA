@@ -1,99 +1,224 @@
-!odMbo!
-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
+
+
+function PicViewer( params ){
+	
+	/* keys
+		prefix, rootFolder, src, withClose, parent,
+		width, height
+	*/
+
+	if ( params.withClose == undefined ) params.withClose = true;
+	if ( params.parent == undefined ) params.parent = "body";
+
+	let xViewer = {}
+
+	xViewer.params = params;
+	xViewer.dimId = 'dimBack';
+
+	// delete div
+	const div = getById( xViewer.params.prefix + "pic_viewer");
+	if ( div ){
+		const parent = getById(div).parentElement;
+	  parent.parentElement.removeChild(div);
+	}
+
+	// create elements
+	const body = get(xViewer.params.parent);
+	if ( body ){
+
+		xViewer.divId = xViewer.params.prefix + 'pic_viewer'
+		let div = document.createElement('div');
+		div.id = xViewer.divId
+		div.classList.add( 'pic_viewer' );
+		body.appendChild(div);
+		xViewer.div = div;		
+
+		// if with width
+			if ( params.width){
+				div.style.width = `${params.width}%`
+			}
+			if ( params.height){
+				div.style.height = `${params.height}%`
+			}
+
+		// buttons div
+		xViewer.divButtonsId = xViewer.params.prefix + '-pic-buttons';
+		let div_wrapper = document.createElement('div')
+		div_wrapper.id = xViewer.params.prefix + "-pic-button-wrapper"
+		div_wrapper.classList.add('pic_buttons_wrapper')
+		div_wrapper.innerHTML = `<div id='${ xViewer.divButtonsId }' class='pic_buttons'></div>`;
+		div.appendChild( div_wrapper )
+
+		// inner div
+		xViewer.imgDivId = xViewer.params.prefix + "pic_image"
+		let div_image = document.createElement('div')
+		div_image.id = xViewer.imgDivId
+		div_image.classList.add( 'pic_image' );
+		div.appendChild( div_image )
+		xViewer.divImg = div_image;
+
+		// image
+		xViewer.imgId = xViewer.params.prefix + "pic_viewer_img"
+		let img = document.createElement('img')
+		img.id = xViewer.imgId
+
+		if ( xViewer.params.src )
+			img.src = xViewer.params.src;
+		
+		div_image.appendChild( img)
+		xViewer.img = img
+
+		// create buttons
+		const div_buttons = getById( xViewer.divButtonsId ) 
+		let buttons = 
+		`<img id='${xViewer.params.prefix}-zoom-in' src="${params.rootFolder}/img/zoom-in.png">
+		<img id='${xViewer.params.prefix}-zoom-out' src="${params.rootFolder}/img/zoom-out.png">
+		<img id='${xViewer.params.prefix}-zoom-fit' src="${params.rootFolder}/img/zoom-fit.png">
+		`;			
+		if ( xViewer.params.withClose ){ 
+				buttons += `<img id='${xViewer.params.prefix}-viewer-exit' src="${params.rootFolder}/img/close.png">`;
+		}
+		div_buttons.innerHTML = buttons;
+
+		// button events
+		e = getById(xViewer.params.prefix + '-zoom-in')
+		e.onclick = ()=> viewerZoom('in', xViewer);
+
+		e = getById(xViewer.params.prefix + '-zoom-out')
+		e.onclick = ()=> viewerZoom('out', xViewer);
+
+		e = getById(xViewer.params.prefix + '-zoom-fit')
+		e.onclick = ()=> viewerZoom('fit', xViewer);
+
+		e = getById(xViewer.params.prefix + '-viewer-exit')
+		if ( e )
+			e.onclick = ()=> viewerExit( xViewer);
+
+		// no close means visible always
+		if ( ! xViewer.params.withClose ){
+			xViewer.div.classList.remove('pic_viewer');
+			xViewer.div.classList.add('pic_viewer_child');
+			div_buttons.style.width = "100px";
+			viewerZoom('fit', xViewer);
+		}
+
+		// butons
+		if ( xViewer.params.nav == "left"){
+			div_buttons.classList.add('pic_buttons_left')
+		}
+	}
+	// -----------------------------
+
+
+	this.showOnClickOf = function( elementId ){
+		
+		// add image click
+		let el = getById( elementId )
+		if ( el ){
+			el.style.cursor = "pointer";
+			el.onclick = ()=> show();
+		}
+	}
+
+	this.changeImageSource = function(src){
+		xViewer.img.src = src;
+	}
+
+	this.showNow = () => show();
+
+	function show(){
+
+		const div = getById( xViewer.divId);
+		div.style.display = "block";
+		
+		dimBack(true, xViewer.dimId );
+		CenterItem(xViewer.divId );
+
+		//add dim event
+		let e = getById( xViewer.dimId );
+		if ( e )
+			e.onclick = () => viewerExit( xViewer );
+
+	}
+
+	// ------------------------------
+	// drag action
+	// ------------------------------
+	let isDown = false;
+	let start = {x: 0, y:0};
+	let scroll = {left: 0, top: 0};
+	let slider = xViewer.divImg;
+
+	slider.addEventListener('mousedown', (e) => {
+
+  	isDown = true;
+  	start.x = e.pageX - slider.offsetLeft;
+  	start.y = e.pageY - slider.offsetTop;
+  	scroll.left = slider.scrollLeft;
+  	scroll.top = slider.scrollTop;
+  	xViewer.img.style.cursor = "grabbing"
+
+	});
+
+	slider.addEventListener('mouseleave', () => {
+	  isDown = false;
+  	xViewer.img.style.cursor = "grab"
+	});
+	
+	slider.addEventListener('mouseup', () => {
+	  isDown = false;
+  	xViewer.img.style.cursor = "grab"
+	});
+
+	slider.addEventListener('mousemove', (e) => {
+
+	  if(!isDown) return;
+	  e.preventDefault();
+	  const x = e.pageX - slider.offsetLeft;
+	  let walk = (x - start.x) * 3; //scroll-fast
+	  slider.scrollLeft = scroll.left - walk;
+
+	  const y = e.pageY - slider.offsetTop;
+	  walk = (y - start.y) * 3;
+	  slider.scrollTop = scroll.top - walk;
+	  // console.log(walk);
+	});
+
+
+}
+
+function viewerExit( xViewer ){
+
+	log(xViewer)
+	dimBack(false, xViewer.dimId );
+
+	xViewer.div.style.display = "none";
+
+}
+
+function viewerZoom(key, xViewer){
+
+	let h = xViewer.img.height,
+		w = xViewer.img.width,
+		cH = xViewer.divImg.offsetHeight,
+		cW = xViewer.divImg.offsetWidth;
+
+	if ( key == 'out'){ 
+		
+		if ( h < cH && w < cW ) return
+
+		w = w * .7;
+		xViewer.img.width = w;
+		
+	}else if (key == 'in'){
+
+		w = w * 1.3;
+		xViewer.img.width = w;
+
+	}else if( key == 'fit'){
+		xViewer.img.width = cW - 5;
+	}
+
+}	
+
+

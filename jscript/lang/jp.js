@@ -1,27 +1,61 @@
-!odMbo!
-luYI/dOjPOdjSpTq2ZolWG4000000000trZbdfOs3c96eF/Xi37TTpZ101jAfejgCNdKZmlg21mP
-v+PW/VUINZ6b4BvpxCG3dU2CEqedQQyk0eFR0gXb/ILxSxSlsgsdfBt7hVQawE/NqzMhf6dKe4Vo
-bLzJ1KwRC9GgMb3Sj22iO4J+t/6JbLYSayyLOjo5NewXBgFVkiublO3FlHWDtVwn5M5+A37OQbwj
-bM+BOSBgJDK3K2IklZJmctktA+k8/r2Wcpy0WYXLjwXApsYNuymUAOGEo3cQXj3cLz4RvL+5RoFL
-c5zscfdeVhpAAVVfHTuCKR+pNRHxF3kkIV51qnfOpMDXjck/OeNhjH8zS1V5rORmysbkkXQWpnNy
-R7+3X9P+eIC0WYbl4UJZ5WX0KuKDu5zFg4lzPeKAKzZeweEC/HnExmN7OgM2SGZ+FmSAX1i38jUy
-o7Vk6zdG1d3/slG2y5fajycFpLcgZtxKAL4mK3P0WRm/A4xtKe69LHhhHBVc8qYpeIMep3jEDppU
-wD5Olte06O93Q+QOQrhXqN3oDDiH8R4UeLBmPdN3FTSaav4B0bbFaNH0wX7zHJibosacCB/k8DLv
-/I1rhrgJzGhIZAy5pPiSWItgH6Rs2v6+xAUg0naQLC3Bn2yCMGNFsgpWc9qmjCi/bxJVSxAIhuxE
-dv7kEGAOsXPMhnQAiFwmSfCTLvOObs1IGmRwcOWPgRQvEIs/VQo6Zq2DvgnR/40UUJw9/4qT8lXm
-gXT8s79GKQAdIDR22Kwuxf6oh0i5Nb526L45zAC4ocIIfDzJ+T1T3IFR8OA0qMAhnpm7uWTpn4eJ
-/InHvoDs+ECyo7SJDwtVTJClLW/dwO+yrkG3HBx7IJrTsoFLdHEnvlpRJivF1xmjzyN9T+7eB2Dm
-FTBYuYZ2umK898e6paL6H+UFZuXN9Sn8bxBldkU4UoFjzVHcphE1+fZ9iqAh1nBUWzKlqgLRlX6l
-NUg/XGVSeXxlu1lhMmY6vDbsb8malunQ2Qj9t5BPmmCTYcM7L93QVZbfgyfhoP4jdjyGavGHTvdN
-i7d40vMz5CMBDu7ps2M3SAHUk2C+pia3BZe0haDQoNnc0GsBMumlfNA3A9VczJaL1+q2cmyOJZ6R
-s4HLrMOJMGI8CZlMpdbp3jwY22xh0H56BNrZzNDt6EzyZLSH/KuV4Ok5PtmOSnavGv54QN6PMyJy
-/VNZl8sdxKVbsLGV0SYJ57DMvu1TlnaWs5qqavyRAalqhhyQAg0+tCXtZI1dMXJi47sa9OYo5J2R
-i8cBxyjoj9yw6Q+x2jP+UmrmT5LWDeUEYaehU8bGCDIslqk7WsxkkYrWt+ABju+92cmpVBm29cjC
-ZVPl32BkDCOXdgMTe2d5dH2F/hBvMQCqneues6OCGUD7vaIUhJPOuS4C5KhOoHFBMcCQOnJKyKi4
-UkZI7q4N/mtx6DaBGHszdx4jCjf+w9QLZvfCNzyaJNSCQc4VE/V6nkJZCB6/xdWVu04+FxCCN31e
-pakS55gtjtw1PAgaevoCRlau/DUh1OTC2P/ieNJcLQ7vQGxmMclznfc/ANHsUPQ9wwG71FechiJ6
-R1OhJ5arSiw1z7ISjRQCKxB+SjJcRo5Rt6HbEWbqAlGQCPoY5nOxXyxdtRJ6RV69D/JibLkPWP5x
-QW6aY8dLD6jaQYZ4I9tD3FjYzKvZkk6arR3Ej0AT3fH8ulXqBKLyQHPsFmTSydyvEuLesg+X0MTj
-iO1pCfRyULa3T7cXq7AOmLi1hzqUtZAumNUtzqIzAmWxy5QL8V834RTrRmU4BUtkqZa88A8V4HYp
-Wom3g7UBeppdFJAHFkbY1qsdndbI0P3xsbRzh7og0ToyYAt0FdWGekJXYW9lJKQL4Wf9mMsjW85h
-Ffrq+cRuCJ3DIvFFnWeG64FVDZU7LKqsRW==
+Calendar.LANG("jp", "Japanese", {
+
+        fdow: 1,                // 地元の週の初めの日; 0 = 日曜日, 1 = 月曜日, 等.
+
+        goToday: "本日へ",
+
+        today: "本日",         // ボットンバーに表示
+
+        wk: "週",
+
+        weekend: "0,6",         // 0 = 日曜日, 1 = 月曜日, 等.
+
+        AM: "am",
+
+        PM: "pm",
+
+        mn : [ "1月",
+               "2月",
+               "3月",
+               "4月",
+               "5月",
+               "6月",
+               "7月",
+               "8月",
+               "9月",
+               "10月",
+               "11月",
+               "12月" ],
+
+        smn : [ "1月",
+               	"2月",
+               	"3月",
+               	"4月",
+               	"5月",
+               	"6月",
+               	"7月",
+               	"8月",
+               	"9月",
+               	"10月",
+               	"11月",
+               	"12月" ],
+
+        dn : [ "日曜日",
+               "月曜日",
+               "火曜日",
+               "水曜日",
+               "木曜日",
+               "金曜日",
+               "土曜日",
+               "日曜日" ],
+
+        sdn : [ "日",
+                "月",
+                "火",
+                "水",
+                "木",
+                "金",
+                "土",
+                "日" ]
+
+});

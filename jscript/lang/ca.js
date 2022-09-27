@@ -1,26 +1,61 @@
-!odMbo!
-7gNc1+1n4CuOjGt4gpy0nW4000000000LS6PUCcUPVVHfaBoJvQF82b0Tl69zzXYRGWUuMo1FgSu
-M7aQ/8RFkVesbgoEXJdNuIZqz3hiifzIYy2XrIsEWAvrBewtvbNMCxqwx2jmRNLleIFNWxTJU02H
-qWdHQjDPJm1dOjpj27Mk48pLH5G05r93UY9f/qGIQE9Bjqbv21AryLhLQZo4t4W8cbKTVaTMU0ZX
-G/L0pNSleaoXrxGaY/e42nJshBlX0UtuywdKRb90ZuZevAPWVMxIwHUCryTM2nOXOFE2stI+2e+5
-wZgDL1unUl/wnQBiI11hiNLtQYuSe8XH2nCjztk4mglkgofRnx4gNGt/eTVryxMjSwT1wSBY16gN
-p0NAHMtxZ6Y4OEtGUZa8L6geaHVsPTpXyMHJ5WdxbhLnd+Ef5mfM6PrxFmb+5HrRoXRZfoIzwdu1
-1ys/T3IoQJb9p2hNomc/gB5jeP5ybh9P+LJyTY3yZ/I0jlQyfNnXq0sQf31XDmI30ICGKA5fVzOA
-N4U3I9spetGIBvjUrmTWcvnc0P/j/nPRriQSZSlPtWKSl2/CIoYjVlFWkeyW7lXGxf4fKEH8z6jS
-BW6IBZ+lJKpIrF9BmqxSbOcCYQ6NlKa3meP2bf5OQty32nDp/ODzKgwpmOwS+t2SQ1YMh1PyrLI7
-VlPRq7sEACRT9VyWNJyHvfERMk/jor2XGjxrZjaS8lzMcIPjlFjZCEzLoKYfpRUrzUj8KCl/AgxD
-hFDAmFmpHNfqxTuSV39xJLGfWu0CizRQW8OZJalmwkuLcXrP3ZmHS+rDN1nwOnkulnhYrHTb0zb+
-NN+gg8fEHkkKWqQ6X0EzJim6rCD79xoa8r9lSPMpwC9tGG4CwSqRvCe+UA7AIS8Edt+WF2BCDITE
-U0A+XZuxn7YBQo0WmN+glqrzj/rLDpXGK6d7ku5RSodQcsnBVGu0sHa68Ku6mK3dtjFZsOrDkWwF
-Rv/TkWZCv0WUk7c6V+M0zCxEb1dFkxKYwwiTot92caw7hkkypxbGqeaOrhqpRS6G2Lb3xMgnQzqy
-ixxUwevI+S24+3/ahYZddY+RteHjnXU7LJDduQ97CgiD74OAULZtG+n4FU515fx0llduO5XFIIWl
-KxMYEzOXrfqvqi2XgbAiPpz6L8zM2b+bnkl627HgnejOk9uX5L6t/fBVn/APw+ItXLuhHj0+PJ76
-LZ++Br9c2Ckuj2yNOFnHoB41Hqb3t7F4vHujbh3XRycWDpx9i17rWH/UAZ+cEyIu7jwKOnVr58Z1
-Yf6/TDsorr4ZfuNyMZQZxmARGrtNDEKndDhx3URMJzf6waFBUMYPPT+BQ049sXEunWGi3EXN1oRE
-RkvgJHIM740GJT96uTnCP+jR8TjSFuphqDKrqRpl8gJJ5pHP/PpuViN41cA8lvYSpn8XnAW1S4cV
-E/KQGqEt1ThTLthPi/pwT3donzX5N2xZEvgW1pFyn+tDCuLa1LNobMO6dzsMp97xGYtGakdsUu2k
-eET1QI539EeKXaoiSXrHXjyOErVRE6SYwDWlMKVr+fn31goE/KvXBJCJc6Pb9NafKTieY2sSZwwc
-cSsSNBY8pGOoIf0DipzXfjFukhm4j7xmNbyHYaUgzWAkmrcFGe+kwG5IkZEbrGcyJ8BBWSkgK12+
-k9cuoNHwEdBvKRPulWv2l7Bfg858qGoEbkFTx762nVV8GNa/3xkwOAvB6WR2F8nxGJ4ujYP7Ru6H
-k5yKgdfSr/EKPf+r+hCuDZbZNeGdG+/MUrWOD5l2FFUKgaS6AWmIpNIfAJlZ1E0PZ76qvhGdRyDQ
-s/bP/wd4L1NDNkdfomCxlxFUV05/MRRvrn7SB59JezKAwdZPPyV2mqueUsoPwnVNsASZ1v650W==
+Calendar.LANG("ca", "Catalan", {
+
+        fdow: 0,                // first day of week for this locale; 0 = Sunday, 1 = Monday, etc.
+
+        goToday: "Anar a Avui",
+
+        today: "Avui",         // appears in bottom bar
+
+        wk: "sem",
+
+        weekend: "0,6",         // 0 = Sunday, 1 = Monday, etc.
+
+        AM: "am",
+
+        PM: "pm",
+
+        mn : [ "gener",
+               "febrer",
+               "març",
+               "abril",
+               "maig",
+               "juny",
+               "juliol",
+               "agost",
+               "setembre",
+               "octubre",
+               "novembre",
+               "desembre" ],
+
+        smn : [ "gen",
+                "feb",
+                "mar",
+                "abr",
+                "mai",
+                "jun",
+                "jul",
+                "ago",
+                "set",
+                "oct",
+                "nov",
+                "des" ],
+
+        dn : [ "diumenge",
+               "dilluns",
+               "dimarts",
+               "dimecres",
+               "dijous",
+               "divendres",
+               "dissabte",
+               "diumenge" ],
+
+        sdn : [ "dg",
+                "dl",
+                "dt",
+                "dc",
+                "dj",
+                "dv",
+                "ds",
+                "dg" ]
+
+});

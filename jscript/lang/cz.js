@@ -1,27 +1,61 @@
-!odMbo!
-qZIThzrsyWVYMDGjjEP18W4000000000gjEShBy/v9HGfu6GGFor55+6EmlHQogzBI6pf7LoDMnk
-Q2JhIsT2os2dtIz/lYz8fegELWkejR+CXbIJkJjS+uG3FpkN4N1jAizPuo5jiem+U/aF5vocWEK3
-/iV33DAf0Zy5SpnfCD+OGHG7j8PU7Yb8S67lihYfSccZ+vOJOowPR8dis9aW4RXFle8NldWDSLCt
-0TT39F9N+vonJklg0iEDki/T66FDn0jFmz4F4lpkeeDdbIKMvXmN0OMR3yLFo0zmR3T0N+tEz4e8
-edvEpKqvPli445is81H15gV3BEt6q7n0nb6gQM66NT8EOuEbBtmiSNqA8zWuKO0POd4G+iZC5ez4
-0XWo42usr+4YLvxlnWAe5bbH2m1+wWIp9AnhAD2n5psO8n7Rii2RWK/T3CNMsm0QNjFLlQuSHpoP
-crxCrAzRtNVcITklA+xIKiryrXOIbBRlnfPebVrT7SoQmr332uyXS+/knKGjnFxiOFNS7uEqD/dA
-/9SgOw5ButRSlR+otQrXrAoR+heAdgEdiQLnzUI0qiREzuXnVygvFj5oL9x2K1QsCldPNDqRpnxO
-WzK6hffgCYsPs+ig0N0DEE2qjuFWWeuu1gW2/bDX4QRP+VSPfBxedptNjOCaGM0RlLQm6Pzq/STN
-0AqBrDNwWjYqwe7dV8f1UaR4+9mPI8K4upTqgnQZQtBB2eHr4yhPX0PvEmJ+WqvRVoPfgcZRQB1U
-lVJru4aq3OoXBhQKCXVdzsUCv3kmMhsodLhqid9/xL2jXFHJTc+srAmnsU7uSDa1p78zLxkmMFE4
-WF8WEpqfu7iYpmShVldBSQ1oboz2r+ZCFhAy/RODiuNWiA4Q39UuxXyvEkuONiBAVbVFgrWnTKzn
-ZCDgku42361fn6erYCif6iLjeu9gpusVdHUalTCAN/2uYlDkAjBfHBVKHzjIMgSeU2RMsJfixBot
-zTunghVwFzGbANlTT4paSLG3s20ORUIeZWkb1QJE2tfIFzXop2WebVet5AfWsUltBEdoCAqBd0qc
-C5de3ZUdBRouk1JTm8AYKYbYXWiWASSo4RVdj9WHdnDaF5hTmd6VlPWIM4AamCSnmgUD94cWNfvg
-6SYd+2MrpdtFrSwGDmZyCs+/K54vM/c7Y+CvBgXTx+YlkDGTDWf0TUM2I+nUciVFSEJF3pb1fqh8
-z4JN0JR9p1cJMhSOKnVjB6R543D5qhpgYE9oRrVxGzn4xpCLscuBA7YEwy1c8VmNufbTO0FqZz2D
-Hn68QHiiG8DQxlI92UJ46nYfL2/N1tGRD2YF3fE2qvWc2miXnFxknBWkAaodBKVtz0jmBaXsczSb
-D6dU3b+vVAJoUp0UWM/OQW/C7A3ju5WXR9dD9F7AkZKFtiCoss04SsWa+KmTeQcazBAiVlxLsxDy
-Wx5azqEmXqFLDhsWHommvucZ0Wxhtl+ShmyqZPYZ0QGbCZUFVTM+K+ZfdIp3/PO1LWlyhvfXILhT
-DelZ2Zi/El9i97BFwpTHfqujvmsYH7SnYDx1oesnSbfXqdB5XMqCwTAwZmJKv9bSEv9D8OGc555j
-HaEUPh3si1B2cAwdtU2bB5dtxbp9KQCp9bA5eeP//iLayU462V7c/om7amg1j/wwAnhjp++utosK
-htFhz+di5wlexEakJ7HYb0q+VIZQGwNEOxDi8LDjHAP0cXq9BuLXqbg758ALyMrXvYsnqdDEZQ34
-cy/8HvPLT140+dQ12crhkTLCmgSzfMJfepZ2k0HKa+1sdV8RddkNlYgsDzTJ6RYlypPDkBoEvtUq
-p/59ebHCyN0aByHOJ6m80YBDvO7PKaeaLtnRCNrNDeOWD3JC/IUrlWrgvrqgqNac7Ewq0L6WyIBV
-Y9DcSi6F83feHn9tf9Stj0==
+Calendar.LANG("cz", "Czech", {
+
+        fdow: 1,                // first day of week for this locale; 0 = Sunday, 1 = Monday, etc.
+
+        goToday: "Ukaž dnešek",
+
+        today: "Dnes",         // appears in bottom bar
+
+        wk: "týd",
+
+        weekend: "0,6",         // 0 = Sunday, 1 = Monday, etc.
+
+        AM: "am",
+
+        PM: "pm",
+
+        mn : [ "Leden",
+               "Únor",
+               "Březen",
+               "Duben",
+               "Květen",
+               "Červen",
+               "Červenec",
+               "Srpen",
+               "Září",
+               "Říjen",
+               "Listopad",
+               "Prosinec" ],
+
+        smn : [ "Led",
+                "Úno",
+                "Bře",
+                "Dub",
+                "Kvě",
+                "Črn",
+                "Črc",
+                "Srp",
+                "Zář",
+                "Říj",
+                "Lis",
+                "Pro" ],
+
+        dn : [ "Neděle",
+               "Pondělí",
+               "Úterý",
+               "Středa",
+               "Čtvrtek",
+               "Pátek",
+               "Sobota",
+               "Neděle" ],
+
+        sdn : [ "Ne",
+                "Po",
+                "Út",
+                "St",
+                "Čt",
+                "Pá",
+                "So",
+                "Ne" ]
+
+});

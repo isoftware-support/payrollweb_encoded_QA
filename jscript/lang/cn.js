@@ -1,26 +1,61 @@
-!odMbo!
-iov6MnT3UE3pcq5Lv7sj6040000000001t8rhtCOhjy/uMLsbPXfAwmb8XjbIJDroU6sr5ppiqgH
-E+ApMpxaxW2zhqPwus0ZPCGsH1sGfj5GixurLikFM6jPkJBQ4pPdpwo/8zOi3e8hG2Zro+cE2wWJ
-HGmAJS9/kF0hCd96AdkZFpKraZsi6lKk+KnHxldZfiO/Av2aeXiosa+ykMD4S0qtukFvRq/Kwstt
-ZeguIT8apg3KgMFDsTEydVL4vrLH8gFZnQV8x+Jv5enAN/vAJAwbsjf4MIlfgfmPLlusuvofnhy5
-5hV2fMKsNh2NPJX+5fxgamrkT5TA0vrJwt/7+HAyhRB6NDzsr0IvtM/kbm4CNHjSyreTA7CUl9Md
-FWQ09hThHvdq1MasBiZUERyxbsVoyKXgqmU+44v9g6LSoG1h+OXpmrhqV5uCTEcaQOBOGPLyN4YB
-Zljz73mfk11ZmyGkHjQGcFIVOxcjqBU5VAOp0VCyVi22l+PKRbspPVMxQDhRNf3uN8H/LAlSYSM0
-KWR0S+Gdz9zL0JXZk9RHSL9dlXXh8wkng9PdD3imGsWTZpFXIRogCTjhqzdxfKwe+JVQNW0r+t6l
-t7AmOCjG2FIJWbdninvrstdCxZfzvxVi52rPkZO/LTj23PMXetvXwIhQx8ZDDhNZjSLo5whkrRAV
-l+cLQ5XXlw9G7HYUByay/C+pd0CkHgcguNxKqHO9ovZL9/fMhXusV3ciAuX02llJG+VzIXUESXdp
-gusu3aaDuQjo7NfIWue68bPFXMpB4/m+z0O++ONGsEbW4QMaErV73rmIMb2IJNaKA38rOuHHtKDl
-db2jLN8L4jNiiXEZmMsa5/4ovsGQBFU6ikt/B/p0rEa6LlMll0/Kb5QNfVi6QqCIefhcbSoX0u0y
-bPCIyIAye1cpBEV7zOtYJTsQ2MI2UWpcNZNtWLDsgk31xj9ytEy18b6xnPkC+kJWVQAi4zjPXKRT
-Hf/0h5KXmYIqYuXpfrcA7YuxWYr1MixE3zgNdRuT1ajCylawL7P6cICMcGgp5J6PIkxtHviVcDeh
-G2dwwFLkVQDjweAps0tVl9i5UNLvvs8n5HHmg9/VcAg0EK19O5O1tqNjKWv3Q9P1fZGFHSDSpoI8
-vqOYViemQJuYNGJzaCoWyTpDIptTkUjKrM5Ehely+YM920vr5qfmGLqOAZmhbnUKv6PmSziGfBS1
-P1EFKdW2NjPv0Y9J+Zg8x80IWz5lIstDGo5o4pldV+fCJvMPyw+u6NaNZAj2gu3tyTr+aqcZDLdL
-BXZNov62a3hq1l7ufVFkvhYgegnsTsWbSLp9Hnm0Gxyz8xJkRleLRkNJAvA+Z/qFdVPezCSjk6wj
-kIyDwTgItmHLo9PbLYbdYvQNCrpvxosJVaZmmYKqwCxa80ALx9W04wuytsdAS2pLp5I/SLI0HYi5
-OXLmMYLUEh0ibtmaRE+C38EnnQTPkS2Q2Z9vW9yW7La/pO/9RqT67BGHCnleUCmoeXE1S/nSUw35
-tyQiBPn64VVz6g6ntFYSnIgwArKjxEUTQv4WeLcpAzxT5bIEy1o/bFmBdpJCLLHwbWUuhuSrw5TB
-TiPfqEchid3+taC5LbYkFLzFL4hmLLdBc/oUpJaIf1qG3EENhXQU5zahsAYjT14TOotJfwU0d0wh
-Gkpom1rZXvmwpVvqGT3BYb2kB5XLS3T4dT9jpE/GRliFpQ9Whnsmwt51fK9Z+nJbbOUnlOE3vYfP
-Wowmp/VGWzB9D/7abk+QHU/5dw/ufJxLFI/NuLH4e8FbgB3xGc3SagLJrkOa5qlP5Z+S9+dUW0pp
-dN7PXQV8srIzjuN3qVakZHhEJQC58mDRM1x1QrPttmnqnckAvwSG/uu6g0kC
+Calendar.LANG("cn", "中文", {
+
+        fdow: 1,                // first day of week for this locale; 0 = Sunday, 1 = Monday, etc.
+
+        goToday: "今天",
+
+        today: "今天",         // appears in bottom bar
+
+        wk: "周",
+
+        weekend: "0,6",         // 0 = Sunday, 1 = Monday, etc.
+
+        AM: "AM",
+
+        PM: "PM",
+
+        mn : [ "一月",
+               "二月",
+               "三月",
+               "四月",
+               "五月",
+               "六月",
+               "七月",
+               "八月",
+               "九月",
+               "十月",
+               "十一月",
+               "十二月"],
+
+      smn : [ "一月",
+              "二月",
+              "三月",
+              "四月",
+              "五月",
+              "六月",
+              "七月",
+              "八月",
+              "九月",
+              "十月",
+              "十一月",
+              "十二月"],
+
+        dn : [ "日",
+               "一",
+               "二",
+               "三",
+               "四",
+               "五",
+               "六",
+               "日" ],
+
+        sdn : [ "日",
+                "一",
+                "二",
+                "三",
+                "四",
+                "五",
+                "六",
+                "日" ]
+
+});

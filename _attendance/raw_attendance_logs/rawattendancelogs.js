@@ -1,14 +1,40 @@
-!odMbo!
-ZZqzgRNBbodzzW5uiJxyam4000000000lPcLTdllbZLxyF9BYMvT2b3XCjUCEQMED5T7iL21HEO7
-8HMe5PTZzbK0xRiyzuBYvOR2ljDsowG5qI0goPNbR/QQEvy7/bKoL1RKDGmC/rT6CMvrfKY3zuRF
-zo0LaVWeHZWofI/B696uCHdLxoCe5KXBooGQ9fQj2ybH3qnHuhZyk/Aj+kba3q10GbFmKTMgwbfb
-p0crvml2nQm/H2Gh7Ja619G81vvnl3xFI0evkIuqd9Ndlq6PN1rIJ0whYFbr4XaHRfWqOsw/d8tv
-NYwRC47bdrKSMvy1J0OZKHyFCdJ3FOPOqSWMUfkThOdryKKYWzB9T9cDsWy3WkKerH4f5x88xQaG
-ihOTOulRkou04eINEJuzPKMFYqYbAnUunbb/IMM79Zl4pDpuksQrMi/DjZwtrSEuqPwGAPTf4b24
-ZF0XbhkeScivGz6eJXNF3YXkMTd/Fe75/J+kWHDadDyPIhKR2XLdGSN9jNU+YwSMHZT6SuYWZXH3
-gEezZvaFwCXplvfkbfLG6zcsQkTwV4QkJFlGOCs460eI5Y97EqDPYzkG26OH53tLye03b4TAUpMD
-h6ToAe/fErdVs0FSzZSnOnByLfK7PqyPMl59r9P0uORkopJMORRnMGXejS6DkLUSzVGoGfmgEozh
-l6+VKXu5XJ7NMZNKHRTtqOmX2F2QmWMrh6CybCZpkZg0zrIFMaVBHEWVlY9L0PQRPYD57INbWpxw
-xlp/Xxx7InQqXfX+EfqwnmL2Q3VaZYooCsthMh3sS9OyRWE/tbun9G0BNbohkNPu/IzCGopDMFQp
-pMEOWvzrzMaWflMKgWB9r7pLdlUjD/dskETqZ9m/cwTf2CiHTqZwQz5+9bgbKi8ULGtg2txM+74i
-M5VYSGuDvyvSc7hP5h43a6/GXFs2zJegxWJQxxbxjAPHH5h1QzitWNi=
+
+	
+	//button event
+	var btn = get("#btnOk");
+	btn.addEventListener('click',  showRawLogs);
+
+	var busy = new BusyGif;	
+
+	function showRawLogs(){
+
+		let fr = get('#dFrom').value,
+			  to = get('#dTo').value,
+			  member = get('#team_emps');
+
+	  let memNo = -1;	  
+	  if ( member ) memNo = member.value;
+
+		busy.show2();
+		xxhr("GET", 'xhtml_response.php?q=myRawLogs&f='+ fr +'&t='+ to +'&m='+ memNo + _session_vars, show);
+
+	}
+
+	function show(ret){
+
+		// console.log(ret);
+		busy.hide();
+
+		get("#logs").innerHTML = ret;
+
+		setSortColumnEvent();
+		
+		// columnt sort indicator
+		setColumnIndicator();
+
+
+	}
+
+	// show logs on page load
+	showRawLogs();
+

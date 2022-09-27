@@ -1,66 +1,135 @@
-!odMbo!
-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
-mOu3IZslTHak9ZSBPHh8T6m5OD47+y5y
+function OnSubmitProfileValidation(thisform) {
+	with (thisform) {
+		if(!onValidEmail(Email.value)){
+			alert("Please enter a valid email address.");  
+			Email.focus();
+			Email.select();
+		}
+		if (!validateNum(HomePhone1) && HomePhone1 != "") {
+  			return false;
+		}
+		if (!validateNum(HomePhone2) && HomePhone2 != "") {
+			return false;
+		}
+		if(MobilePhone.value.length > 0){
+			if  (!validateGSMNum(MobilePhone)) {
+    			return false;
+		    }
+	    }
+		if (!validateNum(Zip) && Zip != "") {
+    		return false;
+		}
+	}
+}
+function onValidEmail(emailStr) {
+    var emailPat=/^(.+)@(.+)$/
+    var specialChars="\\(\\)<>@,;:\\\\\\\"\\.\\[\\]"
+    var validChars="\[^\\s" + specialChars + "\]"
+    var quotedUser="(\"[^\"]*\")"
+    var ipDomainPat=/^\[(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})\]$/
+    var atom=validChars + '+'
+    var word="(" + atom + "|" + quotedUser + ")"
+    var userPat=new RegExp("^" + word + "(\\." + word + ")*$")
+    var domainPat=new RegExp("^" + atom + "(\\." + atom +")*$")
+
+    var matchArray=emailStr.match(emailPat)
+    if (matchArray==null) {
+          return false;
+    }
+
+    var user=matchArray[1]
+    var domain=matchArray[2]
+
+    if (user.match(userPat)==null) {
+      return false;
+    }
+
+    var IPArray=domain.match(ipDomainPat)
+    if (IPArray!=null) {
+          for (var i=1;i<=4;i++) {
+            if (IPArray[i]>255) {
+              return false;
+            }
+      }
+      return true;
+    }
+
+    var domainArray=domain.match(domainPat);
+    if (domainArray==null) {
+      return false;
+    }
+
+    var atomPat=new RegExp(atom,"g");
+    var domArr=domain.match(atomPat);
+    var len=domArr.length;
+
+    if (domArr[domArr.length-1].length<2 || domArr[domArr.length-1].length>3) {
+      return false;
+    }
+
+    if (len<2) {
+      return false;
+    }
+
+    return true;
+  }
+function validateGSMNum(field) {
+        var valid = "0123456789"
+        var ok = "yes";
+        var temp;
+        var length = field.value.length;
+        for (var i=0; i<field.value.length; i++) {
+                temp = "" + field.value.substring(i, i+1);
+                if (valid.indexOf(temp) == "-1") ok = "no";
+        }
+        if (ok == "no") {
+          alert("Only numbers are accepted in this field.");
+          field.focus();
+          field.select();
+          return false;
+        }else if(length != 12 || (field.value.substring(0,3) != "639")){
+            alert("Invalid Mobile Number format.  (i.e. 639171234567)");
+            field.focus();
+            field.select();
+            return false;
+        }
+    return true;
+}
+function validateNum(field) {
+        var valid = "0123456789"
+        var ok = "yes";
+        var temp;
+
+        for (var i=0; i<field.value.length; i++) {
+                temp = "" + field.value.substring(i, i+1);
+                if (valid.indexOf(temp) == "-1") ok = "no";
+        }
+
+        if (ok == "no") {
+          alert("Only numbers are accepted in this field.");
+          field.focus();
+          field.select();
+          return false;
+    }
+    return true;
+  }
+function onVerifyEntry(txtEntry, strMessage){
+    if (txtEntry.value=="") {
+        alert(strMessage);
+        txtEntry.focus();
+        txtEntry.select();
+        return false;
+    }
+	return true;
+}
+function trim(s) 
+{ 
+    // var l=0; var r=s.length -1; 
+    // while(l < s.length && s[l] == ' ') 
+    // {     l++; } 
+    // while(r > l && s[r] == ' ') 
+    // {     r-=1;     } 
+    // return s.substring(l, r+1); 
+	return s.replace(/^\s+|\s+$/g, '');
+} 
+  

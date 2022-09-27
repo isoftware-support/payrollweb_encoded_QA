@@ -1,210 +1,459 @@
-!odMbo!
-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
+
+
+const busy = new BusyGif();
+
+// load current week on 1st load only
+loadTeamSchedule();
+
+function loadTeamSchedule( cbf = undefined ){
+    
+    const week =  getById('weeks').value;
+    const teamNo = getById('dd_teamname').value;        
+    const year = getById("week_year").value;
+    
+    busy.show2() ;
+   
+    xxhrGet( "_schedule/team_schedules_ajax.php?q="+teamNo+"&e="+aprNo+"&m=-1&w="+week+"&y="+year, 
+    (res)=> {        
+
+        getById("weekly_sched_tab").innerHTML= res;
+
+        // check valid start date
+        const e = getById("valid-start-date");
+        if (e){
+
+          const validStartDate = e.value;          
+
+          // create upload sched button
+          if ( is_upload_sched_allowed == 1 ){
+
+            const parent = getById('btn-section');
+
+            // delete  first
+            let btn = getById('upload_sched');
+            if ( btn )
+              parent.removeChild(btn);
+
+            if ( validStartDate ){
+              btn = document.createElement("input");
+              btn.type = 'button';
+              btn.classList.add("Button", "w-150", "ml-5");
+              btn.value = "Upload Team Schedules";
+              btn.id = "upload_sched";
+              btn.onclick = () => getById('import_team_sched').click();
+              
+              // append button             
+              parent.appendChild( btn);              
+            }          
+          }
+        }
+
+        // change cursor status for all readonly input box
+        let txts = getByName('sched_date_txt');        
+        txts.forEach( (e) => {
+           e.style.cursor = "pointer";
+        });
+
+        // uncheck select all
+        getById('select-all').checked = false;        
+
+        if ( cbf !== undefined ){
+          cbf();  // call back function
+        }
+
+        // set sched date click event
+        proxy_shiftcode_picker._schedDatesClick();
+
+        busy.hide();
+    });   
+
+}
+
+function reloadTeamSchedule( weekORyear, upORdown ){
+
+	const e = getById( weekORyear );
+	let index = e.selectedIndex;
+	const cnt = e.length -1;
+
+	index += upORdown;
+	if ( index < 0 || index > cnt) 
+		return;
+	
+	e.selectedIndex = index;
+	loadTeamSchedule();
+
+  if ( weekORyear == "week_year"){
+    const year = getById("week_year").value;
+    loadYearWeeks(year);
+  }
+
+}
+
+function uploadTeamSchedules(){
+
+    const file = getById("import_team_sched").files[0];  // file from input
+    if (! file) return;
+
+    if (! confirm('Uploaded schedules template file will overwrite the currently selected team members schedules.\r\n\r\nContinue?' ) ){
+
+        // reset file selected
+        getById("import_team_sched").value = "";            
+        return;  
+    } 
+
+    busy.show2();      
+    const xhr = new XMLHttpRequest();
+    
+    let post = {};
+    post['tn'] = getById('dd_teamname').value;
+    post["team_sched"] = file; 
+
+    xxhrPost('xhtml_response.php?q=UploadTeamSched&'+ _session_vars, post, 
+    ( res ) => {             
+      
+      // reset file value
+      getById("import_team_sched").value = "";            
+
+      loadTeamSchedule();
+      
+      busy.hide();
+
+      const ret = JSON.parse(res);
+      // console.log(ret);
+      
+      // prompt invalid ids and dates
+
+      if ( ret.invalids.dates || ret.invalids.ids || ret.invalids.shiftcodes ){
+        
+        let msg = "Invalid entries found in importation template.";
+
+        if ( ret.invalids.dates )
+          msg += "\r\n\r\nInvalid Date Columns:\r\n" + ret.invalids.dates.join(", ");
+
+        if ( ret.invalids.ids )
+          msg += "\r\n\r\nInvalid Employee Ids:\r\n" + ret.invalids.ids.join(", ");
+
+        if ( ret.invalids.shiftcodes)
+          msg += "\r\n\r\nInvalid Shift Codes:\r\n" + ret.invalids.shiftcodes.join(", ");
+
+        alert(msg);
+      }
+
+      
+    });
+    
+}
+
+
+function checkColumn( e )
+{
+    const day = e.dataset.day;
+    const chks = getAll(`[data-day='${day}']` );
+    chks.forEach( (chk) => {
+        chk.checked = e.checked;
+    });   
+}
+
+function checNameDays(e)
+{
+    const eno = e.dataset.en;
+    const chks = getAll(`[data-eno='${eno}']` );
+    chks.forEach( (chk) => {
+        chk.checked = e.checked;
+    })
+    
+}
+
+function select_all(e){
+
+    // by names
+    let chks = getByName('emp_name');
+    chks.forEach( (chk) =>{
+        chk.click();
+        chk.checked = e.checked;
+    });
+
+    // by columns
+    chks = getByName('date_column');
+    chks.forEach( (chk) =>{
+        chk.checked = e.checked;
+    });
+}
+
+
+function clearSelected(){
+
+    const selected = collectSelected( "Please select date schedules to clear." );
+
+    if ( selected.no_dt_sc == undefined )
+      return;
+
+    if ( ! selected.sc_count )
+      return;
+
+    const selected_ids = selected.no_dt_sc.join(",");
+
+    if ( confirm("Clear schedules for selected items?") ){
+
+      busy.show2();
+
+      xxhrGet( "_schedule/team_schedules_ajax.php?fn=clr&ids="+ selected_ids, 
+      ( data )=> {
+
+        busy.hide();
+        const ret = JSON.parse( data );
+        // console.log(ret);
+        if ( ret.result == 'Error'){
+          alert('An error occurred.\r\n\r\n' + ret.msg);
+          return;
+        }
+        loadTeamSchedule();
+        
+      });
+    }
+}    
+
+function UsePreviousSched(){
+   
+  
+  const selected = collectSelected( "Please select date schedules to set." );
+
+  if ( selected.no_dt == undefined )
+    return;
+
+
+  if (confirm('Values from Previous week Schedules will overwrite current selection.\r\nAre you sure?')){
+
+    busy.show2();
+
+    const year = getById("week_year").value;
+    const selected_ids = selected.no_dt.join(",")
+
+    xxhrGet( "_schedule/team_schedules_ajax.php?fn=prevw&ids="+ selected_ids, 
+    (res) => {
+      
+      
+      const ret = JSON.parse(res);
+      // console.log(ret);     
+
+      loadTeamSchedule( () => {              
+
+        // put check on selected scheds
+        selected.ids.forEach( (id) => getById(id).checked = true ) 
+
+      });     
+
+    });
+
+  }
+}
+
+
+function loadYearWeeks(year){ 
+    
+    xxhrGet("includes/teamsched_weekly_dd.php?w=weeks&y="+year, ( res )=>{
+      document.getElementById("weeks").innerHTML = res;
+    });
+
+}
+
+function collectSelected( errorMsg ){
+  
+  let ret = {};
+
+  const chks = getAll("input[name='sched_date']:checked");
+  if ( ! chks.length ){
+      alert(errorMsg);
+      return {};
+  }
+
+  let ids = [], no_dt_sc = [], no_dt = [], sc_count = 0;
+
+  chks.forEach( (e)=>{
+    const p = e.parentElement;
+    const 
+      sc = p.dataset.sc, 
+      dt = p.dataset.dt,
+      no = p.dataset.eno;
+
+    no_dt.push( no + "_" + dt);
+
+    if ( sc.length ){
+      no_dt_sc.push( no + "_" + dt + "_" + sc.replace(",","@") );
+      sc_count += 1;
+    }
+
+    ids.push( e.id);
+  });
+
+  ret.no_dt_sc = no_dt_sc;
+  ret.no_dt = no_dt;  
+  ret.sc_count = sc_count;
+  ret.ids = ids;
+
+  // console.log(ret);
+  return ret;
+
+}
+
+/*
+
+// function changeSched(e){
+ 
+//   // collect ids
+//   const parent = e.parentElement;
+//   const id = parent.dataset.eno + "_" + parent.dataset.dt;
+//   const sc = e.value;
+
+//   const h = 420, w = 300;
+//   var left = (screen.width/2)-(w/2);
+//   var top = (screen.height/2)-(h/2);    
+
+//   let url = 'multipleshift.php?ids=' + id +'&sc='+ sc;
+//   popWindow(url, w, h, 'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=0,resizable=0');
+
+// }
+
+
+// function setAs()
+// {
+
+//     const selected = collectSelected( "Please select date schedules to set." );
+
+//     if ( selected.no_dt_sc == undefined )
+//       return;
+
+//     const selected_ids = selected.no_dt.join(",");
+
+//     const h = 420, w = 300;
+//     var left = (screen.width/2)-(w/2);
+//     var top = (screen.height/2)-(h/2);    
+
+//     // let url = 'multipleshift.php?tl='+tl_empno +"&sc="+shiftCodes;
+//     let url = 'multipleshift.php?ids='+selected_ids;
+//     popWindow(url, w, h, 'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=0,resizable=0');
+
+// }
+    // $(document).ready(function(){
+
+    //     $('#titled_arrow').hide();
+    //     $('#schedpic').hide();
+     
+    //     $('#leg_arrow').click(function(){
+    //         $('#titled_arrow').show();
+    //         $('#schedpic').fadeToggle();
+    //         $('#leg_arrow').hide();
+    //         $('#schedline').hide();    
+    //     });
+ 
+    //     $('#titled_arrow').click(function(){
+    //         $('#leg_arrow').show();
+    //         $('#schedline').show();
+    //         $('#titled_arrow').hide();
+    //         $('#schedpic').hide();
+ 
+    //     });
+
+
+
+    // });
+
+ 
+    const checkList = document.getElementById('list1');
+    const items = document.getElementById('items');
+    
+    checkList.getElementsByClassName('anchor')[0].onclick = function (evt) {
+        
+        if (items.classList.contains('visible')){
+            items.classList.remove('visible');
+            items.style.display = "none";
+        }else{
+            items.classList.add('visible');
+            items.style.display = "block";
+        }                       
+    }
+    
+    items.onblur = function(evt) {
+        items.classList.remove('visible');
+    }             
+
+//     function getchecked_dd(en,d) {
+
+
+//       var tm = document.getElementById('dd_teamname').value;
+//       var mn = document.getElementById('months').value;
+//       var y = document.getElementById('weekm_year').value;
+//       var mb = -1;
+
+//       var newtxt = '';
+//       var chkbx = document.getElementsByTagName('input');
+
+//         for(var i = 0; i < chkbx.length; i ++) 
+//         {
+//             if(chkbx[i].type == 'checkbox' && chkbx[i].name == 'chk_for_dd' && chkbx[i].checked === true) {
+//                 if(newtxt.length !== 0) {
+//                     newtxt += ',';
+//                 }
+//                 newtxt += chkbx[i].value;
+//             }
+
+//         }
+
+//        document.getElementById('collect_id').value = newtxt;
+//        var mb = document.getElementById('collect_id').value;
+
+//        if(mb==''){
+
+//             mb = -1;
+//        }
+
+//         //alert(mb);
+
+
+//         var xmlhttp;
+
+//         if (window.XMLHttpRequest)
+//           {// code for IE7+, Firefox, Chrome, Opera, Safari
+//           xmlhttp=new XMLHttpRequest();
+//           }
+//         else
+//           {// code for IE6, IE5
+//           xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+//           }
+//         xmlhttp.onreadystatechange=function()
+//           {
+//           if (xmlhttp.readyState==4 && xmlhttp.status==200)
+//             {
+
+//             //var res = xmlhttp.responseText.split("NEW_LINE");
+//             document.getElementById("tbl_monthsched").innerHTML=xmlhttp.responseText;    
+//             }else{ 
+//             document.getElementById("tbl_monthsched").innerHTML= "<center><img src='images/loader.gif' width=50 border=0></center>";
+//             }
+//           }
+
+//         xmlhttp.open("GET","_schedule/team_schedules_monthly.php?q="+tm+"&e="+en+"&mb="+mb+"&d="+d+"&mn="+mn+"&y="+y,true);
+//         xmlhttp.send();
+
+//     }
+
+// function getcollect_caldate(id) {
+
+
+//   let newtxt = '';
+//   let chkbx = document.getElementsByTagName('input');
+
+//     for(var i = 0; i < chkbx.length; i ++) 
+//     {
+//         if(chkbx[i].type == 'checkbox' && chkbx[i].name == 'getselmon' && chkbx[i].checked === true) {
+//             if(newtxt.length !== 0) {
+//                 newtxt += ',';
+//             }
+//             newtxt += chkbx[i].id;
+//         }
+
+//     }
+//    document.getElementById('coll_sched').value = newtxt;
+// }
+
+*/

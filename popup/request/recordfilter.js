@@ -1,34 +1,70 @@
-!odMbo!
-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
+
+		function applyFilter(mode){
+
+			var params = '';
+			f = document.forms[0];		
+			
+			if(mode==false){  // clear filter
+
+				f.teamnames.value = -1;	
+				f.startdate.value = "";
+				f.enddate.value = "";
+				f.targetstart.value = "";
+				f.targetend.value = "";
+				f.employeename.value = "";
+				f.status.value = -2;				
+				f.requesttype.value = -1;
+				f.teamnames.value = -1;
+				f.u.val = "";
+				f.s.value = "";
+				mode = true;
+			}
+				
+
+			params = '&fm=' + true + '&fds=' + escape(f.startdate.value); 
+			params = params + '&fde=' + escape(f.enddate.value) + '&fts=' + escape(f.targetstart.value);
+			params = params + '&fte=' + escape(f.targetend.value);
+			params = params + '&fen=' + escape(f.employeename.value);
+			params = params + '&fs=' + escape(f.status.value) + '&frt=' + escape(f.requesttype.value) + '&frm=' + escape(f.teamnames.value);
+			params = params + '&u=' + escape(f.u.value) + '&s=' + escape(f.s.value) + '&up=false';
+			//alert(mode);
+			//alert(params);			
+
+			let path = host + "/xhtml_response.php?q=SaveFilter&fr="+ parent + params + _session_vars;						
+			// alert(path);
+			xxhr("GET", path, function(msg){
+				
+				// alert( msg);
+				// console.log(msg);
+				filter_reloadParent(params);	
+
+			});
+			
+		}		
+
+		function filter_reloadParent(params){	
+			
+			window.opener.location.reload();
+			self.close();
+
+			/*
+			return;
+
+			var urls = f.prevpage.value;
+						
+
+			//alert(urls);
+			
+			//var local_url = urls.match(/([^qid]*)/gi);	
+            var qid_url   = urls.match(/qid([^aprv]*)/gi);
+			var cn_url    = urls.match(/cn([^]*)/gi);
+			var prev_url =  "?" + qid_url + cn_url;
+			var newurl = urls.split('?')[0];
+			
+	
+			opener.location.href = newurl + prev_url + params;
+			self.close();
+			*/
+		}		
+
+	

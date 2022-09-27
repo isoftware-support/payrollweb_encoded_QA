@@ -1,118 +1,294 @@
-!odMbo!
-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
+
+
+
+// sanitize allowed domains
+altDomains = altDomains.replace(/ /g,"");  // remove spaces
+altDomains = altDomains.replace(/;/g,",");  // remove spaces
+altdomains = altDomains.toLowerCase();
+let domains = altDomains.split(',');
+
+var pdfParams = '1'; 
+var newDispute = true;
+
+function _suggestEmail(){
+
+  email = employee_email.toLowerCase() ;
+
+  if ( _isValidDomain(email) ){
+    let e = getById("send_to_email");
+    if (e) e.value = email;
+  }
+
+}
+
+function _isValidDomain( email )
+{
+
+  //alert(domains);
+
+  if (domains.length == 0) return true;  // no domain setting
+
+  let ret = false;
+
+  for(let i = 0; i < domains.length; i++){
+    if ( email.indexOf( domains[i]) > -1 ){
+      
+      let e = getById("send_to_email");
+      if ( e){
+        e.value = email;
+        ret = true;
+        break;
+      }
+    } 
+  } 
+  return ret;
+}
+
+function _err_msg( msg ){
+
+  let lbl = getById("err_msg");
+  lbl.style.display = '';
+  lbl.innerHTML = msg;
+  setTimeout(function(){ lbl.style.display='none'; }, 5000); 
+
+}
+
+function email_ajax(){
+
+  let email = employee_email;   // actual employee email
+  
+  if ( isSendToAltEmail == "1" ){
+
+    email = getById("send_to_email").value;  // input email
+  
+    if ( ! isEmailValid(email) ){
+      _err_msg("Please input valid email address.");
+      return;
+    }
+
+    // check domain
+    if ( ! _isValidDomain(email) ){
+      _err_msg("Email address domain is invalid.");
+      return;
+    }
+
+  }
+    
+  xxhr("GET", "_payroll/pdf_print.php?pd="+pdfParams +"&ea="+email,
+    function(msg){
+      alert('Payroll payslip successfully sent to '+ email);        
+    });
+
+  alert('Please wait for a moment while sending an email to your email account.');  
+
+}
+
+
+function generatePayroll(){
+
+    busy.show2()  ;
+
+    generated_cutoff_date = get('#cutoff_nav_start').value;
+
+    var posts = [];
+    posts['ds'] = generated_cutoff_date;
+    posts['de'] = get('#cutoff_nav_end').value;
+
+    var e = get("select[name='team_emp']");
+    if ( e )
+        posts['tmm'] = e.value;
+        
+    // pass requirement
+    e = get("#cutoff_nav_user_pass");  
+    if ( e ){
+        let p = e.value;
+        if ( ! p ) p = "none";
+        posts['rp'] = p;
+    }
+
+     // posts['debug'] = 1;
+    //console.log( posts);
+
+    xxhrPost("_payroll/payroll_ajax.php?q=payrollHistory"+ _session_vars, posts, 
+    function( res ){
+
+        let data = JSON.parse(res);
+
+        pdfParams = data.pdfParams;
+
+        //console.log( data);
+        // history
+        var e = get("#payroll_section");
+        if (e)
+            e.innerHTML = data.html;
+        
+        // buttons
+        e = get("#payroll_buttons");
+        if ( e ){
+          
+          if ( data.btn ){
+              e.classList.remove("d-none");
+          }else{
+              e.classList.add("d-none");
+          }
+        }
+
+        // pass
+        e = get("#cutoff_nav_user_pass");  
+        if ( e ) e.value = "";        
+
+        busy.hide();
+
+        // console.log(data);
+
+    });
+}
+
+function previewPDFpayslip(){
+    
+    window.open( PAYROLLWEB_URI + "/_payroll/pdf_print.php?pd="+ pdfParams, "_blank"); 
+
+}
+
+function acknowledgePayslip(t){
+
+  let cancel_dispute_btn = get("#cancel_dispute");
+
+  let ds = "&ds="+ generated_cutoff_date;
+  let d = "&debug=1";  //1
+
+  if ( t == -1){            // dispute
+
+    busy.show2();
+    
+    xxhrGet( PAYROLLWEB_URI + "/_payroll/payroll_ajax.php?q=getDisputeLog"+ ds + d + _session_vars,
+    function(res){      
+
+      //nsole.log(res);
+      let data = JSON.parse(res);
+
+      let txt = get("#dispute_remarks");      
+
+      var remarks = "";
+      if ( data.remarks ){  // already have dispute remarks
+        remarks = data.remarks;
+        cancel_dispute_btn.style.display = "";
+        txt.dataset.new = '0';
+
+        newDispute = false;
+
+      }else{
+        cancel_dispute_btn.style.display = "none";  //hide cancel button
+        newDispute = true;
+      }      
+      
+      txt.value = remarks;
+      
+
+      _showDisputeBox();
+      busy.hide();
+    });
+  
+  }else if( t == -11 ){     // submit dispute
+
+      let remarks = get("#dispute_remarks").value;
+
+      if ( !remarks ) return;
+
+      busy.show2();
+
+      if ( newDispute )
+        _err_msg( "Sending dispute payslip alert." );        
+
+      let r = "&r="+ remarks;
+      xxhrGet( PAYROLLWEB_URI + "/_payroll/payroll_ajax.php?q=disputeLog"+ ds + d + r + _session_vars,
+      function(res){      
+
+        // console.log( res);
+
+        let data = JSON.parse(res);
+        // console.log(data);
+
+        var msg = "Dispute for payslip has been submitted.";
+        if ( data.success == "0" )
+            msg = "Dispute remarks has beed updated.";
+
+        _err_msg( msg );        
+        
+        _showDisputeBox( -1 );
+
+        busy.hide();
+
+      });
+  
+  }else if( t == -111 ){    // delete dispute entry      
+
+      if ( ! confirm("Remove created payslip dispute log?") ) return;
+
+      busy.show2();
+      xxhrGet( PAYROLLWEB_URI + "/_payroll/payroll_ajax.php?q=removeDisputeLog"+ ds + d + _session_vars,
+      function(res){      
+
+        var data = JSON.parse( res);
+
+        if ( data.success == "1")
+          _err_msg( "Dipute log has been deleted.");
+
+        _showDisputeBox( -1 );
+
+        busy.hide();
+      });
+
+  }else if( t == 0 ){       // cancel dispute
+
+    _showDisputeBox( -1 );
+
+  }else{
+
+    if (confirm("I hereby acknowledge this payslip.") ){
+      
+      busy.show2();
+
+      let d = "&debug=1";
+
+      xxhrGet( PAYROLLWEB_URI + "/_payroll/payroll_ajax.php?q=acknowledgeLog"+ ds + d + _session_vars,
+      function(res){      
+        
+        let data = JSON.parse(res);
+
+        var msg="Payslip acknowledgment has been submitted.";
+        if ( data.success == "0"){          
+          msg = "The cut-off payslip was already acknowledged on "+ data.dateAcknowledged +".";
+        }
+        _err_msg(msg);
+
+        busy.hide();
+
+        // console.log(data);
+      });
+      
+    }
+
+  }
+}
+
+function _showDisputeBox( mode ){
+  
+  let label = get("#dispute_label");
+  label.innerHTML = "Dispute Remarks for cut-off "+ DateFormat(generated_cutoff_date, 'm/d/Y');
+
+  let idDispute = "#dispute_box";
+  let div = get(idDispute);
+  if ( mode == -1 ){ // hide
+    
+    div.classList.add("d-none");  
+
+  }else{    
+       
+    div.classList.remove("d-none");        
+    CenterDiv(idDispute) ;
+  }
+
+}
+
+

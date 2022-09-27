@@ -1,26 +1,61 @@
-!odMbo!
-AQM9ea3CQnE1UuFjS0gu9G4000000000XIBwAex7rLRB8VUJpxeMqyge6Ri8c6AffAbFohHrNIRH
-jD1L8JJeqCKKLad2yyUQsviG6kBcfiO6bEmwWzs3Y7PgYCwgRj5jdovNSzaKSr4wManaY0VTlIXc
-jLFaBPACDxCKj+Iz9T+wd3XJpQqSpYFMoOlKVio+NmXx+tKS7xkdLlcesM6XU1QoMMPhn/0cqVO6
-pI2jaujC4ugXgnlNpoY8DlWxmtoTj8aU4qRb1Fqu3TzfWi9Fz5XPk9gpPC5gI8Gw8pQkKWtq3TUO
-aBCvWO3HwEdh5oGinMbstGkqmEAnOX+gqHka2oNDCbv9OOwhxQZ7z4MEt3CLFoL2yNItKj4jhjFW
-amHldszaXDGISlSiVbRKeMGSZr5H5MMkJKU4Y2NkowponEFHMVhjXbb7DLDEVcdH/7NRzGIa2G+U
-NyTPnDtNN+rJKiMFBdku6/rG/yvN3QBhkP2ahMVNkR9dq3zvhOTyYoFN9vQODH1M0hCSiUnpTEbg
-hqH7e3e3FCOkuqxEbn8kZX236Juu3EoHxNPEA/hysmDcdKV8h4Ilw4a7b2ASdwuo9Jx8RfXQgS09
-hhULqrlbPXCPEXGAUELgzrhv8QmPLI9C2RjGL3VLp/FX0KSAVZVrGQUQNzO8/7/A4E+27puajqQX
-nLTHLzPMA8YumvXJ43LOxMJ2xtjtlZEO9XabJfGc7x5cQtrN4CyGJmr/C2m5pD0a6lWspd1qM5Qp
-SgVZ78VBicGDKT6DwX4uOuZhT0nQda84zJ3llDqQsbO9CurDCddTlS/4sotQ6d5nc93maLFmfRoQ
-jCS3UdUlMUw3pBVRUNahNiRcU0oGqt4/HxG5cU3KGtxqgXLSlpDwB74hPuK6l2yiRR9IG90ijrns
-V1L6bSp4P5oA3gfpJFBl8v90XM78oIcHKkfA2VV9zdlxRDfOTnVBuqMEjKYQ84hUEQzVTaNhl32P
-pt/FDwd59Jc6gKOYjtxsMoRdajOoJ+egPMQQ2u/EPFqVh9OXlq0l+FQCj90oUG3OKVGytYca7Rw0
-hVMg3y5yo9EqDCYUBAFu6aeUeAMnnacniOjWUS6c7ophE9jKjvA3F4RM0w/ujOVRgdlmOQOKqXr2
-SflNQHQlFfOJLLGJzeNgSpL7+IFNG5NfABvRP8bcgEB5Y5X5UVzoX7iL+70ZiHcCZ9Ns6Sgy+Fk1
-ozzpfT5pS0bxvmJ7ISkBqdVUJP2ayEi9mSP//mq9e2tO6mOMNGT67Yd9jqg/13MqDW/sZx1OcVCK
-vDWVdqoXgpjJ+l/AlyNWFcf8xTtn6tgcsx3IFDn4UZwOzkcWekAw6pyDG/0QZztw0fOoIQ8+vM5b
-+QE6lgCWJRWriPpBxjJLHhGmY0WPI3IX+FiQkg+f5jdEjkUZzbmt6i6ricKer5ubFdVf6fsFusv5
-E2ai+YRdlNmaRZyfCJRhgksxL0dXo/jxIK6DuiZtRfIerh3KrvyDxodaZoPoRjqc1SspFNcIUP3M
-VIDPq870HRAhK/Gx4WPj7FzpRAvs9nIfwAeHwh6b8gACjjoXUyuuXtZdDkbCkVQvAjhYqIeW2u6J
-VXvuxIjACeh/6kuaKaBBVlPzxlZ6TZHgy4r4/KtuOMT7zxuL/lS2mCouwD8NjQq3i4XVIvMGlemb
-hZ38+fKJaYz7orKXnm6MP4Mr+rVzdgTWX61qCZSGhjF/zofpiYE3XQXbns9oERN5OEsQHh6RQRnJ
-xjoTkNnD5x7Vto+vJunUlobK71PozSwoSYrRUK4HGsi17r3U28UgtDGHnBqkWxTULUZQwJcGA0ww
-LaSgD63vhBl4Xxap2o3yp1jXN/PYfRC43qEkIuNSf6OKwcpPedlWsAyrRNL1bXOHsEe=
+Calendar.LANG("es", "Español", {
+
+        fdow: 1,                // first day of week for this locale; 0 = Sunday, 1 = Monday, etc.
+
+        goToday: "Ir a Hoy",
+
+        today: "Hoy",         // appears in bottom bar
+
+        wk: "sem",
+
+        weekend: "0,6",         // 0 = Sunday, 1 = Monday, etc.
+
+        AM: "am",
+
+        PM: "pm",
+
+        mn : [ "Enero",
+               "Febrero",
+               "Marzo",
+               "Abril",
+               "Mayo",
+               "Junio",
+               "Julio",
+               "Agosto",
+               "Septiembre",
+               "Octubre",
+               "Noviembre",
+               "Diciembre" ],
+
+        smn : [ "Ene",
+                "Feb",
+                "Mar",
+                "Abr",
+                "May",
+                "Jun",
+                "Jul",
+                "Ago",
+                "Sep",
+                "Oct",
+                "Nov",
+                "Dic" ],
+
+        dn : [ "Domingo",
+               "Lunes",
+               "Martes",
+               "Miercoles",
+               "Jueves",
+               "Viernes",
+               "Sabado",
+               "Domingo" ],
+
+        sdn : [ "Do",
+                "Lu",
+                "Ma",
+                "Mi",
+                "Ju",
+                "Vi",
+                "Sa",
+                "Do" ]
+
+});

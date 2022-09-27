@@ -1,390 +1,809 @@
-!odMbo!
-GDH5tccEx61xJZlKYmb+nG40000000008LY2KLOcOrk4VIEUlX5y2auoqpxXAmV7UcPdgpBpHMhR
-WjH/GkfaYM57tBx3bx/XjnrXviDnBmka8tGKdCirGO0QpCj0gYlqLEvZQSYVywjN6AWrcx93A+o+
-y0eqHz1LnDq1eR9ZgztBRPfRFc3mWZ6lCf7bukDM/dRcqzGgTTtldBYORb1Pv08gHI+IpVLbM9Rx
-dHyzM8zK/d8Np4Ktu6cb8DKzZtSkiCHluryIEPMEnaVKQKTiUPdOWWaLSH1DygQGd/Sb4nf3rVUl
-Qsw+YKg1mHWsGFbik9Lln68Cf/uvz8mVDmVyaOh856SRfD/AZ2r8bA8KzB3LnNaPxlc+Zc5Pw2Ba
-3i53PYe4/N2PZ7YGKK4eKvEchiakAK8KC9qEqfmYPDh+L5C7QOuPqr/YgBHIXCm39QkjphUTgfPG
-aIN3CaPUZjoauBa/tuxmJKarDZ3m6vko4VytjVKc4uKEpW79p1XbKV012jpA+RkZZjlR+uukWjPV
-dZZFqgrtiRFzAGsSqMFhzhUb9BsfKtUuyoQR0SFExnvlLjeIsnya7Oqc531xAHiPnnibgbHmdwH4
-OAyWGPBvHJyYrqDTbwxmJWr6/aoa5m5OFVYvH57/+qi4KC7938iIM0uMCmLM4tm6sQIPDg7YPbZu
-c5TXeOiMXG+u+vihEMedDwXXjzEAZhUhf2sx45fMC27vH2+pu4EdJop5/GPORUgroq/jzG2IqYaP
-s29S8iCTNUGqJLQ/delJKXcQ8AYsUrkBnLj2Yqrir50lz+TjOUSNifvYLZFpCA3ydAliIq4uCXyO
-EkBo6DOy8I2XzM/cOLrW0VH6dlOBTVn/HGjxaYy8by7J3VkJcj77TYW8zwSARrE7hWAE7XOf1C9V
-RcKSOO4rzexReWY1CGb8vV7uwhM3IKYOZBQJcVsQxPlcUkNDM7v/orGmACuqIwqGdh4k/HhV+jZX
-sXzJjlz4DWjXklSdwtB3O9QNgHZVq0ZtsLyRJcNbXN5dNVBVzsKFdmHoDP0tCZAA38pKUEoiUvqz
-kmUZH4vF5ftIoapYF5SLbSul2cEtMuZMGWFKeCMsm1IsvWi3d/uUwAY4P1zCTiJ7XCl6GgQrhmYb
-ANV3VY4A1DqqYc0vU6sW1U6bWhqjpB/NshV4DIpgzVB5P7if8iA+55wOCxXvEUcJqSNYI8XNc4bR
-81uPmR1QHxsY6pA6Lgot7dAqYDup2uuryq27TIF3TG+OZKDJCiIhVlMMjRk8Mhkt9vBMy0BYZ479
-1HqNrWwhoMUGUUJ88HLgDmYM5ensr5WzIA1QrNG8TEM+2Jm6jXMwg/E6DFxqVbhukEQzlilImxmx
-PA05lmuJwtXk/0yCFwKz0FOv0yQ2RytAwN7Qea2/5QRR8UYwuG8EVHwYBo9NWBNPm/GHhyx7+aQ7
-FOCvEstZLxqYeRpi7L3/lX8MQJOBOr7WaUDvJqx1v1UxQdnMMEQpS9S32Ov6tBBVcRh+1jjPPyBN
-ZwUv0m8o6h5Z/6m62ON1C/bjBoAZWO+GXeKWZMxGmzofn/b9+RPln9KGZNKQ0uopul0lKgacmD9z
-UXfeMYgWl8BgjJpLBP3aS3g6zAfwuIvlzVU1bfXX6r2mP4ZdDp2tq8+pDPqm5W/fY6zQlkqciL2/
-8JrgB1lKfyW9yBUs+NqQCLWCjzm7IlTW3+O3SU1nUHzFjCsK4OoiM9WZ39+99fRg5d6mVDgC2+lG
-W4xLRtYpRvsyZ50iAX83mHsxnFrLWYf4fBPPtm+TDQTd7uM6wMyrvNzdAAarhN7d9iqCbcVd4JSD
-EXn1nVQDaZH9X6Ki2La+FpsmuOj5X8Q/wx2Hfvyr6MDzaI9bJlWnyqZLD/ri6Jh71K+whI/rRvBe
-F3U6ioNgESPdJsJaZKh894dLh5+8Tqs1W8TWO/2GpHw/yrK6n8i30qHrcpDytawcL3WxTRROIJko
-ThJnw+VZzHFRv+G312/6/iJoZ8VRxJFCDgtmvmUquGFgb4LcnRVHpygUBSzVUhP9y1Ccj4oFzvuP
-VVRbD511z56pj9+HgHMdDQIWLPHhvFbyvwvBrckj5vjs6itQmTlk8RpbNI2p1y6JQrBJwPUk0NtW
-itKfnItr0u/nTB68RnNHo/AauKzhKe0Bd+Pv1AY0sgcuixBAHWvMbtZ0m5HbB4DX6BHWCIRu1DXA
-cFewJozXYgOJRf5VOQDTOl4ir1z/i8ovH6qMxLXrFYBY0AAZvbAOtx8u6HxPbmCnnm32IzzzdE3h
-s89O/xXQrIDoX0Am2ZQh5+ZwQZGQB91UECG5gD/RxsT9/q9Vl2n+r/Q2K0cXDbeKtff3CK3s1yWS
-mof+jv+8LFVv0L44Qx2avF0kQlmtSttS4f+i7n707mJio1uNslDeC9ygnyUuagbcuOaR8fndwvLB
-gZu8cGi1xQdbVefkS3B8AcBruLtqRKAcvvHGU1CkCTx+n+UpEnznbceCXl1iQFOf82Qg9go1INlx
-+1aCedTw5q+VfZuCfNwx0YzpLqtrKSzLt/XNMXqZRF9oSW9PCwP6vec+qrclGVA/f5/dPF+WdQ8P
-7mzNwCyTMrJK7x6W9HzjeJC2YdfzwlWMS01DqqSc7KHA23eoDKmDfy+d2BxIFR0j5pWeT2amZw5v
-kVqWZv1wtCxvslZhsErx5loeqCPwC70IJ3vad0w8hSaaei2ir5URAd+RR+XtWt8KJFDx0XDYnFFL
-UIwPOGwKU2A8IH2VgznYbMERR/OBAGw16i0RCBsVWKPB3V6A07TfYKi+KzqxHFyAQa4P+xdMVcyL
-BppeyMR2ouIfwvIG0T+LzSfDsZDD43pawkbn0HSh7Lq5lJ+k6Wi6CDyw18WS1Xb+0iqzN7EWrOZu
-YdA05eoOsilZTvKAGEA45Rbqz0tgwtH5kYeKhSt8Q5FcoVzCXP4iYjj24pN5vWtqoVaS7YpBo9fG
-PjJ1wUg7lGv+VzlWqvDW4axedx/XwQxtqhvZroiTrFFKnNF92D7M0HPH/WyDs9XbqEeSx4sO5H95
-HOuswWq3+hdyq7xFskwHVmr+COG2qnIBC9I6JTINUslutgWcoC5SCEHAVtBlEcEIVwinuPWyBYEc
-FM0pMUi5v5PsvN5oPdAwIZGOKwh2BIpipi0tW/EqCEt3eaV5rUg3xII20kgfT5RMBk0ERDWHW8DQ
-/RdYi/dmwYIDb1+PT2Q8y4wvVQrnKIq09ZXIZKFZznJiKqUG6UAOGPaPlPkbvQSDDD4hasdY4eBB
-1yRi+HJQ/+hmWWTm2+ubFlgAlDx3zeBbzM9JEm4ouN3KSiNOGdctC7s3dpECeTSnsJSXBS/nPgzV
-9mBGG9u/KiMHt3cB5cTrwNWaPVczZPe95DlREQb8dpCDYCDhoa8n4gb4xmVBpJKJx55HhQtf+Ygo
-HiQDNUGGUim/SEIR3IIRwk/94iyGf6pHnJCcLi6vX7qkXzVE/EjyoXDBrrA8jvmiwYZw7GOr7PFT
-IRvb8+aPZ51E3GCxhpfzFoKx9DlrVVPxT5EWCR5KrnKcAH+lgx1YWKvOZSWq9ZRhOE7xvTzBDPKo
-k0labuXHmVxxdebJW6mjqBTXW6AJyWdYOaexuD1hu4HwyeIZF9S3B62xYXfzLqKKypp07zhYTG9b
-y9ZTtMDNRu/Pjl4iaOehitYDSaS3c2P/MpBRGv3bjS0yqmjOuQ6c8a9ughUZvLAsaQZSOk0rtYAs
-/nkIIqicBiTLmvxbbfpmYmJVNUZE1kzNMSh6lGpnim+ELngQfc24JYpLbZ1Ve1fj5cxz/24uDPKw
-xF7J6NRhLl4/90bcIFM28A25qsoBaI5k8vbuudRDqpIthyyMIABJOggeIwvBnjkgck/pk49VZ3tT
-q9ABB9tNplAZtJCr3CNSNDVuUwOgYB08cMOIdQQTNQrht9v4h7lM3hlhsav9Zm3gt04zUMAk9Lva
-tYYUJTB7aLn4O6/H8bL+hEEWktQcj8yBzdWgwgNwAp259rDjJt7WXpTg55Xxpu9+vkxfvY9b5IKk
-C0a9zSci66lPKn6z40qgSgJAXC6Ir1Inqbl8dKyg2nE90MI7J5QYn/27p5znA3eA27zIijP2uiKj
-owXgiM2sbOmSo49QteGbbRp+tQ6aIeGTXAP/GE+rrJIbuEinHN5bghxsp+q6OKGrO+TnHZBDayHd
-LCv/O9u406em7W2lajTlqM9bluOFAjbbMM28zu1bpxiTipS7CeII4cYZ35uOa8KGF+g+Ti0/7/yr
-VYeMCKa77qU4Tse4alvWXhuDg9CbuYs4JdLFOFj/G0ISjAMrOr/oMjNbVmmt+oOfAAGL3Zh5rg5+
-wPnTkFoNB2P/PyEH5hRusDhTGsDwaQZMsD9mtSiCqdsUkSxjP3fQlbmYKMOJIkW3BCCG7SgTKm6z
-nP4TQrTZbeNeFhrrA9juhK10c4xD8QbrAn2Zw8xWmf0Y9iXbZOey83rTGFyzk6BYVdfN8O70tCY1
-b6Q6OM3cDtSxachGlC4OVAAtkh1cTtgA//+NRJrxf4XL6xVnugkZT7/OJ6L53pkbshn5j7myICAI
-ugcKiLIliwUZ8fuoHRoDrNeiokqkUkhkM5qeSRGfx4LWiB1PkOPH3X5CSmlMkOQfU6fvnVJnXhz4
-74j/2ntn8S+AQgfjiDCdwhewp3CZx1NRzIJLXfLC80knRxjSenNLaYy6ZGy6Hb9Wbws07rEQLMaN
-9gAuZTxxthUGtxNn/1zF0xAHfuR83ZmzdjNgLvVacEtrW6jzY3CTYxy1ITLOkYGgAy2CIR+KC0UB
-fDZuK+SzAF8SHQUIhbh3dc/BPd+VieGsSn/Cl7uzSnDaC+9ImKPnvQ87AmznZ3anqzZjoe8NlH2c
-KfzPXiNS+xsbDuTeZOh6Od4XkAZN2l4U+VrotiH9/arVRmDOm5jsSkXNYazneFCDJ4qPPlHRgvyK
-lXFhqUVPwc+gNKEUbY3z+xYh1LjPD0CpOQXbOLzuiwfY+p94p/mG3AYgHHnyDNnezMSM884D/4qA
-tIhf1KdYaV3ddyNMebyoyiiTn2g8OW/0S/8L37blivRWRnpECL5TPut+P7JX/p8/OK1CpbAJh6zH
-sWPpJnS0sRb93UkQdMphUQ0JCYCUjzqYsyZVyflXYPMhi2NSdkdWP7U6eoJh4rXKB4+WcjnO4bJm
-JyNjkoVg2f1mNi88QVgkWQDwUSse48zowV8XsQPsmcnzAbH52/69NDaN+XafnuP7NMmF4h1bGdho
-VxPPmg6hbr6/AzxYzaipb8Kw2eaqyi+kNp5E3iJ1KQWaLlhl+Sfyjo+CJtYu9lzglO3cTTLMdhu5
-89Ic8ua2LIzJVRforp3s0R8Ehhn3TPp8wI7SdRbVx4RWHU8AwCRnL9ukEGpixY8X9rsez6PttOst
-V9UPXwE9aXRHRmhIxMfBedt3rKF2ncIkRNYD51lxw1sFXK/e0V+TKfKsbUMLgdIkWnla/5u/ydVq
-izuQe/we3NDYbMbg0fqBUO7+8I7Ss6dL0xrxcJmoYvbJ7Es6Ts6o247W+LG+jlCTnyFwP8Pyn7kt
-IpxrzGPMlvThs2nwCaz2gnKfMu94NzNKna6hrik1ZM6vTy53Gi9l1UUnAv+OTM4WBtnXYpJp1GLU
-/JBGIZ5k1ZeQeMsYrUqdzMMaHNEcpdTgAdhkv9oy9UHlWOrGIbQzg2Ow4yUMuhNf5EyjVSCU7zMk
-EUnYzpJBixtzAPLl5NKBAL9DO9LNTtYmaYCT7dn8Zn+Tq6ThSvCqcw2CB+eq8ZxPwXIdPCMEDwlH
-jQaKq+PizsDMoMtmAI7wEsJYe92WIfinJjFkUpnsb9XjT0nwgVdQuPu9yhuVIvA8cXEFDJS2h4yu
-oU8jR+v9T89T475hPCZBfywzXwukXXUP/3GLYBun6jrKxa8JUHBshvAlOpe9mwpbN53at5ZEhBbl
-3FuV/U7L6UZZqwU+dHBWcW//oYkMj13GUfyt4wzZwWMgSoKrm64UJS4uv91uBp05LFV9Kma63AMc
-gCaS5pf3qnDPlBbCp56wSOgcx+CjqnuKTBMGJgDVOufmpouVVWasS4BeHSDwg/48Kez636cYrSGy
-vNZggg8qGQQTEp91FM5XAolW7nGTCcgah+g2KkDzX2hJEmwEWZeEkPB6xg+g3Zcu2Gi9mr8reGiN
-76IuXdvaNLtAnAzEq7yGQ/gbaqBTggMGT2N8ikRysC6WSlcrDEov7f8d3CDIxa4bEmTrVYxKWdEY
-503l/CQpJSbcacKMEyV3RUyh4ugnPwN38m1n966sOk1Dp3e3UzoxR0bIJOMi46OHyFEIMP1BvvFm
-mwYyOjjZOewJgbdnLkr8OfxpTeqsnyFHZQyi4qn6ubLntZPynSdtBYg9mPSL02f+y5Sa7OL9px0o
-fYSob9kWSRz2dSITxDS6zDilPs/qHP7Eqrwh+JC03AhzOnVyZgU7XOBRabU8LGWnMBiCbQltCPkg
-4H0PJ77w/uGJyA1T3RYxwgktAz7wPgkwC6AVFW3pnGvY8cUeTGSjMgpZOjQs5W+y9m57cten9xmk
-mjdcF/buRsMX6DP7is/p3Gmmb/hfsxd0e9+DZhlKJ6akA2qESanE5lUCM96w+gtedJz8PJWecz9n
-19AZrAKAvfqA4XCl1B85F6IZC/bJlbZzb4wQVCgtfCAl1pttcjHqoXSpJSdz7VwB6DPtmmm50en7
-e1hzuXaXlZrWBCM3E29wptaPl+a9tPtk16K80jqzPMjpcx31myI/A2z8im7t41aXI/Px82bHPYCo
-09bmziTglgLSyqVxANr2VTmP5SoSqzaRwM0k/3/t+LkIu/3vXg2+Sw71bedvuuiU+JoGdf9P5J4a
-15aUdF1ZKi5vJYbp01Q6Ez7qbOfZJufjvAsouN+p+qABpJ41gPRNkTSOFeG4vDz5jndjbccdhtll
-mSKR1KzCJ0Gq/bTgOQiqcgJKtPMmBXM88PB3txlIG4XX4GYazdxqZ/q13ONYUIHvxNofUNsRmW5Q
-/RHyTz/ejmfhP4IyzVHwARq1RrsZDT1MvlckzvaMwuyXCu19bY2Vo+toathmAuIgFWH3jlmm8o35
-bqUtELUmtf7pq8Lnm9AWO3pbZG1CHWP6pqcRb0Cl2pVoG7/V7K0ZH4SCvqcQ78u5ZxV4V7dDS9do
-t4s3EhTOdVZ+PPMBdWZlaGmGyZoS5Cy0z1J62Cyt2G3JS5r4d4gMsEzAddMFmOkkiRmtWVkY2rb+
-99Q/N5ror7ajEaUNxSWUnBLRnIDAHPCLVpA/hapy0ku3xoTs8/104q9WbMrbhQiV9jDi+qSFa34j
-GESsEx7aqJ1mKcLxiXwnGPico92DV0pf0LCGgc8+g2LPemRxHTH0+y52EqBOBAkwEHFeiYSauiJd
-PKVb77epflQ7j0o+/vQVGIhofI+R6MqxdWoWJ4BCqOgGIZW7LArRAaloOMCN7KQm2KvQo60HJUGK
-yNXeET27MeAEmfR8azH2bXsk30hOF2egHKNr/747izeKsPlRt8fsrJlWw8n4lZV6TYuKtoHfxjSA
-BqCwCDNExgJS5wKPt7PzCdYz/QFic1nO4J5Lreu0/SmbNWSEh7g0aqplMbJlbLDSageoZZzYNDlx
-upNGhk/8uzGb2SZeG574YXDG7OFabk9Z79KC1JFMaFQS6X49hJRA4DsSDo6EsZWGw9X3ITA4SG4f
-CewAWYzCx8vNcxNBHzq8mMIhUNhR04FSAWDeFZPYq7O864XQeKhovN4PIUQ4aFpyf6ZO4iamcIrA
-b7SWy3lWWwub0oQ1ObKJH4DMPfo03tkE+mi27KGBm6MuU53/jgI6A1A67yJvfWBp95Daponj7nyu
-z/zw2F5j7XblxrbfK3thJtWhob9l7f4/i9PeZvlHb9rZ7K+HYGw9guO7lq4RsSlYMyAGvIdACNjR
-TLEkbmY7jXmoLQL0KE3a3Vs4TlxwBfRjrDJB7JIYefDUD4aGHYT3fUV5Sp4yHiZKazotvXfMCndD
-XXgE7/kLGkWp0UwPaRLcBdeWKdf395FzMXIojoEdbBVpmq2jrl/ZSiKLCJJQG5NX0LVRd3IaExz/
-iqOaJTZRlNs4eog6JGy/2QN3hgkWJ94yoqO1aptMVWTAkCoG7L4DH2YuEnCeK8eJ260qge7xkZnq
-nUICfVDtFyIWBS9WoS1DUQ8jCfbjuKQRTAwNJ3kKHOb/5I82EcPg7w9wf0pWNBw2Ykef1KCxSyMi
-DMFBTcLgrlOeErxv6dZNgO/fUt0Z2HXs9xr1o75pHZvSgAyuxOnMXfMgL2+C61BpQDZ+LBI1poTb
-f1Zjgsf5ptow68f0Ytk8o5upGotIvtbqTs5vtdJlUEBA8cqkWDXJ6EPENkvRMx8kzY2EIOyplPij
-3f+JdAFzSlVIStV7izY668qsHbh5cv7XLnuGlnbQnicvs3zRirvArct7X2hZP/w4NTc/IK0tuMdb
-5gyp13XfNis1es9MsRQxFj57TLejcZWlz151YVTUgSy5zgPpA2YMCWgIc7z7pACJgkcxoCJ7BUsk
-T7OIRSmgPS+0LSOFBT4lQT9YmR4EwpE/gWl41nI/MEM5SMD74+T+d0lTrU7p+C43VmBlaw/JC5M5
-/rs+sbHKpuW/ikyr5puv7kUYnVl0a7JfYfYSFz4PiXR33fL3vmpeVoyFrKPROIwWJ3HTanbdSJ7R
-oSkFdMiOHnf4hrfigWpZQJvLMawftRzSG5iLVDwYTeV0VPCFKHDF+RQrrmgw82FpSo9q2+Uklqmd
-NwTndlb8eir4Ighk/AqRGfejBi7f6sFIMBR4sZ9EuVO0toQx9CE6HVX0vBCQZl/dhY+SO/5LvwPd
-pzfC/n0MqmpuksnFnNrbdRqIL3dghGZc8YOUpGHbq7nFHkvipB83OCjgajoICQewAhKsRgOE65Y1
-a4QGyg0tFC1dc8cKU71rB2z7SukXIlyWS647luajddmC298hvBhwZosBFruWB3+vQBIkW6eX7O7J
-aXeABbuXxIPH3Uy3f60FxlP0IylsRnnHLtmkUneGujncviFC9e+zLOCccf12vI9LJfSDmGXZyp8n
-IBD895A92GGOUCnZe+NYT5pFTcgNh0pf3v+V5clWlNiN/V2/MJD7EPSgYqm42l+6r2kF+K9w5BgD
-8bP3oS6CdJeqBFR3gy8NOWzSeJ9ceBDrvBQ/Gs5/LRPkxUtsfKl8HatfyYSC/9qZMaVDPYp7L5Uo
-5p3/fhDQQU44hfQ7TF41Ph8Grz+miHdP/Q66sjaBYQ+kPuAk1Qx9fhievlWhhCA5ixBqH47OCj7m
-fYq66vXb+tuxizGNjV3U9Vd3pW1ari0A1SD/+WpCTZhx14Wek6TcRB7GdAQtAJILhCVKiiFM06pn
-4Nk3pu0POtMga/rS2yHkqXeSjrm2AySvi2g5dUxdOd+728m1kTogX+ifNHa4w5Ff5WgwduYGitnn
-ygWR1xVKP5cBMRhtSGV4pDx/3+HrDWyk7A7rR4cmbDLDt/u27t2YrMZ6z5X0GxR1t15dlF1xL0Kr
-kiuFDTnZS9oQiAR1W8sziPL2Mc7WmcqFtM42oxNSBFjf/7/HGPDOSuWPOTPb/sKz/cW6V06jkA3i
-GDNr6y6FMJwoLzyVInLqzLLp0ePRo4epXPGAnrEwN3ys3MhFrWhukWylC8fU6OhOzM5W/PjTjHh9
-PaH3/jlmRTdOi7zXJlTbtE3Cit05tZUpeswTNhhH4FbyivgTNndLU0IyrP3Ib1HiYzUeJRjAKQOT
-FmL3iMyHXmExtltvNaFenr6jI6jk8+CFt12IyYniE3AkzR3n10SyTUXfIT3q8rMeI3Cqr9BoIQ1m
-HQ8Jb5+GNGlhGxR1YYIv1XHKG/zmUJe/T/gNgNL0EDr6im/IMRS/COs08F9d8SMfwkAWqrqSNMbX
-NCg+koELFw3iHxyzTYBH+96anxHr6SotFem1YMHYl1HkWiAfl1neFMnC7vEmNAMlsdlSAKL//lQb
-vRlKNGzHXMwm77YfjrjRPOjRRXwxb5dN57f5kQbUMsqGGbJG2SIKkX2dfDUrkEx4T65A3I2tFsM9
-BSh3Nfv01NEGomHwkOzfgOMkrpXywJn1+O0jwFCKP+4005rbfjqEBsHWTlprwLkZvizFaO2tl94X
-Cpzlqp0Jh81rEO3ezf+WLJj7rZXpmoMDvLQqpQ7LgOBimy8+GWXW8XykscY4SEk4Q0LMj7pFQ7Hm
-/7vSyUf1RaCPhnYZzaqgWxNvTQ34BBDaANJHdr1d8JNRC5vj79cddOSv9Lh9nttE7AZQoAABeAx2
-mpcDzysUbvYDaOZytFWRU/c16olngRNIDs12c6QnlNjJyADMH4evUBwiTr19yMO9Nw8RTgCErAAz
-LVg/nruydQdLiVSar8jiM/Zue+aIdBQp7TwUIs1cxMEM/7pJu8XwDzTrFqxVSGGPLC4xH6l6/Ce6
-nkBbUHFkou+J9d9o4ZMTMxWblFzoyfceMyInsTzs4BFnQg/nJSotIP++fyDnmvbS/8WyyBjAyEKQ
-bmXULFUHvP89UAc3zzZtiOCwqmTseGqPmRwx14T9U+4nJUFaDYHqTgYoFHxNG/NrI+Du0B9dg7Jr
-dIlJZS12moaUX0fjC2Z90692+yiYmG879sCyVD8Wyfva5/4hnzcZn/Dpm5ytYr3WjHfnrhrUHtzf
-phDEW2PTqVVIdhMY06i2FDlMjkc9cLIhT6N0UXI/YwPZ7WS1dCPYA0Jfpv6U8GbhMRZUcz+HFZRc
-P2mTNoqWt560qEsT5Mz/oMgBWUln4tVj8QU0zJRd6X08IHuLVGQjVLWnkIdO00NGThZ7PiRBordg
-bRvXNgoYuJaiZiQnz97api6qzx9gU0M5q5ToIQil3naQJ7gkaREeA9xQfbft0l2jXY2xr8mfdr1/
-TjV3KBP7DsPv7eJpH72YrvntbOqTkGEc2BHsCdVGYeyCphGC385+yEHJRt2RipNVjg1nPacMGK1g
-timUN1mq7vhF0ThsfgG0ZLUD8Ihe/BdAWm3RSg1q6dCN7DocEOt3k0dqFvWIK818dXKGA2N/yVmo
-VoSWlXgyoD2PuS9mOxvUSBwuq9Gjn5QHpQq0N/siB3fdS22A1gFRRFvZk588cJU7r+JPPDf8k4Hf
-pUXuN6lTzNHv5joF6VWdzWU1R/X59Bh1v5t4INBGS6uX+uu/4f2fy0+2r/dZKcI2Vv7Nf+KSXNs1
-FF51iNx2TikO+aFlgLlAyAePV0AVCwUNK0y9e4qLS8HfaQOj8YN2eX9irm6faGnl/3RZYe/Sufqy
-b3+wyqyazEs2WHfPSUEklsSKCAIhRytja/na8B6Siv0Bi7X4/hKzmPPofqEhUgLRNHm6ni/xmamI
-9ksb91lAjz42lzVdcZGcOAZkPjgyfAFXO1KL0bitC2ODDIjdFsNDJU5WrkizPtNOWAW8PmTBGx56
-oOGEVmqnOJVHPILG1vPlUkEQnSqMKJKMZb8nfzdZLX/TIbV+T7KZD2kmZ6DbYr3K7XygeFxPLSP8
-h35MAxE2HcsE1VRn0VO8zsqpxrtu9k2R3uwGagxZLR4iWZg9LjpL6HfQBiANX6tUI+FIrFiqR3w/
-v0CB+PgHfbZpJ3MawkZ93RUh2KqCes9fw27m7+oy2/8WoeXBa0Zbk9HyW6KWI1L5MBMocIgTlSuS
-Lwr+jYnPOnAWHtgbZ+HyUjz8y0AvoSLv+Czk6R71fCB+tRl7uXOsVGTwQoVTuVXLp5QBkgSVX8hp
-4udLAWlbrXbKlDJ/yJh+u6LkLdRswIKCgirIYn9bEaVYt042W+OXq/nkK1dRYJmLE+6sTFDzMYxb
-z/Rk4N00k65HFWriSmWOA8x0UreM16FRlJBExgfY9lwNBNcPgAroi3KKlb2qrPFIkfeJb6Yf/vXV
-oz10Cr0AZKqIADA8eH1M2/NHHuNsKgOK4VLFeLdYIlNDx97hKbmVEP9TaNp9YECyGJmxLb+atpX5
-EagX6J/xdWVYu3TSAIop3QwhVWsXQhr6k4XWiqgqhZebmX6bzUY+k0ke1go5zM0/xSr0yhTMXgHw
-CJ2m2D25HZKxFgKTZ/YxEiYNOASJiOZ6KqYGrib4gzppZo3r+CyEWGIJZPnCGj+kYgOUbjDMT1i2
-e2xcmeDRK9dWmdJ0kxvHBltMjouoTWY14dux+lNHL4xdvLD8uXTZ+Vk3YEp5nw+gfChXdsm+l0gq
-YmhLUNrO3i7xYWNUXlFYWr+Gkup+1JHXebOwK4iu6j9kMqdtnNWd/lvRPyWlH441SYmzDnEp2wA+
-GzIST3YtePFifM8XNm5Pqg5Uh3yShQ7a81DnVSFL5wL/qvwS4ZQqcoBzocdOEP8yB1D2eNkiP+Hi
-BwkPm9aTCUA5ms0IzRq2N7mGxsx1bBRXcLeDREnFeR/NrdeQKnXS/03ESVPPvs2ZNx797KX56x05
-pM29xW4FgX4vf/SOkxzfXo/3IjzY/j4bA30Aeg6sH6v5neLU5d00VGYNVyxqhtNFmBHTBoVFsWUN
-CKyE9l57O7z4BVTACBMKsfllzYNaQPoZ9FEfE+xfbs+uCz5deu4MW2FN1QC4MjAx+RxUAgC8QQ++
-yYYsQmR4SaQLQv1rz/TAk4701G3kpd+oVt/r9woaaA9bZr0Cg3hvYYC8q3xCjIrUTxw6yKhMFP+G
-ynNuGCsc34Cxw/P6/NCYrWnpE5thOT/xjgmKo8s6EobCvOb/jMH8YoeRxG1T0A3KQNZ/ZuEpSb6Y
-OkOkapV0E68LZZFwFmnCIIBap5vjHPXDqFWaFGzPzCjCCFec9LZocRH90N5qaUqMQhgxyB3yGLWV
-bTGgcuuVrwJi/f9NTycXeTF17EtBUNVEpv3t0KRN+uA3ODxA38Y+sem/+fknboITxvVOmALo0UEm
-+GEZ54VveamC8XoRSWouUBYmWQLnWNG5wIFWmXFTAp+Q54FlpjWhKZK66Us31PFy4QBce1LqY6Ys
-5LSevjQewGCw+I3XjG/pPI/3kpSla531T+Ip/pbaHMvR/9VvVcQDCdvTPpCwXl8T45B1TFDge2hq
-Q8eHNBn4/QEQA0G9PayfIs4u18g+ysPNooVxflRk/DgNQwUVTtG3z/n9Fd0IsOrwf+xMOoboCPSw
-wj8vIJp9gNcUue0SUyrqv47JTlx9aWhmci2c+Rvuo1y3UItD2sr4TyQNF2+kIre7NjCo1oBZUX77
-fcW44Zk3PoJuhbQ4zO7vj2e6sj9u3B7KTj5p4krja/LzR88E+zUUoDEiiNqY7t3QevlBgEJRac+K
-jMvAdSUCusiIXmpj6TbU/pfPZlVT1Nvv6gZjMl1+Y7LI/hUBn7Maz2wj6NYFAzCI5kXTSNGJklJm
-olSOC+FufaSPhbmldOtgBUXtqSUFswMBwxlqzLVz3r6jwuCHV3pUkcWvGRp7T4zSJsP+H90S+0Od
-x99Q3o8u2QA2CnGCiQHpq1F5UsQK/b4Z19Yf+PxO8hJtd56HD9GH+S4LUXT1P0JEXp+64mim10Qc
-mrs76R/Kr5Chf85qt8ZxgcHkOE5GZMYTursQSo5/rwzi+b4+u5DCd145Tygu9TjMw6tLKMz1q+N4
-41SWJLA8lqWn44UwqeunXb7m8R+f4+iQj1JT+gROzWaMbS+zSK0t1Am909kt/yyIpChQlh5iKAWu
-7eANLBpVpWISNRm376U988LMqW+Iqfrn/NH1MYRbLYzMnc6BX5uoJ1p0eNUnDapFAd39JvrXboxv
-VL7UdScITqu+gRsSMhV94WjZgozT1D/mx1bWbz0AyHgopjU5tFsvg7w+xvkl3z0XvumOJkOrDh9L
-PX1RyhsorEYknVg4YkpH3Z2fd4GGJTRQHzdSENDxAYbkNiYYvS8ljkwuHxargUYZwBOUTxKPG0ch
-ZfK4o5ZZAWtUhJ49dB0wA/bN32/DsTiGQdFBDTJPZLITWPnW0Vl4Xu5YQ2iaa6j+n+H/xF2xjb6M
-DDYCIuSalhe/YIGBCY9k0UpzzyuFpPUS4va3MP3zQ9dvU8IRjCIEbmfXZiXrJnS595aWCWQ8eMmc
-LxEYCEGzM+u3RhMxYscRkewoPFGuu3/7Sgzrt5h7IFhRyZhdaPIjGYeNz92G0iVISHu+glwtf4Rc
-VmSZdHQ3fxJG8rw2dmkYdj7JIGQS4aahJSEExLnmlaHsgETud6D1to7nQDPM7K/OSQYjObxNN2mf
-5DttdwGD2yPWolvwAwsBfhDoE4hQTGcxT7q5cVobaOrS611ftBu984xV6u127pIIxGazTaay1SUp
-oLD+V8+IcyyKk+mLOk+3VWEymwMDTr73TQ6HdHuXp7xCzdDI7fD5dYuxOUcBAfKosbMP9IlgSW20
-IX7k66Rd0SEdzwt4VnSpSCT1cTxk16HfUL0eQarxV+yebTG0wEHa/8XizdfgTDc1yj2dDtWrK00D
-tlzAjWYPVi70U9HXlgxaihQ0fGvD0TcSID9gg0jgr21g1p9yRRpZIo1XxXOUzisjgloucaBeh74R
-B0YGqbFoCYe3STdlwcQDdHRL0tY8g/tTTMsWlSPkR1P3OkuyhnAQqiTnYUq8WKPkIarWfJEuWNhW
-2KgEGpFhi6dfcJri6ErwPM6R0NGjal6ZBYZiVL4HtIrEHzdGxxoczw9FLxQCuPCE2Sgs4PVTrzjD
-KYflslW39Ohw4tGOvoPPU/HLCZcDfFZrxZPN8WRHnwMOoka5x07muIK1To3/XxVR2vCqmDZLEBAC
-yAzEL6SZt8vX+B64yaisV5asXV3CEdWEf5691pmSInJANvrrRrJG1k6uINpgYm+fJv09+4N3n3cl
-TDxSP8UxFnX1lo8kUKmV0mfrHMNkpTjfj4VCslrhBbupiA1e8O2nGsmH7yyZ0xkHTIHAxBRrLwUF
-1HQyxWnaHHEhhlrTGAaZ4+oEfPgezf+WpgKcmhm92Pi134ItGUXWNGHDRXkyOuv2we6RT9ASuNWj
-KyXsyXLU2fj5u69j4fgeNQV6zSr6xgkMzlKKSU+PESY0t8whkP7RUc9W6btslcy3WRvsTa4Ornyf
-FMpMS6JGcFkFE8LSv+yBPits5LRzBjGKJrBqsElabcSrCmW0H+FUCBHA2PbiDNrmjHvRg9z8yz0L
-DfTpW1bqLa69fo98I3Acx9XLYeCVM3ZwXkqGbBHkIA3PMJN3GUMqH8aCV2IfW0kq+egK9+cg50vp
-gICD/dKH9Q+faOqYxmIiVOHqTCHhgu71rdU7wBvpBtdni+BHDUUTxIGS3zIbkrFyUKOHdLDrrapv
-L0cvvA2hNlApZRVqPxKwU5ZaFlJSxneMEehdZXCzwSQWSPJ+cqMCOHt7p/4ZSO0lL6xO2oM6vcwr
-IeEvNRmdYQwY/FVdpFkvWNbVY7nTpA/Sqxj75kLJU+rKYK7mD2EqfhegpBz181PTIq/JJUMAQt5e
-wzUssOdIai7RacsXr2FG48hJug1oj3ld+kAyCHKCb5g2q45m+yO/Vb2eJhvu8TefmYH6sw4AZU1w
-YVU5gVSRVeL73N5X9bcHaxYhHBG8UF8LNm/R3hYHnQXhybCpSXp+RlDnyWiAbI2pz6s+YMgE9D5U
-02h9fnuMVucZ7e8roeu36MTz4GXbyIbOu23Gyj0WAZwyCLwWeM1EELhJ8BQdqSw1qwMtawARKSBR
-6ymf6dg0QrGEr1H5KsLaYLhRB9F9/VNo2/CFHd6G60WFpZ9YYN93b/GtUSa23d7mUwKySd5eIUmd
-AHLjsOP+Y4G+1PM02nuDs+OB6LPC6OPBiJkyqHyPmRh2Rwxrnygb96ctGIG+qmXF1Xb408cEvQvQ
-HG/eL9bW+QlHwbNf3212YDxLK66NvJ186Grb54soKAAglOKP/5M3LxEzmxltefnqhY7VDXReO7Q5
-s0qXeFCKXTKJF5FXrcZoI9LiXuVQPhq+s1xzKttiEn/pF4PDaBPuURX4MHLwvjGc5t51AK5yC+kJ
-SHFo0W2PF/0WrHwoUB7uYvzjeDKT9xcLxj3+IFMI00rzPk9WF/uvmLeov/THrmT2kswJ5N5DPCkz
-wMxdn7ZKu/W+kYcV0VdbUY1IoRR4Q+nNWSy8D7zsQZ6dysiYM3EUieC0Q3nOrh8i7+8gIW40TcDL
-Xn1M4QkrwAPCFSaxNxCXBJIfGNSBQrNb57STAtAI7pkN7DuC+GW9zFg8qc6d47ucyamUVarmNyav
-IrhYMx6a+V3McvnCqUi9To+aDaSayyYSCu/yWAXA0EXMPE/38YJgCFBebb5kawFjdPRDU+BI9K33
-SSuKgrscUA0/PPPsAFfgknIurOat3GWJOmtZAJW6mG/DFwuzGhkADQWLejnh6Tg2NmDu8+bxpn0c
-LcN9ICvMQ//yNJjqgSaRX/co70AI2uwYGWHNQ5U6Rk0SKEatmuAOtX4nmM1TqjKFbAjNjifKTqN6
-8bG2DnzcLVsfBFnk3zRzS2iDg84d2mx9Z3nVQY6wUkzRvgeZVe5BJSnMaGKLAzRGfKP94EpdJfPD
-39jUfoj9bYb7neL5GLsRa76X6cY3x6K45b8fzq+ZonxJq0Y+PZGSrJYGZP7/JBJfkPt3MFTq1MZ+
-vf0nQWgja1pe7OMXa0hNxbQ3SmzgTHYv99zWd3AfdTXfE1WpW7OWKiwAKYRM+o9qC5r0t2HD6z2V
-XP4ffZZChRFW0xkhlsFIzxFXl4e8SrfDCTKUHap8CpTaJ3Mq1LLKbng+kqs2ikclEBJUpeRvXp+C
-RHU4iFb9wAQ+XeX9k6AsdlWmERBht3f8wDzyMlqo1QbYRll3lfjKas6LtrYwc6uY1Y2GW5/hbXYo
-pWOG0xYnqZ1sP/XEHbNtQv0sXYi2SfQiWWP4ZvaXK94kjbui9fEHIVaVb1oj4Q2jfmryTgJ8/JeI
-oSBVhMEQZy2UiZs3iei9KMlZ5JN9XQL2z0HRkgqfUxj5zwbOaiSEZT5n5Ko8XHVKX1ZOX7yx1f2r
-fa0Lg0Pwfco9X7dXl+X/5REal0tyi+64YYfYqICgeT28tz+9VhWYjpRKvfov95LZLDRJOHlJv/gI
-nSupRDziQgpEu6qxqeCyUsbtr0tagVUv/dq4uQSTXYr1Bm5Bs7DrUa0rgvjDlexms/dPG7vygDgi
-TkQ9zjqXpunWgTQiLN8Taw0AYaJ54XY+OIACm1rqJf6pD61C2b5ZcAHV5Iw8gYkzj7PESSL/vcEe
-qxTN1ZyueZVLgyeH1WuIwDqsist/Ovru+uwWwnSPOzsf36PgW/7FM4u90jA2pD0YtCcLrogqE6EY
-CVXiy3ompLsSGAHP2LYURVnd7wNPwvZJqncXryR+AnmbTz2Tv5iIX8W+GgfoJk+vUXM10x9QdALY
-uNuTmeGEGd3awClbYYukkO2R5pBfhjGf//nv5WzfmPPbADJ5KgrXpZ3jcWSlQfCtzPnYmM4bF9BY
-9xltQrGYG1A+kIdLsFmgY8ignxhBqgZ9SMqAZPGWtUYdY9XjG2cfQ9v13pg9XSJNiRbS28X7pj5P
-RG6UpwQbkdlZy2ay/8xos8kFgFrbPSR9xoQK+HCKLnNXugFUm7x3YL1YycgMhn+tMJNHCfZwGfN2
-5+gACXg5dSgIWdMOR7CClZNmlMrf1nd0J5Lnwd4fCpCGH+uyYL+dau9jIhx9Uv/kHVsplKCgBoA3
-YuH+Utu1YQ7V83pHL1yDO/TjDFTrSn7D6D31VPtrniwS5gVHZGwWaJByJMgrzvRwIDDPtECRG1BH
-QOEwasvu1c6sRk+0q38hUm6QR3b7Ve0n1TxxymPpPVeJFkHUMwhjIdBYu+SBmDKbEFtErqSndVyy
-xaZRiRkImHXqvcBeFHyOdcvFs3E9PvEp+HN+SEISMl+hQGAKLUaMBH4pPsCfZWK9nvCt8+pNuVb2
-oY5vFiaU3XisfUMIIJg+SmF3jRP8RdG9rYXsHfZsxTUbdRrA7j8l5J0e6wW/Z1WQP8CmikM8c0zy
-wl1la1uzX2mer2qlmarSc9BdJqQcVQwNn7BdRrE13jGNJeDJZNbXn8UBZOctxOxBrs+WSVD6hgO0
-8a1lh1y3LGUHhYKzBzEWi8f58BFurcxaoivkQHvDTgMF3/Jlcdhv4sHtrKM7R03D0NA5BMpYGdJs
-pC+glRoR9/aBk+nM1KuqMVFS3GfqJhy1fWu3Yds0OXkDDxX/vI+5T9drbRmZBGdOYBz96mbtpF6I
-ilEfeWhARlSIKA41cfZM6IV7ydH8mXmSS1N9rpR3JjLrM/Tq2T7lu0Z/P1TaOIYf1TA8nUv832pf
-bWXub0jGZQ2bcLe7lNZWc13w1Vbes1FV33ExoiuGmfaYjhM+ThGMHrnU3uqkZr+Ph5Hv207d9l6a
-KVCbJc9SM/HyF7eHcmXlef+DIBqlBZieWEkO11nkY/8ONcyzxTXAmEY+1tEIJvXOPar2CWDiemOI
-pQtXWn+IkdvnkfFNHuSqfwcHmpcWt+SobIG6pPwStavHpq6xaBrfR2tyM7pBDEZ9NV4g1J4+lvOP
-bwFVhvjy/ZZxRnTuMIfUeSTjzXl7fXLK+iHHnBChNisXA9vHFj2J0aJu6qhvRow9eZbLJw8DZ3O5
-3U5EOS2JJvoKfDrw5xkaqHVViXLPLmj2/9iNi+Qt9LOXIcPjVEWj+TKOykLotBJSzccPxgKuGWK3
-QmPDbl0qlvUe/31V+xRnW6lV0G5wUBd8+Dnw+l2Kdxnyk6EhR1pZAgY5vuYtB5n6GRuaCMP0pazN
-1tSX3tMZC2XT2zEFYmtJI3UrQEWUcqMOpbT/vx5cXnd27KEWOLu24JPLTTawhe9IvVInH9cb/ijt
-wLJPH8lQzevFs2crR86k+g0hGI5N6H7NxwZMDFboGQJN3fErx/eG6JIZWhJe5s8TZ1nMJ/GxTw2p
-zrRpmzt2PkNS7ZmcIzxAdGS12hzw3g1BsDIuJ6jHdqKZQec4Bppl9xTSbrndJ8GAMcvSpUc7a+gK
-72TvWkR9ooemopH2B6tBRvNTOkpIvG7fuxVP/p0yoT/fjXk6qkvZ2B5zTBXu4+rmnJpTFhceAswf
-M5pP5HvAnE1Jmc5kSZEBqkr/wgPKPkbGCvz8XQTtjTFx8wuh9pNpBT6CYWvrU0NsUaukhKaujTsU
-+x+Tn29UmQZGfBbOvh07hCZNCD7DNy4Oqb9c0KhKgimPnRdajEwX4br6R1Sc7ZkA9WTce1AxrHXK
-xeRkcxF+zHDDqQk1JTO0hcpm6cIZPvQRyXVac1AAomm+6aplPS9HGZDPRSE7wQyIQO2hR4F15BI9
-4BalUj3cRfqGIgbfkKMJERhuI/kLoOYpYMiItNt6ICdBSmQD/AT5AYB7b2qmsPMX5jMVImqhjkSt
-cKBAp247zcEOp88r+sDehlrY9lVGICEyAmXNeXMFaovalepJEHL8gSUGQ91B6z4OxDzjewdyPErE
-uCB5p1EFYSp486ZtT8LmfxfQoq+YtcBG2DqTunpJ1+0hbAG0OaZxAKt8LFdVZR54NgDPLhyy1iYp
-0abW+zMd+UYBQ+6MIiHBdQ2Ffod7yKZg8xqeq8aLbIN4Rh4F/cC7dnjRIufXd7rAGZg8nneUw1q8
-0mfhRuIWSyTI72qSkAkBYucp/uva7vbtIlj72c10PCHHT8RAQqkpv7oywCCTlyIpA5NW4LH0k7gc
-24Yg7uzfHFNW6XjAHDWH7wslGKr4/lmuIMetT14SSo6DviIe4s8oIUWHRS1SByUixpfstahE6Np/
-PGtl4DW4XSMarScZg2j20Lbs0QmZcRvsYuuZgUn0paZvOY7jrJIfq8EBnq5wtbALksceOqqiYy/z
-d7EmXN5XmoP/I3XdmJJZ+qO9al5T2wjgzKWzs5bTITDIag7yQukyHwcSnyAAOb2Ai3+If7FZZ+NL
-PNFzudcjvFhjLRjcaONkV1lVrIZNmoTEOOxWYhiVMwnPjdZm9hgTAcTwyIn2fzBeQr0/86IgNZBq
-3UJROhQ/cIRxrdFyKjYZzSZIUqYYbE43mmo85qbz0RkMrVb3oa7b24BQESbYsOP1M5ukr3iiBty0
-tdiH2vu6ou4vgWJLtfW7KJksIlq98/+eE+2JXfYrTN89gJXB41A97Oo10KNL3vGuBChwELdpuCLc
-c7R1LIJxUwaWs58lA95Gf1ePKnAQU89Gqq2Ns6hBmXlZciqmU1uvC3gmrzdwxJBKqWziDopCQw/r
-OfHsCDXLmPjJPxT8tzrHMUDEfoWX3bX2GPzH3jHCMOExkjFSFZTWYZKxNxtCrXgzhVn/zgUS1jFS
-tdIMf7uoPwFEhfFvhjw6CAlEDJ3owftYX8nIrA2Y+xImsIQNI0lCyEZIF/eAjenq9YRaLPDCtJIz
-ZnLWkrvm2wkHE/l/FwNfstzE7/IvCMj6Z6eC+hcXkh1yTaUzyfu+gXZUpgTaz6qRauCfA60JmVKd
-J27/fA7mcjFNv2on8eQVNxWIU/7WXskyoIO8Fj4qA6S6jWdyL9QpAJsGRoYMrri+8QSvGpEZ6zZy
-GlFswmwyHA6JYnzlcmGuKqtwHcqo0xNe65A4nTj3ttSHjQdNAPHcmBHA+CDGk/+P8990Jke0GkBA
-BRSHi3xmGKCkMDw7LWjX7xBmI4FSTSOHzFqWmPU3fzbguNOz4G7FL3VeJ+XOv1Xz7A4iXBWN97Yx
-Yz5EMCcOv3Un2YKviBVvdhaOD+iy0b42SvAFCZvoULa1GJ1K6ZsUvroeGbbgyVT1oHVFK6WIXPDz
-DHlkLKJyKdwnucunrKx6OBvD4qLmiVaZk1sjFlILGHdz/39vnOrq6FDNsMksDc8G0L4zr4dLnaw3
-hhAsp5GB++B8SGCyB7kDjJ/djSdc3whKa3KikxhBghh8viDe8U4i0r0FVd5MuuqUiSu1SFTFHM0y
-y9IJ4F/ckTK4Xlgc2wfmwiKk4rtv+2wNvnPqM4XST3xFYShMhQHMJVhtfqO+AFh29wfrdvsmsYBP
-btvMv6T0nnQAmv0g9IedVaoVLJnARhAtrI0kZNNtaWASLddfbMsP/K2grUGQc8oxMrpW+sKnMxaU
-Hm7ZcDPqJNI9ZOUDZVM8ho2gCgr7XoHH5K8tH4HICEmoyAa53PD/4KEJ0aVMceBNSkB+YAfgjnK7
-jor46skI9lib2rdDp/qJ0RXRd/5tNF2krqVD0YaGqOpAulkO11N6rAlzrXjuhdwlDJKB2kVZXD51
-4KOzkStz8ZRK6OUf7iwT+vH8KYzI/1zKF05Ks3hyvOgKvIB8OtPIsrwShIIIpXuFp/xX2QbxiPl9
-e5iAKiCqsWvtonWuVcb5e9jHkQpHMFH6DOxT8AaOdbMhGtf1eCTc27t4NaoauINA1t6s4h8jvKgm
-58wCMO+eJeuMS62dmhuMEQ8BWV9XejmuADzPOcCWUf1GrCm1nONBmMyVW3kHuMQqPGPAQ3Ltgt6r
-WKUkfnSAhKZoZqdgTdaMuQLknUWqhB8Hc8bK8wo0lueiZvXx3NyvNVtu7mpKOKaGeViTOGxM8i6I
-J6ZP7kD/FWIVJ0k32isFPhYAP+fO1DY5OGcVDskCS7426xDf/Ci+iYin00Q6Oo4r9WG3u0i6Gx4O
-Lftlx0+yzxKdQRc38tdqBlssNM4LrIk31S5mwpgMRMTOxoAmk2WatKXXZJU0uSBTns/mAMJMEe+H
-VC5ASeslJc/qyZuZBNc238Wk+sVJA61LkzMST3qjuwEjSWwhWKrHQgD0GyP639XAwFEec/mQmfIo
-y4oDW5+jjjUALumzFs0Or5yZncDQeaNBpMnVCZh7bxA32m3AUhlMuTQIOUv1Lj8dz8RaU79POYBr
-Owfqo07AOOgluRpiyCGSX/RnxFeWpy53jQ8oTFZoEdtj79fEbUNGb4ulBAGOY61/PkQx7n9op1vw
-h9xPH86dXzNUicQ9sRtP0ZV+zBLVNL5i4aOYii9aaWP/Hc9oyDHhy3AzJCAoHFVNSvHwEyH9Eir9
-+tJMsYdcH2pFMj+kQ0vQKu4NsiKoY3LRTONKkBv41yCs8bcAEdSRSIfr0cYsVY7jI8EAofa82e8T
-Ziauk7Z3TxZ4prxq4VvxEAJwLDPIL9UQuMD6G6z2090+5aMJpmu5wrsL818kFfuFojs42eEjBsAj
-t93m2530UPDwnHMDPPhwbMmmRrEWsSImO4pgK2eZem31I+gBpeyt5I2InXv5IE5hY204sBmgEL1E
-OzLYOScTUsc3rzFRtelTD9RzFNRRRe104x6Zg2i3vPTMEhfcenO+nDdeGWi0/Qm53+JWD9c4/vX9
-sbTH9de5GZAAWBgvgRdThUHQiau+2wapXyMaQSKAk57HYQtBlPKqvosati+VpL3g1BFh0RqQuEP9
-6LjaR1gObdYF7boIuXPn4GsZdPJHS9UEsa8M10j+Lq4Omfvsrog29R8da86DwErfLVM8SwbtpnsM
-ef6hYLpZWEC69Xt/G0xK1/o4NoLBnE6pgpkc5znOUojdLgH4CvKRvkJScXdWJPDpu0dWB6k+ktzE
-AIKgqY8ckafn+bNkGC7zFqhegZjIl+OyQIWMwhkREKUnIX7P/rXL83zK5Qh3LcMxF494NK9e41cS
-C1LGE+dV+PY0Tl8PUHcejooeTN5FvpAZVFsmd5P4QtJ1dk6saK6vEqDidPL5p+Da6Wad4q1alwdr
-EHlHjxHKAEwb2sO9N5e6u58cCKasFseWMgc3cq7ILxX1MaPdsYz09wHIW9eksh1OZ+wGITFepnQ8
-rYZRGpBUC5LSKxpP45Golrry5rLpYSGo34I94VT5iaFrj025zMCL+JCq59HxBM4szU8tgcOOrA74
-JSsTE+2pbOkG7yhmSHXGdgbDk2ZAzNzB1I0iK+GS9//Bo5jDkEcngtQ0SLeGd8DXoVWkBb1w2a70
-tUi4lMNUn/tEgLN0EXTLwZYuzWCN7z86NHWcqSLQPknHVZ24TGSRSviVa0Yb78mwry97gxtvwrPv
-JwVbW17+lvn8BKc30ReZu4qnOkZJvazN7xuBCoem/XvNkTPuE8oCLyA/kLpzJGSersJb9egeuL3g
-BIUF8Ogad7L9ARqfgV1bPo2IuVw9SONHmictwlgeXwSDb6YFyjfpCOKRA8hk/Cv4R4VJRdLS4QJ/
-I8yhmVEeBsOgo90loRHcy7LBj1RZSym+wvBqrOSyLQ4wumxVMoNoCBXIXqU8WQ4JmWRpM/t560Pp
-0OuP7Y6FKRlxwS/nhjy6gTVsw7MFVy7BPbTABw+oYpEnQRbp0hZYJ9ztNRurluB8M+ec+xt1tJ0B
-9t3GGV6vUNONqtLgimGkHw/k3tDM2t/uFCZtPL9Y8hE3rWRHsx7OCLN5ejd32lLMzG1MbD6skaGz
-CQucePW7DdHROjZ6jDTEnKAKKQAs09+r2gr418zK3RvERw1Pa/rMQOQSbZGiS0TK6sT07dLbf7Uo
-6p2eattp0rZl1i5HwTv8zwttL1YQjd0jBQjP/CHvTlv9mR8v+lwXHLwLiPwjaMSZ0Hnn6EIDNB1B
-jO7R1LBqR3Dt2iIXyC/lSHoByKkbXJNW0dkoOQcpfY0gb6zUjgeDRxwogOR9fnId54JJJu1fI+SD
-8MMWHF0JnEA9gN1JmEe8rizJsL65dsvfBYx9lA7+J3/2hsxmQ5lZMONT1E67CUkuXpLCw2v++CqJ
-P88N5MY1TivE8zo5Zldp5LXpHkFrIS/YC0++BB1k6eqzXfcImcwtN/DzM1bwHhiiTAd0dEYAhCsB
-AwvvDj1RdGrWs+Un3Uuza25w18iz0+MkVbpiqpnsTAHnqNzKA/yysjlXRyWzDW/gnBX2CoV5/V7v
-E7rz1hkUbNAgzTTagFE6fYIMv0xQG3zFJvsUuLIyDjRroPELGFhYALknKDcT34qVtCSN7NJ+1PpB
-aIg7S9b048vIBWqgLJmbYxKwtkf4xXkdf4ey9VA9eHyb8x9SaXj4+4Jy+sUowuZIG0F9iUsBIOT5
-5dcyPzsKcRvybLsUG2SQ64D62SRSVt0MERoYA28J9rKuYtQvlJKPIW3WZi89e5Ubyqygvi0ZEFYz
-s8WQm0uUsJSZy52ujGvrTPU16x6TU1ng44nvhnGJq+dhDmqN/eh5+lWjtVjldOVG9bjTIjluzL0v
-U/MxQ366y4AfNwmDl/P+NuSgPzAkvUX8nkhoS2TmAhM0YRul6s84iQiguqp7a7Ig79dCt4G8Dx30
-jqhD0aS2xjmhLcg+zn7Taiw7UZACqxoOiElQ8oJtrSX+a9K0C8vwcHxUgPqw9dtDVSER29SXCHQN
-XIKj20pyY7Z4jN7oMtdysRvZXQCU1hxbzxpy7qRuon8W5YZpLkzX4Os0wlNbPDNlnkXZn1P++cFC
-e9wxNBa4zlUPP7ZuCzEUmnFf+EkvCXnhbz0fAfGOZEoEpjIow0xRPZvOj5ivG8SzpATKyDe943MB
-b9wL8m3El4t7ANqrDvli1rSZ9Bw9TnEP/FgC3NrC1Cj3Jb9ixVs69L06UvkpvskwSjKeaOF/fcbo
-BxcCOM9LcEnpPFO6RSWAN7w4HKb44sQNttfXv8r/7rGLJ9GJrCuVYDt4ksehmjepWt9x00GkWUGT
-DgBAw2zzMTTJXjnQxR2MvW6QLfAXYZ4pj7hoAKEt826UY/vhvPHndNjHpV8uhpmTzNQcvxxT8Z/J
-hR1IDRhvqQ8UXR5X7wBDFl3Cc0foWfB6yS5rrkXaYxvTynm0h0duMdeu47ig4T3ngUyWNvnHQ64y
-Yt2GM1NI2KuKJDwUeN99Auq/AsnieU8zRoiYsEUWaCIbC3/QLutvGy1pk7VRFFzWiTZebx0HFNwD
-qlty+7WnZnyucdOI1hNVKEfvH2+W2NCkCoEGj2veWJK4GLFgNHLXp/jyDjutFn7pKLYpi8avpx61
-SmpmcGUWYZh9TPFiUvn7FjfYJtuLp/kr8cRRrUnWCsyE5kpzh0omTXNqP6N0dTU4NEvUz0+KT4+E
-DaJfU26yHPEUqpn54/y8W+xIQQ301Ns3EcnC2rOYRnCYKRWyy3YU9Z+SMxy1z6mzO/1Yi/M6D2HT
-TDQefg+wuRSkRNrZ8sIf1VQk6AoQ6canchfaVxb+ejDsOBIqA5/I9DucmsgCImkWiYQjEUwE8Ph2
-x5WUGQrl7HDoG5RcsfpcoMm78iI24TgVi46YXnakCkCMyb3bBBsxpQArZfxh2xpprc/H3Mozv9eE
-DrG2vkbTAL/oMtT/LpitIiPktkGLk6SflDxB0E414952LncL+8FL/7cLNmUUhlmGtz1E4ankSQFy
-FpcL/lBImkE5XDXrtzAY3rXRuzA8UZhavKNr4NXYlfgjYQJy7XxQZ+pDH3x+Wfu9JjSh9w5AR3Ab
-XB123Co4qXzAnhf7x5jpqXlT17euEHr4gd841l74dlk51wI47uRnULcVH8AhhLhfL3wK5QKn2H9U
-tEzfLb+8WcluHD2letLA1Is0Ql2/HwsLY12aGcCLtgs85lBFo15CeyUGP9ZPZ9gcs0j5dzYAAWst
-VsZWlbKHa4q3weUKvBqER2vZCDnAIWGyeHypJ8ZGq/VooaRqlhnMq013ZNAc/d9Q+ZXhVnK5qPOX
-/oAial1KV3yVfBODy0O18HPxk4fvngiIG8ZNAAEoRmF16WmrL4Wufw895Ql6Bpbm2Z1F+BucjO74
-yOD3Qw0+KyfZA7Z5YItrInbB6zQ5WA7OJpHHmyseFnDx/DyZ4PpdKt5c8lS7hNoFYKK+aCWSeE4s
-d8GFrdd/tZv2a6BifAj3UvedaT6bjZEo6Bz4KWJBlB60D8bh7AvFoZNvN05QDDwEFjgDmamD0pIE
-G0/wyhPu/pNj6gfpphHXI37IdVOYCwp9qSyEiu01vERR1lMRreenYFERVNFQcPw38DHQHyC4h0Ri
-VleUuhxUpCANr0hqJaKuwV2/ElAhOpTuTv5lamRIh3Y6G/v6aE0a6Lj0vpr2ypDIm2gJgPnz5+2Q
-LOO0y8SlUX+R85H7oOuch2IPtBh7aqBBeWrh89KvW+eh6PdTVWwHyanWnZHQc/mPGnWxOmydzoX4
-mLedL9r1xStwqI3AzihocI/HwK8QGvZKDShMU7UprP4v828gcueCONiYfv2BjOQxSUgE3UbLr2lF
-pNqDeomKXZfb8r9cUhaGLfB4zEY5YBGszvHVvmEgoOl6jbHs4zvOzPhVstOWaBW5ERUspcx/Vc+O
-T51Rp9LzqhrPwX1VeoPuCW+EUmZTkFVo3c4xScawAOAENsQhVqKBOnfpkkuQb5kZNjCjg6hmraoM
-HO+p1DBpfjP0mb8JJcPZGQtPL0XHtIAPmUR12NpzqA1GqAaJxTXMGxi4Z+BL8vTzrlXtPv6BD3CV
-0G/FWH83cEyGs6TlhLhq1Q09O1XdON5Yo/t4+TwpNpJKeA0LWgGx81HQ4fOPlcKnz3qKoSWtjskt
-bBIpgCUEvcgJv8gdz4wXcL2GtM8bj/hhHk8S7rr7LobG0LAzlgd6+zVM1N9WNiqogvB/ggX6W8Vx
-vNctAdUWqfS6JBdGQdHLVpxhi8CaZqqfI2YRqIrKmrVJMhtfVjmqVoTcXAGoNdzx+w23aqANL/1n
-w+wyWds06nBmujtc6Ms6Cx5rrQEC9mhoNVWkdIbj+HqGQXg72L4xGcaEx8mYAQ8Wif2QmzogRSx6
-xuIwkrtRIIiZXt1lt17wUz2hMzM8yNwD1zoGFdq+CXpUQ0ievYLe5N27CdrHtpVWKrZT/cZVduby
-I3ytZN9rUteY4Qi1QzOwWZNA7PFdkhY7G3aYFYLXc0YkYImJMioBaeGFA6G9263YiicfflUtU8At
-Khw6NLwrInpMomnpFCivblfGFWvklZForh0a+hoH1/BCxQCZMQ+YbuAXsnfTL8o7h34yE1zCr5ow
-DuWdY20qc+hEztf4xjmRAxZasXL2QorOxUu3PB6fm9rWQb1LlT3CATzDDkyi6czTGzkw+uCKqTPp
-EohcxYlfClbFm26uGK+tucQWpccqWJiwHrkYsGh+45lltPGV/o6j7Whbju9gY49Xd4n7FSHiavkM
-qXcEzCTq0CYFx4+gWCMDhxr4k6cLUOyQ1U7XUSRjjWBfqqo4jhnYcqJqL8rF/z9B7W2m+I2Q8A4A
-yH9V01M6De3uGRVa6Rp4jAvfxsHv87wcc9KrJsYzcSXScgKpAREbRYAZtbKJw28kbDfdwPWnonrs
-FatYamsj9NZnjx36QwYJXndxPBKJP4xGFqKRVPbzquU0WiA1bBSpznLEO/DhkS4BXF2jPyAVmMlC
-rCFmNGKhspFSB7x6I3haCSGOWtYvKm8CoLQ/AeLvoi2I8xGnijx37RaC4DGxsLY/VHZ33M+b+QN6
-I7jjsSN9OPvkT32jEycgbWWySY8bYWF/SlRNLvD2HGOhl2GsgaszwPQWX49+XRF5MMGHVW/am0uG
-PmShHt5U65sxz5xHSYuVl/qqW2CP4WNeiiWjdZbs/9kvUo/0Y/UyrkCu6rcbihuEUF+ZkpqkfXeF
-hjG6nRXweZfoiJI7c8/hjv0+nwY36ImhxoFHtja2WZcVt73IWkn86wIr3qf+vSue5OhiMuvvMiNf
-/gbr5K0s/N7U3Ee0uW8Go6buAgBQ0xWsO17CjQErOQDnq5D7CKyLlluHn/AjDg8bzOY8SC478vi+
-SakuxQC+s8l6wm0h3gRWfjNLxNHr7L1kcV0mJBxlmqrjYNO4C4vmPtwGFylXidE3jb+BlTUMIx6q
-amgr621HMZxIFhEH/HuAZO7WzX3YboBmJwS0RxRjTQpHER0vyCnxRXd8ntDfiT5+zooMc5GDHcHr
-dW8v2Ny6VsZxsnQXVaYijCQrEZ6i8Co3+eRPFWFaTkVnouuN/yK9ghea4yraWn4ynT1RgrR0Hn/o
-Jx3V7DUkGdGfIuoRejX+FIo9hdGlBWlh6hHwa5FsvhNBNFqGxh809QkSEfWmSAXARH/WNuXHubKh
-EfejhGZFYWgsE6D/QWaNwtQp1CKlR3/kGUGq2FeArS3KvkE3jCgD5YjRsrfYs/hJdh6iw+jc/AcS
-5H6JQL9iWGz/zy8oDk5onVLyUBzO3YeCtdAwYe7RWIi+FAXcUPbEPaDDC/QzITFELwHoHGiLGqqe
-eyOi5e/Xutmd0h8D+zj6yfifYWi/BGsXzAsQib3L7AQzqZ8d+wINGLvIOGtNxVhF3vkI8zRDqlc1
-vWqNeypovq+b74BBh/n47bNPu6POcxjfWbU95mFufvHj+Zn8qRLFJIJt5krtNNvpxJznbDkw88La
-EJdxe7cyrCR4/m/xFT/CVuuoO1LbyqDUmzZskZCsN0FMa+wrHyoWfQXEw+qXW7JEmUWmRZYhZfRS
-IsDVp+fhzmWl3WT2D27n1FbZa9H8O2MfLFC8x8UI99ZhAj+E7wje6kW8e7vDjNpc/rYzGzbPQ8bz
-H4NbVR+Khz0xRqEYTUWLoKy0MyGiAu4yvBrvqqiUPxFk4n+zAcqtuCVDa+2jwKxMHWQlV6sgsM8K
-br8tho+T+U7btHGgNCqBLEQ+IzCnY9ZDJErpjVjgIGUV6KAQCqLtT4v7xeL5gXlxafttwjYSzCqT
-ipRnTfGsQY4isZoWoGLpu8/1W/QYxwhl6sObW51vs9OfYkhCZQydIC2cIHAKShDPfl+ioNPKGjvJ
-huNIdAF4xL6ba4rwInVVWiiiJtQTXYB3Lb0Jx8ep4HFZ30WUYBAQ8SlhABsoVTuNhe9E9ve80soC
-vO6ccdcTLcJFhELGyCR++9wRV+bUgIN5LZXx/mb7tNzd7eM4aRtV9MXCyYEwnHdOgDoHxnlgLSV4
-7aq+LydT0VTrotE3gORav2PTR8d8pL+O+6K0ShbJ4jy3H5US3Y0Jiogog3ylv3gUYzV7Rpkmcs/C
-OCXiPBJzT/bPF+6aLORjpDFBTMxG3gPEOCg5AWCyBHCs8vAZWwZrVFvBoyLHqsXL+UVWFVBhF1+4
-zKg4IiSYLrTHRCp0oqjAwZG2MNJsfuWzhy585yqbxFbzkaHnScg75+8UKceSaTXwDAuBypaehtxB
-p2LaHjrYAjTtv6TyaINvE2ud+PiqsmVS5vgeptVx7qCjGT4+6oaxI8MAmoJ1OrnHjMoD4SZJ0+0x
-KwHTZSYaVu6W7kjbhr/4NrV4xfQqdrt2e8FXkDul8u1piWSnUqcyU1l91F9DTizJCjrcon3aDGNH
-+9EhQz84s54U7gmP71EY0kJ48Ccc5Q0ppQ0TA/YzyreDgO+vD3u9ETMh96acqL4kphpIK1qfSv1/
-63s5GxwwlRuZCVFW8OBxYXyrp+FzbmzN2Z+8yZA4ZUJoo8CsCJ0JQjX0dM7g+TSP7B/JQ4di2j3v
-ZsjhIc/bMEqUnt3egmWB3UTXQZ9kKu5YivhZyy78J66QxutKD01d75dpQDFM4zknw9wUs2I9AOjn
-Win3JEo6Xla0g7Y6R0I5h7NjCjyNO/aVvNPjRed6gZ5IgXRO/R9TlpqNHPVgHl1mLp3xpGpswGjO
-NMdwH8PExsw0ZAIcvccr090+DWeSy6SvsN7kla0ijXhEX7hGNr5M+OIEerTUXTy5KZ7seWWHvBq1
-Hxw+ZVW4g2k+qSZHGZQtmZ1TDBWzfka2zfnIHXaBfCiZZDlVe6LyGE0q/1ohRdmkjknh1+mpN0Qt
-LkXrPAxL/LL4JTF193J24eABaVUWzinui1JuYgfUKdIdgywlL3+OKzoB9ZOVmOowrGrQP8fDXwTx
-nVa=
+/*
+ * jQuery Autocomplete plugin 1.1
+ *
+ * Copyright (c) 2009 Jörn Zaefferer
+ *
+ * Dual licensed under the MIT and GPL licenses:
+ *   http://www.opensource.org/licenses/mit-license.php
+ *   http://www.gnu.org/licenses/gpl.html
+ *
+ * Revision: $Id: jquery.autocomplete.js 15 2009-08-22 10:30:27Z joern.zaefferer $
+ */
+
+;(function($) {
+	
+$.fn.extend({
+	autocomplete: function(urlOrData, options) {
+		var isUrl = typeof urlOrData == "string";
+		options = $.extend({}, $.Autocompleter.defaults, {
+			url: isUrl ? urlOrData : null,
+			data: isUrl ? null : urlOrData,
+			delay: isUrl ? $.Autocompleter.defaults.delay : 10,
+			max: options && !options.scroll ? 10 : 150
+		}, options);
+		
+		// if highlight is set to false, replace it with a do-nothing function
+		options.highlight = options.highlight || function(value) { return value; };
+		
+		// if the formatMatch option is not specified, then use formatItem for backwards compatibility
+		options.formatMatch = options.formatMatch || options.formatItem;
+		
+		return this.each(function() {
+			new $.Autocompleter(this, options);
+		});
+	},
+	result: function(handler) {
+		return this.bind("result", handler);
+	},
+	search: function(handler) {
+		return this.trigger("search", [handler]);
+	},
+	flushCache: function() {
+		return this.trigger("flushCache");
+	},
+	setOptions: function(options){
+		return this.trigger("setOptions", [options]);
+	},
+	unautocomplete: function() {
+		return this.trigger("unautocomplete");
+	}
+});
+
+$.Autocompleter = function(input, options) {
+
+	var KEY = {
+		UP: 38,
+		DOWN: 40,
+		DEL: 46,
+		TAB: 9,
+		RETURN: 13,
+		ESC: 27,
+		COMMA: 188,
+		PAGEUP: 33,
+		PAGEDOWN: 34,
+		BACKSPACE: 8
+	};
+
+	// Create $ object for input element
+	var $input = $(input).attr("autocomplete", "off").addClass(options.inputClass);
+
+	var timeout;
+	var previousValue = "";
+	var cache = $.Autocompleter.Cache(options);
+	var hasFocus = 0;
+	var lastKeyPressCode;
+	var config = {
+		mouseDownOnSelect: false
+	};
+	var select = $.Autocompleter.Select(options, input, selectCurrent, config);
+	
+	var blockSubmit;
+	
+	// prevent form submit in opera when selecting with return key
+	$.browser.opera && $(input.form).bind("submit.autocomplete", function() {
+		if (blockSubmit) {
+			blockSubmit = false;
+			return false;
+		}
+	});
+	
+	// only opera doesn't trigger keydown multiple times while pressed, others don't work with keypress at all
+	$input.bind(($.browser.opera ? "keypress" : "keydown") + ".autocomplete", function(event) {
+		// a keypress means the input has focus
+		// avoids issue where input had focus before the autocomplete was applied
+		hasFocus = 1;
+		// track last key pressed
+		lastKeyPressCode = event.keyCode;
+		switch(event.keyCode) {
+		
+			case KEY.UP:
+				event.preventDefault();
+				if ( select.visible() ) {
+					select.prev();
+				} else {
+					onChange(0, true);
+				}
+				break;
+				
+			case KEY.DOWN:
+				event.preventDefault();
+				if ( select.visible() ) {
+					select.next();
+				} else {
+					onChange(0, true);
+				}
+				break;
+				
+			case KEY.PAGEUP:
+				event.preventDefault();
+				if ( select.visible() ) {
+					select.pageUp();
+				} else {
+					onChange(0, true);
+				}
+				break;
+				
+			case KEY.PAGEDOWN:
+				event.preventDefault();
+				if ( select.visible() ) {
+					select.pageDown();
+				} else {
+					onChange(0, true);
+				}
+				break;
+			
+			// matches also semicolon
+			case options.multiple && $.trim(options.multipleSeparator) == "," && KEY.COMMA:
+			case KEY.TAB:
+			case KEY.RETURN:
+				if( selectCurrent() ) {
+					// stop default to prevent a form submit, Opera needs special handling
+					event.preventDefault();
+					blockSubmit = true;
+					return false;
+				}
+				break;
+				
+			case KEY.ESC:
+				select.hide();
+				break;
+				
+			default:
+				clearTimeout(timeout);
+				timeout = setTimeout(onChange, options.delay);
+				break;
+		}
+	}).focus(function(){
+		// track whether the field has focus, we shouldn't process any
+		// results if the field no longer has focus
+		hasFocus++;
+	}).blur(function() {
+		hasFocus = 0;
+		if (!config.mouseDownOnSelect) {
+			hideResults();
+		}
+	}).click(function() {
+		// show select when clicking in a focused field
+		if ( hasFocus++ > 1 && !select.visible() ) {
+			onChange(0, true);
+		}
+	}).bind("search", function() {
+		// TODO why not just specifying both arguments?
+		var fn = (arguments.length > 1) ? arguments[1] : null;
+		function findValueCallback(q, data) {
+			var result;
+			if( data && data.length ) {
+				for (var i=0; i < data.length; i++) {
+					if( data[i].result.toLowerCase() == q.toLowerCase() ) {
+						result = data[i];
+						break;
+					}
+				}
+			}
+			if( typeof fn == "function" ) fn(result);
+			else $input.trigger("result", result && [result.data, result.value]);
+		}
+		$.each(trimWords($input.val()), function(i, value) {
+			request(value, findValueCallback, findValueCallback);
+		});
+	}).bind("flushCache", function() {
+		cache.flush();
+	}).bind("setOptions", function() {
+		$.extend(options, arguments[1]);
+		// if we've updated the data, repopulate
+		if ( "data" in arguments[1] )
+			cache.populate();
+	}).bind("unautocomplete", function() {
+		select.unbind();
+		$input.unbind();
+		$(input.form).unbind(".autocomplete");
+	});
+	
+	
+	function selectCurrent() {
+		var selected = select.selected();
+		if( !selected )
+			return false;
+		
+		var v = selected.result;
+		previousValue = v;
+		
+		if ( options.multiple ) {
+			var words = trimWords($input.val());
+			if ( words.length > 1 ) {
+				var seperator = options.multipleSeparator.length;
+				var cursorAt = $(input).selection().start;
+				var wordAt, progress = 0;
+				$.each(words, function(i, word) {
+					progress += word.length;
+					if (cursorAt <= progress) {
+						wordAt = i;
+						return false;
+					}
+					progress += seperator;
+				});
+				words[wordAt] = v;
+				// TODO this should set the cursor to the right position, but it gets overriden somewhere
+				//$.Autocompleter.Selection(input, progress + seperator, progress + seperator);
+				v = words.join( options.multipleSeparator );
+			}
+			v += options.multipleSeparator;
+		}
+		
+		$input.val(v);
+		hideResultsNow();
+		$input.trigger("result", [selected.data, selected.value]);
+		return true;
+	}
+	
+	function onChange(crap, skipPrevCheck) {
+		if( lastKeyPressCode == KEY.DEL ) {
+			select.hide();
+			return;
+		}
+		
+		var currentValue = $input.val();
+		
+		if ( !skipPrevCheck && currentValue == previousValue )
+			return;
+		
+		previousValue = currentValue;
+		
+		currentValue = lastWord(currentValue);
+		if ( currentValue.length >= options.minChars) {
+			$input.addClass(options.loadingClass);
+			if (!options.matchCase)
+				currentValue = currentValue.toLowerCase();
+			request(currentValue, receiveData, hideResultsNow);
+		} else {
+			stopLoading();
+			select.hide();
+		}
+	};
+	
+	function trimWords(value) {
+		if (!value)
+			return [""];
+		if (!options.multiple)
+			return [$.trim(value)];
+		return $.map(value.split(options.multipleSeparator), function(word) {
+			return $.trim(value).length ? $.trim(word) : null;
+		});
+	}
+	
+	function lastWord(value) {
+		if ( !options.multiple )
+			return value;
+		var words = trimWords(value);
+		if (words.length == 1) 
+			return words[0];
+		var cursorAt = $(input).selection().start;
+		if (cursorAt == value.length) {
+			words = trimWords(value)
+		} else {
+			words = trimWords(value.replace(value.substring(cursorAt), ""));
+		}
+		return words[words.length - 1];
+	}
+	
+	// fills in the input box w/the first match (assumed to be the best match)
+	// q: the term entered
+	// sValue: the first matching result
+	function autoFill(q, sValue){
+		// autofill in the complete box w/the first match as long as the user hasn't entered in more data
+		// if the last user key pressed was backspace, don't autofill
+		if( options.autoFill && (lastWord($input.val()).toLowerCase() == q.toLowerCase()) && lastKeyPressCode != KEY.BACKSPACE ) {
+			// fill in the value (keep the case the user has typed)
+			$input.val($input.val() + sValue.substring(lastWord(previousValue).length));
+			// select the portion of the value not typed by the user (so the next character will erase)
+			$(input).selection(previousValue.length, previousValue.length + sValue.length);
+		}
+	};
+
+	function hideResults() {
+		clearTimeout(timeout);
+		timeout = setTimeout(hideResultsNow, 200);
+	};
+
+	function hideResultsNow() {
+		var wasVisible = select.visible();
+		select.hide();
+		clearTimeout(timeout);
+		stopLoading();
+		if (options.mustMatch) {
+			// call search and run callback
+			$input.search(
+				function (result){
+					// if no value found, clear the input box
+					if( !result ) {
+						if (options.multiple) {
+							var words = trimWords($input.val()).slice(0, -1);
+							$input.val( words.join(options.multipleSeparator) + (words.length ? options.multipleSeparator : "") );
+						}
+						else {
+							$input.val( "" );
+							$input.trigger("result", null);
+						}
+					}
+				}
+			);
+		}
+	};
+
+	function receiveData(q, data) {
+		if ( data && data.length && hasFocus ) {
+			stopLoading();
+			select.display(data, q);
+			autoFill(q, data[0].value);
+			select.show();
+		} else {
+			hideResultsNow();
+		}
+	};
+
+	function request(term, success, failure) {
+		
+		if (!options.matchCase)
+			term = term.toLowerCase();
+		var data = cache.load(term);
+		// recieve the cached data
+		if (data && data.length) {
+			success(term, data);
+		// if an AJAX url has been supplied, try loading the data now
+		} else if( (typeof options.url == "string") && (options.url.length > 0) ){
+			
+			var extraParams = {
+				timestamp: +new Date()
+			};
+			$.each(options.extraParams, function(key, param) {
+				extraParams[key] = typeof param == "function" ? param() : param;
+			});
+			
+			$.ajax({
+				// try to leverage ajaxQueue plugin to abort previous requests
+				mode: "abort",
+				// limit abortion to this input
+				port: "autocomplete" + input.name,
+				dataType: options.dataType,
+				url: options.url,
+				data: $.extend({
+					q: lastWord(term),
+					limit: options.max
+				}, extraParams),
+				success: function(data) {
+					var parsed = options.parse && options.parse(data) || parse(data);
+					cache.add(term, parsed);
+					success(term, parsed);
+				}
+			});
+		} else {
+			// if we have a failure, we need to empty the list -- this prevents the the [TAB] key from selecting the last successful match
+			select.emptyList();
+			failure(term);
+		}
+	};
+	
+	function parse(data) {
+		var parsed = [];
+		var rows = data.split("\n");
+		for (var i=0; i < rows.length; i++) {
+			var row = $.trim(rows[i]);
+			if (row) {
+				row = row.split("|");
+				parsed[parsed.length] = {
+					data: row,
+					value: row[0],
+					result: options.formatResult && options.formatResult(row, row[0]) || row[0]
+				};
+			}
+		}
+		return parsed;
+	};
+
+	function stopLoading() {
+		$input.removeClass(options.loadingClass);
+	};
+
+};
+
+$.Autocompleter.defaults = {
+	inputClass: "ac_input",
+	resultsClass: "ac_results",
+	loadingClass: "ac_loading",
+	minChars: 1,
+	delay: 400,
+	matchCase: false,
+	matchSubset: true,
+	matchContains: false,
+	cacheLength: 10,
+	max: 100,
+	mustMatch: false,
+	extraParams: {},
+	selectFirst: true,
+	formatItem: function(row) { return row[0]; },
+	formatMatch: null,
+	autoFill: false,
+	width: 0,
+	multiple: false,
+	multipleSeparator: ", ",
+	highlight: function(value, term) {
+		return value.replace(new RegExp("(?![^&;]+;)(?!<[^<>]*)(" + term.replace(/([\^\$\(\)\[\]\{\}\*\.\+\?\|\\])/gi, "\\$1") + ")(?![^<>]*>)(?![^&;]+;)", "gi"), "<strong>$1</strong>");
+	},
+    scroll: true,
+    scrollHeight: 180
+};
+
+$.Autocompleter.Cache = function(options) {
+
+	var data = {};
+	var length = 0;
+	
+	function matchSubset(s, sub) {
+		if (!options.matchCase) 
+			s = s.toLowerCase();
+		var i = s.indexOf(sub);
+		if (options.matchContains == "word"){
+			i = s.toLowerCase().search("\\b" + sub.toLowerCase());
+		}
+		if (i == -1) return false;
+		return i == 0 || options.matchContains;
+	};
+	
+	function add(q, value) {
+		if (length > options.cacheLength){
+			flush();
+		}
+		if (!data[q]){ 
+			length++;
+		}
+		data[q] = value;
+	}
+	
+	function populate(){
+		if( !options.data ) return false;
+		// track the matches
+		var stMatchSets = {},
+			nullData = 0;
+
+		// no url was specified, we need to adjust the cache length to make sure it fits the local data store
+		if( !options.url ) options.cacheLength = 1;
+		
+		// track all options for minChars = 0
+		stMatchSets[""] = [];
+		
+		// loop through the array and create a lookup structure
+		for ( var i = 0, ol = options.data.length; i < ol; i++ ) {
+			var rawValue = options.data[i];
+			// if rawValue is a string, make an array otherwise just reference the array
+			rawValue = (typeof rawValue == "string") ? [rawValue] : rawValue;
+			
+			var value = options.formatMatch(rawValue, i+1, options.data.length);
+			if ( value === false )
+				continue;
+				
+			var firstChar = value.charAt(0).toLowerCase();
+			// if no lookup array for this character exists, look it up now
+			if( !stMatchSets[firstChar] ) 
+				stMatchSets[firstChar] = [];
+
+			// if the match is a string
+			var row = {
+				value: value,
+				data: rawValue,
+				result: options.formatResult && options.formatResult(rawValue) || value
+			};
+			
+			// push the current match into the set list
+			stMatchSets[firstChar].push(row);
+
+			// keep track of minChars zero items
+			if ( nullData++ < options.max ) {
+				stMatchSets[""].push(row);
+			}
+		};
+
+		// add the data items to the cache
+		$.each(stMatchSets, function(i, value) {
+			// increase the cache size
+			options.cacheLength++;
+			// add to the cache
+			add(i, value);
+		});
+	}
+	
+	// populate any existing data
+	setTimeout(populate, 25);
+	
+	function flush(){
+		data = {};
+		length = 0;
+	}
+	
+	return {
+		flush: flush,
+		add: add,
+		populate: populate,
+		load: function(q) {
+			if (!options.cacheLength || !length)
+				return null;
+			/* 
+			 * if dealing w/local data and matchContains than we must make sure
+			 * to loop through all the data collections looking for matches
+			 */
+			if( !options.url && options.matchContains ){
+				// track all matches
+				var csub = [];
+				// loop through all the data grids for matches
+				for( var k in data ){
+					// don't search through the stMatchSets[""] (minChars: 0) cache
+					// this prevents duplicates
+					if( k.length > 0 ){
+						var c = data[k];
+						$.each(c, function(i, x) {
+							// if we've got a match, add it to the array
+							if (matchSubset(x.value, q)) {
+								csub.push(x);
+							}
+						});
+					}
+				}				
+				return csub;
+			} else 
+			// if the exact item exists, use it
+			if (data[q]){
+				return data[q];
+			} else
+			if (options.matchSubset) {
+				for (var i = q.length - 1; i >= options.minChars; i--) {
+					var c = data[q.substr(0, i)];
+					if (c) {
+						var csub = [];
+						$.each(c, function(i, x) {
+							if (matchSubset(x.value, q)) {
+								csub[csub.length] = x;
+							}
+						});
+						return csub;
+					}
+				}
+			}
+			return null;
+		}
+	};
+};
+
+$.Autocompleter.Select = function (options, input, select, config) {
+	var CLASSES = {
+		ACTIVE: "ac_over"
+	};
+	
+	var listItems,
+		active = -1,
+		data,
+		term = "",
+		needsInit = true,
+		element,
+		list;
+	
+	// Create results
+	function init() {
+		if (!needsInit)
+			return;
+		element = $("<div/>")
+		.hide()
+		.addClass(options.resultsClass)
+		.css("position", "absolute")
+		.appendTo(document.body);
+	
+		list = $("<ul/>").appendTo(element).mouseover( function(event) {
+			if(target(event).nodeName && target(event).nodeName.toUpperCase() == 'LI') {
+	            active = $("li", list).removeClass(CLASSES.ACTIVE).index(target(event));
+			    $(target(event)).addClass(CLASSES.ACTIVE);            
+	        }
+		}).click(function(event) {
+			$(target(event)).addClass(CLASSES.ACTIVE);
+			select();
+			// TODO provide option to avoid setting focus again after selection? useful for cleanup-on-focus
+			input.focus();
+			return false;
+		}).mousedown(function() {
+			config.mouseDownOnSelect = true;
+		}).mouseup(function() {
+			config.mouseDownOnSelect = false;
+		});
+		
+		if( options.width > 0 )
+			element.css("width", options.width);
+			
+		needsInit = false;
+	} 
+	
+	function target(event) {
+		var element = event.target;
+		while(element && element.tagName != "LI")
+			element = element.parentNode;
+		// more fun with IE, sometimes event.target is empty, just ignore it then
+		if(!element)
+			return [];
+		return element;
+	}
+
+	function moveSelect(step) {
+		listItems.slice(active, active + 1).removeClass(CLASSES.ACTIVE);
+		movePosition(step);
+        var activeItem = listItems.slice(active, active + 1).addClass(CLASSES.ACTIVE);
+        if(options.scroll) {
+            var offset = 0;
+            listItems.slice(0, active).each(function() {
+				offset += this.offsetHeight;
+			});
+            if((offset + activeItem[0].offsetHeight - list.scrollTop()) > list[0].clientHeight) {
+                list.scrollTop(offset + activeItem[0].offsetHeight - list.innerHeight());
+            } else if(offset < list.scrollTop()) {
+                list.scrollTop(offset);
+            }
+        }
+	};
+	
+	function movePosition(step) {
+		active += step;
+		if (active < 0) {
+			active = listItems.size() - 1;
+		} else if (active >= listItems.size()) {
+			active = 0;
+		}
+	}
+	
+	function limitNumberOfItems(available) {
+		return options.max && options.max < available
+			? options.max
+			: available;
+	}
+	
+	function fillList() {
+		list.empty();
+		var max = limitNumberOfItems(data.length);
+		for (var i=0; i < max; i++) {
+			if (!data[i])
+				continue;
+			var formatted = options.formatItem(data[i].data, i+1, max, data[i].value, term);
+			if ( formatted === false )
+				continue;
+			var li = $("<li/>").html( options.highlight(formatted, term) ).addClass(i%2 == 0 ? "ac_even" : "ac_odd").appendTo(list)[0];
+			$.data(li, "ac_data", data[i]);
+		}
+		listItems = list.find("li");
+		if ( options.selectFirst ) {
+			listItems.slice(0, 1).addClass(CLASSES.ACTIVE);
+			active = 0;
+		}
+		// apply bgiframe if available
+		if ( $.fn.bgiframe )
+			list.bgiframe();
+	}
+	
+	return {
+		display: function(d, q) {
+			init();
+			data = d;
+			term = q;
+			fillList();
+		},
+		next: function() {
+			moveSelect(1);
+		},
+		prev: function() {
+			moveSelect(-1);
+		},
+		pageUp: function() {
+			if (active != 0 && active - 8 < 0) {
+				moveSelect( -active );
+			} else {
+				moveSelect(-8);
+			}
+		},
+		pageDown: function() {
+			if (active != listItems.size() - 1 && active + 8 > listItems.size()) {
+				moveSelect( listItems.size() - 1 - active );
+			} else {
+				moveSelect(8);
+			}
+		},
+		hide: function() {
+			element && element.hide();
+			listItems && listItems.removeClass(CLASSES.ACTIVE);
+			active = -1;
+		},
+		visible : function() {
+			return element && element.is(":visible");
+		},
+		current: function() {
+			return this.visible() && (listItems.filter("." + CLASSES.ACTIVE)[0] || options.selectFirst && listItems[0]);
+		},
+		show: function() {
+			var offset = $(input).offset();
+			element.css({
+				width: typeof options.width == "string" || options.width > 0 ? options.width : $(input).width(),
+				top: offset.top + input.offsetHeight,
+				left: offset.left
+			}).show();
+            if(options.scroll) {
+                list.scrollTop(0);
+                list.css({
+					maxHeight: options.scrollHeight,
+					overflow: 'auto'
+				});
+				
+                if($.browser.msie && typeof document.body.style.maxHeight === "undefined") {
+					var listHeight = 0;
+					listItems.each(function() {
+						listHeight += this.offsetHeight;
+					});
+					var scrollbarsVisible = listHeight > options.scrollHeight;
+                    list.css('height', scrollbarsVisible ? options.scrollHeight : listHeight );
+					if (!scrollbarsVisible) {
+						// IE doesn't recalculate width when scrollbar disappears
+						listItems.width( list.width() - parseInt(listItems.css("padding-left")) - parseInt(listItems.css("padding-right")) );
+					}
+                }
+                
+            }
+		},
+		selected: function() {
+			var selected = listItems && listItems.filter("." + CLASSES.ACTIVE).removeClass(CLASSES.ACTIVE);
+			return selected && selected.length && $.data(selected[0], "ac_data");
+		},
+		emptyList: function (){
+			list && list.empty();
+		},
+		unbind: function() {
+			element && element.remove();
+		}
+	};
+};
+
+$.fn.selection = function(start, end) {
+	if (start !== undefined) {
+		return this.each(function() {
+			if( this.createTextRange ){
+				var selRange = this.createTextRange();
+				if (end === undefined || start == end) {
+					selRange.move("character", start);
+					selRange.select();
+				} else {
+					selRange.collapse(true);
+					selRange.moveStart("character", start);
+					selRange.moveEnd("character", end);
+					selRange.select();
+				}
+			} else if( this.setSelectionRange ){
+				this.setSelectionRange(start, end);
+			} else if( this.selectionStart ){
+				this.selectionStart = start;
+				this.selectionEnd = end;
+			}
+		});
+	}
+	var field = this[0];
+	if ( field.createTextRange ) {
+		var range = document.selection.createRange(),
+			orig = field.value,
+			teststring = "<->",
+			textLength = range.text.length;
+		range.text = teststring;
+		var caretAt = field.value.indexOf(teststring);
+		field.value = orig;
+		this.selection(caretAt, caretAt + textLength);
+		return {
+			start: caretAt,
+			end: caretAt + textLength
+		}
+	} else if( field.selectionStart !== undefined ){
+		return {
+			start: field.selectionStart,
+			end: field.selectionEnd
+		}
+	}
+};
+
+})(jQuery);

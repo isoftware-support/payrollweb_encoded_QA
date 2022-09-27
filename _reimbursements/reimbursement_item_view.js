@@ -1,42 +1,102 @@
-!odMbo!
-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
-Ixm=
+
+	
+	// pic viwer
+	let src = getById('att_img').src;
+	const picViewer = new PicViewer( { prefix: 'rec_', rootFolder: rootURI, src: src} );
+	picViewer.showOnClickOf( 'att_img');
+
+	// top image
+	src = rootURI + `/reimbursephoto.php?rn='${rn}'&rd=${rd}`;
+	let params = { prefix: 'top-img', rootFolder: 
+		rootURI, src: src, withClose: false, parent: '#img-top',
+		nav: 'left'};
+	const topPicViewer = new PicViewer( params );
+
+	// bottom image
+	params.prefix = "bottom-img"
+	params.parent = '#img-bottom'
+	const bottomPicViewer = new PicViewer( params);
+	getDetail(1)
+
+
+	let recDetailNo = rd; 
+
+	// -------------------
+	// prior click
+	// ------------------
+	let btn = getById('img-prior');
+	if ( btn ){
+		btn.onclick = () => {
+			getDetail(-1);
+		}
+	}
+
+	// -----------------
+	// next click
+	//------------------
+	btn = getById('img-next')
+	if (btn){
+		btn.onclick = () => {
+			getDetail(1);
+		}
+	}
+
+	//------------------
+	// close compare
+	//------------------
+	btn = getById('compare-close')
+	if ( btn ){
+		btn.onclick = () => compareImage( false)
+	}
+
+
+	function getDetail(num){
+
+		imgIndex += num;
+		const max = recDetailNos.length -1;
+
+		if (imgIndex < 1) imgIndex = 0;
+		if (imgIndex > max) imgIndex = max;
+		const id = recDetailNos[imgIndex];
+
+		let p = {func:'GetRec', t:2, xp:'f0='+ id, rc:1}
+		p.f = "f7|f8";
+
+		xxhrPost('ajax_calls.php', p, (res)=>{
+
+			const ret = JSON.parse(res)
+
+			// change image
+			const src = rootURI + `/reimbursephoto.php?rn='${ret.f7}'&rd=${id}`;
+			bottomPicViewer.changeImageSource(src)
+
+			// change details
+			let txt = "Request No: " + ret.f7.padStart(5, '0')
+			setProp( getById('rec-no'), "innerText", txt)
+
+			txt = "Detail No:" + id.padStart(5, '0');
+			setProp( getById('rec-detail-no'), 'innerText', txt)
+
+			txt = "- " + ret.f8
+			setProp( getById('rec-desc'), "innerHTML", txt)
+		});
+
+
+	}
+
+	function compareImage( isShow = true){
+
+		if ( isShow ){
+			dimBack(true, 'dimBack');
+			CenterItem('div_compare')
+
+			const div = getById('dimBack');
+			if ( div )
+				div.onclick = () => compareImage(false)
+
+		}else{
+			dimBack(false);
+			const div = getById('div_compare')
+			div.style.left = -9999;
+		}
+	}

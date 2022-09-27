@@ -1,27 +1,61 @@
-!odMbo!
-D9tHUpeLm5WDZj5V188Sy04000000000BQ19pr4NOPKQFKmT7rXMGbwSUbub7la8fSSfUtYTrnJi
-ZybXNu2yipo17Xs/RzalwjaVIeyEu4vFQlr0cmZFs6ItO/Q/LsnM2tvB9KEv/WwrYUNtSMRc2BMm
-fykomDIJuCW8jH7hyEOpGF0Rji8TzX9JlGZqKrmCVIoenNg2xlUy3C/Q+mtv2BH1libj+T8Z0V00
-ph/KrbhXtnXDMgybjOuNvudJOzOdzWlbEZT6yKYA1ah1Ggs23hhvlU1jXgFXNA0wR2t/6P9UXJhg
-rslGqTh5nu++OZa1NtY25c+xyMAHZQ8mZER2Nt5s7awM9AfcGQf5o5t+sd4c/BIgbmC2PFjoqIm2
-Eh3b/TcQxywtg3v47o1f53kobYLNp/2OYBqmcBjJl96f9sVkwGhCex9FIETIC7maPYbJiEzgIR1Y
-omUxJzpYCMimNQzFwsc++rUdrdHGKQnFqs7Beac0qGCKg1H9tpCAAzHecAjDR+0pkpxuL5kFW48W
-vFFfS0oJYDqGosqtE9YGHaYV7q1g7Q9+BiTtemR1mjV4PQEmRols2pOMPx8j/g7LQovgrPawBYjC
-3FGwbNIHJ8tFR7QE498N20c9j2cgVw1MdiL+YW4zCtwD8APH5BUIhecBgsn5jOQPssbEIS1Fg2ns
-5GsK77SGWNBvMgOaRXvcV+TAILOyux3cV7WuyTmpHb+q9JKpwEekfo3iKCWxfkYkD8Jh2hdhfqnI
-ZD+1QZjjT8wsaMtIa6qDdRoWgr0hgsECe7Nbcy7Akr7TOhVi9Yo5S9Q2+IV0hu/W6KVTrRhKdZ4v
-eWcVgZaJ4bUWA2HPklaUnVzLudEsTEySBhfWEZOmfHPuwe0s+y2EqWTVWOsxAJQee4W6lovgmlao
-kHRRYHKm5DHQHhXUsDwZOHPxaTIAN+B8TI4iN3scWhc8Kgs6h1SV/OBwiy5NXUj5I1yvTlnJTzFL
-IxnjOILMwOS5oW/5S7zf22blBPXTc4Cg9LMepK2t3b5lkArTO4VxoVK4055+RAb7jVMYVyvc2dGL
-g9WmvL7QTpGqg3iXIT8U+sMdwhb4y7/quM5MwQQrf+7whczm/okd0nVQkwigDFCwnOQP0iJnxg1E
-2Q68v+oksBWdtyMKJ/x1KU8idvfUHgeeUNlK4ip1WdrAbCxfBP5rr57mz8atwpK5jb4okbVxPdpt
-C/CUkUpd/AoKoH+ctrzqzJw3qrY59gKbX0FOiJ5DqU4dAcvxeHhS/1bYxAqeJXvE9WrktEaYMCY3
-soKUJi+HWS9RE5PYpEpradq+DdSus+H8M7xgWSb+v2fucvfIEeRcuGE3hnwQkQYeYlPA073pYboU
-yWs7EP9TR7MZBiYnkgtorEu36nOSybD43X5WxY5pDHcvLfetWbhPCjGzQjoD8y6bovpkLSmpVQul
-iuDno1QvP57DHFwYNWQql7i5RLl1hBLjRX/eamswbDRFFJd/P7ZwORP4s/12e/xF1lhTZFptu3TU
-GkiQ88DEYADk6JUVTamljVDLka87GXcvUl+n1BF1zZXgwYHFRdf0BebZDNJT0qoDHbss8eAFMhfB
-/9pLOeJuch/hLk+84Fi2V4Dc0iu6uRsjoymQ3rD5huRR7ClhSb4hjQz1eF0Spo/X2K3uEw6RzetG
-4U6D+ld44pCvaiyqJCkGxlJnmKZnhoI6cdjWlWhI+dPNpLtcpSFY5j8Pf6MmDDgmZTQvNMqSseJv
-TjFhFqBCbOvuORDrHKEuf5KVi/qhAuJyZDCoBWIDMAX/3Qvb/Wdg8up1nWXYyYUJ1DJfNy3F6ymQ
-1DHf3LNAZpB89CRdJygUcdN/7ppZ5QCfeFacc1Xkv6BPZgMvq8PLqW3jDdEuaw6yZvuYlkgmhHw1
-b0CKTid5FCvay0==
+Calendar.LANG("it", "Italiano", {
+
+        fdow: 1,                // first day of week for this locale; 0 = Sunday, 1 = Monday, etc.
+
+        goToday: "Vai a oggi",
+
+        today: "Oggi",         // appears in bottom bar
+
+        wk: "set",
+
+        weekend: "0,6",         // 0 = Sunday, 1 = Monday, etc.
+
+        AM: "am",
+
+        PM: "pm",
+
+        mn : [ "Gennaio",
+               "Febbraio",
+               "Marzo",
+               "Aprile",
+               "Maggio",
+               "Giugno",
+               "Luglio",
+               "Agosto",
+               "Settembre",
+               "Ottobre",
+               "Novembre",
+               "Dicembre" ],
+
+        smn : [ "Gen",
+                "Feb",
+                "Mar",
+                "Apr",
+                "Mag",
+                "Giu",
+                "Lug",
+                "Ago",
+                "Set",
+                "Ott",
+                "Nov",
+                "Dic" ],
+
+        dn : [ "Domenica",
+               "Lunedì",
+               "Martedì",
+               "Mercoledì",
+               "Giovedi",
+               "Venerdì",
+               "Sabato",
+               "Domenica" ],
+
+        sdn : [ "Do",
+                "Lu",
+                "Ma",
+                "Me",
+                "Gi",
+                "Ve",
+                "Sa",
+                "Do" ]
+
+});

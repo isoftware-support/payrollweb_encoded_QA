@@ -1,13 +1,20 @@
-!odMbo!
-kMmaqSyBrdWEtVrIODrBRm4000000000nWIvtaz2z2V3KPcEafI2P7Yivl6jczrijupBrdYvxFrO
-tcltjgkMUIc1GMMCJzt5aZC/DCEDb++U2yPP9Ai+eFPn2V+ZbRK6DELmyNEnmoDikPzxaEAVkG71
-kMd90I8N2HyFK/ShjEAPXECy4k3FMDBcykd/dtjJ4Lixv4EIloU2gHiWsuJvS4jsGQjKAgktz9DP
-x42PGG/lEXdiXP5p4P6XxCiIfQs8z5NJ8zbmEZU76rCOTloAU8BObmWkYJKtqhY6xRoqdhHSoN0i
-ewEIuqdNQAC4rDJXOvb0u0IEWuiwIND4d/G03cS31cuXbQLDyuK/PCJ4g3LxkiM+5akZC3ofk9Jh
-3/MWMLtmkn0kPlJ8s1Er6H0urJdgSqGQus2R3jpLNnsNXfKIjPgioRDzGbd+AVdq87xiR1uiECDP
-+1TbQq96/3bzs/DtpUr7iPXgvEgfwyXbBgszWhLfk2T28gT84d5c6HTxpuX+ERmoTmRGgy1h+oJu
-nd7P3fjBnxEcoPTqTc5WnznIWCe48+bv9hOWvjJHUlM0p2u9Dy5h8RDL0yEsEcXOnYeJZLLt4gJ+
-qWDQQzt8uCdmq0t/QwI7jCpbc7kdMK8luGL4aY4ZkA26kCrrgNS+CDdMoTuXWWpEvyVc0XbIRUmA
-40sWzyKjh1osyRZKDy/t+vSXPR2yzjC77EmFn8GF0lnQXeFJQiT+0h5PBKUd4LfpAViipN9aTCtD
-9SN5mHG+kPOZVvSbWUuzj/U1XC+wdgA8hUnTMS1Lsv+P/S9eUnRGJHr18vaoDf7+ROG0cNvLSW05
-E0/+ZAx/xB2Frm==
+		
+		//check file
+		
+		function checkAttachment(e, putFilenameToID = "", maxFileSize = 2){
+				
+		    if (e.files.length){
+		    	var size = e.files[0].size;
+		    	if ( (size / 1024) > ( 1024 * maxFileSize) ){   //greater than 2 MB
+		    		alert( `Attachment file more than ${maxFileSize} MB is not allowed!`);
+		    		e.value = "";
+		    		return false;
+		    	}
+		    }		    
+
+		    // where to put the filename
+		    if ( putFilenameToID ){
+			    var fname = e.value.split('\\');			
+			    document.getElementById(putFilenameToID).value = fname[fname.length - 1];			
+			  }
+		}

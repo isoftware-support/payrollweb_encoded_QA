@@ -1,29 +1,55 @@
-!odMbo!
-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
+
+    
+    var elems;
+    var e;
+
+    // rows and columns            
+    elems = getAll("tr");
+    for (var i = 0; i < elems.length; i++) {
+
+        e = elems[i];
+        let table_parent = e.parentElement.parentElement;  // table parent
+
+        if (table_parent.id == "profile_table"){
+            
+            let sClass = "DataRowHeight";
+            if ( e.id == "head"){
+                sClass = "DataHeading";
+            }else if( e.id == "section"){
+                sClass = "DataSection";
+            }
+            e.className = sClass;
+
+            // collect td of row
+            let cols = e.children;
+            if ( e.className == "DataRowHeight"){
+                cols[0].className = "DataFieldTitle";
+                cols[1].className = "DataFieldValue";
+            }
+        }                
+    }                  
+
+    //edit boxes    
+    elems = getAll("input[type='text']");
+    for( var i = 0; i< elems.length; i++ ){
+        e = elems[i];
+        // console.log( e);
+        e.className = "EditBox wp-70";
+        e.setAttribute("autocomplete", "off");
+    }
+
+    // text areas or memoboxes
+    elems = getAll("textarea");
+    for( var i = 0; i< elems.length; i++ ){
+        e = elems[i];
+        e.className = "MemoBox wp-70";
+        e.setAttribute("autocomplete", "off");
+    }
+
+    // buttons
+    elems = getAll("input[type='button'], input[type='submit']");
+    for( var i = 0; i< elems.length; i++ ){
+        e = elems[i];
+        e.className = "Button";
+    }
+

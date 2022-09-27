@@ -1,27 +1,61 @@
-!odMbo!
-iS61cNd8WSN6XQSQCY+UTW4000000000+MFIYMwNMYETddu2xv6zX6yJX6s6koNklqx1h5q9CXvK
-BBoz7OopIE+8FuLJimTzGTNsZvpcrY5v0sYcTX1fwMJi9/a6BoHV0qWv1oc7MHHWiqqUWRZqbPRZ
-KqNplrWu7EBW9ois6zJBbpwhg/1k+7iGJbo+LXbAUBgYWMWxla5gvyY+lc1W4aVTD/evTluRRM8F
-gRMNHmaXIa7YMO5WSJeACzIRCAohTS08sF9ChJzmjqi7HqvX1EHunHDGvIHWS66LUweBSy1cFroq
-MEZkKzcxotcjgG/bJDi98KDMRXsrJJnhI7xa9UvL9whLZNO3P4Hnb4vXU7WNm3U2x/2fF/4vSKyq
-2g3wR+X6uA9QgfA5+mefqBNm+J2CvOPZ5DvL2I/RWBIhYvmG5KyPJg9R/heAUrLX2H9vhOzFz/mC
-/vnRfw9AH+feOnS4EnyQ0T6BhxYvZiVRTIvgu83g9ZnHrOYfJjK1IigvDl/oDRdYbrToSfMPMjL0
-fKhVBgDLxCDUop6sWKx7JCk8lUfwYymDfBvTOWsicPbAR0nVvYyTvlxJo1iMNQ0NzXp0iCxpx8r3
-m5MIKZBSM4KZtVDlShOAQNoVd9FnrxHEiBFeLP40qIzNzzSr1/H3Qezs5+VCep6wKuZLYC0LphMI
-M8T9o7GGpTkS6EltHAOJS1sKXk4lnEOeOKdAFP1Tyw/aKjkj+Q4G6yk8+ScCJS/Cgm5To1yfpbEA
-riYlferhbpLYrI6CqU0K/HxrzgoFrvwmDaSjk8aZToaSRblw1dQhPo9ZduVkuOq2CyOtp2YMJG9e
-ngWom7HaLsth+2+i91/xsnZifOB+kPIf0dbGyyVOHSxfC4ZG/9FUrh4+tKFbDOXDZvBo+L69OKmu
-KFUXYtrT+tgZ4pugMf7ApjMgRNZe67g6rstdDU0lWDoyZoZ8aKgU6cdwOWMch/v0pCsF3xMWVW7C
-Z9xaY3X9CDFuBdherzLy9LNItxVKd3UXKlmL6wrJxAzRqpRiIkgyV+p+VSxmvmLrvX0tPGO4mVlP
-oW4DxbE8RNnRu02NRnQLM7F7kl32PkaHspgsOzrFjGCm3rSMYFyqTlR1b8l1gyQYDwf1/5XfcIjw
-l0X7nByyxtmQEZWd7ekIpza1y9cI0iSYJ+YDXQybECjELWUio8KWBEkjOyWSnMgAbiGUaCuc9V0X
-SJgd1flXgENUgL3j1b8522dX2jdkOrqF7NPO4nRaUKHTyvQkiimE9Auu/pO4EpqLGGVOdftxagjY
-3R44ZdGxZFpazSf+PSKYC7Nw5vcATbCe5n7TQfng1mcZZf5RamP1E1aI4qg392PB67qPEUIo88WN
-+PRy8S62zXlLkcT3Dt12PrapHCI/zXY4Dp3AsQH2fp+MowU27+Mmqr4OndlXnprijt10byCTEfM+
-/e7Z7pW/slx+fNRrR2DaOXef5j7BX+4N2b7ZwzaGGJQ5OAKPw5xJVKnh1bFNZrZT9ObwsCudV7xg
-mFloPYPUJPt+qacoP7/kKLont/7sy20xkTDnKnIs8xSIrolLn6Tux8sgsREMb90RPGycufaV1VU0
-h1qctK4oHt6RHKTOQOZl3oWgNnrrc7lGkjnBpLt5FPHH0YfUjaMI27ipHfNbzMeaASc/ON9a1fYF
-FS+NHKP3p57yNn5ea4Dz2i7Vw1tws7zpY9PThb/CIF5NkPzTjBvqtxGlI5RTVlodz3q2fkAggune
-TPv/kJhRq14q2/lmfiOY8IcxaZ00fiohTp8I7TvE66G70d0mrtM7Wab7U7LH/avBTMrHdmU5UEo6
-EvmisGi34VbfzoPihOkINCdiB9fmWj48tip2HppY9CbOmtfV9eZ+LPYpyaMomILxYvA20WKmPeQ0
-4cH1KeiQjaO=
+Calendar.LANG("sk", "Slovak", {
+
+        fdow: 1,                // first day of week for this locale; 0 = Sunday, 1 = Monday, etc.
+
+        goToday: "Nastaviť dnešok",
+
+        today: "Dnes",         // appears in bottom bar
+
+        wk: "týž",
+
+        weekend: "0,6",         // 0 = Sunday, 1 = Monday, etc.
+
+        AM: "am",
+
+        PM: "pm",
+
+        mn : [ "január",
+               "február",
+               "marec",
+               "apríl",
+               "máj",
+               "jún",
+               "júl",
+               "august",
+               "september",
+               "október",
+               "november",
+               "december" ],
+
+        smn : [ "jan",
+                "feb",
+                "mar",
+                "apr",
+                "máj",
+                "jún",
+                "júl",
+                "aug",
+                "sep",
+                "okt",
+                "nov",
+                "dec" ],
+
+        dn : [ "Nedeľa",
+               "Pondelok",
+               "Utorok",
+               "Streda",
+               "Štvrtok",
+               "Piatok",
+               "Sobota",
+               "Nedeľa" ],
+
+        sdn : [ "Ne",
+                "Po",
+                "Ut",
+                "St",
+                "Št",
+                "Pi",
+                "So",
+                "Ne" ]
+
+});

@@ -1,137 +1,257 @@
-!odMbo!
-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
-1/CKuL+tjfaVDd+KHMkyWZ1ovb3nm+51
+    // alert( 'select cutoff js')    ;
+    
+    $(document).ready(function(){	       
+        
+
+        $("#btn_cutoff_prev").click(function(){				
+            var date = $("#cutoff_nav_start").val();
+            set_cutoff_date( date, -1);
+            disableUploadAttdButton();
+        });			
+
+        $("#btn_cutoff_next").click(function(){				
+            var date = $("#cutoff_nav_end").val();
+            set_cutoff_date( date, +1);
+
+            disableUploadAttdButton();
+        });				
+
+        $("#cutoff_nav_start, #cutoff_nav_end").change(function(){
+            disableUploadAttdButton();
+        });
+
+        function disableUploadAttdButton(){
+            let btn = get('#btn-upload-logs');
+            if ( btn ) btn.disabled = true;
+            // if ( btn ) btn.parentNode.removeChild(btn);   // remove button
+        }
+        
+        //filter collapsed
+        //var chk_filter_val = "<?php echo $chk_filter_val; ?>";
+        var chk = document.getElementById("chk_filter");
+        if ( chk ){
+            showCutoffFilter(chk);
+        }
+
+        //set generate button name and value
+        // $("#cutoff_nav_generate").attr('name',"<?php echo $cutoff_nav_generatebutton_name; ?>");
+        // $("#cutoff_nav_generate").attr('value',"<?php echo $cutoff_nav_generatebutton_value; ?>");    
+        $("#cutoff_nav_generate").attr('name', cutoff_nav_generatebutton_name);
+        $("#cutoff_nav_generate").attr('value', cutoff_nav_generatebutton_value);    
+
+    });
+
+
+    function set_cutoff_date( date, type){
+
+        busy.show2();
+
+        const param = {'func':'getCutoff_start_end_date', 't':type, 'd':date, 'p': cutoff_nav_payperiod};
+       
+        $.post('ajax_calls.php', param, 
+        function(data){   
+                                  
+            const a = JSON.parse(data);            
+            
+            $("#cutoff_nav_start").val(a.start);
+            $("#cutoff_nav_end").val(a.end);          
+
+            // #2320
+            // hide non existing emps in member filter
+            if ( isTeamMode ){
+                
+                const attd_table_emps = a.emps; 
+
+                if ( cutoff_nav_is_attendance ){
+                    const chks = getByName('team_emps');
+                    chks.forEach((chk)=>{
+                        
+                        const empNo = chk.dataset.no;
+                        
+                        if ( attd_table_emps.indexOf(empNo) >= 0 ){
+                            chk.parentElement.classList.remove("d-none");
+                        }else{
+                            chk.parentElement.classList.add("d-none");
+                        }
+                    });
+                }
+
+                hideInactiveMembers( a.emps );
+            }
+
+
+            busy.hide();
+        });				
+    }	
+
+    function showCutoffFilter(elem){
+
+        var div = $("div.cutoff_filter_attd");
+        var chk = $("#chk_filter");
+        if (elem.checked){
+            $(div).fadeIn('fast');
+            $(chk).val("+");
+        }else{
+            $(div).fadeOut('fast');
+            $(chk).val("-");
+        }
+    }
+
+    function showMembersFilter(e){
+
+        let div_members = get(".cutoff_emp_picker");
+        let btn = get("#cutoff_nav_generate");
+
+        let div = $("#multi_emps");
+        if ( e.checked ){
+            $(div).fadeIn('fast');
+            div_members.style.display = "none";
+            
+            // btn.type="button";            
+        }else{
+            $(div).fadeOut('fast');
+            div_members.style.display = "";
+
+            // btn.type="submit";            
+        }        
+
+    }
+
+    function showAttdLogsFilter(e){
+
+        let div = get('#cutoff_filter_attd_upload');        
+        if (e.checked){
+            $(div).fadeIn('fast');
+            div.stype.display = "none";
+        }else{
+            $(div).fadeOut('fast');
+            div.stype.display = "";
+        }
+
+    }
+
+    function showMultiAttendances()
+    {
+        
+        // collect selected emps
+        let emps = getAll( "input[name='team_emps']:checked" );
+        if ( ! emps.length ){
+            alert("Please select team members.");
+            return;
+        }
+
+        busy.show2();
+
+        let empNos=[];
+        emps.forEach(function(emp, index){
+            empNos.push( emp.dataset.no );
+        });
+
+        // collect attd types
+        let attds=[];
+
+        if ( getById( 'chk_filter').checked  ){
+
+            let els = getAll( "input[name='cutoff_attdTypes']:checked" );
+            els.forEach( function(el){
+                attds.push( el.dataset.c );
+            });
+        }
+
+        //cutoff
+        let s = getById( 'cutoff_nav_start' ).value,
+            e = getById( 'cutoff_nav_end' ).value,
+            i = getById( 'cutoff_nav_show_raw' ).checked ? 1 : 0;        
+
+        let l = "xhtml_response.php?q=MixedAttds&n="+ empNos.join(",") +"&s="+ s +"&e="+ e +"&p="+ cutoff_nav_payperiod +
+            "&i="+ i +"&a="+ attds.join(",") + _session_vars;
+        // console.log(l);
+        
+        xxhr("GET", l, function( ret ){
+
+            let el = getById("uploaded-attds");
+            el.innerHTML = ret;
+
+            busy.hide();
+        });
+
+    }
+
+
+
+    // #2320
+    // hide team members dropdownlist not in cutoff
+    function hideInactiveMembers( emps ){
+
+        if ( isTeamMode ){            
+
+            log(cutoff_active_emps);
+            
+            let members = [];
+
+            if ( cutoff_nav_is_attendance ){
+                members = getById("attd_team_members").options;
+            }else{
+                // payroll
+                members = getByName("team_emp")[0].options;
+            }                 
+            
+            const attd_table_emps = emps.split(",");
+
+            for(let i = 0; i < members.length; i++){
+                
+                const e = members[i];
+                const empNo = e.value;
+
+                if ( attd_table_emps.indexOf(empNo) >= 0 || 
+                    cutoff_active_emps.indexOf(empNo) >= 0 ){
+                    e.classList.remove("d-none");
+                }else{
+                    e.classList.add("d-none");
+                }
+            }                
+        }
+            
+    }
+
+    /*
+    function priorSubmit(e){
+        
+        // multi member view
+        var chk = get("#chk_multi_emps:checked");
+        if ( chk ){
+            showMultiAttendances();
+            return false;
+        }
+        
+
+
+        //var isAttendance = "<?php echo $cutoff_nav_is_attendance; ?>";
+        var isAttendance = cutoff_nav_is_attendance;
+        
+        if ( isAttendance ){
+            var codes = "-1", values = "-1";
+            var chk_val = $("#chk_filter").val();            
+            var filtered = 0;
+
+            if ( chk_val == "+" ){
+                
+                var cd=[-1], vl=[-1];
+                $(":checkbox[name='cutoff_attdTypes']:checked").each(function(){					
+                    cd.push($(this).data("c"));
+                    vl.push($(this).data("v"));                                    
+                });
+                codes = cd.join(',');
+                values = vl.join(',');
+
+                filtered = 1;
+            }            
+            
+            $("input#cutoff_nav_attd_filtered").val( filtered );
+            $("input#cutoff_nav_filter_codes").val( codes );
+            $("input#cutoff_nav_filter_values").val( values );
+        }
+      
+    };
+    */
+

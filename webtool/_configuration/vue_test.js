@@ -1,5 +1,17 @@
-!odMbo!
-u5241QzhYLlvt92Hk0Z7fm4000000000iPiW0d1Z//WfkciQzKjwSXkSQOrgu0xZ2q/z9BsjzMTM
-0ART6xpUFKBjCBThoq0aHBnGp/TiybVXQEAx8zZPaTTHzhnTKMiPJUiQmF5DHjVmhiheeO3kYKym
-rN/ohjD03T0MXbVqNxjMoSalwSV4ZAELDzmdREIS4dVqZ2iLZxapZbve7Eg+GaoCzkD08jAqq/7U
-3qU4ZGbSry16PqU5YMaRU/yDDGum/tj7sA6i0+W=
+</template>
+
+<script>
+export default {
+
+  name: 'vue_test',
+
+  data() {
+    return {
+
+    };
+  },
+};
+</script>
+
+<style lang="css" scoped>
+</style>

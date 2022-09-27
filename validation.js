@@ -1,102 +1,233 @@
-!odMbo!
-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
-8LjWXBUpvTRNpRgajextNoOB0KR/AZ24LW==
+
+function OnSubmitProfileValidation(thisform) {	
+	with (thisform) {
+		if(!onValidEmail(Email.value)){
+			alert("Please enter a valid email address.");  
+			Email.focus();
+			Email.select();
+			return false;
+		}
+		if (!validateNum(HomePhone1) && HomePhone1 != "") {			
+  			return false;
+		}
+		if (!validateNum(HomePhone2) && HomePhone2 != "") {
+			return false;
+		}
+		
+		if (!validateNum(BankAccount) && BankAccount != "") {
+			return false;
+		}
+		
+		if (!validateNum2(SSN) && SSN != "") {			
+  			return false;
+		}
+		
+		if (!validateNum2(TIN) && TIN != "") {			
+  			return false;
+		}
+		
+		if (!validateNum2(PhilHealthID) && PhilHealthID != "") {			
+  			return false;
+		}
+		
+		if (!validateNum2(PagIbigID) && PagIbigID != "") {			
+  			return false;
+		}
+		
+		if (!validateNum2(PRCLicenseNo) && PRCLicenseNo != "") {			
+  			return false;
+		}
+		
+		if (!validateNum2(GSISNumber) && GSISNumber != "") {			
+  			return false;
+		}
+		
+		
+		if (!validateNum2(BPNumber) && BPNumber != "") {			
+  			return false;
+		}
+		
+		if (!validateNum2(PolicyNo) && PolicyNo != "") {			
+  			return false;
+		}
+		
+		
+		if(MobilePhone.value.length > 0){
+			if  ( !validateGSMNum(MobilePhone)) {
+    			return false;
+		    }
+	    }
+		if (!validateNum(RAZIPCode) && RAZIPCode != "") {
+    		return false;
+		}
+		
+		if (!validateNum(RAZIPCode) && RAZIPCode != "") {
+    		return false;
+		}
+		
+		if (!validateNum(LHAZIPCode) && LHAZIPCode != "") {
+    		return false;
+		}
+		
+		if (!validateNum(FAZIPCode) && FAZIPCode != "") {
+    		return false;
+		}
+		
+		if (!validateNum(Height) && Height != "") {
+    		return false;
+		}
+		
+		if (!validateNum(Weight) && Weight != "") {
+    		return false;
+		}
+		
+		if (!validateNum(WifeClaiming) && WifeClaiming != "") {
+    		return false;
+		}
+		
+		if (!validateNum(NoOfChildren) && NoOfChildren != "") {
+    		return false;
+		}
+		
+	}
+	//thisform.submit();
+}
+function onValidEmail(emailStr) {
+    var emailPat=/^(.+)@(.+)$/
+    var specialChars="\\(\\)<>@,;:\\\\\\\"\\.\\[\\]"
+    var validChars="\[^\\s" + specialChars + "\]"
+    var quotedUser="(\"[^\"]*\")"
+    var ipDomainPat=/^\[(\d{1,3})\.(\d{1,3})\.(\d{1,3})\.(\d{1,3})\]$/
+    var atom=validChars + '+'
+    var word="(" + atom + "|" + quotedUser + ")"
+    var userPat=new RegExp("^" + word + "(\\." + word + ")*$")
+    var domainPat=new RegExp("^" + atom + "(\\." + atom +")*$")
+
+    var matchArray=emailStr.match(emailPat)
+    if (matchArray==null) {
+          return false;
+    }
+
+    var user=matchArray[1]
+    var domain=matchArray[2]
+
+    if (user.match(userPat)==null) {
+      return false;
+    }
+
+    var IPArray=domain.match(ipDomainPat)
+    if (IPArray!=null) {
+          for (var i=1;i<=4;i++) {
+            if (IPArray[i]>255) {
+              return false;
+            }
+      }
+      return true;
+    }
+
+    var domainArray=domain.match(domainPat);
+    if (domainArray==null) {
+      return false;
+    }
+
+    var atomPat=new RegExp(atom,"g");
+    var domArr=domain.match(atomPat);
+    var len=domArr.length;
+
+    if (domArr[domArr.length-1].length<2 || domArr[domArr.length-1].length>3) {
+      return false;
+    }
+
+    if (len<2) {
+      return false;
+    }
+
+    return true;
+  }
+function validateGSMNum(field) {
+
+
+  if ( ! validateCharsOnly(field.value, "0123456789-+() ") ){
+    alert("Invalid Mobile Number. ( accepted characters are -+( )09171234567 ) ");
+    field.focus();
+    field.select();
+    return false;
+  }
+  return true;
+
+    //     var valid = "0123456789"
+    //     var ok = "yes";
+    //     var temp;
+    //     var length = field.value.length;
+    //     for (var i=0; i<field.value.length; i++) {
+    //             temp = "" + field.value.substring(i, i+1);
+    //             if (valid.indexOf(temp) == "-1") ok = "no";
+    //     }
+    //     if (ok == "no") {
+    //       alert("Only numbers are accepted in this field.");
+    //       field.focus();
+    //       field.select();
+    //       return false;
+    //     }else if(length != 12 || (field.value.substring(0,3) != "639")){
+    //         alert("Invalid Mobile Number format.  (i.e. 639171234567)");
+    //         field.focus();
+    //         field.select();
+    //         return false;
+    //     }
+    // return true;
+}
+
+function validateNum(field) {
+    var valid = "0123456789"
+    var ok = "yes";
+    var temp;
+    for (var i=0; i<field.value.length; i++) {
+        temp = "" + field.value.substring(i, i+1);
+        if (valid.indexOf(temp) == "-1") ok = "no";
+    }
+    if (ok == "no") {
+      alert("Only numbers are accepted in this field.");
+      field.focus();
+      field.select();
+      return false;
+    }	
+    return true;
+}
+
+function validateNum2(field) {
+    var valid = "0123456789-"
+    var ok = "yes";
+    var temp;
+    for (var i=0; i<field.value.length; i++) {
+        temp = "" + field.value.substring(i, i+1);
+        if (valid.indexOf(temp) == "-1") ok = "no";
+    }
+    if (ok == "no") {
+      alert("Only numbers and (-) symbol are accepted in this field.");
+      field.focus();
+      field.select();
+      return false;
+    }	
+    return true;
+}
+
+
+function onVerifyEntry(txtEntry, strMessage){
+    if (txtEntry.value=="") {
+        alert(strMessage);
+        txtEntry.focus();
+        txtEntry.select();
+        return false;
+    }
+	return true;
+}
+ function trim(s) 
+{ 
+    var l=0; var r=s.length -1; 
+    while(l < s.length && s[l] == ' ') 
+    {     l++; } 
+    while(r > l && s[r] == ' ') 
+    {     r-=1;     } 
+    return s.substring(l, r+1); 
+} 
+  

@@ -1,27 +1,61 @@
-!odMbo!
-u4U49wexPYW+yffAqyJy80400000000077FzwSg9OqD9qS399wede0EIpBRav1wE9hl8DmQ3QfAW
-kEN+PF/l7hPt3eddygKUb1JgHRE18KH5i+wFkr5h10q95vDaDLqFqJCG5wOIrBeRUqVEob3UOZhd
-YuvI+t3pvTeAB8nw1qNw45NMDMLHtZc9igpjh2w1VY4jW5HZ3Uq9RwECPuK7I5ph1mWnzAW77N+g
-UEwlU+ob8U0LCTCzoXlFaY3H3BI8Usw7xO8DWIma1MyDjXwMLIGosbieZCNgRGxiXdYePhZFCZ8t
-dt39vI0rhmiBA/8xer3PKbZYjVlRgfrUjEAUfPyEFdmyd+7trn8vGy6YBZXYSDmCef6Z1tydFg94
-5+DqgbQRJXt86DUC7LoZjPo5hVGWwRoM+r4s+zL7G95qp2bjZKoU7jryXm3ZGiJo6a/sMlz8zAql
-PyA6UJ9iUMfylArqn+3bJX3jz9neBrnGbL054/To2CPkM0dM/m80lpJFzcOJGHKWevPi5pDLBIMR
-lddfaznam4Ukz0y+jPdO6a8yDzyG9qFztUtdejRkQFRwvAHssst3Ae0ml+6zfWZzyN05b/E7ZCu0
-ZiZ1qRvXjBcgU4GFim4MGP7YBcJEBKQC6nkTl4LuET3vuAy/hUJpnB6bQtmPqD0b30ahqxV31iCV
-wNONXAWy0rIHsMbC6z/vzS5gKFlc0dw6fyCRsfuBdxJGp1g6ra5ikXCSiEUtHKlqEGboWHGYcLj3
-S/fxdkI9j2FuksZFwpAzlNRlVKg5VT8sfTtbA2LZkcqLH2jNnvIAHj9ntCKppKX1gxiCZTbIMmAy
-lKVu3gg9235MqlmqmIaWiAdDAY7egCcvv6dtEvJTf3eDEaCeGABovazEr/70IEPiqC70XXxU/M17
-bUKs0PZdHDLJ1/8tyLAWuq9gQXTG8/svjisxcqVbuKUNisBXTrciaN597wXMnghHBhJK6dR7HQQg
-PPV9KT4Z2US8Nm7r5xhbIRVYpdQ58L6ECobVjhfz/kmT8PZiyfjOQqczYGCGR7QL+MsHvYNq5ibT
-QY00gVC2jxqv+bwJgorXkg8lgioQ487hcs5ufVSBB17SS2/w6pdZ+Ag9GPmjY0eSZO5Kc1Y/W6bR
-3CD4RHUNnLychoJhXLbIm3qynaf30+KLzHhqXDBhTEyDEJ6i74Pyae+h0kK693lBxIKPi59p7abS
-/ONcRM707/eX8v+irNY3+bJchNa7rE/IsXx9AytzSVO0I89BCeJQ8s2nwUedbfFe4Hq6secwF+Cx
-Ky8yAPZmFWQm7lEc/q0bDXvV0bf4tKJ0+LghAlTmpqxwwd6V0/4139I5hS2OhjIqD9eQS8mbhV9t
-n7mZ5vwEhcsG/3FMK89gcEFgeena1fos4bwUOUP61DoZg7zNZHzMzPK+xsfvNIqB4wf1fzCit9Nl
-djrANErY1VLQp50ovP9cuzuzJ8TxvDmkVl0NIhVpO6lhrtKl4dlY7oBD2Z6US8AxX6qpNuR+MTv6
-wdN+ljZiiliDpcGQmujQOiOzmdhYGBTpdcnIOCe8r3U1hCKMI+A7OhW8WPXDYlM8yLKmtdmHhMRC
-O1rdOpVlVol+pJlu5fd7HAnjrq9QPvQ30RQ594RM6xdEI6j3szH+Nux6BdHMkslcnFPeIdHjKN0C
-nWBB7cJy21zeGODJC8f3/FXkSjgGS1UBi41kbf3e4uSBiR/qBVlDgIYYCvKUdadhMlDjg5WsdfyH
-Oz6PWNoEp+XR+WwNgewdjL6r2Ph2nbMgDAMVVyI94JmjxSE8ozbfppqOEHobwD0IcIetQgR53YBL
-BODHHScyJhx3L/y1VZyeaAItCO7De3O3Dn+eRiwHkbm1dyFpT9w9Jy1U3ZR4xpDevqVo7yFJ8pdk
-IkiaCs1j
+Calendar.LANG("nl", "Nederlands", {
+
+        fdow: 1,                // first day of week for this locale; 0 = Sunday, 1 = Monday, etc.
+
+        goToday: "naar vandaag",
+
+        today: "Vandaag",         // appears in bottom bar
+
+        wk: "wk",
+
+        weekend: "0,6",         // 0 = Sunday, 1 = Monday, etc.
+
+        AM: "vm",
+
+        PM: "nm",
+
+        mn : [ "Januari",
+               "Februari",
+               "Maart",
+               "April",
+               "Mei",
+               "Juni",
+               "Juli",
+               "Augustus",
+               "September",
+               "Oktober",
+               "November",
+               "December" ],
+
+        smn : [ "Jan",
+                "Feb",
+                "Maa",
+                "Apr",
+                "Mei",
+                "Jun",
+                "Jul",
+                "Aug",
+                "Sep",
+                "Okt",
+                "Nov",
+                "Dec" ],
+
+        dn : [ "Zondag",
+               "Maandag",
+               "Dinsdag",
+               "Woensdag",
+               "Donderdag",
+               "Vrijdag",
+               "Zaterdag",
+               "Zondag" ],
+
+        sdn : [ "Zo",
+                "Ma",
+                "Di",
+                "Wo",
+                "Do",
+                "Vr",
+                "Za",
+                "Zo" ]
+
+});

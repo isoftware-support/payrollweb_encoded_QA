@@ -1,25 +1,58 @@
-!odMbo!
-X6vMHBnYYyBHTXxYLD6s704000000000j5gyiK3TwRtIKA2YpZVtA0IeKMVTky2w9cRBqJJ45q9j
-n+oQg+Aus+VkiqItgRdgCxJ5oAQd5BNCFPlG8zCDwole/cTl0tbhOWhL2kUERqgV1wn1/wiizz0E
-TD0rGuER1fF5ziuIE9ZtTICgUcaqM1ss9ICQ9zet+KAJBDG3nKn9d9Z3pSF3SYUwVGjfmv7sLKZR
-qLLkmDzo7vT0qD+b3I9Cjb4W0rQKuAG+mMtZJtusM2VhW9YVIYckK/JbJ1mQdzVjlJ6xZFdrTWmG
-nOur6FOyiH8zlCJYGgHS4/wOIvCghUdG6Ae6cndMoGL3mSc5NUYmmVrrQeqksTEO/HDdmgkDH441
-a7Gee7PSIESkbRfAwnw7+Hr85CyiX0BteiD7JlTTN6v6Ba291BE8efsNgUyWxFm2FmaBHgtfq70T
-UNH0ByJ96FlnyDUz60fgg5oofS3P9L65xEyWv6MKYwcfRx/hrS+lQy3rij8x5neG98Gc78Qcd73U
-z6TJLu+E8t2XD8oS2T0EaQVIU4c0zXvsEpzyloJ3g3Kcf9/ItwFkjwvORo26JOB8xhVqmznnGwwy
-ovDOSRCL1u/g0/6QzyGdwQvs2dfYgXKDNL3vfcZ1P3QwQdo7/Rf9lQjwiKOf1N2KpJ5ngOXHFhQi
-uMPYzaXuW7zZ+RA1Dii0q2sQKr+Ze7sreCP0AG9XIh+3utuNZSFXNZNTFwO/zmu8E+NxMRy29C+g
-BkvAEaGKvbJtR5iuI2EfUOHgSMvGJZrWprFfiMNjVUa9uBZakMKQbm3rbbydBKrz6yK0l2rimhTC
-Xz4P8V1l5PnS7AMlAkcgn+vztsMFTkrVi4imRyWp30my1YLvhzFtn4TxP8D+cZNxspFX8tF9qhYi
-DOBMaU9jtlcjYoacIDdhfryzQZuOLvviaK1G4RZGzNlU/j8vOFQR/VAY4Zi+WXIEmA5Ngb2Whvhr
-x4MwLMioSy8JCd/fadAVSmnzZO2JKn4jgdFpTzeSxQUA3sUMaQfL+H7GtmW8R6hyDWwU5gOjH2/g
-RHfdWl9i48gMWQhAIrn+9/UqQfDdnBv6m1nmtmUWz0kUKNeA+ovewzXydFh15so/X35WjuQek694
-dKeMd4VdCyuKdT2gYavKZA3+xl7vs5di5usYynpb4W+hyFY9gLU5lh91WggC3z3j2AN+TeBcC6AX
-rRs1UTzKu7YD3HQV1kAyi1M4pEMht2yjRvjgL4RSqz+n8J6mPtzfkbCRuAu4z9GI3ZRo2Ax3c45I
-gjnIYiznTG451mlYA6onZQt6VjGrsyfvEUg7ujvXyL62RWlMh3g4mB18yEWJzNOs0SfcE+jKyFbH
-gVLTEOUiKeTBjkLOY6a+S5MvtlMYA7jKKpTnGaZceGnOf2YsBYhZFwQjJ5QrDuwrR/d4ZL6i/r8G
-xGMwtSdeEwK48pBfA1z5b9v/idL4ZEEpxygHFs8CBcPUOSx57JQltxSuh9WlVfyjzvfrvD4/ADyf
-SIZHwDctdFs6Qy3nn4E/bbix+l7gmbTRru6RdpR4bNHyQW+2UGCMSDmyFx+AJ7T02GjwVT6Ci0yT
-3B44cj7kjRTvLu2wPMOldQrHBxx9giRXmiFrDUcMsNVAx6skN9JnIF3nqKEYkQd5IiQk8AmXBtY7
-hvSpeWyE6a5ouu7Fjq2D4bmKFRN0GY7Lyh6UxpuxcTvulDJ8p+RZ50h2c8RiUeEUkaxwJluNPJY6
-apHcIEXxuSioXCIExCFhdKOquFePJTA1m017JmPo5NfaCW==
+Calendar.LANG("hr", "Hrvatski", {
+	fdow: 1,				// first day of week for this locale; 0 = Sunday, 1 = Monday, etc.
+
+	goToday: "Odaberi Danas",
+
+	today: "Danas",				// appears in bottom bar
+
+	wk: "tj",
+
+	weekend: "0,6",				// 0 = Sunday, 1 = Monday, etc.
+
+	AM: "am",
+	PM: "pm",
+
+	mn : [ "Siječanj",
+               "Veljača",
+               "Ožujak",
+               "Travanj",
+               "Svibanj",
+               "Lipanj",
+               "Srpanj",
+               "Kolovoz",
+               "Rujan",
+               "Listopad",
+               "Studeni",
+               "Prosinac" ],
+
+	smn : [ "Sij",
+                "Velj",
+                "Ožu",
+                "Tra",
+                "Svi",
+                "Lip",
+                "Srp",
+                "Kol",
+                "Ruj",
+                "Lis",
+                "Stu",
+                "Pro" ],
+
+	dn : [ "Nedjelja",
+               "Ponedjeljak",
+               "Utorak",
+               "Srijeda",
+               "Četvrtak",
+               "Petak",
+               "Subota",
+               "Nedjelja" ],
+
+	sdn : [ "Ned",
+                "Pon",
+                "Uto",
+                "Sri",
+                "Čet",
+                "Pet",
+                "Sub",
+                "Ned" ]
+});
