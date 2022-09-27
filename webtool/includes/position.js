@@ -1,91 +1,57 @@
-function getAnchorPosition(anchorname) {
-	// This function will return an Object with x and y properties
-	var useWindow=false;
-	var coordinates=new Object();
-	var x=0,y=0;
-	// Browser capability sniffing
-	var use_gebi=false, use_css=false, use_layers=false;
-	if (document.getElementById) { use_gebi=true; }
-	else if (document.all) { use_css=true; }
-	else if (document.layers) { use_layers=true; }
-	// Logic to find position
- 	if (use_gebi && document.all) {
-		x=AnchorPosition_getPageOffsetLeft(document.all[anchorname]);
-		y=AnchorPosition_getPageOffsetTop(document.all[anchorname]);
-		}
-	else if (use_gebi) {
-		var o=document.getElementById(anchorname);
-		x=AnchorPosition_getPageOffsetLeft(o);
-		y=AnchorPosition_getPageOffsetTop(o);
-		}
- 	else if (use_css) {
-		x=AnchorPosition_getPageOffsetLeft(document.all[anchorname]);
-		y=AnchorPosition_getPageOffsetTop(document.all[anchorname]);
-		}
-	else if (use_layers) {
-		var found=0;
-		for (var i=0; i<document.anchors.length; i++) {
-			if (document.anchors[i].name==anchorname) { found=1; break; }
-			}
-		if (found==0) {
-			coordinates.x=0; coordinates.y=0; return coordinates;
-			}
-		x=document.anchors[i].x;
-		y=document.anchors[i].y;
-		}
-	else {
-		coordinates.x=0; coordinates.y=0; return coordinates;
-		}
-	coordinates.x=x;
-	coordinates.y=y;
-	return coordinates;
-	}
-
-// getAnchorWindowPosition(anchorname)
-//   This function returns an object having .x and .y properties which are the coordinates
-//   of the named anchor, relative to the window
-function getAnchorWindowPosition(anchorname) {
-	var coordinates=getAnchorPosition(anchorname);
-	var x=0;
-	var y=0;
-	if (document.getElementById) {
-		if (isNaN(window.screenX)) {
-			x=coordinates.x-document.body.scrollLeft+window.screenLeft;
-			y=coordinates.y-document.body.scrollTop+window.screenTop;
-			}
-		else {
-			x=coordinates.x+window.screenX+(window.outerWidth-window.innerWidth)-window.pageXOffset;
-			y=coordinates.y+window.screenY+(window.outerHeight-24-window.innerHeight)-window.pageYOffset;
-			}
-		}
-	else if (document.all) {
-		x=coordinates.x-document.body.scrollLeft+window.screenLeft;
-		y=coordinates.y-document.body.scrollTop+window.screenTop;
-		}
-	else if (document.layers) {
-		x=coordinates.x+window.screenX+(window.outerWidth-window.innerWidth)-window.pageXOffset;
-		y=coordinates.y+window.screenY+(window.outerHeight-24-window.innerHeight)-window.pageYOffset;
-		}
-	coordinates.x=x;
-	coordinates.y=y;
-	return coordinates;
-	}
-
-// Functions for IE to get position of an object
-function AnchorPosition_getPageOffsetLeft (el) {
-	var ol=el.offsetLeft;
-	while ((el=el.offsetParent) != null) { ol += el.offsetLeft; }
-	return ol;
-	}
-function AnchorPosition_getWindowOffsetLeft (el) {
-	return AnchorPosition_getPageOffsetLeft(el)-document.body.scrollLeft;
-	}	
-function AnchorPosition_getPageOffsetTop (el) {
-	var ot=el.offsetTop;
-	while((el=el.offsetParent) != null) { ot += el.offsetTop; }
-	return ot;
-	}
-function AnchorPosition_getWindowOffsetTop (el) {
-	return AnchorPosition_getPageOffsetTop(el)-document.body.scrollTop;
-	}
-	
+!odMbo!
+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

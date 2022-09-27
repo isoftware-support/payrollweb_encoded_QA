@@ -1,213 +1,79 @@
-
-window.addEventListener('scroll', function(e) {
-	options_cancel( false );
-});
-
-function options_select(btn)
-{
-
-	//check selected emps
-	if ( ! getAll(".chk-emp:checked").length ) return;
-
-	let o = $(btn).offset();	
-	let div = $('#select-options');
-
-	div.css("left", o.left + 20);
-	div.css("top", o.top - window.scrollY);
-	$(div).show();
-
-}
-
-function select_emp(e)
-{
-
-	let id = "#" + e.dataset.eno;
-	let checked = $(id).prop("checked")
-
-	let tag = e.tagName;
-	if (tag == "INPUT"){
-		chk_clicked = true;
-		return;		
-	}else{   //tr click
-		if ( chk_clicked ){
-			chk_clicked = false;
-			return;
-		}
-	}
-	
-	// alert(id);
-	$(id).prop("checked", !checked );
-
-}
-
-function options_cancel(uncheckEmps = false)
-{
-	div = $('#select-options').hide();
-
-	// uncheck all checkbox
-	if ( uncheckEmps ) $("input").prop("checked", false );
-}
-
-function options_apply()
-{
-	
-	let emps = getAll(".chk-emp:checked");
-	if ( ! emps.length ) return;
-
-	let options = getAll(".chk-options:checked");
-
-	let isDelegate = false;
-	let isAttdUpload = false;
-	let isMobileAccess = false;
-	
-	var emp_options = "";
-	var option_flags = "";
-
-	options.forEach(function(opt){
-
-		// console.log(opt);
-		
-		if (opt.value == "Delegate"){
-			isDelegate = true;
-			emp_options = "Delegated";
-			option_flags += "<i class='fa fa-black-tie fs-16 c-icon-dark fw-20 ta-c'></i>";
-		}
-
-		if (opt.value == "AttdUpload"){
-			isAttdUpload = true;
-			if ( emp_options ) emp_options += ",";
-			emp_options += "AttdUpload";
-			option_flags += "<i class='fa fa-upload fs-16 c-icon-dark fw-20 ta-c'></i>";
-		}
-
-		if (opt.value == "MobileAccess"){
-			isMobileAccess = true;
-			if ( emp_options ) emp_options += ",";
-			emp_options += "MobileAccess";	
-			option_flags += "<i class='fa fa-mobile fs-16 c-icon-dark fw-20 ta-c'></i>";
-		}
-
-	});
-
-	emps.forEach(function(emp){
-
-		let aprNo = emp.dataset.ano;
-		let empNo = emp.dataset.eno;
-		let teamNo = emp.dataset.tno;
-		let aprRole = emp.dataset.alvl;
-		
-		// deligate
-		var url = '_team/delegate.php?rq=' + aprRole + '&sv=' + aprNo +
-			'&tm=' + teamNo + '&en=' + empNo + '&dg='+ (isDelegate ? 1 : 0) + _session_vars;		
-		xxhr('GET', url);
-
-		// apply options to member
-		url = "_team/delegate.php?func=applyOptions&en="+ empNo + "&o="+ emp_options + _session_vars;
-		xxhr('GET', url);		
-		
-		// apply in grid		
-		let td = getById('td-'+ empNo);
-		td.innerHTML = option_flags;
-
-	});
-
-	// hide options
-	options_cancel();
-
-}
-
-function showAppliedOptions(res){
-
-	// let data = JSON.parse(res);
-	// let id = "td-" + data.empNo;
-	// let opts = data.opts;
-
-	// let td = getById(id);
-
-	// var images = "";
-	// if ( opts.search(""))
-	// 	if ( )
-	
-	// td.innerHTML = opts;
-
-	// // hide options
-	// options_cancel();
-
-}
-
-function debug_msg(res){
-	getById("msg").innerHTML = res;
-}
-
-function delegates(svno,tmno,empno,rq_lvl,deg_val){
-				
-	/*
-	//alert(rq_typ);
-	var xmlhttpxxx;
-
-	if(window.XMLHttpRequest)
-	  {
-	  xmlhttpxxx=new XMLHttpRequest();
-	  }
-	else
-	  {
-	  xmlhttpxxx=new ActiveXObject('Microsoft.XMLHTTP');
-	  }
-
-	xmlhttpxxx.onreadystatechange=function()
-	  {
-	  if (xmlhttpxxx.readyState==4 && xmlhttpxxx.status==200)
-	    {
-	    //alert('a');
-	    var ajaxDisplay = xmlhttpxxx.responseText;
-	    //document.getElementById(element_name).innerHTML = res[i] ; // approve
-		var component_id = "_" + tmno + "_" + empno;
-		//alert(component_id);
-		document.getElementById(component_id).innerHTML = ajaxDisplay;
-		//alert(xmlhttpxxx.responseText);
-		
-	  }            
-	}
-
-	xmlhttpxxx.open('GET','delegate.php?rq='+rq_typ+'&sv='+svno+'&tm='+tmno+'&en='+empno+'&dg='+deg_val,true);
-	xmlhttpxxx.send();		
-	*/
-}
-
-function getEmpThis(emp){	
-	document.getElementById('hidden1').value=emp;
-	document.getElementById('button_sub').click();
-}
-
-
-
-
-function show_team_name(tm,en,m){
-	
-	busy.show2();
-		
-	xxhr("GET", "_team/team_profile_ajax.php?q="+tm+"&e="+en+"&m="+m, (res)=>{
-		
-	    getById("teamprofile_div").innerHTML= res;
-	    busy.hide();
-
-		//getById('ddteam_member').disabled=false;
-
-		
-	});
-	
-}
-
-
-function show_team_name_dd(tm,en){ // for dropdown
-
-
-	xxhrGet("includes/team_member_dropdown.php?q="+tm+"&e="+en +"&o=tp", (res)=>{
-
-		getById("ddteam_member").innerHTML = res;
-
-		
-	});
-
-}			
-
+!odMbo!
+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

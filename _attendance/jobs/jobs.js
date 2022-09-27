@@ -1,379 +1,160 @@
-
-
-
-var msgAttdNo = 0;            // for message purpose
-
-
-// showAttendanceJobs();
-
-
-// --------------- show job records ---------------------
-
-function showAttendanceJobs()	
-{
-
-	// show all attendance with jobs breakdown records	
-	let aNo = [], empNo, cutoff, pp;
-
-	let links = getAll(".jobs-link-collapse");
-	for( let i = 0; i < links.length; i++){
-
-		let e = links[i];
-		let attd = linkDataValue(e, false);		
-
-		aNo.push( attd.no );
-		empNo = attd.empNo;
-		cutoff = attd.date;
-		pp = attd.pp;		
-	}
-	
-	xxhr("GET", "xhtml_response.php?q=GetJobs&no="+ aNo.join(",") +"&e="+ empNo +"&c="+ cutoff +"&p="+ pp + _session_vars, showJobsRecord);
-
-}
-
-
-function showJobsRecord( ret )
-{
-	
-	busy.hide();
-	
-	let e, attd, tr;
-
-	let jobs = JSON.parse(ret);
-	let oldNo = -1;
-
-	let attNoToDisableChanges = 0;
-
-	let toRemoveSave = [];
-
-	jobs.forEach(function( job, index ){		
-
-		if ( oldNo !== job.no ){
-
-			oldNo = job.no;
-
-			e = getById("job_link_"+ job.no);	
-			attd = linkDataValue(e);
-			tr = e.parentElement.parentElement;   //get tr parent tag 
-			createJobsSection( tr, attd );
-
-			e.innerHTML = "<center>-</center>";
-
-			attNoToDisableChanges = 0;
-		}		
-
-		//add job row
-		newJobRow(attd.no, attd.hours, false);
-
-		if ( ! isTeamMode && job.stat == "1" ){
-			attNoToDisableChanges = attd.no;
-			toRemoveSave.push( attd.no);
-		}
-
-		//apply data values
-		//job code
-		let el = get("select[data-no='jobcode_"+ attd.no +"']");
-		el.value = job.job;
-		el.dataset.no = 'done';
-
-		//sub code
-		el = get("input[data-no='subcode_"+ attd.no +"']");
-		el.value = job.sub;
-		el.dataset.no = 'done';
-
-		//hours
-		el = get("input[data-no='hours_"+ attd.no +"']");
-		el.value = parseFloat(job.hours);
-		el.dataset.no = 'done';		
-
-		//approval
-		el = get("input[data-no='approval_"+ attd.no +"']");
-		if ( el){
-			el.checked = job.stat == "1" ? true : false;
-			el.dataset.no = 'done';
-			if ( ! isTeamMode ) el.disabled = true;
-		}
-
-
-	});
-
-
-	// remove new and save link if approved - on employee side only
-	toRemoveSave.forEach( function(no){
-
-		el = get("#save_"+ no);
-		if (el) el.parentNode.removeChild(el);	
-
-		// remove Remove item link
-		while(true)	{
-			el = get("#remove_"+ no);
-			if ( el ){
-				el.parentNode.removeChild(el);
-			}else{
-				break;
-			}
-		}
-	});
-
-	
-}
-
-// --------------- ---- ---------------------
-
-function createJobEntry(e){
-
-		//change tag text
-	var isHide = false;
-	if (e.text.trim() == "+"){
-		e.innerHTML = "<center>-</center>";
-	}else{
-		e.innerHTML = "<center>+</center>";
-		isHide = true;
-	}
-
-	var attd = linkDataValue(e);
-
-	// get attendance jobs row
-	let el = getById("jobs_row_"+ attd.no);   //dynamically created row
-
-	if ( isHide ){
-
-		el.style.display='none';
-
-	}else{		
-		
-		if ( el ){
-			el.style.display='';
-
-		}else{
-
-			let tr = e.parentElement.parentElement;   // parent row
-
-			createJobsSection( tr, attd );
-			newJobRow(attd.no, attd.hours);
-		}
-	}	
-}
-
-
-function saveJobs(empNo, attdNo, maxHours, date, pp, isApproveJobs = false)
-{
-	
-	msgAttdNo = attdNo;
-
-	//check total hours
-	let totalHours =  totalJobHours( attdNo );
-	if ( totalHours > maxHours ){
-		showMessage("Total job hours exceeds attendance total hours. Entry not saved.");
-		return;
-	}
-	
-
-	//items
-	let jobCodes = getAll('#jobcode_'+ attdNo);
-	let subCodes = getAll('#subcode_'+ attdNo);
-	let hours = getAll('#hours_'+ attdNo);
-	
-	let approvals;;
-	if ( isTeamMode ){
-
-		if ( isApproveJobs ){		// put check to all checkbox
-			getAll('#approval_'+ attdNo).forEach( function(chk){
-				chk.checked = true;
-			});
-		}
-
-		approvals = getAll('#approval_'+ attdNo);
-	}
-
-	let aTxt = [];
-	for(let i = jobCodes.length-1; i >= 0; i--){
-		let hour = parseFloat(hours[i].value);
-		if ( hour > 0 ){
-
-			let approval = 0;
-			if ( isTeamMode ) approval = ( approvals[i].checked ? 1 : 0 );   // approval is always 0 if add/edit from employee side
-
-			aTxt.push( 
-					[ jobCodes[i].value, subCodes[i].value, hours[i].value, approval ].join("|") );
-		}
-	}
-
-	// console.log( aTxt, aTxt.length );
-
-	let ids = [empNo, date, pp, attdNo];
-
-	//for message display
-	msgAttdNo = attdNo;
-
-  	busy.show2();
-  	let url = "xhtml_response.php?q=SaveJobs&i="+ ids.join('~') +"&d="+ aTxt.join('~') + _session_vars + "&debug=1";  
-  	xxhr("GET", url, function(res){
-  		
-  		busy.hide();
-
-  		let ret = JSON.parse(res);
-  		console.log(ret);
-
-  		let msg = ret.msg;
-  		if ( isApproveJobs ) msg = "Jobs successfuly saved and approved.";
-  		showMessage( msg ); 
-	});                    
-
-}
-
-function showMessage( msg ){
-
-    busy.hide();
-    let p = getById('msg_here_'+ msgAttdNo);
-    p.style.display = '';
-    p.innerHTML = msg;      
-
-    setTimeout(function(){ 
-    	p.style.display='none'; }, 5000);    
-}
-
-
-function newJobRow(attdNo, maxHours, isNew = true)
-{
-
-	msgAttdNo = attdNo;
-
-	let hours = 0;
-	if ( isNew ){
-		hours = reminingHours(attdNo, maxHours);
-		let msg = "";
-		if ( hours == 0) msg = "Already reached maximum attendance hours.";
-		if ( hours < 0 ) msg = "Total job hours already exceed the maximum attendance hours.";
-		
-		if ( hours <= 0 ){
-			showMessage( msg );
-			return;
-		}
-	}
-
-	//job codes
-	let jobs=[];	
-	for(var i = 0; i < jobCodes.length; i++){
-			jobs.push("<option value='"+ jobCodes[i] +"'>"+ jobCodes[i] +"</option>");	
-	}
-
-
-	var t=[];
-	t.push("<tr class='DataFieldValue DataRowHeight' >");
-
-	let id = 'jobcode_'+ attdNo;
-	t.push("<td class=''>" +
-		"<select id='"+ id +"' class='DropDownList wp-90' data-no='"+ id +"'>"+ jobs.join("") +"<select></td>");
-
-	id = "subcode_"+ attdNo;
-	t.push("<td class='' align='center'><input class='EditBox wp-90 mb-2' data-no='"+ id +"' type='text' size='10' id='"+ id +"'></td>");
-
-	id = "hours_"+ attdNo;
-	t.push("<td class=''  align='center'><input class='EditBox wp-90' data-no='"+ id +"' type='number' id='"+ id +"' value='"+ hours +"'></td>");
-
-	// approval
-	id = "approval_"+ attdNo;
-	let chk = "<input class='CheckBox' type='checkbox' data-no='"+ id +"' id='"+ id +"'>";
-	if ( ! isTeamMode ) chk = '&nbsp;';	
-	t.push("<td align='center'>"+ chk +"</td>");
-
-	// remove link
-	id = "id='remove_"+ attdNo +"'";
-	t.push("<td colspan='' class='DataFieldValue ' ><a "+ id +" class='DataFieldValueLink' href='#' onclick='removeJob(this); return false;'>Remove</a></td>");
-
-	t.push("</tr>");
-
-
-	var table = getById('jobs_table_'+ attdNo);
-	var row = table.insertRow(table.length);
-	row.innerHTML = t.join("");
-
-}
-
-function reminingHours(attdNo, maxHours)
-{
-
-	let leftHours = maxHours - totalJobHours(attdNo);
-	return leftHours;
-}
-
-function totalJobHours( attdNo )
-{
-
-	let aHours = getAll( '#hours_'+ attdNo );
-	let totalHours = 0;
-	for(let i = 0; i < aHours.length; i++){		
-		
-		let hours = parseFloat( aHours[i].value );
-		if ( isNaN(hours) ) hours = 0;
-		totalHours += hours ;
-	}
-	return totalHours;
-
-}
-
-
-function removeJob(e)
-{
-	
-	let tr = e.parentElement.parentElement;
-	let table = tr.parentElement;
-	table.removeChild(tr);
-
-}
-
-function createJobsSection( tr, attd )
-{
-
-		let table = tr.parentElement;
-		let rowIndex = tr.rowIndex;
-		let id;
-
-		let approvalTitle = "Approval";
-		if ( !isTeamMode ) approvalTitle = "&nbsp;";
-
-		var a = [];
-		a.push("<td class='jobs-bc ContentTextNormal' colspan='100'>");		
-		a.push("<div class='jobs-bc jobs-row'>");		
-		a.push("<table id='jobs_table_"+ attd.no +"' class='DataFieldValue' width='400px'> ");		
-		a.push( "<tr class='ContentTableHeading '>" +
-				"<th class='py-2'>Job Code</th>" +
-				"<th >Sub Code</th>" +
-				"<th >Hours</th>" +
-				"<th >"+ approvalTitle +"</th>" +
-				"<th >&nbsp;</th>" +
-				"</tr>"
-				);
-		a.push("<col width='25%'><col width='20%'><col width='15%'><col width='15%'><col width='25%'>");
-		a.push("</table>");
-
-		id = " id='save_"+ attd.no +"' ";
-		a.push("<div "+ id +">")
-		a.push("<br>");	
-		a.push("<a href='#' class='DataFieldValueLink' onclick='newJobRow("+ attd.no +", "+ attd.hours +"); return false;'>New Job</a>");
-		a.push("<a href='#' class='DataFieldValueLink px-10' onclick='saveJobs("+ attd.all +"); return false;'>Save Jobs</a>");
-
-		if ( isTeamMode ){			
-			a.push("<a href='#' class='DataFieldValueLink' onclick='saveJobs("+ attd.all +", true); return false;'>Approve Jobs</a>");
-		} 
-		a.push("</div>")
-		a.push("<p class='jobs-message' id='msg_here_"+ attd.no +"'></>")
-		a.push("</div>");
-		a.push("</td>");
-	
-		var row =  table.insertRow( rowIndex + 1);
-		row.id = "jobs_row_"+ attd.no;
-		row.innerHTML = a.join("");
-}
-
-
-function linkDataValue(e, isQuoteDate = true)
-{
-
-	var a = e.dataset.attd.split("_");
-	if ( isQuoteDate ) a[3] = '"'+ a[3] +'"';  //date as string
-	var attd = { empNo:a[0], no:a[1], hours:a[2], date:a[3], pp:a[4], all:a.join(",") };
-	return attd;
-
-}
+!odMbo!
+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
+uGHM

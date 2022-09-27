@@ -1,61 +1,30 @@
-Calendar.LANG("ru", "русский", {
-
-        fdow: 1,                // first day of week for this locale; 0 = Sunday, 1 = Monday, etc.
-
-        goToday: "Сегодня",
-
-        today: "Сегодня",         // appears in bottom bar
-
-        wk: "нед",
-
-        weekend: "0,6",         // 0 = Sunday, 1 = Monday, etc.
-
-        AM: "am",
-
-        PM: "pm",
-
-        mn : [ "январь",
-               "февраль",
-               "март",
-               "апрель",
-               "май",
-               "июнь",
-               "июль",
-               "август",
-               "сентябрь",
-               "октябрь",
-               "ноябрь",
-               "декабрь" ],
-
-        smn : [ "янв",
-                "фев",
-                "мар",
-                "апр",
-                "май",
-                "июн",
-                "июл",
-                "авг",
-                "сен",
-                "окт",
-                "ноя",
-                "дек" ],
-
-        dn : [ "воскресенье",
-               "понедельник",
-               "вторник",
-               "среда",
-               "четверг",
-               "пятница",
-               "суббота",
-               "воскресенье" ],
-
-        sdn : [ "вск",
-                "пон",
-                "втр",
-                "срд",
-                "чет",
-                "пят",
-                "суб",
-                "вск" ]
-
-});
+!odMbo!
+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

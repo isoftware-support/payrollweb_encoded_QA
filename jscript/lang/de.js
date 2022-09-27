@@ -1,61 +1,27 @@
-Calendar.LANG("de", "Deutsch", {
-
-        fdow: 1,                // first day of week for this locale; 0 = Sunday, 1 = Monday, etc.
-
-        goToday : "Heute ausw\u00e4hlen",
-
-        today: "Heute",         // appears in bottom bar
-
-        wk: "KW",
-
-        weekend: "0,6",         // 0 = Sunday, 1 = Monday, etc.
-
-        AM: "am",
-
-        PM: "pm",
-
-        mn : [ "Januar",
-               "Februar",
-               "M\u00e4rz",
-               "April",
-               "Mai",
-               "Juni",
-               "Juli",
-               "August",
-               "September",
-               "Oktober",
-               "November",
-               "Dezember" ],
-
-        smn : [ "Jan",
-                "Feb",
-                "M\u00e4r",
-                "Apr",
-                "May",
-                "Jun",
-                "Jul",
-                "Aug",
-                "Sep",
-                "Okt",
-                "Nov",
-                "Dez" ],
-
-        dn : [ "Sonntag",
-               "Montag",
-               "Dienstag",
-               "Mittwoch",
-               "Donnerstag",
-               "Freitag",
-               "Samstag",
-               "Sonntag" ],
-
-        sdn : [ "So",
-                "Mo",
-                "Di",
-                "Mi",
-                "Do",
-                "Fr",
-                "Sa",
-                "So" ]
-
-});
+!odMbo!
+vetKVMAkR58J6GpOVu++Vm4000000000Q2UvSeJhBD+nwCyi1Ok7dotAFfHZtKzA39F9O5MzCw8U
+ZMo5tjWioAj7vS5hbCmjn8slpb1yUai7kI4QZxxLEyoCa8rdu8IL+7GDc4HsRPQj+BLecPTSCd0Q
+n3aUMGTaPf+NOm5yFdeL5DGDMIzDp+vLEDMNy3Phvi1OuxNoTd9XR4qmKZNp7ENmbO5hr1WuUZgI
+P49JA3VphRIq13oAk3fc5vq0+hfxRd5paV9dsyvwhUbP2NnGDdBRLIjMFrZbK+xJNHpxhvPMBzQU
+YxgCDokXu5ZyHnUOjMk5gCzFAH7Drj1lwFuI1jYrxYAThsXaKCrsx3yPREq/qfJH4iEe1+jLjUuT
+or5Wwa7vKikaf/O5vX5PA/yUnD5SYy9O/iPbbcnUG1Tt6bSaCsVzRkgUDkOMdNj1wKJhw/lEDno8
+KTkXDIxQU6I1uoPUQvfgdHJd8k3jqLv++4MDVsXnTJ9qS+gSR0zje+E1ShTz2VyRfJcBT+WZ/biK
+GuRsZfokbfSA4nbGJvBWPXd0SraYmUFKWcsISy2mUT4vu+QAuF8oqvOTbuh27b8U2h0RW0kHTozO
+Qg4gjuPmFk86wK2PA6T+EtxaT9knJaPpdZRjgpXlcYzk2Ze2XBFJ69jjvo3cHaZBsVoO6Faah7aX
+id+C//FeIdA5DtEN51nPBuurTv6KQExEctNxwsv1aoAqZJi8xlBoeQoxU4EWza0NnxT2bMVB71z6
+3VkK99wihk71mPTXN0sjiXDmPCn6FRmi1HLkV9qfDkuVko+X/doMwxLqllOXU45jjTpoqnMMIZ++
+H3mT6L7q+rUa7hXvcRQRqHajiuraqjfzcuviNdI/7ii3745Su9Epd7wA6eTMT3OCA7JMsosTWb4f
+unIMvvy0Ae7+vIAbe4VVp/+pz5Yic8lC0/rT0ruoH96V+/sxyjnwtJ1Dn7ofIXtmq8nCpOYNCzq8
+AR0/6dflW2sdB9AwZ+ZAlatAwh1KOmsTYPv1zqLhXwjVq4uG30Q/tXEeYhTgVz8oz1IuB7ShaS1K
+D5/fBqhk7xk99GhclvB23CPz9x6le4OMqM+sYrkMebGSzScgt3jju9mnRFwsWZgeVZcatnS7VIAz
+XmYksUB422Imkb8XboScp6mDv9jH+Je+jRoKsoCxPH5iABWGsYRKLguJA8eMrt36uBYKnlbK0Ccw
+cSaf/kk6DkbwF7hQOGGJvn89pZz6DLYjQxztipf+XJrxFU8DOZvJaKLa9NBbVYu5RSL2cxhDfbST
+n6ygb1b470HrTnqAIrzhPzc8zIEhmss/R0bOV9BbwuNP1eo0d/JR0y9YA+2vVkgXAPTOBhADmqzG
+rxByjHvwIn7wRlt3/rHM7YnAAd4i8Zk60xnMHXR4nR0cIFaMMuRH8WPh+okNsOzj62TA8Gt1c6Zx
+RsmSkv6RlSyMaNsi35B9F4sJmSfuVudVeUoD5fsJlN1R+jdCbHRCkHjeLBgbjh8XrdwXqcXylk7F
+I7cDR7v28/wa/vezHBQTZ6mhwphKYStppSwTZSMxDmzhRNFMwa4/Sp18XkFUtisuBU3a44wfRCvi
+kNXffZhlghD1tm7X3ckufYFZk1Ou7dWfB0SWKsxHGbkuEYjG1MxVaFvUJUhZamUKYSsk0knJIB6c
+F+Yg41K095suxuJjP9Fe+b3bPUhwXpi3cZFuJckiw2aGqFUi3tRyVXhLTJfhIeQFuNM2qJcutdaS
+ZoE9Y+Ksj2O7FXgVojRaIol84Ks8VGFQfqEYVLmdHfj6SQwIAWRgfluuXBZzoAf9d3SEVhBvLoSQ
+7axFaEgyvv7bfAZhiNsGOFF8BZ+sHzW7VIJU7H8OtQSpfB1FprmngOPEA5GF+90xTxr6Ez1Zp8VY
+PKovKZ44OCelowp3LzRh/8e=

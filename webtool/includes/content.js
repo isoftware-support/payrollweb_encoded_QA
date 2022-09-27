@@ -1,57 +1,32 @@
-function close_window(){
-var x = document.forms[0];
-xx = x.group_id.value;
-y = x.cm_id.value;
-window.location = "content_manager.php?optSection=" + xx + "&id=" + y;
-
-}
-function extractVals()
-{
-    param = "";
-    f = document.forms[0];
-    for (i = 0; i < f.elements.length; i++) {
-        if ((f.elements[i].name == "id[]") && (f.elements[i].type == "radio")
-            && (f.elements[i].checked)) {
-            if (param != "") param = param + ",";
-            param = param + f.elements[i].value;
-        }
-    }
-    return param;
-}
-function getCurrent()
-{
-    pp = window.location.href;
-    return "&prevpage=" + escape(pp);
-}
-function EditContent()
-{
-    var x = document.forms[0];
-    param2 = x.optSection.value;
-    param = extractVals();
-    if (param == "") return alert("Please select at least one record.");
-    window.location = "edit_content.php?cm_id=" + escape(param) + getCurrent() + "&optSection=" + param2;
-}
-function DeleteContent()
-{
-	var x = document.forms[0];
-	param2 = x.optSection.value;
-    param = extractVals();
-    if (param == "") return alert("Please select at least one record.");
-    window.location = "delete_content.php?cm_id=" + escape(param) + getCurrent() + "&optSection=" + param2;
-}
-function viewArticleContent(artObj)
-{
- var x = document.forms[0];
- param = extractVals();
- param2 = x.optSection.value;
- if (param == "") return alert("Please select at least one record.");
- window.location = "view_content.php?&article=" + escape(param) + getCurrent() + "&optSection=" + param2;
-
-}
-
-
-function viewSection(secObj){
-var x = secObj.value;
-    window.location = "content_manager.php?optSection=" + x;
-}
-
+!odMbo!
+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
+Ctg/gW3Cb7/Mt1TnZ5iiPqVqN6eZXNXA

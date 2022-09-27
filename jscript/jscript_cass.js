@@ -1,763 +1,554 @@
-/* =================================================================================================
- * TransMenu 
- * March, 2003
- * Customizable multi-level animated DHTML menus with transparency.
- *
- * Copyright Aaron Boodman (www.youngpup.net)
- * =================================================================================================
- * updates:
- * 10.05.11 remove sniffing for browsers that have virtually no market share.
- * 04.19.04 fixed cascade problem with menus nested greater than two levels.
- * 12.23.03 added hideCurrent for menu actuators with no menus. renamed to TransMenu.
- * 04.18.03	fixed render bug in IE 5.0 Mac by removing that browser from compatibility table ;)
- *			also made gecko check a little more strict by specifying build no.
- * ============================================================================================== */
-
-
-
-//==================================================================================================
-// Configuration properties
-//==================================================================================================
-TransMenu.spacerGif = "img/x.gif";                     // path to a transparent spacer gif
-TransMenu.dingbatOn = "img/submenu-on.gif";            // path to the active sub menu dingbat
-TransMenu.dingbatOff = "img/submenu-off.gif";          // path to the inactive sub menu dingbat
-TransMenu.dingbatSize = 10;                            // size of the dingbat (square shape assumed)
-TransMenu.menuPadding = 5;                             // padding between menu border and items grid
-TransMenu.itemPadding = 3;                             // additional padding around each item
-TransMenu.shadowSize = 2;                              // size of shadow under menu
-TransMenu.shadowOffset = 3;                            // distance shadow should be offset from leading edge
-TransMenu.shadowColor = "#888";                        // color of shadow (transparency is set in CSS)
-TransMenu.shadowPng = "img/grey-40.png";               // a PNG graphic to serve as the shadow for mac IE5
-TransMenu.backgroundColor = "white";                   // color of the background (transparency set in CSS)
-TransMenu.backgroundPng = "img/white-90.png";          // a PNG graphic to server as the background for mac IE5
-TransMenu.hideDelay = 600;                            // number of milliseconds to wait before hiding a menu
-TransMenu.slideTime = 400;                             // number of milliseconds it takes to open and close a menu
-
-
-//==================================================================================================
-// Internal use properties
-//==================================================================================================
-TransMenu.reference = {topLeft:1,topRight:2,bottomLeft:3,bottomRight:4};
-TransMenu.direction = {down:1,right:2};
-TransMenu.registry = [];
-TransMenu._maxZ = 100;
-
-
-
-//==================================================================================================
-// Static methods
-//==================================================================================================
-// supporting modern browsers
-TransMenu.isSupported = function() {
-        return true;
-}
-
-// call this in onload once menus have been created
-TransMenu.initialize = function() {
-        for (var i = 0, menu = null; menu = this.registry[i]; i++) {
-                menu.initialize();
-        }
-}
-
-// call this in document body to write out menu html
-TransMenu.renderAll = function() {
-        var aMenuHtml = [];
-        for (var i = 0, menu = null; menu = this.registry[i]; i++) {
-                aMenuHtml[i] = menu.toString();
-        }
-        document.write(aMenuHtml.join(""));
-}
-
-//==================================================================================================
-// TransMenu constructor (only called internally)
-//==================================================================================================
-// oActuator            : The thing that causes the menu to be shown when it is mousedover. Either a
-//                        reference to an HTML element, or a TransMenuItem from an existing menu.
-// iDirection           : The direction to slide out. One of TransMenu.direction.
-// iLeft                : Left pixel offset of menu from actuator
-// iTop                 : Top pixel offset of menu from actuator
-// iReferencePoint      : Corner of actuator to measure from. One of TransMenu.referencePoint.
-// parentMenuSet        : Menuset this menu will be added to.
-//==================================================================================================
-function TransMenu(oActuator, iDirection, iLeft, iTop, iReferencePoint, parentMenuSet) {
-        // public methods
-        this.addItem = addItem;
-        this.addMenu = addMenu;
-        this.toString = toString;
-        this.initialize = initialize;
-        this.isOpen = false;
-        this.show = show;
-        this.hide = hide;
-        this.items = [];
-
-        // events
-        this.onactivate = new Function();       // when the menu starts to slide open
-        this.ondeactivate = new Function();     // when the menu finishes sliding closed
-        this.onmouseover = new Function();      // when the menu has been moused over
-        this.onqueue = new Function();          // hack .. when the menu sets a timer to be closed a little while in the future
-		this.ondequeue = new Function();
-
-        // initialization
-        this.index = TransMenu.registry.length;
-        TransMenu.registry[this.index] = this;
-
-        var id = "TransMenu" + this.index;
-        var contentHeight = null;
-        var contentWidth = null;
-        var childMenuSet = null;
-        var animating = false;
-        var childMenus = [];
-        var slideAccel = -1;
-        var elmCache = null;
-        var ready = false;
-        var _this = this;
-        var a = null;
-
-        var pos = iDirection == TransMenu.direction.down ? "top" : "left";
-        var dim = null;
-		
-		
-
-		
-
-        // private and public method implimentations
-        function addItem(sText, sUrl) {
-                var item = new TransMenuItem(sText, sUrl, this);
-                item._index = this.items.length;
-                this.items[item._index] = item;
-        }
-
-        function addMenu(oMenuItem) {
-                if (!oMenuItem.parentMenu == this) throw new Error("Cannot add a menu here");
-
-                if (childMenuSet == null) childMenuSet = new TransMenuSet(TransMenu.direction.right, -5, 2, TransMenu.reference.topRight);
-
-                var m = childMenuSet.addMenu(oMenuItem);
-
-                childMenus[oMenuItem._index] = m;
-                m.onmouseover = child_mouseover;
-                m.ondeactivate = child_deactivate;
-                m.onqueue = child_queue;
-				m.ondequeue = child_dequeue;
-
-                return m;
-        }
-
-        function initialize() {
-                initCache();
-                initEvents();
-                initSize();
-                ready = true;
-        }
-
-        function show() {
-                //dbg_dump("show");
-                if (ready) {
-                        _this.isOpen = true;
-                        animating = true;
-                        setContainerPos();
-                        elmCache["clip"].style.visibility = "visible";
-                        elmCache["clip"].style.zIndex = TransMenu._maxZ++;
-                        //dbg_dump("maxZ: " + TransMenu._maxZ);
-                        slideStart();
-                        _this.onactivate();
-                }
-        }
-
-        function hide() {
-                if (ready) {
-                        _this.isOpen = false;
-                        animating = true;
-
-                        for (var i = 0, item = null; item = elmCache.item[i]; i++) 
-                                dehighlight(item);
-
-                        if (childMenuSet) childMenuSet.hide();
-
-                        slideStart();
-                        _this.ondeactivate();
-                }
-        }
-
-        function setContainerPos() {
-                var sub = oActuator.constructor == TransMenuItem; 
-                var act = sub ? oActuator.parentMenu.elmCache["item"][oActuator._index] : oActuator; 
-                var el = act;
-                
-                var x = 0;
-                var y = 0;
-
-                
-                var minX = 0;
-                var maxX = (window.innerWidth ? window.innerWidth : document.body.clientWidth) - parseInt(elmCache["clip"].style.width);
-                var minY = 0;
-                var maxY = (window.innerHeight ? window.innerHeight : document.body.clientHeight) - parseInt(elmCache["clip"].style.height);
-
-                // add up all offsets... subtract any scroll offset
-                while (sub ? el.parentNode.className.indexOf("transMenu") == -1 : el.offsetParent) {
-                        x += el.offsetLeft;
-                        y += el.offsetTop;
-
-                        if (el.scrollLeft) x -= el.scrollLeft;
-                        if (el.scrollTop) y -= el.scrollTop;
-                        
-                        el = el.offsetParent;
-                }
-
-                if (oActuator.constructor == TransMenuItem) {
-                        x += parseInt(el.parentNode.style.left);
-                        y += parseInt(el.parentNode.style.top);
-                }
-
-                switch (iReferencePoint) {
-                        case TransMenu.reference.topLeft:
-                                break;
-                        case TransMenu.reference.topRight:
-                                x += act.offsetWidth;
-                                break;
-                        case TransMenu.reference.bottomLeft:
-                                y += act.offsetHeight;
-                                break;
-                        case TransMenu.reference.bottomRight:
-                                x += act.offsetWidth;
-                                y += act.offsetHeight;
-                                break;
-                }
-
-                x += iLeft;
-                y += iTop;
-
-                x = Math.max(Math.min(x, maxX), minX);
-                y = Math.max(Math.min(y, maxY), minY);
-
-                elmCache["clip"].style.left = x + "px";
-                elmCache["clip"].style.top = y + "px";
-        }
-
-        function slideStart() {
-                var x0 = parseInt(elmCache["content"].style[pos]);
-                var x1 = _this.isOpen ? 0 : -dim;
-
-                if (a != null) a.stop();
-                a = new Accelimation(x0, x1, TransMenu.slideTime, slideAccel);
-
-                a.onframe = slideFrame;
-                a.onend = slideEnd;
-
-                a.start();
-        }
-
-        function slideFrame(x) {
-                elmCache["content"].style[pos] = x + "px";
-        }
-
-        function slideEnd() {
-                if (!_this.isOpen) elmCache["clip"].style.visibility = "hidden";
-                animating = false;
-        }
-
-        function initSize() {
-                // everything is based off the size of the items table...
-                var ow = elmCache["items"].offsetWidth;
-                var oh = elmCache["items"].offsetHeight;
-                var ua = navigator.userAgent.toLowerCase();
-
-                // clipping container should be ow/oh + the size of the shadow
-                elmCache["clip"].style.width = ow + TransMenu.shadowSize +  2 + "px";
-                elmCache["clip"].style.height = oh + TransMenu.shadowSize + 2 + "px";
-
-                // same with content...
-                elmCache["content"].style.width = ow + TransMenu.shadowSize + "px";
-                elmCache["content"].style.height = oh + TransMenu.shadowSize + "px";
-
-                contentHeight = oh + TransMenu.shadowSize;
-                contentWidth = ow + TransMenu.shadowSize;
-                
-                dim = iDirection == TransMenu.direction.down ? contentHeight : contentWidth;
-
-                // set initially closed
-                elmCache["content"].style[pos] = -dim - TransMenu.shadowSize + "px";
-                elmCache["clip"].style.visibility = "hidden";
-
-                // if *not* mac/ie 5
-                if (ua.indexOf("mac") == -1 || ua.indexOf("gecko") > -1) {
-                        // set background div to offset size
-                        elmCache["background"].style.width = ow + "px";
-                        elmCache["background"].style.height = oh + "px";
-                        elmCache["background"].style.backgroundColor = TransMenu.backgroundColor;
-
-                        // shadow left starts at offset left and is offsetHeight pixels high
-                        elmCache["shadowRight"].style.left = ow + "px";
-                        elmCache["shadowRight"].style.height = oh - (TransMenu.shadowOffset - TransMenu.shadowSize) + "px";
-                        elmCache["shadowRight"].style.backgroundColor = TransMenu.shadowColor;
-
-                        // shadow bottom starts at offset height and is offsetWidth - shadowOffset 
-                        // pixels wide (we don't want the bottom and right shadows to overlap or we 
-                        // get an extra bright bottom-right corner)
-                        elmCache["shadowBottom"].style.top = oh + "px";
-                        elmCache["shadowBottom"].style.width = ow - TransMenu.shadowOffset + "px";
-                        elmCache["shadowBottom"].style.backgroundColor = TransMenu.shadowColor;
-                }
-                // mac ie is a little different because we use a PNG for the transparency
-                else {
-                        // set background div to offset size
-                        elmCache["background"].firstChild.src = TransMenu.backgroundPng;
-                        elmCache["background"].firstChild.width = ow;
-                        elmCache["background"].firstChild.height = oh;
-
-                        // shadow left starts at offset left and is offsetHeight pixels high
-                        elmCache["shadowRight"].firstChild.src = TransMenu.shadowPng;
-                        elmCache["shadowRight"].style.left = ow + "px";
-                        elmCache["shadowRight"].firstChild.width = TransMenu.shadowSize;
-                        elmCache["shadowRight"].firstChild.height = oh - (TransMenu.shadowOffset - TransMenu.shadowSize);
-
-                        // shadow bottom starts at offset height and is offsetWidth - shadowOffset 
-                        // pixels wide (we don't want the bottom and right shadows to overlap or we 
-                        // get an extra bright bottom-right corner)
-                        elmCache["shadowBottom"].firstChild.src = TransMenu.shadowPng;
-                        elmCache["shadowBottom"].style.top = oh + "px";
-                        elmCache["shadowBottom"].firstChild.height = TransMenu.shadowSize;
-                        elmCache["shadowBottom"].firstChild.width = ow - TransMenu.shadowOffset;
-                }
-        }
-        
-        function initCache() {
-                var menu = document.getElementById(id);
-                var all = menu.all ? menu.all : menu.getElementsByTagName("*"); // IE/win doesn't support * syntax, but does have the document.all thing
-
-                elmCache = {};
-                elmCache["clip"] = menu;
-                elmCache["item"] = [];
-                
-                for (var i = 0, elm = null; elm = all[i]; i++) {
-                        switch (elm.className) {
-                                case "items":
-                                case "content":
-                                case "background":
-                                case "shadowRight":
-                                case "shadowBottom":
-                                        elmCache[elm.className] = elm;
-                                        break;
-                                case "item":
-                                        elm._index = elmCache["item"].length;
-                                        elmCache["item"][elm._index] = elm;
-                                        break;
-                        }
-                }
-
-                // hack!
-                _this.elmCache = elmCache;
-        }
-
-        function initEvents() {
-                // hook item mouseover
-                for (var i = 0, item = null; item = elmCache.item[i]; i++) {
-                        item.onmouseover = item_mouseover;
-                        item.onmouseout = item_mouseout;
-                        item.onclick = item_click;
-                }
-
-                // hook actuation
-                if (typeof oActuator.tagName != "undefined") {
-                        oActuator.onmouseover = actuator_mouseover;
-                        oActuator.onmouseout = actuator_mouseout;
-						
-                }
-
-                // hook menu mouseover
-                elmCache["content"].onmouseover = content_mouseover;
-                elmCache["content"].onmouseout = content_mouseout;
-        }
-
-        function highlight(oRow) {
-                oRow.className = "item hover";
-                if (childMenus[oRow._index]) 
-                        oRow.lastChild.firstChild.src = TransMenu.dingbatOn;
-        }
-
-        function dehighlight(oRow) {
-                oRow.className = "item";
-                if (childMenus[oRow._index]) 
-                        oRow.lastChild.firstChild.src = TransMenu.dingbatOff;
-        }
-
-        function item_mouseover() {
-                if (!animating) {
-                        highlight(this);
-
-                        if (childMenus[this._index]) 
-                                childMenuSet.showMenu(childMenus[this._index]);
-                        else if (childMenuSet) childMenuSet.hide();
-                }
-        }
-
-        function item_mouseout() {
-                if (!animating) {
-                        if (childMenus[this._index])
-                                childMenuSet.hideMenu(childMenus[this._index]);
-                        else    // otherwise child_deactivate will do this
-                                dehighlight(this);
-                }
-        }
-
-        function item_click() {
-                if (!animating) {
-                        if (_this.items[this._index].url) 
-                                location.href = _this.items[this._index].url;
-                }
-                // console.log("item clicked");
-        }
-
-        function actuator_mouseover() {
-                parentMenuSet.showMenu(_this);
-        }
-
-        function actuator_mouseout() {
-                parentMenuSet.hideMenu(_this);
-        }
-
-        function content_mouseover() {
-                if (!animating) {
-                        parentMenuSet.showMenu(_this);
-                        _this.onmouseover();
-                }
-        }
-
-        function content_mouseout() {
-                if (!animating) {
-                        parentMenuSet.hideMenu(_this);
-                }
-        }
-
-        function child_mouseover() {
-                if (!animating) {
-                        parentMenuSet.showMenu(_this);
-                }
-        }
-
-        function child_deactivate() {
-                for (var i = 0; i < childMenus.length; i++) {
-                        if (childMenus[i] == this) {
-                                dehighlight(elmCache["item"][i]);
-                                break;
-                        }
-                }
-        }
-
-        function child_queue() {
-                parentMenuSet.hideMenu(_this);
-        }
-
-		function child_dequeue() {
-				parentMenuSet.showMenu(_this);
-		}
-
-        function toString() {
-                var aHtml = [];
-                var sClassName = "transMenu" + (oActuator.constructor != TransMenuItem ? " top" : "");
-
-                for (var i = 0, item = null; item = this.items[i]; i++) {
-                        aHtml[i] = item.toString(childMenus[i]);
-                }
-
-                return '<div id="' + id + '" class="' + sClassName + '">' + 
-                        '<div class="content"><table class="items" cellpadding="0" cellspacing="0" border="0">' + 
-                        '<tr><td colspan="2"><img src="' + TransMenu.spacerGif + '" width="1" height="' + TransMenu.menuPadding + '"></td></tr>' + 
-                        aHtml.join('') + 
-                        '<tr><td colspan="2"><img src="' + TransMenu.spacerGif + '" width="1" height="' + TransMenu.menuPadding + '"></td></tr></table>' + 
-                        '<div class="shadowBottom"><img src="' + TransMenu.spacerGif + '" width="1" height="1"></div>' + 
-                        '<div class="shadowRight"><img src="' + TransMenu.spacerGif + '" width="1" height="1"></div>' + 
-		        '<div class="background"><img src="' + TransMenu.spacerGif + '" width="1" height="1"></div>' + 
-	                '</div></div>';
-        }
-}
-
-
-//==================================================================================================
-// TransMenuSet
-//==================================================================================================
-// iDirection           : The direction to slide out. One of TransMenu.direction.
-// iLeft                : Left pixel offset of menus from actuator
-// iTop                 : Top pixel offset of menus from actuator
-// iReferencePoint      : Corner of actuator to measure from. One of TransMenu.referencePoint.
-//==================================================================================================
-TransMenuSet.registry = [];
-
-function TransMenuSet(iDirection, iLeft, iTop, iReferencePoint) {
-        // public methods
-        this.addMenu = addMenu;
-        this.showMenu = showMenu;
-        this.hideMenu = hideMenu;
-        this.hide = hide;
-        this.hideCurrent = hideCurrent;
-
-        // initialization
-        var menus = [];
-        var _this = this;
-        var current = null;
-
-        this.index = TransMenuSet.registry.length;
-        TransMenuSet.registry[this.index] = this;
-
-        // method implimentations...
-        function addMenu(oActuator) {
-                var m = new TransMenu(oActuator, iDirection, iLeft, iTop, iReferencePoint, this);
-                menus[menus.length] = m;
-                return m;
-        }
-
-        function showMenu(oMenu) {
-                if (oMenu != current) {
-                        // close currently open menu
-                        if (current != null) hide(current);        
-
-                        // set current menu to this one
-                        current = oMenu;
-
-                        // if this menu is closed, open it
-                        oMenu.show();
-                }
-                else {
-                        // hide pending calls to close this menu
-                        cancelHide(oMenu);
-                }
-        }
-
-        function hideMenu(oMenu) {
-                //dbg_dump("hideMenu a " + oMenu.index);
-                if (current == oMenu && oMenu.isOpen) {
-                        //dbg_dump("hideMenu b " + oMenu.index);
-                        if (!oMenu.hideTimer) scheduleHide(oMenu);
-                }
-        }
-
-        function scheduleHide(oMenu) {
-                //dbg_dump("scheduleHide " + oMenu.index);
-                oMenu.onqueue();
-                oMenu.hideTimer = window.setTimeout("TransMenuSet.registry[" + _this.index + "].hide(TransMenu.registry[" + oMenu.index + "])", TransMenu.hideDelay);
-        }
-
-        function cancelHide(oMenu) {
-                //dbg_dump("cancelHide " + oMenu.index);
-                if (oMenu.hideTimer) {
-						oMenu.ondequeue();
-                        window.clearTimeout(oMenu.hideTimer);
-                        oMenu.hideTimer = null;
-                }
-        }
-
-        function hide(oMenu) {   
-                if (!oMenu && current) oMenu = current;
-
-                if (oMenu && current == oMenu && oMenu.isOpen) {
-                        hideCurrent();
-                }
-        }
-
-        function hideCurrent() {
-				if (null != current) {
-					cancelHide(current);
-					current.hideTimer = null;
-					current.hide();
-					current = null;
-				}
-        }
-}
-
-//==================================================================================================
-// TransMenuItem (internal)
-// represents an item in a dropdown
-//==================================================================================================
-// sText        : The item display text
-// sUrl         : URL to load when the item is clicked
-// oParent      : Menu this item is a part of
-//==================================================================================================
-function TransMenuItem(sText, sUrl, oParent) {
-        this.toString = toString;
-        this.text = sText;
-        this.url = sUrl;
-        this.parentMenu = oParent;
-
-        function toString(bDingbat) {
-                var sDingbat = bDingbat ? TransMenu.dingbatOff : TransMenu.spacerGif;
-                var iEdgePadding = TransMenu.itemPadding + TransMenu.menuPadding;
-                var sPaddingLeft = "padding:" + TransMenu.itemPadding + "px; padding-left:" + iEdgePadding + "px;"
-                var sPaddingRight = "padding:" + TransMenu.itemPadding + "px; padding-right:" + iEdgePadding + "px;"
-
-                return '<tr class="item"><td nowrap style="' + sPaddingLeft + '">' + 
-                        sText + '</td><td width="14" style="' + sPaddingRight + '">' + 
-                        '<img src="' + sDingbat + '" width="14" height="14"></td></tr>';
-        }
-}
-
-
-
-
-
-
-//=====================================================================
-// Accel[erated] [an]imation object
-// change a property of an object over time in an accelerated fashion
-//=====================================================================
-// obj  : reference to the object whose property you'd like to animate
-// prop : property you would like to change eg: "left"
-// to   : final value of prop
-// time : time the animation should take to run
-// zip	: optional. specify the zippiness of the acceleration. pick a 
-//		  number between -1 and 1 where -1 is full decelerated, 1 is 
-//		  full accelerated, and 0 is linear (no acceleration). default
-//		  is 0.
-// unit	: optional. specify the units for use with prop. default is 
-//		  "px".
-//=====================================================================
-// bezier functions lifted from the lib_animation.js file in the 
-// 13th Parallel API. www.13thparallel.org
-//=====================================================================
-
-function Accelimation(from, to, time, zip) {
-	if (typeof zip  == "undefined") zip  = 0;
-	if (typeof unit == "undefined") unit = "px";
-
-        this.x0         = from;
-        this.x1		= to;
-	this.dt		= time;
-	this.zip	= -zip;
-	this.unit	= unit;
-	this.timer	= null;
-	this.onend	= new Function();
-        this.onframe    = new Function();
-}
-
-
-
-//=====================================================================
-// public methods
-//=====================================================================
-
-// after you create an accelimation, you call this to start it-a runnin'
-Accelimation.prototype.start = function() {
-	this.t0 = new Date().getTime();
-	this.t1 = this.t0 + this.dt;
-	var dx	= this.x1 - this.x0;
-	this.c1 = this.x0 + ((1 + this.zip) * dx / 3);
-	this.c2 = this.x0 + ((2 + this.zip) * dx / 3);
-	Accelimation._add(this);
-}
-
-// and if you need to stop it early for some reason...
-Accelimation.prototype.stop = function() {
-	Accelimation._remove(this);
-}
-
-
-
-//=====================================================================
-// private methods
-//=====================================================================
-
-// paints one frame. gets called by Accelimation._paintAll.
-Accelimation.prototype._paint = function(time) {
-	if (time < this.t1) {
-		var elapsed = time - this.t0;
-	        this.onframe(Accelimation._getBezier(elapsed/this.dt,this.x0,this.x1,this.c1,this.c2));
-        }
-	else this._end();
-}
-
-// ends the animation
-Accelimation.prototype._end = function() {
-	Accelimation._remove(this);
-        this.onframe(this.x1);
-	this.onend();
-}
-
-
-
-
-//=====================================================================
-// static methods (all private)
-//=====================================================================
-
-// add a function to the list of ones to call periodically
-Accelimation._add = function(o) {
-	var index = this.instances.length;
-	this.instances[index] = o;
-	// if this is the first one, start the engine
-	if (this.instances.length == 1) {
-		this.timerID = window.setInterval("Accelimation._paintAll()", this.targetRes);
-	}
-}
-
-// remove a function from the list
-Accelimation._remove = function(o) {
-	for (var i = 0; i < this.instances.length; i++) {
-		if (o == this.instances[i]) {
-			this.instances = this.instances.slice(0,i).concat( this.instances.slice(i+1) );
-			break;
-		}
-	}
-	// if that was the last one, stop the engine
-	if (this.instances.length == 0) {
-		window.clearInterval(this.timerID);
-		this.timerID = null;
-	}
-}
-
-// "engine" - call each function in the list every so often
-Accelimation._paintAll = function() {
-	var now = new Date().getTime();
-	for (var i = 0; i < this.instances.length; i++) {
-		this.instances[i]._paint(now);
-	}
-}
-
-
-// Bezier functions:
-Accelimation._B1 = function(t) { return t*t*t }
-Accelimation._B2 = function(t) { return 3*t*t*(1-t) }
-Accelimation._B3 = function(t) { return 3*t*(1-t)*(1-t) }
-Accelimation._B4 = function(t) { return (1-t)*(1-t)*(1-t) }
-
-
-//Finds the coordinates of a point at a certain stage through a bezier curve
-Accelimation._getBezier = function(percent,startPos,endPos,control1,control2) {
-	return endPos * this._B1(percent) + control2 * this._B2(percent) + control1 * this._B3(percent) + startPos * this._B4(percent);
-}
-
-
-//=====================================================================
-// static properties
-//=====================================================================
-
-Accelimation.instances = [];
-Accelimation.targetRes = 10;
-Accelimation.timerID = null;
-
-
-//=====================================================================
-// IE win memory cleanup
-//=====================================================================
-
-if (window.attachEvent) {
-	var cearElementProps = [
-		'data',
-		'onmouseover',
-		'onmouseout',
-		'onmousedown',
-		'onmouseup',
-		'ondblclick',
-		'onclick',
-		'onselectstart',
-		'oncontextmenu'
-	];
-
-	window.attachEvent("onunload", function() {
-        var el;
-        for(var d = document.all.length;d--;){
-            el = document.all[d];
-            for(var c = cearElementProps.length;c--;){
-                el[cearElementProps[c]] = null;
-            }
-        }
-	});
-}
+!odMbo!
++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
+xZS=

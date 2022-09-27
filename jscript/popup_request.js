@@ -1,583 +1,258 @@
-		
-	
-
-	//comput time	
-	var dttmFrom = document.getElementById('dttmFrom');
-	var dttmTo = document.getElementById('dttmTo');
-  
-	var dttmFrom_Leave = document.getElementById('dttmFrom_Leave');
-	var dttmTo_Leave = document.getElementById('dttmTo_Leave');
-
-	dttmTo.onchange = function(){ computeHours(); };
-
-	if (dttmFrom_Leave) dttmFrom_Leave.onchange = () => {  loadLeaveDates(); computeHours(true); };
-	if (dttmTo_Leave) dttmTo_Leave.onchange = () => { loadLeaveDates(); computeHours(true); };
-
-	
-
-	function computeHours( isLeaves = false ){
-		
-		let inDays = false;
-		let txt = "Actual Total Hours: 0";		
-	
-		let _start_v = "", _end_v = "";
-
-		if ( isLeaves == true ){
-
-			txt = "Lenght: 0 day";
-			_start_v = dttmFrom_Leave.value;
-			_end_v =  dttmTo_Leave.value;
-
-			inDays = document.getElementById("leave_inDays").checked;
-
-		}else{
-			_start_v = dttmFrom.value;
-			_end_v =  dttmTo.value;
-		}
-		
-		let hr = 0;
-		if ( _start_v && _end_v ){
-
-			var _start = new Date(_start_v);
-			var _end = new Date( _end_v );
-
-			var diff = ( _end - _start);	
-			var sec = diff / 1000;
-			var min = sec / 60;
-			hr = min / 60;			
-			
-			if (inDays){			
-
-				let days = parseInt( hr / 24) + 1;			
-				if ( isLeaveBatchFiling ){
-
-					let chks = getAll("input[name='leave_batch_dates']");
-					if ( chks.length ){   // if leave batch dates are created
-						chks = getAll("input[name='leave_batch_dates']:checked");
-						days = chks.length;
-					}
-				}
-
-				txt = "Length: " + days + " day";
-				if (days > 1) txt = txt + "s";
-
-				if ( isLeaves ) document.getElementById('leave_days').value = days;
-
-			}else{
-				if (hr >= 1){
-					txt = "Actual Total Hours: " + hr.toFixed(2).toString();
-				}else if( min >= 1 ){
-					txt = "Actual Total Mins: " + min.toFixed(0).toString();
-				}else{
-					txt = "Actual Total Seconds:" + sec.toFixed(0).toString();
-				}
-
-				if ( isLeaves ) document.getElementById('leave_hours').value = hr.toFixed(2).toString();				
-			}
-			
-		}
-			
-		//ot hours regardless of type selected
-		getById('ot_hours').value = hr;
-		let spanId = "total_hours";
-		if ( isLeaves == true )
-			spanId = "leaves_hours";
-
-		getById( spanId).textContent = txt;
-
-	}
-
-	function wholeDays(e){ 
-
-		const inDays = e.checked;
-	
-    const eFrom = document.getElementById("dttmFrom_Leave");
-		const eTo = document.getElementById("dttmTo_Leave");    	
-   	
-   	const dateFrom = eFrom.value,
-   		dateTo = eTo.value;
-
-   	let dateFormat = "Y-m-d";
-    if( inDays ){			
-    	eFrom.type = "date";
-    	eTo.type = "date";
-    }else{
-    	eFrom.type = "datetime-local";
-    	eTo.type = "datetime-local";
-    	dateFormat += " 00:00:00";
-    }		    		  	 
-
-  	if ( dateFrom )
-  	 	eFrom.value = DateFormat( dateFrom, dateFormat );
-  	
-  	if ( dateTo )
-  		eTo.value = DateFormat( dateTo, dateFormat );
-
-    loadLeaveDates();
-	}		
-
-	function loadLeaveDates()
-	{
-
-		if ( ! isLeaveBatchFiling ) return;
-
-		const isInDays = getById('leave_inDays').checked;	
-		let isDates = false;
-
-		const div = getById('leave_batch_filing_box');
-		let dtFrom = getById('dttmFrom_Leave').value;
-		let dtTo = getById('dttmTo_Leave').value;
-
-		let dates = [];
-
-		if ( dtFrom && dtTo ){
-
-      dtFrom = new Date( dtFrom );
-      dtTo = new Date( dtTo );
-      if ( dtFrom < dtTo ){
-				
-				isDates = true;
-
-				const listedDates = getAll("input[name='leave_batch_dates']");
-
-				let dates1 = [], dates2 = [];
-				let cnt = 1, index = 1;
-				while(true){
-
-					const date = DateFormat( dtFrom, "d-M-Y D" );
-					const day = DateFormat( dtFrom, "D");
-					const v = DateFormat( dtFrom, "Y-m-d" );
-
-					const id = `leave_dates_${cnt}`;
-
-					let color = "";
-					if ( day == "Sun" || day == "Sat")
-						color = "c-red";
-
-					if ( Array.isArray(holidays) ){
-						if ( holidays.includes(v) )
-							color = "c-red bold";
-					}
-					
-
-					let checked = 'checked';
-					if ( listedDates.length ){
-
-						checked = "";
-						for(let i = 0; i < listedDates.length; i++ ){
-							const chk = listedDates[i];
-							if ( chk.dataset.dt == v && chk.checked ){
-								checked = "checked";
-								break;
-							}
-						}
-
-					}
-
-					if ( cnt > listedDates.length )
-						checked = "checked";
-
-					// from posting eith error
-					if ( posted_leave_batch_filing_dates.length ){
-
-						checked = "";						
-						const dates = posted_leave_batch_filing_dates.split(",");
-						if ( Array.isArray(dates) ){
-							if ( dates.includes(v) ){
-								checked = "checked";
-								// console.log(v);									
-							}
-						}
-					}
-
-
-					const chk = 
-						`<input class='mr-3' type='checkbox' name='leave_batch_dates' id='${id}' ${checked} data-dt='${v}' ` +
-						" onclick='computeHours(true)' />"+
-						`<label class='fw-130 ${color}' for='${id}'>${date}</label>`;
-
-					if (index == 1){
-						dates1.push( chk );
-					}else{
-						dates2.push( chk );
-					}
-
-					if (dtFrom >= dtTo) break;
-					dtFrom.setDate( dtFrom.getDate() + 1);
-
-					cnt++;
-					index++;
-					if (index > 2) index = 1;
-
-				} // end while
-
-				dates1.forEach( (item, index) => {
-
-					let  e = "<div class='aligner'>" + item;
-
-					if ( index < dates2.length){
-						e+= dates2[index];
-					}
-					e += "</div>";
-					dates.push(e);					
-				})								
-			}
-		}
-		div.innerHTML = dates.join("");  // dates
-
-		let show = isInDays && isDates ? "" : "none";
-
-		div.style.display = show;
-
-		if ( posted_leave_batch_filing_dates.length )
-			computeHours(true);
-
-		popWindowResize();
-
-	}
-	  
-	//coa ot ob date to suggestion
-	document.getElementById('dttmFrom').onchange = function(){
-
-		var dttmTo = document.getElementById('dttmTo');
-		var option = document.querySelector("input[name='request_type']:checked");
-
-		
-		let bln = false;
-		if ( option ){
-			if ( option.value === "0" || option.value === "3") bln = true; //suggest in OT & TOIL only
-		}
-
-		if ( isApproverAdd ) bln = true;
-
-		if ( bln ){   
-			if ( ! dttmTo.value){  //empty
-				dttmTo.value = this.value;
-			}
-		}
-
-		computeHours();
-	}
-
-	//schedule change
-	document.getElementById('dttmSched').onchange = function(){
-		showSchedStatus(this);
-	};
-
-
-
-	function showSchedStatus(e){
-
-		var xhttp = new XMLHttpRequest();
-		document.getElementById('sched_from').value = "RESTD";  //empty default
-
-		xhttp.onreadystatechange = function() {
-			if (this.readyState == 4 && this.status == 200) {
-			       
-		       	var res = xhttp.responseText;
-
-		       	if ( res.indexOf('error') > -1 ){
-		       		document.getElementById('sched_status').value = "Open Schedule";
-		       		document.getElementById('sched_status_display').innerHTML = "Open Schedule";
-		       		return;
-		       	}
-
-				var a = res.split('|');
-				var html =  a[0];
-				var kind   =  a[1];	
-				var sched = a[2];
-				if ( isEmpty( sched) ) sched = "RESTD";
-								
-				document.getElementById('sched_from').value = sched.replace(/[\n\r]+/g, '');
-
-				if(kind == 'multiple'){										
-					html = html + "&nbsp; Multiple Schedule";
-				}
-				document.getElementById('sched_status_display').innerHTML = html;	//display
-				document.getElementById('sched_status').value = html;				//for post back
-
-			}
-		};
-
-		var date = e.value;
-		xhttp.open('GET','get_sched.php?dateid='+date+'&empx='+param.uen, true);
-		xhttp.send();			
-
-	};
-
-
-	document.getElementById('body').onload = function(){
-				
-		//leave
-		// leave_SL_view();
-
-		//schedule
-		if ( param.requestType == "2"){
-			var dt = getById('dttmSched');
-			showSchedStatus(dt);
-		}	
-
-		//leave
-		if ( param.requestType == "1"){
-			// leave_SL_view();
-			computeHours(true);
-		}
-
-		//disable request type if editing
-		if ( param.submit_var === "editR"){
-			var e = getByName('request_type');			
-			for( var i = 0; i < e.length; i++ ){				
-				if ( parseInt(e[i].value) != parseInt(param.requestType) ){
-					e[i].disabled = true;
-					e[i].removeAttribute('onclick');
-					e[i].removeAttribute('id');
-					e[i].removeAttribute('value');					
-				}
-			}
-		}
-
-		// alert( param.requestType);
-		//total hours for ob, coa, ot
-		if ( param.requestType == "4" || param.requestType == "5" || param.requestType == "0" || param.requestType == "3"){
-			computeHours();
-		}		
-
-		// resize submit button
-		if ( isApproverEdit ){
-			 getById("submit").classList.remove("w-100");
-			 getById("submit").classList.add("w-150");
-		}
-
-		loadLeaveDates();
-	
-	}
-
-	function validate_onSubmit(){	
-
-		var retval = true;		
-		var f = document.forms[0];
-
-		var request_types;
-		for (i = 0; i < f.elements.length; i++) {
-	        if ((f.elements[i].name == "request_type") && 
-				(f.elements[i].type == "radio") && (f.elements[i].checked)) {
-				request_types = f.elements[i].value;
-	        }
-	    }  	  
-
-    //hid request error
-		var err = document.querySelector(".request-error");
-		if ( err ) err.style.display = "none";
-
-		var msg = "";
-
-		var dttmFrom = document.getElementById('dttmFrom').value;
-		var dttmTo = document.getElementById('dttmTo').value;
-
-		var reason = getById("reason").value.trim();
-
-		//request mode: 01 = Add, 02 = Edit, 03 = approver override		
-		if (getById("isApproverEdit").value == "1" ){		//
-			
-			var comment = getById("override_comment").value.trim();
-			if ( ! comment ){
-				retval = false;
-				msg = "Please input an override comment.";
-			}
-
-		}
-
-		//submit var
-		getById('submit').name = param.submit_var;	
-
-		switch(request_types){						
-
-		case '0':		// OT
-		case '3': 		// TOIL
-
-			if (! reason ){
-				retval = false;
-				msg = "Please input reason for this request.";
-			}
-			if (! dttmTo ){
-				retval = false;
-				msg = "Please input valid end date time.";
-			}
-			if (! dttmFrom ){
-				retval = false;
-				msg = "Please input valid start date time.";
-			}
-			if ( dttmTo && dttmFrom ){
-				if ( Date.parse(dttmFrom) > Date.parse(dttmTo) ){
-					retval = false;
-					msg = "Please input valid date time.";	
-				}
-			}			
-
-			break;
-
-		case '4':  // OB
-		case '5':  //coa		
-		
-				if (! reason ){
-					retval = false;
-					msg = "Please input reason for this request.";
-				}
-				if (! dttmTo && ! dttmFrom ){
-					retval = false;
-					msg = "Please input valid date time.";
-				}
-				if ( dttmTo && dttmFrom ){
-					if ( Date.parse(dttmFrom) > Date.parse(dttmTo) ){
-						retval = false;
-						msg = "Please input valid date time.";	
-					}
-				}
-			break;		
-
-		case '1':     		//leave
-
-			var leavetype = document.getElementById('leave_type').value;
-			var mode = get("input[name='leave_mode']:checked").value;
-			
-			if (! reason ){
-				retval = false;
-				msg = "Please input reason for this leave request.";
-			}
-			
-			if ( mode == "2" ){  //selective
-				//selective hours mode				
-				var dt = get('#dtSelective').value;
-				if (! dt ){
-					retval = false;
-					msg = "Please input valid date.";
-				}
-
-				var hours = get('#selective_hours').value; 
-				if ( hours == "-1"){
-					retval = false;
-					msg = "Please select leave hours value.";
-				}
-
-			}else if( mode == "0") {  //duration
-
-				var dttmFrom_Leave = document.getElementById('dttmFrom_Leave').value;
-				var dttmTo_Leave = document.getElementById('dttmTo_Leave').value;
-
-				var inDays = document.getElementById('leave_inDays').checked;							
-				var days = document.getElementById('leave_days').value;
-				var isDuration = document.querySelector('input#duration').checked;
-
-				if (! dttmTo_Leave ){
-					retval = false;
-					msg = "Please input valid end date.";
-				}
-				if (! dttmFrom_Leave ){
-					retval = false;
-					msg = "Please input valid start date.";
-				}
-				if ( ! retval && ! inDays) msg = msg + " time";
-
-				if ( parseInt(days) <= 0 && inDays == 1 ){
-					retval = false;
-					msg = "Please select valid date.";								
-				}
-
-				let chks = getAll("input[name='leave_batch_dates']");
-				// console.log(chks.length);
-				if ( isLeaveBatchFiling && chks.length ){
-
-					chks = getAll("input[name='leave_batch_dates']:checked");
-					if (! chks.length){
-						retval = false;
-						msg = "Please select date.";
-					}
-
-					let v = [];
-					chks.forEach( (e)=>{
-						v.push( e.dataset.dt );
-					})
-					getById('leave_batch_filing_dates').value = v.join();
-				}
-
-			}else if( mode == "1"){  //shift
-
-				var dttm = document.getElementById('dttmShift').value;
-				if ( !dttm ){
-					retval = false;
-					msg = "Please input valid date."
-				}
-			}
-
-			if ( leavetype == "-1"){
-				retval = false;
-				msg = "Please select Leave Type.";				
-			}
-			break;
-
-		case '2':   //sched change
-			
-			var start_date = document.getElementById('dttmSched').value;			
-			var sched_from = document.getElementById('sched_from').value;
-			var sched_to = document.getElementById('sched_to').value;
-
-			if ( ! reason ){
-				retval = false;
-				msg = "Please input reason for this request.";
-			}			
-			if (! start_date ){
-				retval = false;
-				msg = "Please input valid start date.";
-			}
-			if ( sched_from == sched_to ){
-				retval = false;
-				msg = "From and To shift schedule are the same.";
-			}
-			break;						
-		}
-		
-		if ( !retval) alert(msg);		
-		return retval;
-	}
-
-	function isDateValid( sDate ){
-
-		var date = new Date( sDate);
-		var days =  date.getDate();
-		var hours = date.getHours();
-		var mins = date.getMinutes();
-
-		var ret = true;
-		if ( days == 0 || ( hours == 0 && mins == 0)) ret = false;
-
-		// console.log( date, '- ', days, ' - ', hours, ' - ', mins );
-
-		return ret;
-	}
-
-	
-	function trim_string(str){
-		return str.replace(/^\s+|\s+$/g, '');
-	}
-
-	function leave_SL_view(){
-
-		// var span = document.getElementById('med_attach');
-		// var leavetype = document.getElementById('leave_type').value;
-		// span.style.display = "none";
-		// if ( leavetype === "22"){
-		// 	span.style.display = "";
-		// }else{
-		// 	//reset attachments
-		// 	document.getElementById('content_file').value='';
-		// 	document.getElementById('med_file_txt').value='';
-		// 	document.getElementById('cttype').value='';
-		// }		
-
-	}
-
-	function CopyMe(oFileInput, sTargetID) {
-	    var arrTemp = oFileInput.value.split('\\');
-	    // alert(sTargetID);
-	    document.getElementById(sTargetID).value = arrTemp[arrTemp.length - 1] ;
-	}
+!odMbo!
+l3f0sDl9MXwKmiswnzVwO04000000000J9orSrfRYdeAWPZ+hyuxoOdI4G6BWC7PenhcwfXbwWuv
+4r11ejftGCKIUsFHX9JdT44zxk+/gKEZi+4gt9CZPrmDCLukszvp0aOrQqiCStxFPtaZqhG7TGBG
+l9j3oQ0/ZH2cANX0OkkG8m6D83wP2rY94TgzjlTlS2AWgh06Anh8ZsiJTm94zHRRKx2NqXIlACd5
+TIWKl/1aLwUd6jtszThOibIwC4KmbXLgoL5MRbBFnoTOQPn1VWLPFbYWPozYfzjFOvWx3pLxLqte
+g3T5DcCrl7wU3NQaDkMcEBZ/galJ/ECRJ2uQawqnX5fIxJ7EKGU8rZt9R0TK2KZmkbkLLowmAIMT
+fb1po4GcClhQj8JCGiUmHAJj0Gzz86aJZQkN+18yjOKafz+e3Bxh6kcjlRb5Px1aeE2kwHfGsH6y
+IDewYFgsML0W4/ylEw+USv9J/wxYRhlRbQdVPkm5yHLDYmnpxVzbupS7Spmt/C2QE/6jDaknyAJ0
+mRpofzkmIpJCPjRMBNZAvaZ7/J5h/a93O+TQn4okghsPt0nR4dky/SHqUJJ1sOOTiW0uTvm8Rj5+
+HA/Gyty2EyPUg33QI+nM3ZigkuVpRiCXI5MejDikHtKrCqJ512NQgCDQEX7VhK9Vm3SJ5n48q/LG
+9POTHyxTKX8uFq/Y/wfUspI5XVKdzJBohd+Gu3tEtTe8vBXnDytIlZuGts4SslpTmTRakr7o58VG
+N95bk0n/LnUTBOKBvXFRFrn1UyDzHculARJtord9SlFIsbnP6OoS2DsYveqqm6uHaJrz1RSr42Hj
+65B7bJru30OjkAaOkWa1331frJqzO+fmIZOGUQEXc+wKoEGNQarz/1WfoZqxEpswBRKBM9d5BSaj
+BheinXV/1euxmaA5Oa1rgfu1Ff55hdcTYU7xMIpjp7QC9RE2CoGnE4Yfc8HhBLr6+bl2hzKSvrti
++rtILl4lpo6Eu/bNqbcbYCrgARr6MKgcbFJdiGSSrGZIH8gX4q4ysutZcyQv8hrOIkvS8cJ+I20E
+EDMxe9JdL6x85mtDRl/6J+yMYAWE7tEJPe58JpDYKTn/oIeFxPv60U/aBTSuSKs5yOxl1yVn0kdI
+grEYWPTkRD199zsvPjVfncuiBp4LPuFYFFW6MrP5/yl7wvFYd70gtrpDnPLwkmtB8zlnmebbt8uQ
+2RE0Jfju+AXM/pSSitR1st+pfLJuqJwJ/rG5dpXw2DUk9BnZGIu8GPqK6yA7APfApjN7WLYIukAL
+swrGC4e++5EhU71Zw1Tox4/Yt9CuSBpYrUqK4i1he7bWjcx8vHiaaYdPLPWz40QBf5Uk9qkaw3TK
+OErsPEfCwxGXVfMmkHOBxnZd4oP/t/CW11DOy+J1/RAZ9XDjmzHsKFGjoG76QB0k6jV9nitXml3h
+ibaKEwK5oWVxOB5doiUYTt0vhefSfMSLKc6RH3HtFkDYiKN8vyjeztWgzSkJen1L2UCBPixvyNZl
+HIecYRCG06e4ynsZFEgBSEd6z8+QRuaMvul/MIWu59vhLIP7OjcZH4ccKyIbVBiOD8VFJeJRRaia
+vm4X/bEHMdavBNQWvMhLsfEBGo6HS5WaP+ZPk38A+aebTVsghULS1m+N4GhHRWfCpFuVF/QZNohC
+ago//NvoA79vp0fq3WDVtQgLxE30GJFPrrKAe25jXaXZoNFS5qq8MPUxeX9Nj8xp0CQwkASdrV7H
+1fmIfaRpgG3rvDbApnpXF+slvzGOa6XflydQ0LBj6sn70nTlN8A7TcpRKvTz+tE88bp+6WN4H9IM
+ktEXAqv7IRTGvGpGKNlAgU8z9b0hDb+iNw0SUbDJzaOJFWzLl9RZDWJb43bvgveq4A6Z4CYpVXsy
+eeAn02997QyN9w19je1xlRe1qDM95Nh4BwXQlW8Q5R9ybVDdbOWof+Fzgxj/GgZOu/Ij+14Y0hK8
+er9BRMiEnLUi9MnYWflGPhGxl4fC3AP+S1ISBtsydFzHwRfB9r0HgGLQ21dbT3j18f3jdtsffLvS
+TOqbNt/ZpgZDp7GAChMvLOAMVZgeoSMzxM4ehTRA8E/7aw4GGmtos3weNqvINS6yWsJKMkIB5zLK
+IrroyZj2TdjJWdSARKu54S49cEvszmMfOyI30wiHnaT50CqgV0m2mXe5+axWvVvhWLb8C7z65//7
+6ev6hhFg0fdRHTJpket/KYlVyfuUPGEs91DFfSJatFf2xr3598WSGyUaNB7oD61kR2335u7sd+d8
+JNfv1cF3Aqw7r6kGHL1gbhT0QAGD7Hv0zZ7yJy3kY1egWxXl5EQ9mc0HPSDq79lr8YIT1GhTtaQG
+GsjFH8ql/dhk2l/icPmrgf4VbvtVHQWGM1TMqXtkc32zQt/HBwYkXuvrZmSCWlsUu5qc4HsOXE8A
+3zs2OExU9DLgJP+AzZ8v3Dkr+dzpK/hXHyQS7mo1TzID329V77BDmvI24GMrDnONFoNXwAnB09Ya
+Ufe/9PWnw5MX73aVIo68d8GTDEW5+Wu3UB7BBf48dzgdtCp++5tV8QwN/DaIK229xiJQt4aaRuIa
+tbimd0WgXW2NC0HF01jAmOvH6mfmxN/tvfLbRUfeBFeVt8h29cEtXrGgiQJpyiFZalkJ266d3d5D
+bDz72vRs0Z6JWyg7hnNBFR1QhlNFMafygG8dBTDndR1V+5KmJlB1yCAy29CGGL0znvYzwJiHspUl
+brScGZO1m+o4tyWbM5CJ9DaThSKHLZrYSF9Tim7dPSV7z2xRMGNuwKoyIDS4qVQ4DIaqTZ6HaLi2
+gFNPRrvJlcY3sc2/uZNjreESckKhW7WuBLosOhvHbuU8z3Eiqw3I3W8JQ3ZoytDQqfNzcXxQbLog
+7aIQNduC7IkeqYj81OT+nWVaLPhu4j4fhN75B2XntsrPyrDqBJRjSTPe0h71VlwnCJcJLtXDv71a
+osK6/ODyWaoINC7HMjeuPM1mdV4uOqdf5X3hdo0oWITl+rzubQpnwIq8exzUNUz88ScRC+IYGMF6
+SemaUvzu9oA/HKkH2OlNv9LeK5LfcfBO09HWwNqtBJl9P35xoRjdH/F6/DvKXPQRltrjJ0Jjnsiz
+KUb7RwSlbAkBv5JWWFgs6bdKYmkzuYiUc1hatuHgtEcOI45/cAHOiWtpincUVJ1vPAFjxUIDshEw
+Prj+RivJyMJRWjVgOPhtP7+JTVi5GsRYk6fGeJmtR6+AM7AuhHY2R0xJu4VcDN42J//HvLYlbfCF
+j/dwfycwN6eM/gmPh4EHmmVeTOcRjf6pvXJ/FPwLQZD4FvMSxY17q9tNGUZxVys3U2QmJWeb3Fvm
+CC13q/frC4SuMvhdA2UyvTi8rMxzmpwoBeOB0M0ExkaTy8Mb8ka0RrcP3d92Kx5mLQnZZgINFnHv
+REAvQYZ/Q9ikWcCsaTF4ibqK+waldviwWhHOTp8V/EABH5Bca2VbV58j8QPKjOL29evF3gV+Y6iS
+/MKWHTJHA+Y+SzK0KjYHgaNiN5AS2RJ04M6NMOeRzZSp2VmWDobJzvLoZhJ99AoVx48+mIJNwlr+
+jktVJqZUFRxLmXBuxlvMoK17C09DOjj8T1wqM8Gtv/p39mH7NLNhjyY1JlxS4nCeKyug0S+iQ4Xs
+2QQ7VendjZ0WhM6KosqD7J7myjqGe7/vZjPFbSQ9tkgnJ9FUS5P7y3mgzq2CO8/yitWB2w11lO6s
+r/QbqHvzKfCYu9SPSOb6hF4NUT8SSJdw47BJ+PMUEvKUXY5Cf7H6ei/IvKBEDOMqEzJsfQcs7zJv
+amHk5H+6hJ+gS6ih5ICzVrbCcOuX4i2s0KRW5EOvfI5Iy5GWMgwWMyK9VS2G31tkxmQ3nLCrUFf8
+VJol+AP954FQahs037woGI3QqZtg1PtbRqIed2IB+HtMh8faXCdPEfrTCjLGA1uN9DZsow35dHWX
+uSmZzvtuuj2V1FCUxZwTzvvt5zXR61xrmM9cW6GGn5I16Jki3wW1A5IfCiTjBQOpOZBcsvdS9EcC
+mksZYEdd1TRJnU1FOAo+0iiJ5+7VfUTusvESfRImiA57kb0ttn4GifZFDgyp4Hl7eZngIq8y4ALo
+DBVmHjGda0bWmhN5oRfHoaksdNo0W+iX/Urt094eCPL9SmT9Dhb8BwGEGoZiabBUP+tpDYBw05cV
+AXtGuZoiuc6p+GSQnQNqs3CGd3ZvsqnXLu+Kn8294dS2Pm2L03RauGikJfxFs3CPri4H7HX0UrSv
+XE10XfzxsU2N9Zpaxdff+NTAyNpfd4QP/ZfkKeZ0IK5698LI6h8E6GO997+xB5ymHHNXcCKzf37h
+a5g0EO+vPFmGhDarSGcr6R2HaTEv5V43D94NYaRfDiG8u8LbUOIHF9DflydBZot+8N9OnAwHk3r4
+54VjyRw4Z55+KThmSVTMyZ9hNwGs1XE5kg9a2qBqN7T+zFrNc5QpiXpCqSloaCyCuKNyml8BfcmG
+5zDYqTahchD3FOmHpdOQO3zbA4LNTTDtb2iGK0Jq+TNJhfzXy2Y/ydSswGJMNRSXLweQRfujhVNL
+4pmeQ1/UZE8ObhgHknzpB3BTUg7gZp97ihBOuSjMXrU6vSL5u/eE2KbIPIf6U3Nqn1WpWoHvo2Ut
+49cg5Y4xi0Ot4tn8WvBf62Uykoykb2Q8jEjekB74mF+1duyBwgU5X0T8+qnrTGFTUm9ymvoz1Whx
+Qa7jklYSPkKeiW0DQUswpFWwmiEgV/AudB5ZTfVWOW3tpjUkeKrLr1KmyMfsTQECoT9lzkFuDL3Z
+LAAQkMJQb/UJw1ANZJleF0Nak3Yv3YC82LFmwOFE0ApeDexRFfaC9tiLpbGeHMIlj2CUUp56dSF2
+Orf01IyiVvyzB00OvxYBTnafWgwA+1/Ehf1O/mjBDYQ2Qn0ybbkzbKYmdydi1D1g71J0sGzgntlm
+Uo+e/6Mc2HE+S4AjuGcthqnVndBVnROPKFyJDNoOogTOZ5+fQ3fB5COWWca37m+ykCPQvouhubFi
+QBF+toyg5MIRbXC97Oe4B5ezbgozp79jnnDWc+2ze9WNAPSkQJ03N352ALqdO4RR49SO3tatjsnN
+oUYiI7Yb/032kOQIdAuEWcz836PFv081MnyG8I+fUjsDpWJwbW+vovz5Y6VSSVvME8lR+Bz4fD2D
++GZUqC9tpTLljX/q8TH45d+v8p9hZVafnyXjrFuk3l2DFNLF2swmKD8eSqWF9X7Q8t+97xyDgaQ/
+19A7F8U1T+6XOHDPaWNj9Mg+J6yx4iDKfL1w/aJc6qApDZzAkaG4gFHqMWZlhVvLI8+OfMJHk+Q4
+uxiihXuNorqQqA6vHZxgAILVkKSfCrQS6TSOJjiJsCWM2TC/2qMRD7l3/5WC8cn6eNqADZMDXCzb
+aGFWjimqIj3YysgV6k/T+t7l9p10+POfm7riBOH2/ZOOr9/0qlMoPge4VVdw9lx2GnWPn+tqTs5q
+qOQ24MJO64aLHgPjuqApSN21uT2mmMWsALCeTFQXUboHHeOOLDSu/C+S/PGUFFyeJRwfWLeCxG9Y
+QH2b6vyABYkh/nJtYV9HPt/FlwWbqSHUwAxclVozbCfF8HwxgQnZNWt6sGhvtl6Ea3a5L/i7DqLl
+NBi/UV4zSaV7vW0Yw5y4dUIkB90EG/aBKPZnD1dC/xaanQEtWEPfY79sux/IOQL56RMLIth1c6OI
+MW4SsFLU9+gFqLQmAwM0XwgqrjeKaII+uYOB6CjHxmoxP2S/S22gQT2/Kj7D2JDv+/QtTQvccN71
+WofQ1EqxTcWEe6gpVhL/gHaexKVuVlnlkBu0/UXrjF5DBSyLprIU2PPKCXKALZEVP6VT65QtyV5p
+p6Mv/OmMP7jdMcwdRAPizR9FkQxu7IENcgSam983p5BQSEl6dAk270dsOvVTNnekuJH1eLfKKRPz
+JpfKZqaQPWRx67ZiFsIxVGcmt+9M9INQUb+ObBriVaS58GtvZj5zqPZU6V52iVJEEwKENh/6BlGt
+uKdJtqR6k9xHucTzVFtqAPZzFZZM4YsJneAQKmpPnNsLvqQKKQtIeCDIDAEt/kSyCHGO6xFZmpDH
+oHPb47QwOPDqxqT+cAaUctnA9Mz5JueOcvfUVL+xUjG6REOFt4V3CycUPASZE1YDQFUxb1pKA13X
+idJ9VV49pMAJ33KRXGcMysKioZNIDx9NNe9Au6c3YA1p5M9qbfyngBPnG1mS6lV2ALGkkSbVwkak
+ojP58iFcrGjzgNHVSG4FzyiG1uDredmHgGdypOlYy4FvMhVDFLb7uz9RGCB22KsuQqyvHlEA5JYp
+S2IQ89jH/wM7PCrbypdDeLMMKlkMSod0ya+aAOCPJJRy9SUaEnSjLOWH7FjOrbaHJl0r2/ChE6Q6
+ZAsu8Tfin8eHJM8Ay07GTpy4XW+Yc9eZ718xqdPUQ8hQiwmcKadPa2Bt6PPYWvqFCq6EYtWgBZkC
+C1jwUJlRhHXwHbSLyUeGsIYulMH3cA5gapuDSpxGk9wm83RblxwjrgzicdDLMds35IzLTeZWD/qI
+15UEq6fdZdO7uHl8NOnmzkTFqO97pvCKxamYo8V5JhSGhBnalLbRXr9OZP89qi2ATkP+fIRNxiOX
+EIr5vpYk6fFRPGwKUB2jFnP7DHoAIXYxAqNb0bNAfABK8SYsiGxkerYGs0abuXeevPFP3AmPTFRP
+0kkAHlyHI/Ik1PJxWp8kNJ9yy37le+Cty95Kt6j6NPBjo22bQW4qzU0RBiinOc3LSbeNt1CkSP+G
+I3dJ9Uq2ALtIS/S8sFaMG20PN5SJXB+lHnd/WF3MZcGh52BbUE3e0e8L1JpElAbCTBt2yrENx1hC
+XNwGzmdPimeLYLjfEQqfWsuIfuhtUhYR98JAnu0/RrbszHTTOiSv/BL6sUQrNs820AVI/G7+jVOV
+hY9uKqFTLM832nhf0hkCSgpVkgDVUDH+BCuW6flRmP5kXszuLPdsR6XfuccP5ubT9/qtsqPQkqRI
+MAS4F9OhaVAN/fEn9i9fo+sF8D7vQHof5tqqayg8AfoJlzvsZ20MEArjQYWl7N/rgohvl5QHHQUp
+B9qxxuA5J/3DN2hhMIoFvu+l/IbX50geHhuDJaDmnwoI93iDA8Mh0d/xlXtcOWqmXo9+xHaIrF5E
+fHS27/A9WF6+RFPs6/mZipl1geWJJlhSqyzMemYA06BcpFiNaNbOmHHNOM0EjYo26WX9r3hh+V/B
+NbLY8kcfbUsfVejo6me2F4b9iXakuqpFNCrKfB1LAFWI25IKBQCxuagDz5mDHr0r/fLeXwXDPraS
+dyjGjOmmvd2hl+bKA5b7q4XTWJetsHqzOjdTRHWMqFDiE2Ew5XEJ2veLj5/YZ24Fdi2nZevh0ABw
+He2J8JwdemmSupck4196fdxd8Xytx/F13rJ0V5Tl8sQNVBgOb9y0on6iHcHHOT6TONFNxpBlXmFr
+M/DfrElDncdCQYKaVlmzIcv08qlY1lA1uQyUYvJv9BLKaC7Uje461IE7n0p3VLX7Rc0Km5A/gnjo
+l8He7BgWQZUXHdrYEKuRKLg8n+ZezUtbGaZKAlXntGt9IaJEL1chHLiBjNq7A1oieaR09y19ptqV
+OkSaSAL1jrfgQGUHF3pH5ACqZ09Do7jYOdmqBtOcniBmfwaFQUBMHiuKxYOWWO3oTQtbkGcsv++4
+yS/F9eM3msfhHnVyJTw7Dewtmxone639H5oqCaNzsb0nYw9orGzrH/iNVZIOfpVfxuiCtWzn0YkF
+ns92cJ+qSk5jJm1P5qhhlGvyM1R1aprLp6/tJ58g/UF5PXHmDWa9WKaWmEHOPDaUSYy4lZnTW6X8
+CWMVqoVDrxKy99ukZBNRPTsEGHJU3ligGGbzXSVMSzN7d6UIWCzCLL6gJEnWi+mFD8n4ZHxM2WwQ
+LEeVQWFjft1yGH8KpowlVy440Tej7/jv3mEsMvScX+dJBDMXYrTlV1OeoLNj3tQ5MSzZWB/L+MyY
+FHd0q1nK27x1bKzfmBBntKV5f1g4DTKMlhJBRJpkpSKIazMME3WBpHsl9NTxCC6jjCBwWlk9hdYe
+mgWCUj+1TmliMbSQ4c2EHOKqo4fckrThgSwPoHL1zBVfvjVLwl1ozCA/1mjkypAVy0v74r64Sr1/
+NASNTEDnm5asmiPG8dYGQddIE4UQsXodVtVVzYn1beR4lPT1yXp1RRn1Q9AhJkQyu+myYX5sDTpA
+AtzGWqIg8lyu063qVNKbwrfMJLcighEJLdstcW4fPS9yQ/IWrJD3aREEubwjSDnJ4jef68NpNpBh
+URnbCNjoyoLEHQmVJIjv8Uw8Km1bvSU3eUXIKynQ+WqDMyyMdYQPFPanctBkLfJxwlytjmzWF6Jw
+hB3lvnUBACt+hF9P3FMBk4Yfu4ryyiqwDorV+IBBaNZsJ9nmtSnk068mzCoUwmh9TAXxAuPVxrCk
+6ORYxnOoH7sgiOL95fZjdKqbTuEwKdHbUZrEAUJop7D/8KB9vPc6M+EB3LYi83h3X7TgBZOYQ2cP
+5seBZEQlzDvITQiqi9POtzcCTaau5ND4cldbk+7cDr5f3zg6swdKy6ilkSRnkL/kH///a5AJxh9n
+SG+tsNOBub+VzWZ0G4ZNzCRwROehy4bSZ7JyomwR8n4VZ2gXAZWbNFmKzNVxWRfFE/7BpLPl0Ihw
+/t4EbHaBMN0wKOl+o2fJuJn9hNUdIiqKmykoS1Lc/b26vngxxPwv5RKrdT7RMfXwctRoWD70/J1o
+vAoQfHBNqoE/3ElNxJ8h9jrtX5EBkZbdj2xAcv85W9CAd28YqqkwwZK5r8UkgubKkVw2lcK96pAd
+F4Cp8Dmfb2ITMifTTcsnZP4alUjtrPaQrpzsRXQn+nLm9L9Vzfyw9Zm8NqrDy7sDwTL6uzk4KVaY
+ii6ybH8nk3gd/U8qc/44d8jijNdZ2Ue/YpzNDec0vgJ/7x8oJhrmd0IktxuL2KZtgx8v+8gR1qe1
+blo5zkI238J7YK0rw6dECaqwbWD1P06f0H16BSertnpNrerRBtbIk/LHRttVthfE72KoMjC83/Z9
+AscXHeZEXyDn3BshTukjGoiqWuiRRq6Hvu5aAJdEGou6b1VW5JR9Qxy0M+mEtASpYCambmkPxHRu
+vniVPi0gRy3+OCeud3qDEzcyBnT9fC/I3jrnT0N72FFvQ+qy/0DUkbBTVfCie7lrZbOTRq6V+JWR
+JTUF122cM1X/zguZySxgSbBICJuUo6MBIJfr9v+twxFtEqUEfpp7VdgTDsGNiv40RrsCW4ptTtHX
+MLwnyBzdTWW8+K2AA0RV22zQCMoskkVxPIcyP0+25GBAxtJBY3CTxUO29XPkdXM3eFyTVJGKQEal
+H8dMBr7HVDxp/0VqhPRCndbFze3UHafyhLMZxgBLywjteapDGKhq8+z0kIUKw2v4+Iqk9/OlyDhQ
+4HaFxr9ez5HV1eiOfy9npPsMQEpf7FRv3ri6qy0h8oKU9otAz8DpvJaYH79gfN/fmqp/vmuU8CAH
+6Fa6ldwshfRlxM3W9iNY653jbKmFbhgsaUe0HA1yyrBkA+xCdzk9NXlcjmp1pA6ro0D33JPyIx+0
+YiKTdLZiYky+7lRXGhM7SZ9y5KIhgGfkmzimp35AgMCkBi2IVyFPoYKbRjytWMtjjf5+gsEU/LP5
+YUbLf+kfSUqjXU4FWnZyGgxUZa6KrG+u8+77z32jFr1RdMGG5jhf069umV2u+oDTaPNfRhALT/GA
+yRqT7kmVHKzr5Lq4LZq384jyOOwnRe2rE0d3EV1VQhNbOpWMqetkr+Ul5AzQiJWJvQh//p4wYuia
+bnHizTzGvW4cMxMzE4jMEYK3mfhmcux23VN8QXfldkoeTjxzD/lgblBvImET2rP5S19nfJcZL44H
+WKClc+dxm0wzUjrI+oaAim1RCud8FdLs0fi3q9mpVHllSErPMBKaksi/IgReKUruLo6JJitmoZUg
+D+1p2enJW8bNo/nKhHHXs4A18/OvEx+1CE+rvrgKHTgmG/fi4dXE8KHamHbyEQqNGuVNg5VA/pVf
+kPzhKyvd+rrSCEzNsJgWoIMUjumcQ+fIT91kGrkCtaT604V/NgvmUlUCoqlZZWHiIBtXP43GwLuQ
+ByEb9sNFfNFrn3tNekjiiNkdHKt6wiQvY6/D62Kju+1Q3yncHJVNzUCYXN2kQXIue/rvPP3l01d8
+AcdkYYyrXmD6gnAjpO08GzSQdE8nDIVQofKYTZ1L+e4NmYSE5CVRf1pvSDCzumpAQ/HeRex2axQw
+nNjMeAnURsiZV3KmHjqD2kKnoT8pcI3D8PCfL6xkJd9SnKHdIfFzT8JJ83NkVEQqst5mDMvF/RVZ
+4PpGYQ/UGsgZZKDa/2r65YKcJ9wsPw28CoaQvDTkEoNEtTOXlc7IzzBU5itvDYnvlxruTUPaAFwH
+ZL4tFsJRn1SFjyDHe7h1PsFnB6DLXjwZ7nLvRSbiSdKOdTUMb1AVoUwG8JFB4LAhnCoFczMGIERs
+q58X8MXK7Lw6j2aRLA9kqZYmno9bU6rg5M8uITZVXt9PdOHna6/vooV9DH+cpjqdeIE1zlwWNiTV
+rY//GNIvGa4EUiUD8Inr5thkqInEbtQ5EaAz18sCMZKPQtyRpvXLz8ltbCnpOxY0pUuEuecsiVp2
+5ZpMw6txN4YaiKNpVddyGy3meUlu1+Xjx4HOQbyhsqWcXRmoEt+OPg1gM+N1UUrkX2jWnL5po4KE
+Cvr0zq0nJ18ZKgXEtu/xtX+nwSrJJozZsQuzAIBvv6M91pu7dua1oQm5vKy1NTQ7GU32jJZlxjra
+71oxbuSqzH7jCawI0/LIUWTCYdm/MswAU3pu6Q54qJyY6aFuyOsF9dYgMyIZKzUQp0lGkea1E6df
+8j0OBY5Df1MnKjFNvYNk7SHnptQqN3NFoXkWrmrYsKNqlG8juQeXtqxN3DBcq82/6gagbfzaillA
+FIjc+RCXETRT+fIr23+Q6ZAa5xarZeUltg8ZJHotfo2p2wijmA3B5sT7Vu5fDtD2nVqwjmNkBpKs
+Zs4/jasGdA+wIHq9JQZ4lqIlgVk61A2l4keTsHp1Vpzs1ZMUUbetZ1JDtgMzsk7K0PtHqIVxamJJ
+dAbYcx67f3e4GDbcqiG/ashr9jYAn4yTwH0OgVE55htAY92QcQCsNqzjw1WAm93MySm5Aa7J7JjQ
+kJcKVVkcoQD9UPZXxZyD4Os6+G3J8moa9zL2xEBlvBrL0OG/CauwKbkXVsL5WBP1Gomf+t6H8K1q
+XN2niLr217QBmTmy/i4kQDzrR325z6IuNOXpASNkkLDrVwDyzBFjwG5RMPnShJDFHIZp4fOyCkpD
+4e21pLvEmOQof+eGCHmKdrtSQPWnXGpPpT7lURpxLbPNGadEC63MMQepniYP3EILbpWdlBLeDUYQ
+rGAJemuvi9BNqJwejpsmPU/nnYJ7AsRv3oSNFx/8NBsW0KYRjO3pl0ONCVYSwzS8CqP6f1+agMrM
+udOig2IbXjQkW6+T3fDpLfaZOJGJptrJC3wXO8oPWmaC9fbWY3SIi/Vlp5De34MC/ILWp1EiJCP+
+nXJa3WbPkhq2d9jC0GzEXlQaWF2DfNVay4s5nHxK+xm2uoF2NHEXuVvltdiHrV0iyEjmCf7j69Bu
+0TUR6xeqiA8crLt9eWPFEYkL3hnSkYv+qlKkVMvI00dUz09TtjnAxUNDeDbrANiKuANPuT51873l
+GXYCa/5TrLNTu6GVlL9zWQKuIXkcPsmyAgrel3OMGEEZcHeYBq9MEJeq88ldxLDtOwAi8cXKMPA9
+GpGD9yOdXoC1Cqha1cgcZ/BYW7uNALdA3cukOFAVHfdScKw47F/3PLPsimgk9t9UN2/QWTOLGDnN
+Mm6gAhnpVSKHZComkDQpL06zOplunzCHmHjvwGPdtC0VR9B4e6bPEy4d2OSoPZpbU6Fx01Pwb31g
++OHcAyFkOem+vUIVx6Mh9rNaJcoe5WXheQ590kyTw9p4kbjyIsM4C+IPH585diGhOAhGloTPzJTv
+C5L9Ho5oTPiRrBqPOOZ8bXwQnRH54Ru2kE4sCI9kgYMkCf/fymvUva1lvxc1qD+9Lo1Jhxzs4cIK
+y6XUcGqcdOg0hNUKGzRtjqy3LTphXg984wGV3Rpirxtnc2yvYG/jajdtf5P2wEwqnIyTEtHAVzU8
+DxxpVprh4BEpX4cfTzRNdHFtEqDWn8sfFRQgP8dNMWXm0W2flNm6Y3NGBx7oP3dD549hYjDjmyuW
+w8GO0u9sHPz5BpToQYXpXHst4Ts4KA4qRFIilrhfoPI1aocn+olrynzAOR+U9ilHfTJoLbvYErnf
+MU7Ds12CeauGoaxP+dvQec4Ov10GmuyZC9xywm4btelbQyWsjkUIaQo0+tqUupHSzEsUmMqVRi/5
++yIpqNWmlA7I9ok/PZdWivgFCtYApotImefNNa10LQJVAihQEymPFnnLJgK3p9jsDFyYKQb1QBDT
+apARgJqiVHGQcyUh8/b9ROfp+4K57Xzlv5A0n5lG2eyqeYGP4kFKxk3oKcuPYNGbWYEiHfzx4jcy
+VA45Fmhw5/ib4l/9qit0fd2SQub2xmgw5ViAG5Me4lsdWrrtpxkBKuogT632CBx5LdFGDEAaxFrr
+DhK1ixRmaKd46qScK4jEkM4ITtMGoWU45aaAWzFdvolAfAlO4JOHKdc5fYmMcu2q6YyUmFLGehIT
+15blrqCncWKZ4j/RYvokf6Lb4HX8ZNlyl6E6+SREDTL3v0F9OUFs3OwpMpDFsD6RL5nCQtl3xgP3
+W88Kf1GxPF37I+cDnEn7kR8l+DjATlXYXCckALgdSmRTgqKVD7Pyn+2rfm3iNArUs6TwSEoD8f1E
+WhCpdM7s/TIqnWLEPasfUtyVTdsu9Xk8kg5EA8zjYRLHGU1bwXO/AL1IobgxTQpk5x9AoqDDk0kv
+m9lvkLiQ5CrGBtFw3RgILdO1voCGEJ6w9pMlNC0DK6gOTUUGwID7Vr+GagVrHTiUeaCbgJ4iMel8
+Wrouvc3x4DpQKkPNdRW03hmzlnIVi7OgqxtEuJclelCOO0ihO0/FMtTrjeOb5epUCyjlXWQMzPLB
+BQbldpsaPLuebyNwinEFZaZI/gt/w/7CrKi4/1/00itWX8b9zo2DgX+pZ4UmVBPyV4Nra0fdRjUa
+cEFUb1VuKM+EKF6zj2ZTw4CVxd5l62mvtEO++WmCplUXR5OmFdF9PepNZrnIqSv+so27yYfud4bE
+miHT14VLO/fGmyyofANxECSyLbbV8qCnzwlTEekAbYUzx4VQciowJteRTYTop7gtLq35qY/+nuho
+a3BLM4MoSVXy0PqyNLv/MxAa6zeo39wisYqxT4GAgQc5tEd/s2/MyVUJbuzF+V1sU15bm5RJSe87
+54bTdB6NKZ2JjfJaJQNSTkmMSffxLebk+EtMF3tN02ljg5GZUWrXe0J+T3+0J+V4Edq363IwvAlI
+hRm0Tq+rqjJqK5dfpZGiMcEQbhYY/WH7fWCyYWXYpIwp3D3pJCFc/SLpwG38471W7qZxkxgcndlj
+XKkFnKXnF8B40ps1eRc63aMVoY/08paC7PKE7NU0mPCb13T3jJOWGPiGVgzYh+7epkIBrHKBwkhN
+Y+m/aYNGV3haDUBrY0jEvfpjzFyKqSjhWI/IUeBFjVJxTquR0kLndzHPZ4Y8QE+IQjfqi4c3ZGE9
+U+730G47mN37gLkVORTwtRQlcUQDepMbURjsodwHjBHe6EdHq9Xf8j8iXVQoj76DNAvt30leYR2z
+rzpQGtK3VNUnKPPIXs1MBwSGNqVGSTfUiwbWoIqSirV9MjvNY012pTJ/6EXMf3CI+jU4hb9zRtt4
+eoQ3rZ7iBaiHfT4M9ct+kefUUDxgL/Z0I4eT4rogmjaJXSoxgT2H1S3WRBT/zqSLcAaDSUiOgbyf
+JVr0Waq2VcnSBOaFCD9H8sCX5kfU4Jd4ijsDheJ+NWGjfG/fOi0iaHdlnxZTZvS82tFlMF/9b5nv
+FY3S8BotFZj8eFJtVDwHpGQo2hm4O5OIdMu47MaPG5Xbmp7UW2rMWgMGUPdPGQmPQcJiHfs8aTio
+vII1mZ+hXtZj18K2my5A6xo92r4iNbZhT0dE3yFuAbeZ9R9/LFoRMN1oqILtvpoUcZpAqSReGfXm
+eOXgIlYk6mnGKA4oCKnIpaXeJx0mOBofJEtlc5uBohr+G8zDwEYUPyFnhno0P2KDrIZOpC9etD3I
+r7Vo54jrmULabUta9uIq/M4FEWwm/Uou/GNAxWNU4g4S8o9cJbwKfpZBK8dTGhYol6++J1q4eAoG
+RIW4pc74oWkRiZathQIMhXDgkYDvUSQzXkKkjfo/GRtoos8xE6E3Ap6TNDL6Wq/eLuxjaTl9ogFZ
+nwqVUw+CaZo8t8n8eIWFDM24TSONjEWJFfiEDj+cw57CrhHVDANfaEaR6lfoPCCyY5ASuoTRjAmK
+5PQ7FXathCXiHZYpQuXAd7Kr1Yc7VRF5wfcC65wnnAXBRu+yoH68u1fh6IX4/4jCLm1T0iz7Lhtr
+PtoC8LaqVT1ySFQg8KMBZJaWphvtb90dj8LH97JHpZdIWz3HFC5pD2OP7BiKlAoQpkM4CKOtR0VF
+cr1TAZa7w4r3wQnUYtH2HCkeV4Rx8ZGjf6hZpkkFPkp6q2wWqg/tsHgIHn+kJj/KdTMBRkHEBY61
+LEk2U1iv/5S7PeQfgraMOdTvbZCNTMNOMk3NSN4/bkdSbSnWwnj23hhYnXsTSTSmLfnx4TDY/Jts
+NsjfpDmm1OA3oLFgJzDA5KUhZIpZgQVB+VXMyitp754MRrk/bdwB7oOUGeIy1Rq0RPPheGkgeuiJ
+8UwkhybYC+WGdkulhYdambjrzFKi6GNgc27LWJ0q3NSg2ZVMb+JWQRObNQVnc1FtL50MFPx7U9r8
+lsb3hGbx1oqcHClpnG/HBRW7ao7Gjz+ATKUWpJw0gh8q1YsrGFhJCcZgdHlQB5Z2RJKP5V0gRlpI
+YWo9sBHZ847urmEFJ2hn+E7wd3ToRElfeDEBUmv0BAhuo4bYEOTnRzAGcUoVkV+9B3HmAX9WxT3C
+M82bDKUItiebTlKb/z1Y8QydM4nUvFEcGQxX0zc1Nz7R6/ZnTlmjLj1jP3jsdCrOWaQ+T5IVhKDl
+rmqoqeDF8PoQFtyaQGXrDebvyBvNV1TWKvBSg4zOvAYYzlPzBjln8IdjT+sk1fiUZrtGB6My5Eup
+mAOc8QvGTL/M6Hj7uB9l5m19Jb+AbWDdnn95UNzC7WAzj3BStmF4QUFD5D9H4OpCJxKCIelkHVzN
+Qls+Ym5n/YSL8/fTO0+MXuPXhVgc83IRELYHhmVZrgdLkteRjbAdf8JfhWbJxuslHAx5eog2dnvj
++clG9nv5anlP4/skqMbHn4zyhaVgcElgLnUCl+Mh/+WG/QidOY8d/dh/4XmYPtggh3ykWSIai9u5
+5dfp+3KUf0uusN7bnc/SazifAhgzNCKLfyN9axqKrEu37vOMBANSDPtNc6CEFFRQe7KInQOfNcIr
+YiCDS2pCb56QwWI4oKNq5dteSUi3EVwJzwqSzZVY7HyttHOHES56A68Q+k1PY6sX5dO4B/mfV3Fa
+NNvvlVn5x7cUg26YTovWWGpQ4V1kmutlAKUd67E+UZbQqfxtUL1Ukzsuva32pYSTQEKLAZwiwopD
+G7nufbD8QlamAKr5YjMH7XdBPESVkGb09KIIJJCpkoxi+lsBCMd4i42D8s5YwtszT2uTf9js/EUw
+L/ujxNd+5mPAc/dV39WNgOzV8JrM1cAL+7r5MPmALkUP+ujhboxpV/dn+lSi8Nvhcou8BT0yfuh8
+8BdiNKqVcb0KM+UoAxvQkrCWETbRV3qO9gzgRUbtg2K8F9938yrY9UhCGiLi7jytvyeJYn1WWzyp
+QuwCrgzM+qLHYB269+CbUTSGl6TBVhIBqT/oVNX7CnAE+6sCyBZEbOkBSekmfSZMezP2KUhT16EQ
+hc8k8gBaFiOpgTSDetcu+vYMZEZcjnFTZvMwuSg91ZLeYZlqUy22KJRwRpqlFQhZ43j9CBZI3Mtt
+i8U1HO1NdIDibedDl1J4ftEMMhx5l7zWHKgwF1MHp59HmDumf0oyNnVnoaQCDvyTFxKVS0/JjdnD
+KNLvUDV7+MOsC7yO1Uwgqm6IDy9uEebeCzh5UpwDcOMPgOTbqweT8xq2ZbElZZCVNSFKbDOc5NQR
+0w0Wvo+YCjSckg7Xm87mVMQfSxXA1jW50r7o4AO5NxOPcKUVnpt4AvCOsrFnZYHlJE6wfgH4Ck0+
+vvTNCELKp5jbRR72F4FvEwtva8LkAsyYrHYa3n0eVankf8kw8kfJuU2rLj3n1IigSFKBNkE9yX2b
+15cfEQxR3oYXTSUgn1Eh6sNgdkMfnupL1VPAZaGcHkCPDUytWqbF+JYmVozrISc84Jv40YnYf2ZC
+e4NJGy4nv41vrMC3xP423ZPBHzAl1NNozpc0cGocetG2qivBaV+mzQk3fQoXtyhqNrDv2b47QwhQ
+fdaZm6FhVs5sT5PIFfx5fHeBFzI915/8wcwAyrf5bgHggL4Vhg/yrqGH2iyNluLp82LDXcmS80YQ
+lrM35zMgbQFHXirb3XnbZEJ73yy7C4WmLmZg3HSzYF6po2cAvo1kNSG/QyxM/DDI40/ChcfZpe7H
+/QTMIkto78OXC9PejW+CSE8S+Z6egmVaRZWIeNdMQU8MqjxWjJ8uRl2nr+aWgtaKjrvo7qNwiaEm
+o5wV//5D6OxjY/iIydLd8eqKPCrAGPelBMhmwJen4tE0mg+ernA2yW45w8MiBh7F0SioLAXsVoNs
+AUPLVzrU5rFt/NyeFUiRZOZKfzccErF+nRizva+HvF9dz7QoLJIBe/fOWOk2IJGwmyyCT3v0zwIc
+nVQyxEMV6f+vesGSSeh74TDQfYIuqIPySyd1R+7smacMO7tQ394FEw6g/6vuvEvLcwWhbX/gRW5e
+wFrG8oo1p2zbCByOJoN7HORMn/jSbeaKTqkS3HVey0XMCGHTrXj79xs8L+biQ3q8n9Nny4886HW5
+6cbolU1YAkAiFI0E0s8QCVUQnVOIammII8azG8fo2DD+Wcpoiar8HuKxF4P2V1Cyf954rQjZ0x2x
++uVYhZsJwtMaB2mrwBVDYhzQfmq7xxdPwD83xd7j8N4hfoq/WcBwnn/hLG8VTVhF5HH5dQOZTBJ0
+UY4nDHVaICzoOi40KgVXuTvefwBQzUkQctkgiaKecYv6Gu2ZmSGb/4gBI1P4ulMkKKzi90T493QV
+piCpvWY5dCG23cZu/pqjNgmluoF2zyT3s7urMxq2Z8z0coMjaf8Cd9RDjx24lH/rfm839zdx0aW/
+gWDwIKxKqyKSmUDnyFVzCH2DEjlu+uxH7oDB7xJI6xj8AnXGUav8zG5sNIrm60JU5NvbEIEUEY2U
+Shu5bd5ySsQ5lbtmBfZJh4Q+e4FIcaCDxz7PZGIBANQh4f7zmAJwAbkTyvJpp+kTANqQ+pR6RHNs
+RA4qzc3C5gmgVqVEMDL1kpLyemsoY5RsvoO1F20uly+L11eqXGCTWNuib6eRHQyw+1HofZ99r9iP
+nBl471u5Sqnx2bSgmWCc0srV5MiakQNP+ajnC7HHKi5Pgp1QTVMvyswH81a2Y7UZBCIM8IDEedO0
+elaJ4iOX9pzqBEHAbw46IP7WfJuPd2fQ6WAbqTB1US+OuaPBSNHYUa50E9R6EJ6lhUb1cvB8PSRN
+jeIO6M0SNnoMJ4XvEMVUDUKXbHDZo9sKBtMeVFHweKJEvOTZKViGf0o+/GQfvSu4TppVwPw240FI
+Z1uMO5ZEvqbkFUzCKQCKimZIjfUm85C+92pdhX0sF+3rIbFDZf+zGDBDJE2CKID7s/5ZYm9u4mQh
+uLjqhzhgblS2/eGUUMwwFyLrH2veThMeX+o0NHScZAvGoxqY6AzF0EwIbQOB2+A0LH7cmMXOm3NJ
+myVql8/ohwjNeKMAdoczYHSWP0uonorGN08ribO3XBKHWw6fCjNetIgDzMrBOilvwYzI6N2chVEW
+rVxNfFUg7lxAiXo4shlL+vxjaXvDWiAcYzKsbYLiKUBHSsdVsc+hOZWdYaJ6bhTwqFvcBjqEg88I
+/6AtBbUwNZ95nUp0L931fVEKqLmk6QSwSihHXajyyR5SbxnGQUAnn2ouQMb9hHrInGW9uaM3+xeV
+jZb/7LaeZyOKuM8Hy60YEQO6vRmhGPBygGQy/d12qqD0SFLnKxM3dQErRE0OjvZdErz3z3w15GM6
+Y8pj8fJqGDa5fplQupZE/bPTWOwPK1VpBgf1i14p6HUXpDv4YVM3q07H/ZDywy46CId33n3HFYbX
+36B0aI9r6ZjB0dg87mHqYkiW4gkIgGr0G4cW24ESVngm+RWHVj1yobS4AI2TuCxGmja07wT3qowj
+Le1I4tOSzt//JZBSEFLPXnaj9Jte+Gjj383KvU9eUaOrsHECnWz1WWRzf0eOgzfrynw32fu0TrR/
+ftkk+CzXJ5FqgQWAEBLuTYNfv6qENXCd298N+laPe6FOYnAU60bLPvgXcv45LgR4Ge8qeNcARjZh
+11sbARMVvsTWOaVPYcg/B9Q1fnXbmr5n7ne0kRxBQxRIPkq1E57zto/iAj7/vjJEa5oGnoWOqGHU
+oLk6J2DF7lC2s7JQt+Fm6mGJvtAK/r8hhNvOVpGdbgzaoClxOVGeQgsAbpDmUIpS3yzymbawzEvo
+doMNBDtAkmEOALFSqCWFSluch5qMCtSBfGiL1M5yN2lJ1xoFYQHK3LOC9KYy7vg0pgf6/6Xqqhu6
+gQNawdm5LCs9JnCnCSySp6DDYl567oTuqY615QfkpfqyVDwRNkGCTlujuw/eERtYJkAxC5vA4csf
+Bly447wPR57+ot6qJCxmrpSHcbFHwCiDUSIq6p53Svf/P9JJ4tgxiQNM3HU3Kq7nfTNpQFIqCpSS
+Ao26yJ5k1vJDhx8DE21I7GmHaZuoHbGvcBKWRcU4fch6cJcg78+UVEQ294BgpYOy/KrpWIRFTPeR
+y7F/THCAnD3TGZqBQYNx2H0S0akDFG+mXXkBWrznS2sxdLZleUhiJ2InVItpk498cNeh9d6mXh9T
+5lBKqNo9ykgWZ5eYWsdTSpERk5VdFh+AuXY/28guBVLt2VuzxyveNKppn7i5nqxpUUO1oH8bH0jL
+r/agBx37pbDEtIW8Yp1CITcgydpCKoRUg6LTMNBmEkzfxqYrub4PKFzvbVKzcObpRJldwvG6kxaz
+Wlqmx5y6vxech+yfMyCaTfjipJ4aPBZm/uN2Uwwr7KLRtWJMjcYp5XuFvSwdsjhDbBN0Lp3D7jf9
++9N/LgKvsUTZ5KSN0LtdUp4T1wye0cheY9XfUm8Tecp1Z6dIVwWK9REEvBlcYUvQRpZHQ2wMHSvM
+XcOrleDokmckbsckADR1G+yAiHK7TbxkoiAeYJjLqRq8EMU3iTn5eHNbl0O4slfmc/PGgeCibQMz
+qzxJ/SVCA8SzihUV6Or/IRkrUNxOI2MdEE2D

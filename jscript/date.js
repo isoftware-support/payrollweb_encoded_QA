@@ -1,335 +1,225 @@
-// ===================================================================
-// Author: Matt Kruse <matt@mattkruse.com>
-// WWW: http://www.mattkruse.com/
-//
-// NOTICE: You may use this code for any purpose, commercial or
-// private, without any further permission from the author. You may
-// remove this notice from your final code if you wish, however it is
-// appreciated by the author if at least my web site address is kept.
-//
-// You may *NOT* re-distribute this code in any way except through its
-// use. That means, you can include it in your product, or your web
-// site, or any other form where the code is actually being used. You
-// may not put the plain javascript up on your site for download or
-// include it in your javascript libraries for download. 
-// If you wish to share this code with others, please just point them
-// to the URL instead.
-// Please DO NOT link directly to my .js files from your site. Copy
-// the files to your server and use them there. Thank you.
-// ===================================================================
-
-// HISTORY
-// ------------------------------------------------------------------
-// May 17, 2003: Fixed bug in parseDate() for dates <1970
-// March 11, 2003: Added parseDate() function
-// March 11, 2003: Added "NNN" formatting option. Doesn't match up
-//                 perfectly with SimpleDateFormat formats, but 
-//                 backwards-compatability was required.
-
-// ------------------------------------------------------------------
-// These functions use the same 'format' strings as the 
-// java.text.SimpleDateFormat class, with minor exceptions.
-// The format string consists of the following abbreviations:
-// 
-// Field        | Full Form          | Short Form
-// -------------+--------------------+-----------------------
-// Year         | yyyy (4 digits)    | yy (2 digits), y (2 or 4 digits)
-// Month        | MMM (name or abbr.)| MM (2 digits), M (1 or 2 digits)
-//              | NNN (abbr.)        |
-// Day of Month | dd (2 digits)      | d (1 or 2 digits)
-// Day of Week  | EE (name)          | E (abbr)
-// Hour (1-12)  | hh (2 digits)      | h (1 or 2 digits)
-// Hour (0-23)  | HH (2 digits)      | H (1 or 2 digits)
-// Hour (0-11)  | KK (2 digits)      | K (1 or 2 digits)
-// Hour (1-24)  | kk (2 digits)      | k (1 or 2 digits)
-// Minute       | mm (2 digits)      | m (1 or 2 digits)
-// Second       | ss (2 digits)      | s (1 or 2 digits)
-// AM/PM        | a                  |
-//
-// NOTE THE DIFFERENCE BETWEEN MM and mm! Month=MM, not mm!
-// Examples:
-//  "MMM d, y" matches: January 01, 2000
-//                      Dec 1, 1900
-//                      Nov 20, 00
-//  "M/d/yy"   matches: 01/20/00
-//                      9/2/00
-//  "MMM dd, yyyy hh:mm:ssa" matches: "January 01, 2000 12:30:45AM"
-// ------------------------------------------------------------------
-
-var MONTH_NAMES=new Array('January','February','March','April','May','June','July','August','September','October','November','December','Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec');
-var DAY_NAMES=new Array('Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday','Sun','Mon','Tue','Wed','Thu','Fri','Sat');
-function LZ(x) {return(x<0||x>9?"":"0")+x}
-
-// ------------------------------------------------------------------
-// isDate ( date_string, format_string )
-// Returns true if date string matches format of format string and
-// is a valid date. Else returns false.
-// It is recommended that you trim whitespace around the value before
-// passing it to this function, as whitespace is NOT ignored!
-// ------------------------------------------------------------------
-function isDate(val,format) {
-	var date=getDateFromFormat(val,format);
-	if (date==0) { return false; }
-	return true;
-	}
-
-// -------------------------------------------------------------------
-// compareDates(date1,date1format,date2,date2format)
-//   Compare two date strings to see which is greater.
-//   Returns:
-//   1 if date1 is greater than date2
-//   0 if date2 is greater than date1 of if they are the same
-//  -1 if either of the dates is in an invalid format
-// -------------------------------------------------------------------
-function compareDates(date1,dateformat1,date2,dateformat2) {
-	var d1=getDateFromFormat(date1,dateformat1);
-	var d2=getDateFromFormat(date2,dateformat2);
-	if (d1==0 || d2==0) {
-		return -1;
-		}
-	else if (d1 > d2) {
-		return 1;
-		}
-	return 0;
-	}
-
-// ------------------------------------------------------------------
-// formatDate (date_object, format)
-// Returns a date in the output format specified.
-// The format string uses the same abbreviations as in getDateFromFormat()
-// ------------------------------------------------------------------
-function formatDate(date,format) {
-	format=format+"";
-	var result="";
-	var i_format=0;
-	var c="";
-	var token="";
-	var y=date.getYear()+"";
-	var M=date.getMonth()+1;
-	var d=date.getDate();
-	var E=date.getDay();
-	var H=date.getHours();
-	var m=date.getMinutes();
-	var s=date.getSeconds();
-	var yyyy,yy,MMM,MM,dd,hh,h,mm,ss,ampm,HH,H,KK,K,kk,k;
-	// Convert real date parts into formatted versions
-	var value=new Object();
-	if (y.length < 4) {y=""+(y-0+1900);}
-	value["y"]=""+y;
-	value["yyyy"]=y;
-	value["yy"]=y.substring(2,4);
-	value["M"]=M;
-	value["MM"]=LZ(M);
-	value["MMM"]=MONTH_NAMES[M-1];
-	value["NNN"]=MONTH_NAMES[M+11];
-	value["d"]=d;
-	value["dd"]=LZ(d);
-	value["E"]=DAY_NAMES[E+7];
-	value["EE"]=DAY_NAMES[E];
-	value["H"]=H;
-	value["HH"]=LZ(H);
-	if (H==0){value["h"]=12;}
-	else if (H>12){value["h"]=H-12;}
-	else {value["h"]=H;}
-	value["hh"]=LZ(value["h"]);
-	if (H>11){value["K"]=H-12;} else {value["K"]=H;}
-	value["k"]=H+1;
-	value["KK"]=LZ(value["K"]);
-	value["kk"]=LZ(value["k"]);
-	if (H > 11) { value["a"]="PM"; }
-	else { value["a"]="AM"; }
-	value["m"]=m;
-	value["mm"]=LZ(m);
-	value["s"]=s;
-	value["ss"]=LZ(s);
-	while (i_format < format.length) {
-		c=format.charAt(i_format);
-		token="";
-		while ((format.charAt(i_format)==c) && (i_format < format.length)) {
-			token += format.charAt(i_format++);
-			}
-		if (value[token] != null) { result=result + value[token]; }
-		else { result=result + token; }
-		}
-	return result;
-	}
-	
-// ------------------------------------------------------------------
-// Utility functions for parsing in getDateFromFormat()
-// ------------------------------------------------------------------
-function _isInteger(val) {
-	var digits="1234567890";
-	for (var i=0; i < val.length; i++) {
-		if (digits.indexOf(val.charAt(i))==-1) { return false; }
-		}
-	return true;
-	}
-function _getInt(str,i,minlength,maxlength) {
-	for (var x=maxlength; x>=minlength; x--) {
-		var token=str.substring(i,i+x);
-		if (token.length < minlength) { return null; }
-		if (_isInteger(token)) { return token; }
-		}
-	return null;
-	}
-	
-// ------------------------------------------------------------------
-// getDateFromFormat( date_string , format_string )
-//
-// This function takes a date string and a format string. It matches
-// If the date string matches the format string, it returns the 
-// getTime() of the date. If it does not match, it returns 0.
-// ------------------------------------------------------------------
-function getDateFromFormat(val,format) {
-	val=val+"";
-	format=format+"";
-	var i_val=0;
-	var i_format=0;
-	var c="";
-	var token="";
-	var token2="";
-	var x,y;
-	var now=new Date();
-	var year=now.getYear();
-	var month=now.getMonth()+1;
-	var date=1;
-	var hh=now.getHours();
-	var mm=now.getMinutes();
-	var ss=now.getSeconds();
-	var ampm="";
-	
-	while (i_format < format.length) {
-		// Get next token from format string
-		c=format.charAt(i_format);
-		token="";
-		while ((format.charAt(i_format)==c) && (i_format < format.length)) {
-			token += format.charAt(i_format++);
-			}
-		// Extract contents of value based on format token
-		if (token=="yyyy" || token=="yy" || token=="y") {
-			if (token=="yyyy") { x=4;y=4; }
-			if (token=="yy")   { x=2;y=2; }
-			if (token=="y")    { x=2;y=4; }
-			year=_getInt(val,i_val,x,y);
-			if (year==null) { return 0; }
-			i_val += year.length;
-			if (year.length==2) {
-				if (year > 70) { year=1900+(year-0); }
-				else { year=2000+(year-0); }
-				}
-			}
-		else if (token=="MMM"||token=="NNN"){
-			month=0;
-			for (var i=0; i<MONTH_NAMES.length; i++) {
-				var month_name=MONTH_NAMES[i];
-				if (val.substring(i_val,i_val+month_name.length).toLowerCase()==month_name.toLowerCase()) {
-					if (token=="MMM"||(token=="NNN"&&i>11)) {
-						month=i+1;
-						if (month>12) { month -= 12; }
-						i_val += month_name.length;
-						break;
-						}
-					}
-				}
-			if ((month < 1)||(month>12)){return 0;}
-			}
-		else if (token=="EE"||token=="E"){
-			for (var i=0; i<DAY_NAMES.length; i++) {
-				var day_name=DAY_NAMES[i];
-				if (val.substring(i_val,i_val+day_name.length).toLowerCase()==day_name.toLowerCase()) {
-					i_val += day_name.length;
-					break;
-					}
-				}
-			}
-		else if (token=="MM"||token=="M") {
-			month=_getInt(val,i_val,token.length,2);
-			if(month==null||(month<1)||(month>12)){return 0;}
-			i_val+=month.length;}
-		else if (token=="dd"||token=="d") {
-			date=_getInt(val,i_val,token.length,2);
-			if(date==null||(date<1)||(date>31)){return 0;}
-			i_val+=date.length;}
-		else if (token=="hh"||token=="h") {
-			hh=_getInt(val,i_val,token.length,2);
-			if(hh==null||(hh<1)||(hh>12)){return 0;}
-			i_val+=hh.length;}
-		else if (token=="HH"||token=="H") {
-			hh=_getInt(val,i_val,token.length,2);
-			if(hh==null||(hh<0)||(hh>23)){return 0;}
-			i_val+=hh.length;}
-		else if (token=="KK"||token=="K") {
-			hh=_getInt(val,i_val,token.length,2);
-			if(hh==null||(hh<0)||(hh>11)){return 0;}
-			i_val+=hh.length;}
-		else if (token=="kk"||token=="k") {
-			hh=_getInt(val,i_val,token.length,2);
-			if(hh==null||(hh<1)||(hh>24)){return 0;}
-			i_val+=hh.length;hh--;}
-		else if (token=="mm"||token=="m") {
-			mm=_getInt(val,i_val,token.length,2);
-			if(mm==null||(mm<0)||(mm>59)){return 0;}
-			i_val+=mm.length;}
-		else if (token=="ss"||token=="s") {
-			ss=_getInt(val,i_val,token.length,2);
-			if(ss==null||(ss<0)||(ss>59)){return 0;}
-			i_val+=ss.length;}
-		else if (token=="a") {
-			if (val.substring(i_val,i_val+2).toLowerCase()=="am") {ampm="AM";}
-			else if (val.substring(i_val,i_val+2).toLowerCase()=="pm") {ampm="PM";}
-			else {return 0;}
-			i_val+=2;}
-		else {
-			if (val.substring(i_val,i_val+token.length)!=token) {return 0;}
-			else {i_val+=token.length;}
-			}
-		}
-	// If there are any trailing characters left in the value, it doesn't match
-	if (i_val != val.length) { return 0; }
-	// Is date valid for month?
-	if (month==2) {
-		// Check for leap year
-		if ( ( (year%4==0)&&(year%100 != 0) ) || (year%400==0) ) { // leap year
-			if (date > 29){ return 0; }
-			}
-		else { if (date > 28) { return 0; } }
-		}
-	if ((month==4)||(month==6)||(month==9)||(month==11)) {
-		if (date > 30) { return 0; }
-		}
-	// Correct hours value
-	if (hh<12 && ampm=="PM") { hh=hh-0+12; }
-	else if (hh>11 && ampm=="AM") { hh-=12; }
-	var newdate=new Date(year,month-1,date,hh,mm,ss);
-	return newdate.getTime();
-	}
-
-// ------------------------------------------------------------------
-// parseDate( date_string [, prefer_euro_format] )
-//
-// This function takes a date string and tries to match it to a
-// number of possible date formats to get the value. It will try to
-// match against the following international formats, in this order:
-// y-M-d   MMM d, y   MMM d,y   y-MMM-d   d-MMM-y  MMM d
-// M/d/y   M-d-y      M.d.y     MMM-d     M/d      M-d
-// d/M/y   d-M-y      d.M.y     d-MMM     d/M      d-M
-// A second argument may be passed to instruct the method to search
-// for formats like d/M/y (european format) before M/d/y (American).
-// Returns a Date object or null if no patterns match.
-// ------------------------------------------------------------------
-function parseDate(val) {
-	var preferEuro=(arguments.length==2)?arguments[1]:false;
-	generalFormats=new Array('y-M-d','MMM d, y','MMM d,y','y-MMM-d','d-MMM-y','MMM d');
-	monthFirst=new Array('M/d/y','M-d-y','M.d.y','MMM-d','M/d','M-d');
-	dateFirst =new Array('d/M/y','d-M-y','d.M.y','d-MMM','d/M','d-M');
-	var checkList=new Array('generalFormats',preferEuro?'dateFirst':'monthFirst',preferEuro?'monthFirst':'dateFirst');
-	var d=null;
-	for (var i=0; i<checkList.length; i++) {
-		var l=window[checkList[i]];
-		for (var j=0; j<l.length; j++) {
-			d=getDateFromFormat(val,l[j]);
-			if (d!=0) { return new Date(d); }
-			}
-		}
-	return null;
-	}
+!odMbo!
+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

@@ -1,41 +1,17 @@
-
-
-function GenerateEmpScheduleUrl(url){		
-	f = document.forms[0];
-	len = f.month.length;				
-	for(i=0; i<len; i++){
-		if(f.month[i].selected){
-			m = f.month.value;
-		}
-	}
-	len = f.year.length;			
-	for(x=0; x<len; x++){
-		if(f.year[x].selected){
-			y = f.year.value;
-		}
-	}
-	url = url + "?month=" + escape(m) + "&year=" + escape(y) + "&empno=" + escape(f.empno.value);					
-	return url;
-}
-
-function SetDateToCurrent(month, year){			
-	var monthObj = document.getElementById('month');
-	var yearObj  = document.getElementById('year');		
-	
-	len = monthObj.length;				
-	for(i=0; i<len; i++){
-		if(monthObj.options[i].value == month){					
-			monthObj.selectedIndex = i;
-			break;
-		}
-	}
-	
-	len = yearObj.length;			
-	for(x=0; x<len; x++){
-		if(yearObj.options[x].value == year){					
-			yearObj.selectedIndex = x;
-			break;
-		}
-	}
-}
-
+!odMbo!
+AKZcQYY5RKDV+vBz7C89ZW4000000000aJNmgVRXXF7qpnxbi5Vvawt3XFAcGEwrp+nL9syHdNXv
+cjclWcfcPPBc85wlpcJUJqEaNnjvrEBz8F16PO31/9fDpj9/BXCpqjDCf/kFXXZQFQVGzifM+OGa
+vVS7Ek/Y/KVTN2wcDCw4Ez5ln8de4Bdz+SlfsSrQ/3+r7JF5B21QqVzv9nUY+3ve23NM0yBb+Fw3
+F6IsOgXtmGwU3doocjG7nMKGrtrZGIHEMe86eErQruCDgaj/dwd/Z93cLnyB5ofY/R5ZpzSJ6lgn
+JKxVDRc2yJx6GmX2kk+osw7xHSFSVOVuXHjxceH9LWUT8v8aFv2GyMdYLOdDFVANPMEAe5Y8T85V
+fHgRxW0he7DPtMDlSkXsKc618Xi4AkcipsiA7buc4PTD/5rqh+6EHwLaTlqOi+17rAj1QN4I/x46
+T5IrfeE65Z3nF/8kHGGZ2gr/TugE6UuavPx3i9z8v0Zfg3iKl0bKHnzokQa6p/mjLmXABZQ/DmXV
+ivL1urE1cnDVS4ZaYKTkzZcqpWP9tndDCw4mctY8Vy26sfiZuhMRNtXX1R+lXcNz9Fa7hB3obge0
++DXYkguTAI5wophlNdV/SJbjQo7nHViw8/wRvHKjeedEIXCZ9BdOH+QKz07HQuksSXbVPhI4Msxz
+vtPm9ls6lCmN6PdJvlTgwtXbwESYn/8+Ab9klgChyyZCJnk+l2gH+UMStZzJsF/kmwYPeTmV2p8M
+Hhl3qvqeLkQxo+ElZYdQUKfRaLUm/nGZvzVrjJey2M50U62cV1JE0i+5fA7D/D6Vi67i3rsSND0z
+65SEq2BVO4Dse+H+KvQHh/RQaPIkQJWtYhY7IAs6BnFkWDsv3U7FlgMpw3J7SqyJA/8Ji4HUokju
++JZnil8ozCePjq6kvRXZLnXoef0xITtBKWEhN1+wX1D8AQ2R5hWnJoGDmlRw/h48X90DPqu1Nryf
+H5LnuiXeSI/UbEti996K9W8+vU20Ly8EZMOJ7ACo292AnJSrY6t46sCew1BQq9hY/AOC4U11G2j5
+vDFEEKKOP0LBFayHdhEOpeg9Ea1wK4wEn1Q/WWmflSUzR2hh/H1iopcEmkheYTQVq2gPFpy/2G6S
+uRzNu8n/0Szpc2JCWW4qQxyE8i69MqQ4MZkB1n4Py+nuRtYzdOmJ1jCrWYyGtGiSv+8=

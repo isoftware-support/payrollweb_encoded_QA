@@ -1,64 +1,28 @@
-// autor: Piotr kwiatkowski
-// www: http://pasjonata.net
-
-Calendar.LANG("pl", "Polish", {
-
-        fdow: 1,                // pierwszy dzień tygodnia; 0 = Niedziela, 1 = Poniedziałek, itd.
-
-        goToday: "Idzie Dzisiaj",
-
-        today: "Dziś",         
-
-        wk: "wk",
-
-        weekend: "0,6",         // 0 = Niedziela, 1 = Poniedziałek, itd.
-
-        AM: "am",
-
-        PM: "pm",
-
-        mn : [ "Styczeń",
-               "Luty",
-               "Marzec",
-               "Kwiecień",
-               "Maj",
-               "Czerwiec",
-               "Lipiec",
-               "Sierpień",
-               "Wrzesień",
-               "Październik",
-               "Listopad",
-               "Grudzień" ],
-
-        smn : [ "Sty",
-                "Lut",
-                "Mar",
-                "Kwi",
-                "Maj",
-                "Cze",
-                "Lip",
-                "Sie",
-                "Wrz",
-                "Paź",
-                "Lis",
-                "Gru" ],
-
-        dn : [ "Niedziela",
-               "Poniedziałek",
-               "Wtorek",
-               "Środa",
-               "Czwartek",
-               "Piątek",
-               "Sobota",
-               "Niedziela" ],
-
-        sdn : [ "Ni",
-                "Po",
-                "Wt",
-                "Śr",
-                "Cz",
-                "Pi",
-                "So",
-                "Ni" ]
-
-});
+!odMbo!
+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
+EUcfhf+rOfoCdFkxS/G+

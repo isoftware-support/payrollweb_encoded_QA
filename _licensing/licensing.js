@@ -1,114 +1,40 @@
-
-// disable login if registration is required
-
-	if ( registration_required){
-
-		const div = getById("login_user");
-		div.style.opacity = 0.5;
-		div.disabled = true;
-
-		const es = getAll( ".login" );		
-		es.forEach((e)=>{
-
-			e.disabled = true;
-			//log( e.type);
-			// button
-			if ( e.type == "submit") e.type = "button";
-			// link
-			if( e.tagName == "A"){
-				e.href="#";
-				e.classList.add("disabled");
-			}
-			
-		});
-	}
-
-
-
-function registerOnline(e){
-
-	log("xxxx")	;
-	const busy = new BusyGif();
-
-	log("yyyy");
-	busy.show2();
-
-	const company = encodeURIComponent(e.dataset.name);
-	const key = e.dataset.key;
-	const o = e.dataset.p;
-		
-	//live
-	let url = reg_online_link + "?c="+ company + "&k="+ key + "&o="+o;	
-	//url = url.replace("http", "https");	
-
-	// debug
-	//url = "http://localhost/license-generator/custom/generator.php?c="+ company + "&k="+ key + "&o="+o;
-	
-	log(url);
-
-	xxhrGet(url, (res)=>{
-
-		// log(res);
-
-		const ret = JSON.parse(res);
-		
-		const e = getById("license_status");
-		if ( ret.error ){
-			
-			e.classList.add("c-red");
-			e.innerHTML = ret.error.replace("<br>", "\n");
-			
-			busy.hide();
-
-		}else{			
-
-			let txt = "";
-			url = PAYROLLWEB_URI + "/_licensing/licensing.php";		
-			ret.func = 'reg_online';
-
-			xxhrPost( url, ret, (res)=>{
-
-				// log(res);
-
-				const reg = JSON.parse(res);
-				log(reg);
-
-				if ( reg.status == "success" ){
-
-					e.classList.remove("c-red");					
-
-					txt = "Registration Successful.\n\n"+ 
-						"Edition: "+ ret.base_edition +"\n"+
-						"Expiry: "+ ret.expiry;
-
-					setTimeout( ()=>{
-						const div = getById("reg_product");
-						if ( div ){
-							$(div).fadeOut(500);						
-							location.reload();
-						}
-					}, 5000);
-
-					// change button 
-					const btn = getById("reg_btn");
-					btn.value = "Done";
-					$(btn).click(()=>{
-						$("#reg_product").fadeOut(500);
-						setTimeout( ()=> location.reload(), 500);
-					});					
-
-				}else{
-					e.classList.add("c-red");
-					txt = "Invalid Registration verification."
-				}
-				e.innerHTML = txt;
-
-				busy.hide();
-			});
-		}
-		
-	});
-
-
-}
-	
+!odMbo!
+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

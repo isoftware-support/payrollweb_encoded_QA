@@ -1,14 +1,7 @@
-
-
-function GetHTMLContent(id,url) {
-	
-  new Ajax.Updater(id,url,{asynchronous:true});
-
-    //alert("HI");   
-}   
-function OpenArticleSource(url) {
-    newwindow = window.open(url, 'name', 'status=1,width=350,height=150');
-    if (window.focus) {
-        newwindow.focus()
-    }
-}
+!odMbo!
+9mGHytExqfgYfAkBXZm4wW40000000008BF2UOxlbcWy/KHP6sv3q2pe58vObmT1jZY2bwB2adxQ
+e4ZeOG6d2M20cFjNf1ZaAI4tEf7Ykt7hFZTgq2DzoUZNrQknj7ExroBW0uk0blA0Km1GBTVXI3QJ
+YPpD2HLOvZFMFAMB066BOne3y6cqHKDoA7M1jvQBVcGwCFk3MmsQxZprrfSTrCVpp55VFHLz1oiu
+LsQpIZcDpJfw3IBfhP6XWBfc2ciFFUamPzEPFYQIfndNPTgY+QJ8TAXlFGbl/IHHqt0kxzL4sw77
+wraSf+ANTtQGmASPrCJEyIKdPQcR9Q8eQRbJlqLHPGUTWMzLGWOMJMxnxscHE/uL9vefntwJ4M4U
+Ci9B0J1/4bGsRj5sisKIrZJ8YPMQhHCIH6s0b6CKHy1IH3Sdu8kxMrK8Je9caG==
