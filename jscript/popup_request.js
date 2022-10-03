@@ -22,6 +22,7 @@
 	
 		let _start_v = "", _end_v = "";
 
+
 		if ( isLeaves == true ){
 
 			txt = "Lenght: 0 day";
@@ -34,6 +35,8 @@
 			_start_v = dttmFrom.value;
 			_end_v =  dttmTo.value;
 		}
+
+		console.log( 'isLeaes', isLeaves, 'in days', inDays);
 		
 		let hr = 0;
 		if ( _start_v && _end_v ){
@@ -64,6 +67,7 @@
 				if ( isLeaves ) document.getElementById('leave_days').value = days;
 
 			}else{
+
 				if (hr >= 1){
 					txt = "Actual Total Hours: " + hr.toFixed(2).toString();
 				}else if( min >= 1 ){
@@ -114,6 +118,7 @@
   		eTo.value = DateFormat( dateTo, dateFormat );
 
     loadLeaveDates();
+
 	}		
 
 	function loadLeaveDates()
@@ -171,7 +176,6 @@
 								break;
 							}
 						}
-
 					}
 
 					if ( cnt > listedDates.length )
@@ -229,8 +233,8 @@
 
 		div.style.display = show;
 
-		if ( posted_leave_batch_filing_dates.length )
-			computeHours(true);
+		//if ( posted_leave_batch_filing_dates.length )
+		computeHours(true);
 
 		popWindowResize();
 
