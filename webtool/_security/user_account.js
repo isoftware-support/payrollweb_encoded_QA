@@ -27,8 +27,7 @@ const app  =  Vue.createApp({
 		    email_alert: false,
 		    isEdit: false,	  
 		    error_msg: "",
-		    error_class: ""
-		    
+		    error_class: ""		    
 		  }
 		},
 
@@ -49,12 +48,16 @@ const app  =  Vue.createApp({
 	  		p.d = '0';
 	  		p.id = this.id
 	  	}
+
 	  	// p.x = 1;
+	  	if ( this.email_alert )
+	  		this.error_message("Sending account info email to user.", 20, "c-green")
+
 	  	xxhrPost( rootURI + "/ajax_calls.php", p, (res)=>{
 
-	  		// console.log( res);
+	  		// console.log( res )
+
 	 			const ret = JSON.parse(res)
-	 			// console.log( ret);
 
 	  		if ( ret.errors ){	  	
 	  			let sec = ret.errors.length * 3;
@@ -86,7 +89,7 @@ const app  =  Vue.createApp({
 		  const p = { func:"UserAccount", d:-1, id:no }
 		  xxhrPost( rootURI + "/ajax_calls.php", p, (res)=>{
 		  	
-		  	console.log( res);
+		  	// console.log( 'res', res);
 		  	
 		  	const ret = JSON.parse(res);
   	  	if ( ret.success ){
@@ -124,6 +127,7 @@ const app  =  Vue.createApp({
 	    xxhrPost( rootURI + "/ajax_calls.php", p, (res)=>{
 	      
 	      // console.log('res', res);
+	      
 	      const ret = JSON.parse(res)
 	      this.id = no
 	      this.username = ret.f4
@@ -147,6 +151,7 @@ const app  =  Vue.createApp({
 
 	  },
 	  cancel(){
+
 	  	this.reset()
 	  	dimBack(false, 'dim_back');
 	  	hideItem('ua_box');
@@ -154,21 +159,25 @@ const app  =  Vue.createApp({
 	  },
 	  randomPass() {
 
-			const chars = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZ{}@;[]!#$%&*()=-_+<>~`";
-			const string_length = 8;
-			let pass = '';
+	  	busy.show2();
 
-			for (let i = 0; i < string_length; i++) {
-				const rnum = Math.floor(Math.random() * chars.length);
-				pass += chars.substring(rnum,rnum+1);	
-			}
-			this.password = pass
-			this.confirm_password = pass
+			xxhrPost( rootURI + "/ajax_calls.php", {'func': 'GenPass'}, (res)=>{
+				
+				const ret = JSON.parse(res)
+				const pass = ret.result;
 
-	   	// copy to clipboarad
-		  navigator.clipboard.writeText(pass)
+				this.password = pass
+				this.confirm_password = pass
 
-		  this.error_message("New password copied to the clipboard.", 4, "c-green")
+		   	// copy to clipboarad
+			  navigator.clipboard.writeText(pass)
+
+			  this.error_message("New password copied to the clipboard.", 4, "c-green")
+
+			  busy.hide();
+
+			});
+
 		},
 
 	  error_message( msg, sec = 5, colorClass = "c-red" ){
@@ -210,15 +219,16 @@ const app  =  Vue.createApp({
 	  },
 
 		reset(){
-				
-				const initData = this.init()
 
-		  	const keys = Object.keys(this)
-		  	keys.forEach( (name)=>{
-		  		if ( typeof this[name] !== 'function' ){
-		  			this[name] = initData[name];
-		  		}
-		  	})
+			// set blank to all properties				
+
+			let initData = this.init();
+
+	  	const keys = Object.keys(initData)
+
+	  	keys.forEach( (name)=>{
+	  		this[name] = initData[name];
+	  	})
 
 		},
 

@@ -103,12 +103,14 @@
                 
     	//remove first
         var div = $("div#busygif");
+        // console.log( 'busy div', div)
         if (div){
    	        if (div.length) $(div).remove();
         }
 
         $('body').append("<div id='busygif'><img src=images/loading-gif.gif width="+ w +"/></div>");          
         $('div#busygif').css({'display':'block', 'position':'absolute'}).hide();   
+        $("div#busygif").css("z-index",9999);
 
 
     	this.show = function(){            
@@ -122,9 +124,9 @@
         };
 
         this.show2 = function(topAdj = 0){
+
             CenterDiv('div#busygif', topAdj );
-            $("div#busygif").css("zindex",99999);
-        	$("div#busygif").show();    
+        	$("div#busygif").show();   
         }
         this.hide = function(){
         	$("div#busygif").hide();
@@ -441,6 +443,12 @@ function CenterItem(id){
 
 }
 
+function focusItem(id){
+    const e = getById(id);
+    if ( e ){
+        e.focus();        
+    }
+}
 
 function CalendarDateTime(imgID, inputTextID, showTime, dateFormat){
 

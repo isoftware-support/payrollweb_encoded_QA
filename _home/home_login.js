@@ -20,11 +20,6 @@
         get('#links_section').innerHTML = res;
     });  
 
-    // birthday
-    xxhrGet('includes/ajax/sections/birthday_celebrants_section/birthday_celebrants_section.php',
-    function(res){
-        get('#birthday_celebrants_section').innerHTML = res;
-    });  
 
     // newly hired
     xxhrGet('includes/ajax/sections/new_hires_section/newlyhired_section.php;',
