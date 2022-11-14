@@ -204,7 +204,9 @@ function show_team_name_dd(tm,en){ // for dropdown
 
 	xxhrGet("includes/team_member_dropdown.php?q="+tm+"&e="+en +"&o=tp", (res)=>{
 
-		getById("ddteam_member").innerHTML = res;
+		const e =  getById("ddteam_member");
+		if ( e )
+			e.innerHTML = res;
 
 		
 	});
