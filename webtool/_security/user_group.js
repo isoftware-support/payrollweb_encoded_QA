@@ -5,33 +5,23 @@ if ( timer == 'undefined'){
 
 const appUG = Vue.createApp({
 
+		// data(){
+		// 	return this.init();
+		// },
 	data(){
-		return this.init()
+		return {
+			id: 0,
+			name: "",
+			description: "",
+			error_msg: "",
+			title: 'Edit User Group',
+			isEdit: false,		
+		}
 	},
 
 	methods: {
 		init(){
-			return {
-				id: 0,
-				name: "",
-				description: "",
-				error_msg: "",
-				title: 'Edit User Group',
-				isEdit: false,
-			}
-		},
-
-		reset(){
-			
-			const initData = this.init()
-
-	  	const keys = Object.keys(this)
-	  	keys.forEach( (name)=>{
-	  		if ( typeof this[name] !== 'function' ){
-	  			this[name] = initData[name];
-	  		}
-	  	})
-		
+			Object.assign(this.$data, this.$options.data());
 		},
 
 		save(){
@@ -60,13 +50,30 @@ const appUG = Vue.createApp({
 			})
 		},
 		
+
 		delete(){
 
 			let e = get("input[type='radio']:checked")
 	  	if ( !e ) return
 
-	  	if ( ! confirm("Are you sure you wang to delete '' usergroup?\r\n" +
-	  		"All user for this user group will be delete in Web Users List and this step cannot be undone.") );
+	  	if ( e.value == 1 || e.value == 2 || e.value == 4){
+
+		  	return msgBox( `Unable to delete default user group <strong>${e.dataset.name}</strong>.`)
+
+	  	}else{
+
+		  	msgBox(
+					[ {message:"Are you sure you wang to delete '' usergroup?", class:'pb-10'},
+		  			{message:"All user for this user group will be delete in Web Users List and this step cannot be undone."}
+		  		], 
+		  		{ cancelButton: true, okCallBack: this.delete_confirmed}
+		  	)
+		  }
+	  },
+
+		delete_confirmed(){
+	
+			let e = get("input[type='radio']:checked")
 
 	  	const no = e.value
 			let p = { func:'UG', id:no, d:-1}
@@ -97,8 +104,7 @@ const appUG = Vue.createApp({
 				
 				const e = get("input[type='radio']:checked")
 				if ( ! e){
-					alert( "Please select item to edit.")
-					return;
+					return msgBox( "Please select item to edit.")
 				}
 
 				this.id = e.value
@@ -120,13 +126,13 @@ const appUG = Vue.createApp({
 			}
 			
 			this.$refs.f_name.focus()
-			dimBack();
+			dimBack(true, 'dim_back', this.hide);
 			CenterItem('ug-box')
 		},
 
 		hide(){
-			this.reset()
-			dimBack(false)
+			this.init()
+			dimBack(false, 'dim_back')
 			hideItem('ug-box')
 		},
 		

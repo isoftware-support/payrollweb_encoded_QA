@@ -78,32 +78,40 @@
 					}
 				}
 
+
+				const delete_confirmed = () =>{
+					
+					busy.show2();
+
+					const no = linkNo();					
+
+					let p = { func: 'x', t: 7, d:-1, xp:`f3 = 3 and f2 =${no}`, el: 'AllowDeleteLinks'};
+					xxhrPost(rootURI + "/ajax_calls.php", p, ( res ) => {				
+
+						let e = get("input[type='radio']:checked");			
+						removeGrandParent(e.id);
+
+						//check any
+						e = get("input[type='radio']");			
+						if (e)
+							e.checked = true;
+
+						busy.hide();
+					});								
+				}
+
 				// delete
 				getById('link_delete').onclick = () => {
-					
-					const no = linkNo();
-					
-					if (no){
 
-						if ( ! confirm("Delete Link item?") ) return;
-
-						busy.show2();
-
-						let p = { func: 'x', t: 7, d:-1, xp:`f3 = 3 and f2 =${no}`, el: 'AllowDeleteLinks'};
-						xxhrPost(rootURI + "/ajax_calls.php", p, ( res ) => {				
-
-							let e = get("input[type='radio']:checked");			
-							removeGrandParent(e.id);
-
-							//check any
-							e = get("input[type='radio']");			
-							if (e)
-								e.checked = true;
-
-							busy.hide();
-						});								
+					const no = linkNo();															
+					if ( no ){
+						msgBox("Delete selected Link item?",
+							{ cancelButton: true, okCallBack: delete_confirmed }
+						)
 					}
+
 				}
+
 			}
 
 			function linkNo(){
@@ -112,7 +120,7 @@
 				if ( e ){
 					ret = e.value;
 				}else{
-					alert("No Link item selected.");
+						msgBox("No Link item selected.");
 				}
 				return ret;
 			}

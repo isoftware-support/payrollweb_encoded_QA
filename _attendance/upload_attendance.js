@@ -6,7 +6,6 @@
 
     //alert("xxx");
 
-
     function uploadAttdLogs(){
 
         let file = getById("import-log-file").files[0];  // file from input
@@ -15,15 +14,41 @@
         let start = get("input[name='cutoff_nav_start']").value;
         let end = get("input[name='cutoff_nav_end']").value;
 
-        if (! confirm('Uploaded attendances will be saved in cut-off  ' +  
-            DateFormat(start, 'd-M-Y') + " - " + DateFormat(end, 'd-M-Y') ) ){
+        msgBox(
+            [{message: "Selected attendances file will be uploaded in payperiod "},
+             {message: `<strong>${DateFormat(start, 'd-M-Y')} - ${DateFormat(end, 'd-M-Y')}</strong>`},
+            ],
+            { cancelButton: true, 
+              okCallBack: uploadAttdLogs_confirmed,
+              cancelCallBack: uploadAttdLogs_cancelled
+            }
+        );
 
-            // rest file selected
-            let file =  getById("import-log-file");
-            if (file) file.value = "";  
+    }
 
-            return;  
-        } 
+    function uploadAttdLogs_cancelled(){
+
+        let file =  getById("import-log-file");
+        if (file) file.value = "";  
+    }
+
+    function uploadAttdLogs_confirmed(){
+
+        let file = getById("import-log-file").files[0];  // file from input
+        if (! file) return;
+
+        let start = get("input[name='cutoff_nav_start']").value;
+        let end = get("input[name='cutoff_nav_end']").value;
+
+        // if (! confirm('Uploaded attendances will be saved in cut-off  ' +  
+        //     DateFormat(start, 'd-M-Y') + " - " + DateFormat(end, 'd-M-Y') ) ){
+
+        //     // rest file selected
+        //     let file =  getById("import-log-file");
+        //     if (file) file.value = "";  
+
+        //     return;  
+        // } 
 
         busy.show2();      
 
@@ -125,7 +150,7 @@
 
         getById('uploaded-attds').innerHTML = data.html;
 
-        if ( data.error ) alert(data.error);
+        if ( data.error.length ) msgBox( data.error )
 
         // hide or show upload button
         let e = get("#attd_upload_button");
@@ -164,11 +189,19 @@
         let chks = getAll("input.uploaded-attd-row:checked");
 
         if ( ! chks.length ){
-            alert("Please select uploaded attendance to delete!");
-            return;
+            return msgBox("Please select uploaded attendance to delete!");
         }
         
-        if (! confirm("Delete selected entries?") ) return;
+        msgBox("Delete selected entries?",
+            {okCallBack: deleteUploadedAttendances_confirmed,
+             cancelButton: true
+            }) 
+
+    }
+
+    function deleteUploadedAttendances_confirmed(){        
+
+        let chks = getAll("input.uploaded-attd-row:checked");
 
         var a =[];
         for(var i = 0; i < chks.length; i++){

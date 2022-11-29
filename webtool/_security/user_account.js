@@ -48,14 +48,13 @@ const app  =  Vue.createApp({
 	  		p.d = '0';
 	  		p.id = this.id
 	  	}
-
-	  	// p.x = 1;
+	  	
 	  	if ( this.email_alert )
 	  		this.error_message("Sending account info email to user.", 20, "c-green")
 
 	  	xxhrPost( rootURI + "/ajax_calls.php", p, (res)=>{
 
-	  		// console.log( res )
+	  		console.log( res )
 
 	 			const ret = JSON.parse(res)
 
@@ -77,14 +76,17 @@ const app  =  Vue.createApp({
 
 	  delete(){
 
-	  	const e = get("input[type='radio']:checked");
-	  	if ( !e ) return
+	  	// const e = get("input[type='radio']:checked");
+	  	// if ( !e ) return
 		  
-		  const no = e.value, user = e.dataset.user; 
+		  // const no = e.value, user = e.dataset.user; 
 		  	
-		  if ( ! confirm(`Are you sure you want to delete user '${user}'?`) ) return;
+		  // if ( ! confirm(`Are you sure you want to delete user '${user}'?`) ) return;
 
 		  busy.show2();
+		  
+		  const e = get("input[type='radio']:checked");
+		  const no = e.value, user = e.dataset.user; 
 
 		  const p = { func:"UserAccount", d:-1, id:no }
 		  xxhrPost( rootURI + "/ajax_calls.php", p, (res)=>{
@@ -246,7 +248,16 @@ const app  =  Vue.createApp({
 			}
 
 			getById('delete_user').onclick = function(){
-				proxy.delete();
+
+		  	const e = get("input[type='radio']:checked");
+		  	if ( !e ) return
+			  
+			  const no = e.value, user = e.dataset.user; 
+			  
+			  msgBox(`Are you sure you want to delete user '${user}'?`, 
+			  	{okCallBack: proxy.delete, cancelButton: true}
+			  )
+
 			}
 
 	  }

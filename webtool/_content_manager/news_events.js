@@ -86,15 +86,20 @@ function NewsEvents(){
 	{
 		const radio = get("input[type='radio']:checked");
 		if (! radio ){
-			alert("Plese select an item to delete.");
-			return;
+			return msgBox("Plese select an item to delete.")
 		}
 
-		if (! confirm("Are you sure you want to delete this item?"))
-			return;
+		msgBox("Are you sure you want to delete this item?",
+			{cancelButton: true, okCallBack: _delete_confirmed })
 
+	}
+
+	function _delete_confirmed()
+	{
+		
 		busy.show2();
 
+		const radio = get("input[type='radio']:checked");
 		const no = radio.value;
 
 		// delete rec
@@ -133,10 +138,8 @@ function NewsEvents(){
 		}else{ //edit
 
 			const e = get("input[type='radio']:checked");
-			if (!e){
-				alert("Please select an item to delete.")
-				return;
-			}
+			if (!e)
+				return msgBox("Please select an item to edit.");
 
 			busy.show2();
 

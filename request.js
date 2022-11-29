@@ -102,11 +102,10 @@ $(document).ready(function(){
 
 function selectIt(e){
 	
-	let id = e.dataset.id;	
-	let radio = get("input[value='"+ id +"']");
-	if (radio){
-		radio.checked = true;
-	}
+	const id = e.dataset.id;	
+	const radio = get("input[value='"+ id +"'][type='radio'");
+	if (radio) radio.click();
+
 }
 
 function togglecheckbox()
@@ -121,6 +120,7 @@ function togglecheckbox()
 }
 function updateTeam()
 {
+
     param = extractVals();
     if (param == "") return alert("Please select at least one record.");
     window.location = "cm.php?qid=01&en=" + escape(param) + "&t=" + document.forms[0].AssignTeam.value + getCurrent();
@@ -168,10 +168,9 @@ function popitup(url, w, h, r) {
 
 	var left = (screen.width/2)-(w/2);
 	var top = (screen.height/2)-(h/2) - 20;
-	
 	//record or id
 	if(r==""){
-		alert("Please choose at least one record.");
+		msgBox("Please select record to edit.");
 		return false;
 	}	
 	
@@ -186,8 +185,9 @@ function popitup_request(url,ar,w,h) {
 	var left = (screen.width/2)-(w/2);
 	var top = (screen.height/2)-(h/2);
 	var f = document.forms[0];
+	alert(2)
 	if(ar==""){
-		alert("Please choose at least one record.");
+		msgBox("Please select record to edit.");
 		return false;
 	}	
 	
@@ -224,16 +224,29 @@ function CalendarSection()
     }  
     return radradiobuttonLocationValue;
 }
-function verifyDeleteRequest(q,n,m,r,l)
+
+
+function verifyDeleteRequest(q,n,m,r,l){
+
+	if(n==""){
+		msgBox("Please select a record to delete.");
+		return false;
+	}		
+
+	console.log( q, n, m, r, l);
+	msgBox("Are you sure you want to delete this Request?", 
+		{ cancelButton: true, okCallBack: () => deleteRequest_confirmed(q,n,m,r,l) })
+
+}
+
+function deleteRequest_confirmed(q,n,m,r,l)
 {
 	
 	// console.log(q,n,m,r,l);
 	
 	if(q=="07"){ //webauthorization request only
 		
-    	var pathArray = r.split('&');
-	
-	
+    var pathArray = r.split('&');
 		if(pathArray[2]){
 			
 			addpath = "&" + pathArray[2];
@@ -246,38 +259,21 @@ function verifyDeleteRequest(q,n,m,r,l)
 		
 		var addpath = "";
 	}
-    
-	
-	if(n==""){
-		alert("Please choose at least one record.");
-		return false;
-	}	
-
-	x = document.forms[0];
-	x = confirm("Are you sure you want to delete this Request?");
-	if (!x) {
-		return;
-	}
-	
-			
-	// if (q == "07b" || q == '07c'){
-	
-	// 	$.post('ajax_calls.php', {func:'delReim', q:q, no:n},
-	// 	function(data){
-	// 		// alert(data);
-	// 	});		
-	// 	alert("Reimbursement record deleted.");
-	// }
-	
+  
 	if (l == "rq"){  // requests
 
 		// create  a trigger before delete
-		const posts = [];
-		posts["func"] = "x";
-		posts["t"] = 5;
-		posts['d'] = -1;
-		posts['xp'] = `WebAuthorizationRequestNo = ${n}`; 
-		xxhrPost('ajax_calls.php', posts, () => location.reload() );    // request
+		const p = [];
+		p["func"] = "x";
+		p["t"] = 5;
+		p['d'] = -1;
+		p['xp'] = `WebAuthorizationRequestNo = ${n}`; 
+		p['el'] = 'AllowDeleteMyRequests';
+
+		xxhrPost('ajax_calls.php', p, (res) =>{		
+			location.reload() 
+
+		});    // request
 
 		return;
 
@@ -285,6 +281,8 @@ function verifyDeleteRequest(q,n,m,r,l)
 		// tickets has own delelete code in requests_ticket_window.php - > clicked(this) js function
 
 	}
+
+
 	
 
 	//window.location = "index.php?qid="+escape(q)+"&rn="+escape(r)+"&ar="+escape(n)+"&uen="+escape(m) + addpath;

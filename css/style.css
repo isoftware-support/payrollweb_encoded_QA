@@ -23,6 +23,7 @@ body
 
 	font-size : 11px;
 	font-family: Helvetica, Sans-serif, Arial;
+	font-weight: normal;
 	margin : 0;
 	background-color: #f7f7f7;
 	
@@ -247,16 +248,24 @@ a.ContentTextLink:hover { font-weight: bold; font-size: 11px; color: #ed2140; te
 	background-color: #D6D6D6 !important;	
 }
 
-.PageOption{
+a.PageOption{
 	text-decoration: underline; 
-	color: #ed2140;  
+	color: #ed2140; 
 	cursor: pointer;
-	font-weight: bold; 
+	font-weight: normal; 
 	font-size: 11px
 }
-.PageOption:hover { font-weight: bold; font-size: 11px; color: #ed2140; text-decoration: none  }
-.PageOption:active { font-weight: bold; font-size: 11px; color: #ed2140; text-decoration: none  }
-.PageOption:visited { font-weight: bold; font-size: 11px; color: #ed2140; text-decoration: none  }
+a.PageOption:hover { 
+	text-decoration: none; 
+	/*color: black;*/
+	background-color: rgba(255, 255, 255,.6);  
+}
+
+
+/*
+a.PageOption:active { font-weight: bold; font-size: 11px; color: #ed2140; text-decoration: none  }
+a.PageOption:visited { font-weight: bold; font-size: 11px; color: blue; text-decoration: none  }
+*/
 
 input[type="text"], input[type="password"], .EditBox {
 	font-family: Helvetica, Sans-serif, Arial;	
@@ -279,7 +288,7 @@ input[type="text"], input[type="password"], .EditBox {
     box-sizing: border-box;
 }
 
-.Button{
+button, .Button {
 	font-size:11px;    
 	font-weight: normal; 
 	width:100px;
@@ -288,6 +297,12 @@ input[type="text"], input[type="password"], .EditBox {
 	padding: 1px;
 	border: 1px solid silver;
 	border-radius: 4px;
+}
+
+button:hover:enabled, .button:hover:enabled {
+	color: #525453; /*#175385;*/
+	background-color: white;
+	box-shadow: 2px 2px 5px #aaaaaa;
 }
 
 .GroupBox, fieldset{
@@ -544,6 +559,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .py-2  { padding: 2px 0 !important; }
 .py-3  { padding: 3px 0 !important; }
 .py-5  { padding-top: 5px !important; padding-bottom: 5px !important; }
+.py-8 { padding-top: 8px; padding-bottom: 8px; }
 .py-10 { padding-top: 10px; padding-bottom: 10px; }
 .py-20 { padding-top: 20px; padding-bottom: 20px; }
 .py-50 { padding-top: 50px; padding-bottom: 50px; }
@@ -569,6 +585,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .my-5 { margin-top: 5px !important; margin-bottom: 5px !important; }
 .my-10{ margin-top: 10px !important; margin-bottom: 10px !important; }
 .my-20{ margin-top: 20px !important; margin-bottom: 20px !important; }
+.my-50{ margin-top: 50px; margin-bottom: 50px; }
 
 .mp-2{ margin-left: 2% !important; margin-right: 5% !important; }
 .mp-5{ margin-left: 5% !important; margin-right: 5% !important; }
@@ -601,6 +618,12 @@ label, .CheckBoxLabel, .label, .label-i {
 .mb-50 { margin-bottom: 50px !important; }
 .mb-100 { margin-bottom: 100px !important; }
 
+.mt-2  { margin-top: 2px !important; }
+.mt-5  { margin-top: 5px !important; }
+.mt-10 { margin-top: 10px !important; }
+.mt-20 { margin-top: 20px !important; }
+.mt-50 { margin-top: 50px !important; }
+.mt-100 { margin-top: 100px !important; }
 
 /*---- widths --- fixwidths ----*/
 .w-10, .fw-10 {width: 10px !important; }
@@ -680,6 +703,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .wmx-400 {max-width: 400; }
 .wmx-350 {max-width: 350; }
 .wmx-300 {max-width: 300; }
+.wmx-250 {max-width: 250; }
 .wmx-200 {max-width: 200; }
 .wmx-150 {max-width: 150; }
 .wmx-120 {max-width: 120; }
@@ -714,6 +738,9 @@ label, .CheckBoxLabel, .label, .label-i {
 .hmx-350 {max-height: 350; }
 .hmx-300 {max-height: 300; }
 
+.lh-12 { line-height: 12px }
+.lh-13 { line-height: 13px }
+.lh-15 { line-height: 15px }
 
 .ta-c { text-align: center; padding-left: 0; padding-right: 0; }
 .ta-r { text-align: right; padding-right: 5px; }
@@ -734,6 +761,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .c-icon-dark  {color: #292929;}
 .c-grey1 {background-color: #DEDEDE;}
 .c-grey2 {background-color: #f2f2f2;}
+.c-blue {color: #1576d1 !important;}
 
 .bg-white{background-color: white; }
 .bg-silver{background-color: silver; }
@@ -757,9 +785,17 @@ label, .CheckBoxLabel, .label, .label-i {
 
 /* border radius */
 .br-5{ border-radius: 5px; }
-.br-10{ border-radius: 10px; }
+.br-10{ border-radius: 10px !important;  }
 .br-20{ border-radius: 20px; }
 .brtl-20{ border-top-left-radius: 20px; }
+.br-b-10{ 
+	border-bottom-left-radius: 10px; 
+	border-bottom-right-radius: 10px; 
+}
+.br-b-5{ 
+	border-bottom-left-radius: 5px; 
+	border-bottom-right-radius: 5px; 
+}
 
 /*  attendance status */
 .attd-owner{
@@ -772,9 +808,10 @@ label, .CheckBoxLabel, .label, .label-i {
 .modal-box{
 	position:absolute;
 	display: block;	
-	/*overflow: hidden;*/
+	overflow: hidden;
 	z-index: 100;	
 }
+
 /*  -----------------  */
 
 
@@ -1994,10 +2031,11 @@ a.jobs-link-sub{
 .pic_buttons img{
 	width:18px;
 	padding: 5px;
+	transition: 0.3s;
 }
 
 .pic_buttons img:hover{
-	background-color: #fcba03;
+	background-color: white; /* #fcba03;*/
 	border-radius: 10px;
 	cursor: pointer;
 }
@@ -2055,8 +2093,9 @@ a.jobs-link-sub{
 	font-weight: bold;
 	margin-top: 100px;
 	cursor: pointer;
-
+	transition: 0.3s;
 }
+
 #bottom-wrapper .prior{
 	margin-left: 5px;
 }

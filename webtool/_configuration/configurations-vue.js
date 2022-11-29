@@ -16,18 +16,18 @@ if (currentSection == "Emails") {
 
 			<div class="aligner" >
 				<label class='fw-110 ' >Mail Server:</label>
-				<input v-model="mail_server" class='flex-1 wmx-200' type="text" 
+				<input v-model="mail_server" class='EditBox wp-60 wmx-300' type="text" 
 					title="Ex: &#013 mail.issti.com:993/imap/ssl &#013 pop.example.com:995/pop3/ssl/novalidate-cert">
 			</div>	
 
 			<div class="aligner">
 				<label class='fw-110 ' >Email Account:</label>
-				<input v-model="email" class='wmx-150 EditBox' type="text">
+				<input v-model="email" class='EditBox wp-60 wmx-300' type="text">
 			</div>	
 
 			<div class="aligner">
 				<label class='fw-110 pr-5' for="">Password:</label>
-				<input v-model="password" class='wmx-150' type="password">
+				<input v-model="password" class='EditBox wp-60 wmx-300' type="password">
 			</div>	
 			<div class="aligner">
 				<label class='fw-110 pr-5' for="">Poll time:</label>

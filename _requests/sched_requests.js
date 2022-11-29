@@ -15,6 +15,7 @@
         }
     }
 
+
     function delete_request(e){
         
         e = e.parentNode;
@@ -22,25 +23,27 @@
         let _type = e.dataset.type;
         let eno = e.dataset.eno;       
 
-        if (confirm("Are you sure you want to delete employee "+ _type +" request?") ){
-            
-            let url = "xhtml_response.php?q=aprDelReq&a="+ userno +"&r="+ no +"&e="+ eno + "&t="+ e.dataset.type + _session_vars;                        
-
-            xxhr("GET", url, 
-                function(msg){
+        msgBox("Are you sure you want to delete employee "+ _type +" request?",
+            { cancelButton: true, 
+              okCallBack : () => {
                 
-                // console.log(msg);
-                alert(msg);
+                    let url = "xhtml_response.php?q=aprDelReq&a="+ userno +"&r="+ no +"&e="+ eno + "&t="+ e.dataset.type + _session_vars;                        
 
-                let tr = e.parentNode;
-                let table = tr.parentNode;
-                table.removeChild(tr);
+                    xxhr("GET", url, 
+                        function(msg){
+                        
+                        msgBox(msg);
 
-                
+                        let tr = e.parentNode;
+                        let table = tr.parentNode;
+                        table.removeChild(tr);                
 
-            });
-        }
+                    })
 
+                }   // ok callback end
+
+            }  // options parameter end
+        )  // msg box end
     }
 
     function overwrite_request(e){

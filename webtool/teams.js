@@ -36,7 +36,9 @@ function togglecheckbox()
 function updateTeam()
 {
     param = extractVals();
-    if (param == "") return alert("Please select at least one record.");
+    if (param == ""){
+        return alert("Please select at least one record.");
+    }
     window.location = "teams.php?qid=01&en=" + escape(param) + "&t=" + document.forms[0].AssignTeam.value + getCurrent();
 }
 function extractVals()
@@ -333,11 +335,15 @@ function IsAllSelected(FormName, ObjName){
     }
 	f.select_all.checked = check; 
 }
+
 function updateEmployeesTeam(FormName, ObjName)
 {
 	f = document.forms[FormName];
     param = extractVals(FormName, ObjName);
-    if (param == "") return alert("Please select at least one record.");
+    if (param == ""){
+      // return alert("Pleaseee select at least one record.");  
+      return msgBox( "Please select at least one record." );  
+    } 
 	f.selected_employees.value = param;
     f.submit();
 }

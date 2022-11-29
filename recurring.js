@@ -33,9 +33,30 @@
 
             function show(res){
                 busy.hide();
-                getById('div_info').innerHTML = res;                
+                let e = getById('div_info');
+
+                e.innerHTML = res;                
+                detailsVisible();
+
+
             };
 
+            function detailsVisible( isShow = true ){
+
+                const details = getById('div_info');
+                const title   = getById("details_title");
+
+                if ( isShow ){
+
+                    details.classList.remove("d-none");
+                    title.classList.remove("d-none");
+
+                }else{
+                    details.classList.add("d-none");
+                    title.classList.add("d-none");
+
+                }
+            }
 
             function getAllRec( clear = false ){
 
@@ -59,6 +80,8 @@
                 for( var i = 0; i < rows.length; i++){
                     rows[i].onclick = function(){ showDetails(this); };
                 }
+
+                detailsVisible(false);
             }
 
             getById('filter-ok').onclick = function(){ getAllRec(); };

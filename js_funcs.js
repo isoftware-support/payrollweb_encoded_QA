@@ -1,6 +1,13 @@
 
     // console.log( "js_funcs.js");
     
+    // ------------------
+    // prevent post refresh 
+    // -------------------
+    if ( window.history.replaceState ) {
+        window.history.replaceState( null, null, window.location.href );
+    }
+
     // row stripes
     var trs = $('tr.row-stripe:odd');
     if (trs) $(trs).addClass('DataRowStripe');        
@@ -15,7 +22,7 @@
     function getByClass( cclass ){
         return document.getElementsByClassName(cclass);
     }
-    function get( selector ){
+    function get( selector ){  
         //using # for ID and . for class
         return document.querySelector( selector );
     }
@@ -97,7 +104,154 @@
         })        
         return txt;
     }
-    
+
+
+    function msgBox(message = [], options = {}){
+
+        /*
+         message = [ {message : '', class:''}, {message:'', class:''} ]
+         options = {class: 'w-300', msgbg: 'bg-white'
+            okCallBack: '', cancelButton: false,
+            cancellCallBack:''
+         }
+        */
+
+        // defaults
+        let keys = Object.keys(options)
+        if ( keys.indexOf('class') == -1)           options.class = "w-300 d-block"                    
+        if ( keys.indexOf('msgbg') == -1)           options.msgbg = "bg-white"
+        // if ( keys.indexOf('cancelButton') == -1)    options.cancelButton = false
+        //if ( keys.indexOf('cancelCallBack') == -1)  options.cancelCallBack = ''
+
+        // if passed is a string only
+        const txt = message
+        if ( typeof message == "string") message = [{message: txt, class: ''}];        
+
+        const id = "msg-box-prompt"
+
+        // clear child elements
+        let div_main = getById(id)
+        if ( div_main ) div_main.innerHTML = ""
+                   
+        const body = get("body");
+
+        let e = document.createElement('div')
+        e.id = "msg-box-prompt";
+        e.classList.add('modal-box', 'br-b-5', 'shadow-3')
+
+        const classes = options.class.split(" ")
+        classes.forEach( (c)=>{
+            e.classList.add(c)                
+        })
+        
+        e.style.left = -999
+        body.appendChild(e);
+
+        div_main = getById("msg-box-prompt");
+
+        // // title
+        // e = document.createElement('div')
+        // e.id = "msg-box-title"
+        // e.innerHTML = `<p>${title.text}</p>`
+        // e.classList.add('bg-menu', 'c-white', 'ta-c', 'py-3')
+        // div_main.appendChild(e);
+        // const div_title = getById("msg-box-title")
+
+        // message
+        let msg = ""
+        if ( Array.isArray(message) ){
+            message.forEach((item)=>{
+
+                // if ( ! item.class ) item.class = "h4 lh-15"
+                msg += `<p class='h4 lh-15 ${item.class}'>${item.message}</p>`
+            })
+        }
+        e = document.createElement('div')
+        e.id = "msg-box-message"
+        e.innerHTML = msg;
+        e.classList.add('p-20')
+        e.classList.add( options.msgbg)
+        div_main.appendChild(e)
+
+        // -------------
+        // buttons
+        // -------------
+
+        // canell button
+        let cancel = ""
+        if ( options.cancelButton ){
+            cancel = "<button id='msg-box-button-cancel' class='ml-5' type='button'>Cancel</button>"
+        }
+
+        e = document.createElement('div')
+        e.id = "msg-box-buttons"
+        e.innerHTML = `<center><button id='msg-box-button-ok' type='button' >Ok</button>${cancel}<center>`
+        e.classList.add('py-8','bg-lightgrey-3')
+        div_main.appendChild(e)
+
+        // button event
+
+        const _hide = ()=>{
+            div_main.style.left = -999
+            dimBack( false, 'dimback');
+        }
+
+        e = getById("msg-box-button-ok")
+        e.onclick = ()=>{
+
+            _hide()
+
+            if ( options.okCallBack )
+                 options.okCallBack();
+        }
+
+        e = getById('msg-box-button-cancel')
+        if ( e ){
+            e.onclick = () =>{
+
+                _hide()
+                if ( options.cancelCallBack )
+                     options.cancelCallBack();
+            }
+        }
+        
+        CenterItem( id);
+        dimBack(true, 'dimback', ()=>{ 
+            _hide()
+        }, "black", .3)
+
+    }
+
+
+    function redirectHomeScript( options = {})
+    {
+
+        let keys = Object.keys(options)
+        if ( ! keys.length ){
+            options.elementId = "redirect-counter";
+            options.message = 'Redirecting to the home page';
+            options.redirect = '';
+        }
+
+        var seconds = 5;    
+        var redirectTimer = setInterval(()=>{                        
+
+            if ( seconds <= 0 ){
+
+                clearInterval( redirectTimer );
+                window.location.replace( options.redirect );                
+
+            }else{                  
+                let p = getById( options.elementId);
+                if (p){
+                    p.innerHTML = '(' + options.message + ' in ' + seconds + ')';
+                }
+            }            
+
+            seconds -= 1;
+        }, 1000);
+    }    
+
 // classes
     function BusyGif( w="30px"){	
                 
@@ -366,13 +520,15 @@ function slideUpDown(id, lDown, sDuration){
 }
 //-------------------------------
 
-function dimBack(dimIt, id='dimback', hideCallback = ""){
+function dimBack(dimIt, id='dimback', hideCallback = "", bg = 'black', opacity = 0.6){
    
     if (typeof dimIt == 'undefined' || dimIt == null) dimIt = true;
 
     // id is blank
     if ( ! id ) id = "dimback";
- 
+    if ( ! bg ) bg = 'black'
+    if ( ! opacity ) opacity = 0.6
+
     if (dimIt){
 
 
@@ -386,7 +542,7 @@ function dimBack(dimIt, id='dimback', hideCallback = ""){
   
         $(`div#${id}`).css({"left":"0", "height": h, "position":"absolute", 'display': 'block',
             'top': 0, 'left': 0, 'width':'100%', 'margin-top': '0px',
-            'z-index': 99 , 'background-color':'Black', 'opacity': 0.6 });
+            'z-index': 99 , 'background-color': bg, 'opacity': opacity});
            
         $(`div#${id}`).fadeIn("normal");              
  
