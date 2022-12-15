@@ -9,7 +9,7 @@
         // delete first
         removeChild(div_id);
 
-        console.log( data);
+        //console.log( data);
 
         const body = get(parentTagName);
         if ( body ){
@@ -61,7 +61,7 @@
                 };
 
                 el.onmouseleave = () => {
-                    console.log('left');
+                    //console.log('left');
                     const div = getById("apr_hover_name");
                     div.style.display = "none";
                 }

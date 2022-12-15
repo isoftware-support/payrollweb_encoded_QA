@@ -1,5 +1,3 @@
-
-    // console.log( "js_funcs.js");
     
     // ------------------
     // prevent post refresh 
@@ -337,19 +335,20 @@
         let y2 = y.toString().substr(0,2);
         var ret = format;
 
-        // year
-        ret = ret.replace("Y", y);
-        ret = ret.replace("y", y2);
+        // day
+        ret = ret.replace("d", d);
+        
+        // Day name
+        ret = ret.replace("D", days[dayOfWeek]);
 
         // month
         ret = ret.replace("M", months[month]);
         ret = ret.replace("m", m);
 
-        // day
-        ret = ret.replace("d", d);
+        // year
+        ret = ret.replace("Y", y);
+        ret = ret.replace("y", y2);
 
-        // Day name
-        ret = ret.replace("D", days[dayOfWeek]);
 
         
         return ret;
@@ -756,6 +755,7 @@ function isEmailValid( email )
 
 function overrideFormEnterKey( formID, elementID, runFunc = "" )
 {
+
     const frm = getById('frm_team_setup');
     if ( frm ){
         frm.onkeydown = event => {            
@@ -769,7 +769,7 @@ function overrideFormEnterKey( formID, elementID, runFunc = "" )
     }
 }
 
-function xxhr(method, path, func){
+function xxhr(method, path, func, id_contentHolder = ""){
     
     //ex:  xxhr("GET", 'xhtml_response.php?q=myRecEntry&id='+ e.dataset.id, show);
     //    function show(ret){  ... to show return html }
@@ -780,18 +780,23 @@ function xxhr(method, path, func){
     xhr.onload = function(){
         if (this.status == 200){
 
-            if (func)
-                func(this.responseText);                     
+            if (func) func(this.responseText);                     
+
+            if ( id_contentHolder ){
+                const e = getById(id_contentHolder);
+                if ( e ) e.innerHTML = this.responseText;
+            }
 
         // }else if( this.status == 404){
         //  p.innerHTML = " not found";
+        
         }
     };
     xhr.send();         
 }
 
-function xxhrGet(url, callBackFunc = ""){
-   xxhr("GET", url, callBackFunc);
+function xxhrGet(url, callBackFunc = "", id_contentHolder = ""){
+   xxhr("GET", url, callBackFunc, id_contentHolder);
 }
 
 function xxhrPost(url, data=[], callBackFunc = ""){

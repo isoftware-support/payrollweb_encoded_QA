@@ -80,8 +80,7 @@ $(document).ready(function(){
 
         var num = $("input:checked[name^=apr]").length;
         if (num < 1){
-            alert("Please select a request.");
-            return;
+        	return msgBox("Please select a request.")
         }
 
     	var xy = $('#clear_x').offset();    	
@@ -233,7 +232,7 @@ function verifyDeleteRequest(q,n,m,r,l){
 		return false;
 	}		
 
-	console.log( q, n, m, r, l);
+	// console.log( q, n, m, r, l);
 	msgBox("Are you sure you want to delete this Request?", 
 		{ cancelButton: true, okCallBack: () => deleteRequest_confirmed(q,n,m,r,l) })
 

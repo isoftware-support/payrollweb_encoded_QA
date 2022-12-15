@@ -213,7 +213,7 @@ function saveJobs(empNo, attdNo, maxHours, date, pp, isApproveJobs = false)
   		busy.hide();
 
   		let ret = JSON.parse(res);
-  		console.log(ret);
+  		// console.log(ret);
 
   		let msg = ret.msg;
   		if ( isApproveJobs ) msg = "Jobs successfuly saved and approved.";

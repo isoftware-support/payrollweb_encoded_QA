@@ -46,25 +46,6 @@
 			
 			window.opener.location.reload();
 			self.close();
-
-			/*
-			return;
-
-			var urls = f.prevpage.value;
-						
-
-			//alert(urls);
-			
-			//var local_url = urls.match(/([^qid]*)/gi);	
-            var qid_url   = urls.match(/qid([^aprv]*)/gi);
-			var cn_url    = urls.match(/cn([^]*)/gi);
-			var prev_url =  "?" + qid_url + cn_url;
-			var newurl = urls.split('?')[0];
-			
-	
-			opener.location.href = newurl + prev_url + params;
-			self.close();
-			*/
 		}		
 
 	

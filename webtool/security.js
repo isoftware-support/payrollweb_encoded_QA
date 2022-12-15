@@ -156,51 +156,40 @@ function cancelAddRole()
 
 function submitAddRole()
 {
-   /* f = document.forms[0];
-    z = findControl(f, 'allowed[]');
-    for (i = 0; i < z.options.length; i++) {
-        z.options[i].selected = true;
-    }
-	x = findControl(f, 'available[]');
-    for (i = 0; i < x.options.length; i++) {
-        x.options[i].selected = true;
-    }
-    f.submit();*/
-	
-	//alert("entering submitaddrole");
-    f = document.forms[0];
-	
-    z = findControl(f, 'allowed[]');
-    for (i = 0; i < z.options.length; i++) {
-        z.options[i].selected = true;
-    }
-	
-	
-	x = findControl(f, 'available[]');
-    for (i = 0; i < x.options.length; i++) {
-        x.options[i].selected = true;
-    }
-	
-	
-	a = findControl(f, 'allowed2[]');
-    for (i = 0; i < a.options.length; i++) {
-        a.options[i].selected = true;
-    }
-	
-	b = findControl(f, 'available2[]');
-    for (i = 0; i < b.options.length; i++) {
-        b.options[i].selected = true;
-    }
-	
-	
-	
-	
-	f.getElementByID("UpdateUserGroupPrivilege").value=1;
-    f.submit();
-	//alert("exiting submitaddrole");
-	
+   
+	f = document.forms[0];
 
+	z = findControl(f, 'allowed[]');
+	if ( z ){
+		for (i = 0; i < z.options.length; i++) {
+		    z.options[i].selected = true;
+		}
+	}
+
+	x = findControl(f, 'available[]');
+	if ( x ){
+		for (i = 0; i < x.options.length; i++) {
+		    x.options[i].selected = true;
+		}
+	}
+
+	a = findControl(f, 'allowed2[]');
+	if ( a ){
+		for (i = 0; i < a.options.length; i++) {
+		    a.options[i].selected = true;
+		}
+	}
+
+	b = findControl(f, 'available2[]');
+	if (b){
+		for (i = 0; i < b.options.length; i++) {
+		    b.options[i].selected = true;
+		}
+	}
+
+  f.submit();
 }
+
 function submitUGA()
 {
     f = document.forms[0];

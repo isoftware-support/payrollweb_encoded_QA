@@ -1,29 +1,5 @@
 
 
-function filterEmployees()
-{   
-
-    const txt = getById('name_filter').value.toLowerCase();
-    // console.log(txt);
-
-    const select = getById('available_id');
-
-    for (let i = 0; i < select.options.length; i++) {
-
-        const option = select.options[i];
-        let display = "block";
-        if ( txt ){
-            
-            const name = option.text.toLowerCase();
-            display = name.indexOf(txt) == -1 ? "none" : "block";
-        }
-
-        option.style.display = display;       
-    }
-
-    return false;
-}
-
 function togglecheckbox()
 {
 	f = document.forms[0];

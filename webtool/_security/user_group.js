@@ -5,9 +5,6 @@ if ( timer == 'undefined'){
 
 const appUG = Vue.createApp({
 
-		// data(){
-		// 	return this.init();
-		// },
 	data(){
 		return {
 			id: 0,

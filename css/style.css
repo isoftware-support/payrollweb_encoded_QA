@@ -481,6 +481,10 @@ label, .CheckBoxLabel, .label, .label-i {
 .flex{ display: flex; }
 .flex-column{ flex-direction: column; }
 .flex-justify-center{ justify-content: center; }
+.flex-space-between{ justify-content: space-between; }
+.flex-space-around{ justify-content: space-around; }
+.flex-align-right{ align-items: flex-end; }
+.flex-align-center{ align-items: flex-center; }
 
 .flex-grow{ 	flex-grow: 1; }
 .flex-1{ flex: 1; }
@@ -550,6 +554,8 @@ label, .CheckBoxLabel, .label, .label-i {
 .pr-2  { padding-right: 2px !important; }
 .pr-3  { padding-right: 3px !important; }
 .pr-5  { padding-right: 5px !important; }
+.pr-6  { padding-right: 6px !important; }
+.pr-8  { padding-right: 8px !important; }
 .pr-10 { padding-right: 10px !important; }
 .pr-20 { padding-right: 20px !important; }
 .pr-50 { padding-right: 50px !important; }
@@ -597,6 +603,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .mx-20{ margin-left: 20px !important; margin-right: 20px !important; }
 .mx-50{ margin-left: 50px !important; margin-right: 50px !important; }
 
+.ml-a{ margin-left: auto; }
 .ml-3{ margin-left: 3px !important; }
 .ml-5{ margin-left: 5px !important; }
 .ml-10{ margin-left: 10px !important; }
@@ -604,6 +611,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .ml-50{ margin-left: 50px !important; }
 .ml-60{ margin-left: 60px !important; }
 
+.mr-0  { margin-right: 0px !important; }
 .mr-1  { margin-right: 1px !important; }
 .mr-2  { margin-right: 2px !important; }
 .mr-3  { margin-right: 3px !important; }
@@ -618,12 +626,15 @@ label, .CheckBoxLabel, .label, .label-i {
 .mb-50 { margin-bottom: 50px !important; }
 .mb-100 { margin-bottom: 100px !important; }
 
+.mt-1  { margin-top: 1px !important; }
 .mt-2  { margin-top: 2px !important; }
+.mt-3  { margin-top: 3px !important; }
 .mt-5  { margin-top: 5px !important; }
 .mt-10 { margin-top: 10px !important; }
 .mt-20 { margin-top: 20px !important; }
 .mt-50 { margin-top: 50px !important; }
 .mt-100 { margin-top: 100px !important; }
+.mt-200 { margin-top: 200px !important; }
 
 /*---- widths --- fixwidths ----*/
 .w-10, .fw-10 {width: 10px !important; }
@@ -647,6 +658,9 @@ label, .CheckBoxLabel, .label, .label-i {
 .w-250, .fw-250 {width: 250px !important; }
 .w-270, .fw-270 {width: 270px !important; }
 .w-300, .fw-300 {width: 300px !important; }
+.w-350, .fw-300 {width: 350px !important; }
+.w-400, .fw-500 {width: 400px !important; }
+
 .w-160 {width: 160px !important; }
 .w-170 {width: 170px !important; }
 .w-180 {width: 180px !important; }
@@ -679,6 +693,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .wp-25 { width: 25%  }
 .wp-30 { width: 30%; }
 .wp-40 { width: 40%; }
+.wp-45 { width: 45%; }
 .wp-50 { width: 50% }
 .wp-55 { width: 55% ; }
 .wp-60 { width: 60%; }
@@ -688,6 +703,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .wp-90 { width: 90%; }
 .wp-93 { width: 93%; }
 .wp-95 { width: 95%; }
+.wp-97 { width: 97%; }
 .wp-98 { width: 98%; }
 
 /* max widths */
@@ -697,6 +713,9 @@ label, .CheckBoxLabel, .label, .label-i {
 .wm-350 {min-width: 350; }
 .wm-300 {min-width: 300; }
 
+.wmx-900 {max-width: 900; }
+.wmx-800 {max-width: 800; }
+.wmx-700 {max-width: 700; }
 .wmx-600 {max-width: 600; }
 .wmx-500 {max-width: 500; }
 .wmx-450 {max-width: 450; }
@@ -719,6 +738,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .h-5   {height: 5px;}
 .h-10  {height: 10px;}
 .h-15  {height: 15px;}
+.h-18  {height: 18px;}
 .h-20  {height: 20px;}
 .h-30  {height: 30px;}
 .h-40  {height: 40px;}
@@ -726,6 +746,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .h-100 { height: 100px;}
 .h-200 { height: 200px;}
 .h-300 { height: 300px;}
+.h-400 { height: 400px;}
 .h-600 { height: 600px;}
 
 .hp-50 {height: 50% !important;}
@@ -749,6 +770,22 @@ label, .CheckBoxLabel, .label, .label-i {
 .align-bottom{
 	align-items: bottom;
 }
+
+.relative{
+	position: relative;
+}
+
+.align-center{
+  margin: auto;
+  margin-top: auto;
+/*  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translateY(-50%);
+  -ms-transform: translateX(-50%);
+  transform: translateY(-50%);
+  transform: translateX(-40%);
+*/}
 
 .va-c{vertical-align: middle;}
 .va-t{vertical-align: top;}
@@ -810,6 +847,7 @@ label, .CheckBoxLabel, .label, .label-i {
 	display: block;	
 	overflow: hidden;
 	z-index: 100;	
+	border-radius: 2px;
 }
 
 /*  -----------------  */
@@ -2191,3 +2229,32 @@ a.jobs-link-sub{
 
 }
 /*-----------------------------*/
+
+
+/* filter button hover*/
+.filter-button:hover {
+	background-color: white;
+	border-radius: 5px;
+}
+
+.anim-hide-item { 
+	opacity: 0; 
+	visibility: hidden;
+	-webkit-transition: visibility 0.2s linear,
+	opacity 0.2s linear;
+	-moz-transition: visibility 0.2s linear,
+	opacity 0.2s linear;
+	-o-transition: visibility 0.2s linear,
+	opacity 0.2s linear; 
+}
+
+.anim-show-item { 
+	opacity: 1; 
+	visibility: visible; 
+	-webkit-transition: visibility 0.2s linear,
+	opacity 0.2s linear;
+	-moz-transition: visibility 0.2s linear,
+	opacity 0.2s linear;
+	-o-transition: visibility 0.2s linear,
+	opacity 0.2s linear; 
+}

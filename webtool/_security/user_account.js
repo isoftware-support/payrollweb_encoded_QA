@@ -239,25 +239,24 @@ const app  =  Vue.createApp({
 			this.$refs._privileges.innerHTML = privileges_list.join("");
 
 			// bind add button
-			getById('add_user').onclick = function(){
-				proxy.add();
-			}
-
-			getById('edit_user').onclick = function(){
-				proxy.edit();
-			}
-
-			getById('delete_user').onclick = function(){
-
-		  	const e = get("input[type='radio']:checked");
-		  	if ( !e ) return
-			  
-			  const no = e.value, user = e.dataset.user; 
-			  
-			  msgBox(`Are you sure you want to delete user '${user}'?`, 
-			  	{okCallBack: proxy.delete, cancelButton: true}
-			  )
-
+			let e = getById('add_user')
+			if ( e) e.onclick = () => proxy.add()
+			
+			e = getById('edit_user')
+			if ( e ) e.onclick = ()=> proxy.edit()
+			
+			e = getById('delete_user')
+		  if (e){
+		  	e.onclick = () => {
+			  	const e = get("input[type='radio']:checked");
+			  	if ( !e ) return
+				  
+				  const no = e.value, user = e.dataset.user; 
+				  
+				  msgBox(`Are you sure you want to delete user '${user}'?`, 
+				  	{okCallBack: proxy.delete, cancelButton: true}
+				  )
+				}
 			}
 
 	  }

@@ -139,13 +139,15 @@ const team_account = Vue.createApp({
 
 		load(){
 
-			getById('team-add').onclick = () =>{
-				proxy.show(1);
-			}
-			getById('team-edit').onclick = () =>{
-				proxy.show();
-			}
-			getById('team-delete').onclick = () =>{
+			let e = getById('team-add')
+			if ( e) e.onclick = () => proxy.show(1);
+
+			e = getById('team-edit')
+			if (e) e.onclick = () => proxy.show();
+			
+			e = getById('team-delete')
+			if ( e){
+				e.onclick = () =>{
 
 					this.getTeamNo();
 					if ( ! this.teamNo ) return;
@@ -153,8 +155,8 @@ const team_account = Vue.createApp({
 					msgBox("Are you sure you want to delete this team?", 
 						{cancelButton: true, okCallBack: this.delete })
 
+				}
 			}
-
 	  }		
 	}
 

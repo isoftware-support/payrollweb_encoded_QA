@@ -36,7 +36,7 @@
 			_end_v =  dttmTo.value;
 		}
 
-		console.log( 'isLeaes', isLeaves, 'in days', inDays);
+		//console.log( 'isLeaes', isLeaves, 'in days', inDays);
 		
 		let hr = 0;
 		if ( _start_v && _end_v ){
@@ -121,8 +121,7 @@
 
 	}		
 
-	function loadLeaveDates()
-	{
+	function loadLeaveDates(){
 
 		if ( ! isLeaveBatchFiling ) return;
 
@@ -152,6 +151,8 @@
 					const date = DateFormat( dtFrom, "d-M-Y D" );
 					const day = DateFormat( dtFrom, "D");
 					const v = DateFormat( dtFrom, "Y-m-d" );
+					
+					console.log('day', day);
 
 					const id = `leave_dates_${cnt}`;
 
@@ -160,8 +161,16 @@
 						color = "c-red";
 
 					if ( Array.isArray(holidays) ){
-						if ( holidays.includes(v) )
-							color = "c-red bold";
+						if ( holidays.includes(v) ){
+							color = "c-red bold ";
+
+							// #8494 - disallow leave filing on holidays
+							if ( isDisallowLeaveOnHolidays ){
+								dtFrom.setDate( dtFrom.getDate() + 1);
+								continue;
+							}
+							console.log( 'holiday', isDisallowLeaveOnHolidays, v);
+						}
 					}
 					
 
