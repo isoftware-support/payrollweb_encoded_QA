@@ -227,6 +227,8 @@ function CalendarSection()
 
 function verifyDeleteRequest(q,n,m,r,l){
 
+	// console.log(q,n,m,r,l);
+
 	if(n==""){
 		msgBox("Please select a record to delete.");
 		return false;
@@ -241,8 +243,7 @@ function verifyDeleteRequest(q,n,m,r,l){
 function deleteRequest_confirmed(q,n,m,r,l)
 {
 	
-	// console.log(q,n,m,r,l);
-	
+
 	if(q=="07"){ //webauthorization request only
 		
     var pathArray = r.split('&');
@@ -270,7 +271,16 @@ function deleteRequest_confirmed(q,n,m,r,l)
 		p['el'] = 'AllowDeleteMyRequests';
 
 		xxhrPost('ajax_calls.php', p, (res) =>{		
-			location.reload() 
+
+			// remove row
+			const e = get(`input[type='radio'][value='${n}']`)
+			if ( e ){
+				const row = e.parentElement.parentElement;
+				row.parentElement.removeChild(row);
+				console.log(row)
+			}
+
+			// location.reload() 
 
 		});    // request
 

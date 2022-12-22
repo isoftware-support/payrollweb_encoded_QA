@@ -277,6 +277,8 @@ if (currentSection == "Emails") {
             let p = { func: 'GetMultiRecs', t: 1, f: "fc|fv1|fv3", xp: "f1 = 'APR_LAZY'", rc: 1 }
             xxhrPost('../ajax_calls.php', p, res => {
 
+                // console.log(res)
+                
                 const ret = JSON.parse(res);
                 Object.values(ret).forEach(item => {
 
