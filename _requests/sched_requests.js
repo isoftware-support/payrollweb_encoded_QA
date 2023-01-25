@@ -76,8 +76,8 @@
     
 
     function btn_approve(){ // APPROVE
-               
         
+       
         // GET REQUEST NO.
         // var userno = <?php echo json_encode($tl_approver); ?>;
         // var teamnox =<?php echo json_encode($gt_team_nox); ?>; 
@@ -267,17 +267,14 @@
                 
                 
                 const result = xmlhttpxxx.responseText;
+                // console.log(result)
+
                 const ret = JSON.parse(result);
 
                 var ajaxDisplay = ret.result;
 
-                // console.log(ajaxDisplay);
-                // console.log(ret);
-
-                //var res = ajaxDisplay.split(','); // Supervisor Approvers
-            	
+           	
             	// SEPARATE FINAL STATUS to Approver Info Display Starts
-
                 var replace_st = Array("<br>_0_","<br>_1_","<br>_-1_");
                 var regexp_st = new RegExp(replace_st.join('|'),'g');  
                 var sep_st = ajaxDisplay.replace(regexp_st,''); 

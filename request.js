@@ -77,7 +77,7 @@ $(document).ready(function(){
 
     //busy gif on approval buttons
     $('#approve_x, #clear_x, #disapproval_saved, #disapprove_x').click(function(){   	
-
+    	
         var num = $("input:checked[name^=apr]").length;
         if (num < 1){
         	return msgBox("Please select a request.")
@@ -306,6 +306,7 @@ function deleteRequest_confirmed(q,n,m,r,l)
 	//window.location.replace('index.php?qid=07&rq=&rp=0');	
 	//window.location=document.referrer;
 }
+
 function verifyDeleteCalendar(n)
 {
 	 

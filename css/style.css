@@ -5,6 +5,12 @@
 	margin:0;
 } 
 */
+:root {
+	--lightgrey: #e0e0e0;
+	--lightgrey-2: #ebebeb;
+	--lightgrey-3: #E5E5E5;
+	--menu: #525453; 
+}
 
 /* Chrome, Safari, Edge, Opera */
 input::-webkit-outer-spin-button,
@@ -232,11 +238,15 @@ a.ContentTextLink:hover { font-weight: bold; font-size: 11px; color: #ed2140; te
 .DataRow, .DataRowHover{
 	background-color: white;	
 	border-bottom: solid 1px;
-    border-color: #D8D1D1;	 	
+  border-color: #D8D1D1;	 	
 }
 
 .DataRowHover:hover{
 	background-color: #F2F2F2;
+}
+
+.Clickable{
+	cursor: pointer;
 }
 
 .DataRowStripe{
@@ -498,6 +508,8 @@ label, .CheckBoxLabel, .label, .label-i {
 	align-items: center;
 }
 
+
+
 /* ---- generics ------ */
 
 .shadow-2 {box-shadow: 2px 2px 2px #aaaaaa;	}
@@ -576,6 +588,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .px-2  { padding-left: 2px !important; padding-right: 2px !important; }
 .px-5  { padding-left: 5px; padding-right: 5px; }
 .px-10 { padding-left: 10px; padding-right: 10px; }
+.px-15 { padding-left: 15px; padding-right: 15px; }
 .px-20 { padding-left: 20px; padding-right: 20px; }
 .px-30 { padding-left: 30px; padding-right: 30px; }
 .px-40 { padding-left: 40px; padding-right: 40px; }
@@ -620,6 +633,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .mr-20 { margin-right: 20px !important; }
 
 .mb-2  { margin-bottom: 2px !important; }
+.mb-3  { margin-bottom: 3px !important; }
 .mb-5  { margin-bottom: 5px !important; }
 .mb-10 { margin-bottom: 10px !important; }
 .mb-20 { margin-bottom: 20px !important; }
@@ -720,6 +734,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .wmx-500 {max-width: 500; }
 .wmx-450 {max-width: 450; }
 .wmx-400 {max-width: 400; }
+.wmx-380 {max-width: 380; }
 .wmx-350 {max-width: 350; }
 .wmx-300 {max-width: 300; }
 .wmx-250 {max-width: 250; }
@@ -742,9 +757,11 @@ label, .CheckBoxLabel, .label, .label-i {
 .h-20  {height: 20px;}
 .h-30  {height: 30px;}
 .h-40  {height: 40px;}
+.h-50  {height: 50px;}
 .h-80 { height: 80px !important;}
 .h-100 { height: 100px;}
 .h-200 { height: 200px;}
+.h-250 { height: 250px;}
 .h-300 { height: 300px;}
 .h-400 { height: 400px;}
 .h-600 { height: 600px;}
@@ -762,6 +779,10 @@ label, .CheckBoxLabel, .label, .label-i {
 .lh-12 { line-height: 12px }
 .lh-13 { line-height: 13px }
 .lh-15 { line-height: 15px }
+.lh-20 { line-height: 20px }
+.lh-25 { line-height: 25px }
+.lh-30 { line-height: 30px }
+.lh-50 { line-height: 50px !important}
 
 .ta-c { text-align: center; padding-left: 0; padding-right: 0; }
 .ta-r { text-align: right; padding-right: 5px; }
@@ -798,15 +819,17 @@ label, .CheckBoxLabel, .label, .label-i {
 .c-icon-dark  {color: #292929;}
 .c-grey1 {background-color: #DEDEDE;}
 .c-grey2 {background-color: #f2f2f2;}
+.c-grey3 {background-color: #f1f1f1;}
 .c-blue {color: #1576d1 !important;}
 
 .bg-white{background-color: white; }
 .bg-silver{background-color: silver; }
 .bg-grey{background-color: grey; }
-.bg-lightgrey{background-color: #e0e0e0; }
-.bg-lightgrey-2{background-color: #ebebeb;}
-.bg-lightgrey-3{background-color: #E5E5E5;}
-.bg-menu{ background-color: #525453; }
+.bg-lightgrey{background-color: var(--lightgrey); }
+.bg-lightgrey-2{background-color: var(--lightgrey-2); }
+.bg-lightgrey-3{background-color: var(--lightgrey-3); }
+.bg-menu{ background-color: var(--menu); }
+
 
 /* --- font size ---------*/
 .fs-8{ font-size: 8px !important; }
@@ -818,8 +841,12 @@ label, .CheckBoxLabel, .label, .label-i {
 .fs-20{ font-size: 20px !important; }
 .fs-25{ font-size: 25px !important;  }
 
- /* ----------------------------- */
+.fw-n{ font-weight: normal;}
+/* ----------------------------- */
 
+.border-1{
+	border: 1px solid grey;
+}
 /* border radius */
 .br-5{ border-radius: 5px; }
 .br-10{ border-radius: 10px !important;  }
@@ -2025,11 +2052,11 @@ a.jobs-link-sub{
 	width: 85%;
 	height: 85%;
 	background-color: white;
-	padding: 10px;
+	padding: 5px;
 	left: 0px;
 	top: 0px;
 	z-index: 100;
-	border-radius: 10px
+	border-radius: 5px
 }
 
 .pic_viewer_child{
@@ -2085,7 +2112,7 @@ a.jobs-link-sub{
 #div_compare{
 	position : absolute;
 	display: block;
-	width: 95%;
+	width: 80%;
 	height: 95vh;
 	top: 0;
 	background: #E7E4E4;
@@ -2163,6 +2190,25 @@ a.jobs-link-sub{
 	padding: 5px;
 }
 /*---------------*/
+
+/* --- recurring payee -----*/
+
+#reimb-payee-ui div > label{
+	display:inline-block;		
+	width: 60px;
+}
+
+#reimb-payee-ui select, 
+#reimb-payee-ui input[type='text'],
+#reimb-payee-ui textarea{
+	width: 75%	
+}
+
+#reimb-payee-ui div.aligner{
+	margin-bottom: 5px;
+}
+
+/* ------------------*/
 
 /*   home page debug mode - overwrite emails */
 #debug-overwrite-email{
@@ -2258,3 +2304,59 @@ a.jobs-link-sub{
 	-o-transition: visibility 0.2s linear,
 	opacity 0.2s linear; 
 }
+
+/* ------- reimbursement request ui -------- */
+	
+/*#reimb-request-box label {
+	line-height: 15px;
+} 
+*/
+
+.autocomplete {
+  /*the container must be positioned relative:*/
+  position: relative;
+  display: inline-block;
+}
+
+.autocomplete-items {
+  position: absolute;
+  border: 1px solid #d4d4d4;
+  border-bottom: none;
+  border-top: none;
+  z-index: 99;
+  /*position the autocomplete items to be the same width as the container:*/
+  top: 100%;
+  left: 0;
+  right: 0;
+}
+.autocomplete-items div {
+  padding: 10px;
+  cursor: pointer;
+  background-color: #fff;
+  border-bottom: 1px solid #d4d4d4;
+}
+.autocomplete-items div:hover {
+  /*when hovering an item:*/
+  background-color: #e9e9e9;
+}
+.autocomplete-active {
+  /*when navigating through the items using the arrow keys:*/
+  background-color: DodgerBlue !important;
+  color: #ffffff;
+}
+
+.reim-label{
+	
+	text-align: right;	
+	padding: 3px 10px;
+	width: 100px;
+	background:#d72202;
+  color:#FFFFFF;
+}
+.reim-data{
+	padding: 3px 10px;
+	width:300px;
+	background: var(--lightgrey-2);
+}
+
+/* ------- reimbursement request end -------- */

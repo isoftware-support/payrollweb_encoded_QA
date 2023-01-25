@@ -7,8 +7,8 @@ function PicViewer( params ){
 		width, height
 	*/
 
-	if ( params.withClose == undefined ) params.withClose = true;
-	if ( params.parent == undefined ) params.parent = "body";
+	if ( params.withClose == undefined ) 		params.withClose = true;
+	if ( params.parent == undefined ) 			params.parent = "body";
 
 	let xViewer = {}
 
@@ -17,9 +17,10 @@ function PicViewer( params ){
 
 	// delete div
 	const div = getById( xViewer.params.prefix + "pic_viewer");
+	// console.log('pic div', div)
 	if ( div ){
-		const parent = getById(div).parentElement;
-	  parent.parentElement.removeChild(div);
+		const parent = getById(div.id).parentElement;
+	  parent.removeChild(div);
 	}
 
 	// create elements
@@ -29,7 +30,7 @@ function PicViewer( params ){
 		xViewer.divId = xViewer.params.prefix + 'pic_viewer'
 		let div = document.createElement('div');
 		div.id = xViewer.divId
-		div.classList.add( 'pic_viewer' );
+		div.classList.add( 'pic_viewer', 'shadow-3' );
 		body.appendChild(div);
 		xViewer.div = div;		
 
@@ -115,23 +116,28 @@ function PicViewer( params ){
 		// add image click
 		let el = getById( elementId )
 		if ( el ){
+			// console.dir( el)
+			// if (el.tagName == "A")
 			el.style.cursor = "pointer";
-			el.onclick = ()=> show();
+			el.onclick = (e)=> show(e);
 		}
 	}
 
 	this.changeImageSource = function(src){
 		xViewer.img.src = src;
+		// console.log('image id', xViewer.img.id)
 	}
 
 	this.showNow = () => show();
 
-	function show(){
+	function show(event){
+
+		if (event) event.preventDefault()
 
 		const div = getById( xViewer.divId);
 		div.style.display = "block";
 		
-		dimBack(true, xViewer.dimId );
+		dimBack2( {dimIt: true, id: xViewer.dimId, hideCallback: this.viewerExit, bg: 'black', opacity: 0.4} )
 		CenterItem(xViewer.divId );
 
 		//add dim event
@@ -189,10 +195,10 @@ function PicViewer( params ){
 
 function viewerExit( xViewer ){
 
-	log(xViewer)
+	// log(xViewer)
 	dimBack(false, xViewer.dimId );
-
-	xViewer.div.style.display = "none";
+	if ( xViewer.div )
+		xViewer.div.style.display = "none";
 
 }
 

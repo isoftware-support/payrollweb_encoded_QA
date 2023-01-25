@@ -103,6 +103,10 @@
         return txt;
     }
 
+    function uriString(string){
+        // use urldecode() in php
+        return encodeURIComponent(string)
+    }
 
     function msgBox(message = [], options = {}){
 
@@ -118,6 +122,7 @@
         let keys = Object.keys(options)
         if ( keys.indexOf('class') == -1)           options.class = "w-300 d-block"                    
         if ( keys.indexOf('msgbg') == -1)           options.msgbg = "bg-white"
+
         // if ( keys.indexOf('cancelButton') == -1)    options.cancelButton = false
         //if ( keys.indexOf('cancelCallBack') == -1)  options.cancelCallBack = ''
 
@@ -134,14 +139,16 @@
         const body = get("body");
 
         let e = document.createElement('div')
+        const z_index = 999
         e.id = "msg-box-prompt";
-        e.classList.add('modal-box', 'br-b-5', 'shadow-3')
+        e.style.zIndex = z_index
+        e.classList.add('modal-box', 'br-b-5', 'shadow-3', )
 
         const classes = options.class.split(" ")
         classes.forEach( (c)=>{
             e.classList.add(c)                
         })
-        
+
         e.style.left = -999
         body.appendChild(e);
 
@@ -168,7 +175,11 @@
         e.id = "msg-box-message"
         e.innerHTML = msg;
         e.classList.add('p-20')
-        e.classList.add( options.msgbg)
+        if ( options.msgbg ){
+            let a = options.msgbg.split(" ");
+            a.forEach((c) => e.classList.add(c) )
+        }
+        
         div_main.appendChild(e)
 
         // -------------
@@ -189,9 +200,13 @@
 
         // button event
 
-        const _hide = ()=>{
+        var _hide = ()=>{            
             div_main.style.left = -999
-            dimBack( false, 'dimback');
+            dimBack2( {dimIt: false, id:'dimback'} );
+
+            // call okCallback if no candellCallBack
+            if ( ( ! options.cancellCallBack && ! options.cancelButton) && options.okCallBack )
+                options.okCallBack();
         }
 
         e = getById("msg-box-button-ok")
@@ -214,9 +229,8 @@
         }
         
         CenterItem( id);
-        dimBack(true, 'dimback', ()=>{ 
-            _hide()
-        }, "black", .3)
+        dimBack2( {dimIt: true, id:'dimback', 
+            hideCallback: _hide , bg:"black", opacity:.3, zIndex: z_index - 2} )
 
     }
 
@@ -284,6 +298,10 @@
         	$("div#busygif").hide();
             
         }
+    }
+
+    function NumberFormat(num){
+        return num.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     }
 
     function TimeFormat( sTime, format = "h:m ap"){
@@ -481,9 +499,16 @@ function quoteText(sString, lWrap = true){
     return txt;
 }
 
+function setDefault(v, _default = ""){
+    let ret = v
+    if ( v == null ) v = _default
+    return ret
+}
+
 function isEmpty(v){
-    var ret = false;
-    if (typeof v === 'undefined' || v == null || v == 0 || v == false) ret = true;    
+
+    var ret = false;    
+    if ( typeof v === 'undefined' || v == null || v == 0 || v == false) ret = true;    
     return ret;
 }
 
@@ -519,7 +544,24 @@ function slideUpDown(id, lDown, sDuration){
 }
 //-------------------------------
 
-function dimBack(dimIt, id='dimback', hideCallback = "", bg = 'black', opacity = 0.6){
+function dimBack2( options = {dimIt: true, id: 'dimback', hideCallback: "", bg: 'black', opacity: 0.6, zIndex: 99} ){
+
+    let keys = Object.keys(options)
+
+    // defaults
+    if ( keys.indexOf('dimIt') == -1)        options.dimIt = true   
+    if ( keys.indexOf('id') == -1)           options.id = "dimback"
+    if ( keys.indexOf('hideCallback') == -1) options.hideCallback = ""
+    if ( keys.indexOf('bg') == -1)           options.bg = "black"
+    if ( keys.indexOf('opacity') == -1)      options.opacity = 0.6
+    if ( keys.indexOf('zIndex') == -1)       options.zIndex = 99
+    
+    // console.log('zindex', options.zIndex)        ;
+
+    dimBack( options.dimIt, options.id, options.hideCallback, options.bg, options.opacity, options.zIndex)
+}
+
+function dimBack(dimIt, id='dimback', hideCallback = "", bg = 'black', opacity = 0.6, zIndex = 99){
    
     if (typeof dimIt == 'undefined' || dimIt == null) dimIt = true;
 
@@ -529,7 +571,6 @@ function dimBack(dimIt, id='dimback', hideCallback = "", bg = 'black', opacity =
     if ( ! opacity ) opacity = 0.6
 
     if (dimIt){
-
 
         var h = parseInt($("html").css("height"));
         var h2 = window.innerHeight;
@@ -541,7 +582,7 @@ function dimBack(dimIt, id='dimback', hideCallback = "", bg = 'black', opacity =
   
         $(`div#${id}`).css({"left":"0", "height": h, "position":"absolute", 'display': 'block',
             'top': 0, 'left': 0, 'width':'100%', 'margin-top': '0px',
-            'z-index': 99 , 'background-color': bg, 'opacity': opacity});
+            'z-index': zIndex , 'background-color': bg, 'opacity': opacity});
            
         $(`div#${id}`).fadeIn("normal");              
  
@@ -768,6 +809,129 @@ function overrideFormEnterKey( formID, elementID, runFunc = "" )
         }
     }
 }
+
+// --------------- auto complete ------------
+
+function autocomplete(inputId, values, callBack = "") {
+
+
+    /*the autocomplete function takes two arguments,
+    the text field element and an array of possible autocompleted values:*/
+    var currentFocus;
+    /*execute a function when someone writes in the text field:*/
+
+    const inp = getById(inputId);
+    arr = values;
+
+    inp.addEventListener("input", function(e) {
+
+        var a, b, i, val = this.value;
+        /*close any already open lists of autocompleted values*/
+        closeAllLists();
+        if (!val) { return false;}
+
+        currentFocus = -1;
+        /*create a DIV element that will contain the items (values):*/
+        a = document.createElement("DIV");
+        a.setAttribute("id", this.id + "autocomplete-list");
+        a.setAttribute("class", "autocomplete-items");
+        /*append the DIV element as a child of the autocomplete container:*/
+        this.parentNode.appendChild(a);
+        
+        /*for each item in the array...*/
+        for (i = 0; i < arr.length; i++) {
+            
+            /*check if the item starts with the same letters as the text field value:*/
+            if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+              /*create a DIV element for each matching element:*/
+                b = document.createElement("DIV");
+                /*make the matching letters bold:*/
+                b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                b.innerHTML += arr[i].substr(val.length);
+                /*insert a input field that will hold the current array item's value:*/
+                b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                /*execute a function when someone clicks on the item value (DIV element):*/
+                b.addEventListener("click", function(e) {
+                    
+
+                    /*insert the value for the autocomplete text field:*/
+                    const text =  this.getElementsByTagName("input")[0].value;
+                    inp.value = text
+
+                    if ( callBack ) callBack();
+                    
+                    /*close the list of autocompleted values,
+                    (or any other open lists of autocompleted values:*/
+                    closeAllLists();
+                });
+                a.appendChild(b);
+            }
+        } 
+    });
+
+    /*execute a function presses a key on the keyboard:*/
+    inp.addEventListener("keydown", function(e) {
+
+        var x = document.getElementById(this.id + "autocomplete-list");
+        if (x) x = x.getElementsByTagName("div");
+        if (e.keyCode == 40) {
+            /*If the arrow DOWN key is pressed,
+            increase the currentFocus variable:*/
+            currentFocus++;
+            /*and and make the current item more visible:*/
+            addActive(x);
+        } else if (e.keyCode == 38) { //up
+            /*If the arrow UP key is pressed,
+            decrease the currentFocus variable:*/
+            currentFocus--;
+            /*and and make the current item more visible:*/
+            addActive(x);
+        } else if (e.keyCode == 13) {
+            /*If the ENTER key is pressed, prevent the form from being submitted,*/
+            e.preventDefault();
+            if (currentFocus > -1) {
+                /*and simulate a click on the "active" item:*/
+                if (x) x[currentFocus].click();
+            }
+        }
+    });
+
+    function addActive(x) {
+        /*a function to classify an item as "active":*/
+        if (!x) return false;
+        /*start by removing the "active" class on all items:*/
+        removeActive(x);
+        if (currentFocus >= x.length) currentFocus = 0;
+        if (currentFocus < 0) currentFocus = (x.length - 1);
+        /*add class "autocomplete-active":*/
+        x[currentFocus].classList.add("autocomplete-active");
+    }
+
+    function removeActive(x) {
+        /*a function to remove the "active" class from all autocomplete items:*/
+        for (var i = 0; i < x.length; i++) {
+            x[i].classList.remove("autocomplete-active");
+        }
+    }
+
+    function closeAllLists(elmnt) {
+        /*close all autocomplete lists in the document,
+        except the one passed as an argument:*/
+        var x = document.getElementsByClassName("autocomplete-items");
+        for (var i = 0; i < x.length; i++) {
+            if (elmnt != x[i] && elmnt != inp) {
+                x[i].parentNode.removeChild(x[i]);
+            }
+        }
+    }
+
+    /*execute a function when someone clicks in the document:*/
+    document.addEventListener("click", function (e) {
+        closeAllLists(e.target);
+    });
+}
+// ---------------- end - auto complete list  --------------
+
 
 function xxhr(method, path, func, id_contentHolder = ""){
     
