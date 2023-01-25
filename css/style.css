@@ -2150,11 +2150,11 @@ a.jobs-link-sub{
 	z-index: 1000;
 	float: left;
 	color: rgba(0,0,0,.2);
-	width: 30px;
-	height: 70px;
+	width: 40px;
+	height: 130px;
 	background: rgba(219, 255, 235,.05);
 	text-align: center;
-	font-size: 50px;
+	font-size: 100px;
 	font-weight: bold;
 	margin-top: 100px;
 	cursor: pointer;
@@ -2162,11 +2162,11 @@ a.jobs-link-sub{
 }
 
 #bottom-wrapper .prior{
-	margin-left: 5px;
+	margin-left: 10px;	
 }
 
 #bottom-wrapper .next{
-	right: 30px;
+	right: 40px;
 }
 #bottom-wrapper .nav-img:hover{
 	background: rgba(0,0,0, .3);

@@ -54,8 +54,8 @@
 						</label>
 					</div>
 
-					<div id='img-prior' class="nav-img prior" @click="getDetail( -1)">⟨</div>
-					<div id='img-next' class="nav-img next" @click="getDetail( 1)">⟩</div>
+					<div id='img-prior' class="nav-img prior" @click="getDetail( -1)">&#8249;</div>
+					<div id='img-next' class="nav-img next" @click="getDetail( 1)">&#8250;</div>
 
 					<div id="img-bottom"></div>
 
