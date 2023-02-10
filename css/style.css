@@ -24,7 +24,7 @@ input[type=number] {
   -moz-appearance: textfield;
 }
 
-body 
+body
 {
 
 	font-size : 11px;
@@ -356,13 +356,14 @@ label, .CheckBoxLabel, .label, .label-i {
 }
 
 .DropDownList, select{
-	font-family: Helvetica, Sans-serif, Arial;	
-	font-size:11px;
+		font-family: Helvetica, Sans-serif, Arial;	
+		font-size:11px;
     font-weight:normal;
     color:#333333; 
     width: 100%;
     box-sizing: border-box;
-    padding-left: 3px;
+    padding: 2px 3px;
+
 }
 
 .RadioButton{
@@ -493,7 +494,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .flex-justify-center{ justify-content: center; }
 .flex-space-between{ justify-content: space-between; }
 .flex-space-around{ justify-content: space-around; }
-.flex-align-right{ align-items: flex-end; }
+.flex-align-right{ justify-content: flex-end; }
 .flex-align-center{ align-items: flex-center; }
 
 .flex-grow{ 	flex-grow: 1; }
@@ -550,10 +551,11 @@ label, .CheckBoxLabel, .label, .label-i {
 
 .pt-2  { padding-top: 2px; }
 .pt-3  { padding-top: 3px; }
-.pt-5  { padding-top: 5px; }
-.pt-10  { padding-top: 10px; }
-.pt-15  { padding-top: 15px; }
-.pt-20  { padding-top: 20px; }
+.pt-5  { padding-top: 5px !important; }
+.pt-8  { padding-top: 8px !important; }
+.pt-10  { padding-top: 10px !important; }
+.pt-15  { padding-top: 15px !important; }
+.pt-20  { padding-top: 20px !important; }
 .pt-100  { padding-top: 100px; }
 .pb-2  { padding-bottom: 2px !important; }
 .pb-3  { padding-bottom: 3px !important; }
@@ -578,9 +580,9 @@ label, .CheckBoxLabel, .label, .label-i {
 .py-3  { padding: 3px 0 !important; }
 .py-5  { padding-top: 5px !important; padding-bottom: 5px !important; }
 .py-8 { padding-top: 8px; padding-bottom: 8px; }
-.py-10 { padding-top: 10px; padding-bottom: 10px; }
-.py-20 { padding-top: 20px; padding-bottom: 20px; }
-.py-50 { padding-top: 50px; padding-bottom: 50px; }
+.py-10 { padding-top: 10px !important; padding-bottom: 10px !important; }
+.py-20 { padding-top: 20px !important; padding-bottom: 20px !important; }
+.py-50 { padding-top: 50px !important; padding-bottom: 50px !important; }
 .py-100 { padding-top: 100px; padding-bottom: 100px; }
 
 .px-0  { padding-left: 0px !important; padding-right: 0px !important; }
@@ -595,7 +597,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .px-50 { padding-left: 50px; padding-right: 50px; }
 
 /*---- margins -------------*/
-.m-0  { margin: 0; }
+.m-0  { margin: 0 !important; }
 .m-a  { margin: auto !important; }
 .m-5  { margin: 5px; }
 .m-20  { margin: 20px; }
@@ -1815,6 +1817,12 @@ p.top_label{
 .cutoff_picker , input[type=date] {
 	width: 115px;
 	margin-right: 0;
+	padding: 2px !important;	
+}
+
+input[type='datetime-local']{
+	width: 165px;
+	padding: 2px !important;	
 }
 
 /*.cutoff_generate {	
@@ -1862,9 +1870,6 @@ p.top_label{
 
 /* ------------- select cutof ---------------- */
 
-input[type='datetime-local']{
-	width: 165px;
-}
 
 /*
 .request {
@@ -2360,3 +2365,35 @@ a.jobs-link-sub{
 }
 
 /* ------- reimbursement request end -------- */
+
+
+/* sched requests ui */
+
+.req-label{
+	
+	text-align: right;	
+	padding: 3px 10px;
+	width: 20%;
+	background:#d72202;
+  color:#FFFFFF;
+  border-bottom: 1px solid var(--lightgrey-3);
+}
+
+.req-data{
+	padding: 3px 10px;
+	width:70%;
+	background: var(--lightgrey-2);
+	border-bottom: 1px solid white;
+}
+
+#leave_batch_filing_box{
+	background-color: white;
+	margin: 5px 0;
+	border: 1px solid grey;
+	max-height: 100px;
+	overflow-y: scroll;
+	padding: 5px;
+	width: 70%;
+}
+/* sched equest ui end*/
+

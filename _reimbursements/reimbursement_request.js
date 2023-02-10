@@ -159,7 +159,7 @@ const reimDetail = Vue.createApp({
 					<div class="flex ">
 
 						<input type="file" name="att_file" id="att_file" @change="pickFile" accept="image/*" class="d-none" >
-					  <input v-if="mode != VIEW" class="Button w-100 mr-5" type="button" value="Browse ..." onclick="document.getElementById('att_file').click();" />  		
+					  <input v-if="mode != VIEW" class="Button w-100 mr-5" type="button" value="Browse" onclick="document.getElementById('att_file').click();" />  		
 
 						<a v-show="att_file" id="att_file_link"  class="link_simple mt-3" href="#" > {{ att_file }}</a>
 						<label v-if="local_att_file" class='bold mt-3'>{{ local_att_file }}</label>
@@ -387,13 +387,13 @@ const reimDetail = Vue.createApp({
 
 		pickFile(event){
 			
-			// console.log( event);
-			
-			if ( checkAttachment(event.target, "", maxFileSize) ) return
+			let filename = ""
+			if ( checkAttachment(event.target, "", maxFileSize) )
+				filename = event.target.files[0].name;
 
-			const filename = event.target.files[0].name;
 			this.att_file = ""
 			this.local_att_file = filename
+
 		},
 
 		cancel(){

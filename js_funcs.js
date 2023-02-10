@@ -366,9 +366,7 @@
         // year
         ret = ret.replace("Y", y);
         ret = ret.replace("y", y2);
-
-
-        
+       
         return ret;
     }
 
@@ -476,14 +474,18 @@ function selectChecbox(e, id="", id2=""){
     }  
 }
 
-function log(...all)
-{
-    for( let i in all){
-        const l = all[i];
 
-        if (typeof l !== 'function')
-            console.log( l );
-    }
+// function log(...all)
+function log()
+{
+    console.log(arguments)
+
+    // for( let i in all){
+    //     const l = all[i];
+
+    //     if (typeof l !== 'function')
+    //         console.log( l );
+    // }
 }
 
 function quoteText(sString, lWrap = true){

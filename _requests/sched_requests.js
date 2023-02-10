@@ -2,7 +2,7 @@
     function team_action( mode ){
         
         if (mode == 1){ //add            
-            popWindow("popup_request.php?qid=04&rt=0", 850,300);
+            //  popWindow("popup_request.php?qid=04&rt=0", 850,300);
 
         }else if(mode == -1){ //delete
 
@@ -16,45 +16,43 @@
     }
 
 
-    function delete_request(e){
-        
-        e = e.parentNode;
-        let no = e.dataset.no;
-        let _type = e.dataset.type;
-        let eno = e.dataset.eno;       
 
-        msgBox("Are you sure you want to delete employee "+ _type +" request?",
-            { cancelButton: true, 
-              okCallBack : () => {
+    // 8600 moved to vue ui
+    // function delete_request(e){
+        
+    //     e = e.parentNode;
+    //     let no = e.dataset.no;
+    //     let _type = e.dataset.type;
+    //     let eno = e.dataset.eno;       
+
+    //     const func = () => {
+
+    //         let url = "xhtml_response.php?q=aprDelReq&a="+ userno +"&r="+ no +"&e="+ eno + "&t="+ e.dataset.type + _session_vars;                        
+    //         xxhr("GET", url, function(msg){
                 
-                    let url = "xhtml_response.php?q=aprDelReq&a="+ userno +"&r="+ no +"&e="+ eno + "&t="+ e.dataset.type + _session_vars;                        
+    //             // msgBox(msg);
 
-                    xxhr("GET", url, 
-                        function(msg){
-                        
-                        msgBox(msg);
+    //             let tr = e.parentNode;
+    //             let table = tr.parentNode;
+    //             table.removeChild(tr);                
+    //         })
+    //     }
 
-                        let tr = e.parentNode;
-                        let table = tr.parentNode;
-                        table.removeChild(tr);                
+    //     msgBox("Are you sure you want to delete employee "+ _type +" request?",
+    //         { cancelButton: true, okCallBack: func } ) ;
 
-                    })
+    // }
 
-                }   // ok callback end
-
-            }  // options parameter end
-        )  // msg box end
-    }
-
-    function overwrite_request(e){
+    // #8600 moved to vue ui
+    // function overwrite_request(e){
         
-        e = e.parentNode;
-        var no = e.dataset.no;           
-        var eno = e.dataset.eno;
+    //     e = e.parentNode;
+    //     var no = e.dataset.no;           
+    //     var eno = e.dataset.eno;
 
-        var url = "popup_request.php?qid=03&r="+ no +"&uen="+ eno;            
-        popWindow(url, 850, 450);
-    }
+    //     var url = "popup_request.php?qid=03&r="+ no +"&uen="+ eno;            
+    //     popWindow(url, 850, 450);
+    // }
 
     function js_getcheck() {
     	    

@@ -3,6 +3,8 @@
 		
 		function checkAttachment(e, putFilenameToID = "", maxFileSize = 2){
 				
+				let ret = false
+
 		    if (e.files.length){
 
 		    	var size = e.files[0].size;
@@ -15,18 +17,33 @@
 		    			alert( txt )
 		    		}
 
-		    		e.value = "";
-		    		return false;
+		    		e.value = "";   // reset file
+
+		    		ret = false;
+		    	}else{
+		    		ret = true
 		    	}
 		    }		    
 
+
 		    // where to put the filename
 		    if ( putFilenameToID ){
-			    const fname = e.value.split('\\');		
-			    const txt = document.getElementById(putFilenameToID)
-			    if ( txt ){
-			    	if (txt.tagName == "INPUT") txt.value = fname[fname.length - 1];			
-			    	if (txt.tagName == "A") txt.value = fname[fname.length - 1];			
+			    
+			    const el = document.getElementById(putFilenameToID)
+			    
+			    if ( el ){
+						
+						let filename = ""
+			    	if ( ret ){
+				    	const fname = e.value.split('\\');		
+				    	filename = fname[fname.length - 1];
+			    	}
+
+			    	if ( el.tagName == "INPUT") el.value = filename ;			
+			    	if ( el.tagName == "A") el.value = filename;	
+			    	if (el.tagName == "LABEL")	el.innerHTML = filename; 
 			    }
 			  }
+
+			  return ret
 		}
