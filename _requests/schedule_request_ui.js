@@ -354,7 +354,7 @@ const reimDetail = Vue.createApp({
 		edit( event, mode = this.SUBMIT_UPDATE){			
 
 			event.preventDefault()
-
+			console.log('mode', mode);
 			if ( mode == this.SUBMIT_UPDATE ){
 				this.init()				
 				if ( ! this._selected("edit") ) return
@@ -507,9 +507,9 @@ const reimDetail = Vue.createApp({
 			
 			xxhrPost("_requests/schedule_request_api.php", p, (res)=>{
 
-				// console.log('res', res)
+				console.log('res', res)
 				const ret = JSON.parse(res)
-				// console.log('ret', ret );
+				console.log('ret', ret );
 
 				busy.hide()
 
@@ -962,7 +962,8 @@ const reimDetail = Vue.createApp({
 
 			this.req_no = 0
 
-			let e = get("input[type='radio']:checked")			
+			let e = get("input[type='radio'][name='req_no']:checked")			
+			console.log( 'selected', e)
 			if ( e ){
 				this.req_no = e.value		
 				return true
