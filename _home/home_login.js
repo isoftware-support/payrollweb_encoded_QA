@@ -4,28 +4,19 @@
 
     // news and events
     xxhrGet('includes/ajax/sections/news_events_section/news_events_section.php', 
-    function(res){
-        get('#news_events_section').innerHTML = res;
-    });  
+        "", 'news_events_section');  
     
     // hr updates
     xxhrGet('includes/ajax/sections/hrupdate_section/hrupdates_section.php',
-    function(res){
-        get('#hr_upates_section').innerHTML = res;
-    });  
+        "", 'hr_upates_section');
 
     // links
     xxhrGet('includes/ajax/sections/links_section/links_section.php' ,
-    function(res){
-        get('#links_section').innerHTML = res;
-    });  
-
+        "", 'links_section');  
 
     // newly hired
-    xxhrGet('includes/ajax/sections/new_hires_section/newlyhired_section.php;',
-    function(res){
-        get('#newly_hired_section').innerHTML = res;
-    });         
+    xxhrGet('includes/ajax/sections/new_hires_section/newlyhired_section.php',
+        "", 'newly_hired_section');         
 
 // ---------------------
 
@@ -74,15 +65,15 @@ function loginAttempt()
             let div = getById("invalid-login");
 
             let msg_id = "invalid-login-msg";
-            div.innerHTML = "<div class='ContentTextNormal bold c-red' id='"+ msg_id +"'>" +
-                "Access denied. You are not authorized to access this feature." +
-                "</div>";
+            div.innerHTML = "<p class='ContentTextNormal bold c-red t-wrap' id='"+ msg_id +"'>" +
+                "Access denied." +
+                "</p>";
             
             let msg = getById('invalid-login-message');
             $("div#"+ msg_id).fadeIn("normal");
 
             setTimeout( () => { 
-                $("div#"+ msg_id).fadeOut("normal", () => div.innerHTML = "");                                  
+                $("p#"+ msg_id).fadeOut("normal", () => div.innerHTML = "");                                  
             }, 5000);    
 
         }

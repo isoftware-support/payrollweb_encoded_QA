@@ -15,45 +15,6 @@
         }
     }
 
-
-
-    // 8600 moved to vue ui
-    // function delete_request(e){
-        
-    //     e = e.parentNode;
-    //     let no = e.dataset.no;
-    //     let _type = e.dataset.type;
-    //     let eno = e.dataset.eno;       
-
-    //     const func = () => {
-
-    //         let url = "xhtml_response.php?q=aprDelReq&a="+ userno +"&r="+ no +"&e="+ eno + "&t="+ e.dataset.type + _session_vars;                        
-    //         xxhr("GET", url, function(msg){
-                
-    //             // msgBox(msg);
-
-    //             let tr = e.parentNode;
-    //             let table = tr.parentNode;
-    //             table.removeChild(tr);                
-    //         })
-    //     }
-
-    //     msgBox("Are you sure you want to delete employee "+ _type +" request?",
-    //         { cancelButton: true, okCallBack: func } ) ;
-
-    // }
-
-    // #8600 moved to vue ui
-    // function overwrite_request(e){
-        
-    //     e = e.parentNode;
-    //     var no = e.dataset.no;           
-    //     var eno = e.dataset.eno;
-
-    //     var url = "popup_request.php?qid=03&r="+ no +"&uen="+ eno;            
-    //     popWindow(url, 850, 450);
-    // }
-
     function js_getcheck() {
     	    
 
@@ -74,8 +35,7 @@
     
 
     function btn_approve(){ // APPROVE
-        
-       
+               
         // GET REQUEST NO.
         // var userno = <?php echo json_encode($tl_approver); ?>;
         // var teamnox =<?php echo json_encode($gt_team_nox); ?>; 
@@ -106,7 +66,6 @@
        
     function btn_disapprove(){ // DISAPPROVE
        
-    /*alert('a');*/
 
         // var userno = <?php echo json_encode($tl_approver); ?>;
         // var teamnox =<?php echo json_encode($gt_team_nox); ?>; 
@@ -115,7 +74,6 @@
         var replace_apr = Array("apr1_","apr2_","apr4_");
         var regexp = new RegExp(replace_apr.join('|'),'g');  
         var aprv_btn = approves.replace(regexp,''); 
-        /*alert(aprv_btn);*/
 
         // GET APPROVE LEVEL
 
@@ -142,7 +100,16 @@
 
     function openDisPopup(){
     	
-        if (document.team_rqst.arno_collect.value) pop('popDiv');	
+        if (document.team_rqst.arno_collect.value){
+            
+            dimBack(true, 'dimback', chkCancel)
+            CenterItem('popDiv')
+
+            // showDiv('popDiv');      
+            // $('p#remarks').css('color','white');
+            // $('#dis_remark').css('color','black');
+        
+        } 
     	
     }
 
@@ -183,7 +150,8 @@
       
     	if(stat_nox ==-1){
     		
-    		dis_reason = "(<b><a class='req_disapproved' id='"+webreqno+"' href=# onclick=popuser("+divname+","+webreqno+",-1)>?</a></b>)";
+            // dis_reason = "(<b><a class='req_disapproved' id='"+webreqno+"' href=# onclick=popuser("+divname+","+webreqno+",-1)>?</a></b>)";
+    		dis_reason = "(<b><a class='req_disapproved' id='"+webreqno+"' href=# >?</a></b>)";
     		
     	}
 
@@ -201,10 +169,8 @@
     }
 
     function popusers(div,auno) {
-    	
-
-    var ret_this = "popuser("+div+","+auno+",-1)";
-
+  	
+        var ret_this = "popuser("+div+","+auno+",-1)";
         return ret_this;
 
     }
@@ -268,7 +234,7 @@
                 // console.log(result)
 
                 const ret = JSON.parse(result);
-
+                // console.log('ret',ret)
                 var ajaxDisplay = ret.result;
 
            	

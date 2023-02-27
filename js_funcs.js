@@ -56,11 +56,36 @@
 
     }
 
-    function addClass(groupSelector, className){
+    function classAdd(groupSelector, className){
 
         var elements = getAll(groupSelector);
         for(var i = 0; i < elements.length; i++){
             elements[i].classList.add(className);
+        }
+    }
+
+    function classToggle(groupSelector, className){
+
+        var elements = getAll(groupSelector);
+        console.log( 'es', elements);
+        for(var i = 0; i < elements.length; i++){
+            elements[i].classList.toggle(className);
+        }
+    }
+
+    function classRemove(groupSelector, className){
+
+        var elements = getAll(groupSelector);
+        for(var i = 0; i < elements.length; i++){
+            elements[i].classList.remove(className);
+        }
+    }
+
+    function classReplace(groupSelector, oldClass, newClass){
+
+        var elements = getAll(groupSelector);
+        for(var i = 0; i < elements.length; i++){
+            elements[i].classList.replace(oldClass, newClass);
         }
     }
 
@@ -111,9 +136,13 @@
     function msgBox(message = [], options = {}){
 
         /*
-         message = [ {message : '', class:''}, {message:'', class:''} ]
-         options = {class: 'w-300', msgbg: 'bg-white'
-            okCallBack: '', cancelButton: false,
+         message = [ {message:'', class:''} ]
+         options = {
+            title: '',
+            class: 'w-300', 
+            msgbg: 'bg-white'
+            okCallBack: '', 
+            cancelButton: false,
             cancellCallBack:''
          }
         */
@@ -122,13 +151,14 @@
         let keys = Object.keys(options)
         if ( keys.indexOf('class') == -1)           options.class = "w-300 d-block"                    
         if ( keys.indexOf('msgbg') == -1)           options.msgbg = "bg-white"
+        if ( keys.indexOf('title') == -1)           options.title = ""
 
         // if ( keys.indexOf('cancelButton') == -1)    options.cancelButton = false
         //if ( keys.indexOf('cancelCallBack') == -1)  options.cancelCallBack = ''
 
         // if passed is a string only
         const txt = message
-        if ( typeof message == "string") message = [{message: txt, class: ''}];        
+        if ( typeof message == "string") message = [{message: txt, title: '', class: ''}];        
 
         const id = "msg-box-prompt"
 
@@ -154,21 +184,24 @@
 
         div_main = getById("msg-box-prompt");
 
-        // // title
-        // e = document.createElement('div')
-        // e.id = "msg-box-title"
-        // e.innerHTML = `<p>${title.text}</p>`
-        // e.classList.add('bg-menu', 'c-white', 'ta-c', 'py-3')
-        // div_main.appendChild(e);
-        // const div_title = getById("msg-box-title")
+        // title
+        if ( options.title ){
+            e = document.createElement('div')
+            e.id = "msg-box-title"
+            e.innerHTML = `<p>${options.title}</p>`
+            e.classList.add('bg-menu', 'c-white', 'ta-c', 'py-5', 'h4')
+            div_main.appendChild(e);            
+        }
 
         // message
-        let msg = ""
+        let msg = ""        
         if ( Array.isArray(message) ){
+
             message.forEach((item)=>{
 
-                // if ( ! item.class ) item.class = "h4 lh-15"
-                msg += `<p class='h4 lh-15 ${item.class}'>${item.message}</p>`
+                const txt = item.message.replaceAll("\r\n", "<br>")                
+                msg += `<p class='h4 lh-18 ${item.class}'>${txt}</p>`
+
             })
         }
         e = document.createElement('div')
@@ -405,7 +438,6 @@
         if (pos > -1) s = dateString.substring(pos, pos + 2);
 
         // console.log( dateString, dateFormat, y, m, d, h, i, s, pos);
-        // alert(y + "-" + m + "-" + d +" " + h + ":" + i + ":" + s);
 
         this.formatDate = function(sFormat, lQuoted){
             
@@ -421,7 +453,6 @@
             if (s) sDate = sDate.replace('ss',s);
 
             if (lQuoted) sDate = "'" + sDate + "'";
-            // alert(sDate);
             return sDate;
         }
 
@@ -441,6 +472,22 @@
 
 
 //functions
+
+function selectOptionItem( id, value ){
+
+    let e = getById(id)
+    if ( ! e ) return;
+
+    for( key in e.options){
+        const option = e.options[key]
+        if ( option.tagName == "OPTION"){
+            if ( option.value == value ){
+                option.selected = true
+            }
+        }
+    }
+
+}
 
 var isCheckedByCheckbox = false;
 function selectChecbox(e, id="", id2=""){
@@ -486,6 +533,10 @@ function log()
     //     if (typeof l !== 'function')
     //         console.log( l );
     // }
+}
+
+function toggleValue( _var, val1, val2 ){
+    return _var == val1 ? val2 : val1
 }
 
 function quoteText(sString, lWrap = true){
@@ -563,7 +614,7 @@ function dimBack2( options = {dimIt: true, id: 'dimback', hideCallback: "", bg: 
     dimBack( options.dimIt, options.id, options.hideCallback, options.bg, options.opacity, options.zIndex)
 }
 
-function dimBack(dimIt, id='dimback', hideCallback = "", bg = 'black', opacity = 0.6, zIndex = 99){
+function dimBack(dimIt, id='dimback', hideCallback = "", bg = 'black', opacity = 0.4, zIndex = 99){
    
     if (typeof dimIt == 'undefined' || dimIt == null) dimIt = true;
 
@@ -574,20 +625,11 @@ function dimBack(dimIt, id='dimback', hideCallback = "", bg = 'black', opacity =
 
     if (dimIt){
 
-        var h = parseInt($("html").css("height"));
-        var h2 = window.innerHeight;
-        if (h2 > h) h = h2;
-
- 
         $('body').append(`<div id='${id}'></div>`);
 
-  
-        $(`div#${id}`).css({"left":"0", "height": h, "position":"absolute", 'display': 'block',
-            'top': 0, 'left': 0, 'width':'100%', 'margin-top': '0px',
-            'z-index': zIndex , 'background-color': bg, 'opacity': opacity});
-           
+        $(`div#${id}`).addClass("modal-dim")
+        $(`div#${id}`).css({'z-index': zIndex , 'background-color': bg, 'opacity': opacity});           
         $(`div#${id}`).fadeIn("normal");              
- 
 
         if ( hideCallback ){
             $(`div#${id}`).click(hideCallback);
@@ -636,8 +678,21 @@ function CenterItem(id){
     let x = (ww / 2) - (ew / 2) + sx;
     let y = (wh / 2) - (eh / 2) + sy;
 
-    e.style.top = y;
-    e.style.left = x;    
+    let topAdj = 0
+    let leftAdj = 0
+
+    // ticket windows exception - parent is relative,
+    // centered div correction
+    const parent =  e.parentElement
+    if ( parent ){
+        if ( parent.id == "body-content"){
+            y -= parent.offsetTop
+            x -= parent.offsetLeft
+        }
+    }
+
+    e.style.top = y 
+    e.style.left = x
 
 }
 
@@ -706,13 +761,18 @@ function isOnScreen(elem)
         var elemTop = $(elem).offset().top;
         var elemBottom = elemTop + $(elem).height();
 
-        // console.log(elemTop);
-        // console.log(elemBottom);
-        
         return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
     }else{
         return false;
     }
+}
+
+function getXY(el) {
+  const rect = el.getBoundingClientRect();
+  return {
+    x: rect.left + window.scrollX,
+    y: rect.top + window.scrollY
+  };
 }
 
 function popWindow(url, _width, _height, specs = ""){
@@ -949,7 +1009,9 @@ function xxhr(method, path, func, id_contentHolder = ""){
             if (func) func(this.responseText);                     
 
             if ( id_contentHolder ){
+                // console.log( id_contentHolder)
                 const e = getById(id_contentHolder);
+                // console.log('e', e)
                 if ( e ) e.innerHTML = this.responseText;
             }
 
