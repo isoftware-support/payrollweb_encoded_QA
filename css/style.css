@@ -497,6 +497,9 @@ label, .CheckBoxLabel, .label, .label-i {
 .scroll-y{
 	overflow-y: auto; 
 }
+.scroll-x{
+	overflow-x: auto; 
+}
 .scroll-a{
 	overflow: auto;
 }
@@ -586,6 +589,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .pb-5  { padding-bottom: 5px !important; }
 .pb-10  { padding-bottom: 10px !important; }
 .pb-20  { padding-bottom: 20px !important; }
+.pb-50  { padding-bottom: 50px !important; }
 
 .pr-1  { padding-right: 1px !important; }
 .pr-2  { padding-right: 2px !important; }
@@ -2558,6 +2562,10 @@ a.jobs-link-sub{
 
 @media (max-width: 600px){
 	
+	input[type='text'], input[type='date'], textarea, select{
+		background: white !important;
+	}
+
 	.wrapper {
 		width: 95%;
 	}
@@ -2623,7 +2631,6 @@ a.jobs-link-sub{
 	.ss-wp-100{ width: 100% !important; max-width: 100% !important;}
 
 	
-
 	.float-r{ float:none; }
 	.float-l{ float:none; }
 

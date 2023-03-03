@@ -67,7 +67,6 @@
     function classToggle(groupSelector, className){
 
         var elements = getAll(groupSelector);
-        console.log( 'es', elements);
         for(var i = 0; i < elements.length; i++){
             elements[i].classList.toggle(className);
         }
@@ -198,12 +197,13 @@
         if ( Array.isArray(message) ){
 
             message.forEach((item)=>{
-
                 const txt = item.message.replaceAll("\r\n", "<br>")                
                 msg += `<p class='h4 lh-18 ${item.class}'>${txt}</p>`
 
             })
         }
+        if ( ! msg ) return;
+
         e = document.createElement('div')
         e.id = "msg-box-message"
         e.innerHTML = msg;
@@ -232,38 +232,31 @@
         div_main.appendChild(e)
 
         // button event
-
-        var _hide = ()=>{            
+        const _hide = ()=>{            
             div_main.style.left = -999
-            dimBack2( {dimIt: false, id:'dimback'} );
-
-            // call okCallback if no candellCallBack
-            if ( ( ! options.cancellCallBack && ! options.cancelButton) && options.okCallBack )
-                options.okCallBack();
+            dimBack2( {dimIt: false, id:'msgdim'} );
         }
 
-        e = getById("msg-box-button-ok")
-        e.onclick = ()=>{
+        // OK Click
+        getById("msg-box-button-ok").onclick = ()=>{
 
             _hide()
 
-            if ( options.okCallBack )
-                 options.okCallBack();
+            if ( options.okCallBack ) options.okCallBack();                       
         }
 
-        e = getById('msg-box-button-cancel')
+        // Cancel click
+        getById('msg-box-button-cancel')
         if ( e ){
             e.onclick = () =>{
-
                 _hide()
-                if ( options.cancelCallBack )
-                     options.cancelCallBack();
+                if ( options.cancelCallBack ) options.cancelCallBack();
             }
         }
         
         CenterItem( id);
-        dimBack2( {dimIt: true, id:'dimback', 
-            hideCallback: _hide , bg:"black", opacity:.3, zIndex: z_index - 2} )
+        dimBack2( {dimIt: true, id:'msgdim', 
+            hideCallback: _hide, zIndex: z_index - 2} )
 
     }
 
@@ -389,6 +382,10 @@
         // day
         ret = ret.replace("d", d);
         
+        // year
+        ret = ret.replace("Y", y);
+        ret = ret.replace("y", y2);
+
         // Day name
         ret = ret.replace("D", days[dayOfWeek]);
 
@@ -396,9 +393,6 @@
         ret = ret.replace("M", months[month]);
         ret = ret.replace("m", m);
 
-        // year
-        ret = ret.replace("Y", y);
-        ret = ret.replace("y", y2);
        
         return ret;
     }
@@ -597,7 +591,7 @@ function slideUpDown(id, lDown, sDuration){
 }
 //-------------------------------
 
-function dimBack2( options = {dimIt: true, id: 'dimback', hideCallback: "", bg: 'black', opacity: 0.6, zIndex: 99} ){
+function dimBack2( options = {dimIt: true, id: 'dimback', hideCallback: "", bg: 'black', opacity: 0.4, zIndex: 99} ){
 
     let keys = Object.keys(options)
 
@@ -606,7 +600,7 @@ function dimBack2( options = {dimIt: true, id: 'dimback', hideCallback: "", bg: 
     if ( keys.indexOf('id') == -1)           options.id = "dimback"
     if ( keys.indexOf('hideCallback') == -1) options.hideCallback = ""
     if ( keys.indexOf('bg') == -1)           options.bg = "black"
-    if ( keys.indexOf('opacity') == -1)      options.opacity = 0.6
+    if ( keys.indexOf('opacity') == -1)      options.opacity = 0.4
     if ( keys.indexOf('zIndex') == -1)       options.zIndex = 99
     
     // console.log('zindex', options.zIndex)        ;
@@ -621,11 +615,13 @@ function dimBack(dimIt, id='dimback', hideCallback = "", bg = 'black', opacity =
     // id is blank
     if ( ! id ) id = "dimback";
     if ( ! bg ) bg = 'black'
-    if ( ! opacity ) opacity = 0.6
-
+    if ( ! opacity ) opacity = 0.4
+    
     if (dimIt){
 
-        $('body').append(`<div id='${id}'></div>`);
+        if ( get("div[name='dim_back']") ) opacity = 0.2
+
+        $('body').append(`<div id='${id}' name='dim_back'></div>`);
 
         $(`div#${id}`).addClass("modal-dim")
         $(`div#${id}`).css({'z-index': zIndex , 'background-color': bg, 'opacity': opacity});           

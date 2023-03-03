@@ -91,12 +91,12 @@ const reimDetail = Vue.createApp({
 					
 					<div class="ml-20">
 						<div v-if="rules.can_shift_mode" class="flex flex-align-right">
-							<p for="leave-shift" >Shift</p>
+							<label for="leave-shift" >Shift</label>
 							<input type="radio" id="leave-shift" class="m-0 ml-5" name="leave-file-mode" v-model="leave.mode" value="1">
 						</div>
 				
 						<div v-if="rules.can_duration_mode" class="flex mt-5 flex-align-right">
-							<p for="leave-duration" >Duration</p>
+							<label for="leave-duration" >Duration</label>
 							<input type="radio" id="leave-duration" class="m-0 ml-5" name="leave-file-mode" v-model="leave.mode" value="0">
 						</div>
 				
@@ -254,6 +254,7 @@ const reimDetail = Vue.createApp({
 			req_no: 0,
 			error_msg: '',
 			filename: '',
+			time_value : {value: 0, unit: "hour"},
 
 			dttm_from: '', dttm_to: '',
 			duration_text: 'Actual Total Hours: 0',

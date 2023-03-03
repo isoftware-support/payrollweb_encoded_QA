@@ -230,7 +230,7 @@
             if (xmlhttpxxx.readyState==4 && xmlhttpxxx.status==200){
                 
                 
-                const result = xmlhttpxxx.responseText;
+                const result = xmlhttpxxx.responseText;                
                 // console.log(result)
 
                 const ret = JSON.parse(result);

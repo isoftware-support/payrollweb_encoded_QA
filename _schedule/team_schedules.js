@@ -94,7 +94,8 @@ function uploadTeamSchedules(){
     const file = getById("import_team_sched").files[0];  // file from input
     if (! file) return;
 
-    const funcOk = () => {
+    var funcOk = () => {
+
       busy.show2();      
       
       let post = {};
@@ -104,35 +105,41 @@ function uploadTeamSchedules(){
       xxhrPost('xhtml_response.php?q=UploadTeamSched&'+ _session_vars, post, 
       ( res ) => {             
         
-        console.log( res);
+        // console.log('res', res);
 
         // reset file value
         getById("import_team_sched").value = "";            
 
-        loadTeamSchedule();
-        
-        busy.hide();
+        let msg;
+        if ( res.trim() ){
 
-        const ret = JSON.parse(res);
-        // console.log(ret);
-        
-        // prompt invalid ids and dates
+          loadTeamSchedule();                  
 
-        if ( ret.invalids.dates || ret.invalids.ids || ret.invalids.shiftcodes ){
+          const ret = JSON.parse(res);
           
-          let msg = "Invalid entries found in importation template.";
+          msg = ret.invalids.error;        
+          if ( ret.invalids.dates || ret.invalids.ids || ret.invalids.shiftcodes ){
+            
+            msg = "Invalid entries found in Schedules import template.";
 
-          if ( ret.invalids.dates )
-            msg += "\r\n\r\nInvalid Date Columns:\r\n" + ret.invalids.dates.join(", ");
+            if ( ret.invalids.dates )
+              msg += "\r\n\r\nInvalid Date Columns:\r\n" + ret.invalids.dates.join(", ");
 
-          if ( ret.invalids.ids )
-            msg += "\r\n\r\nInvalid Employee Ids:\r\n" + ret.invalids.ids.join(", ");
+            if ( ret.invalids.ids )
+              msg += "\r\n\r\nInvalid Employee Ids:\r\n" + ret.invalids.ids.join(", ");
 
-          if ( ret.invalids.shiftcodes)
-            msg += "\r\n\r\nInvalid Shift Codes:\r\n" + ret.invalids.shiftcodes.join(", ");
+            if ( ret.invalids.shiftcodes)
+              msg += "\r\n\r\nInvalid Shift Codes:\r\n" + ret.invalids.shiftcodes.join(", ");          
+          }            
 
-          msgBox(msg);
-        }        
+        }else{
+          msg = "Invalid Schedules template."
+        }
+
+
+        busy.hide();
+        msgBox(msg);
+
       });
     }
 
