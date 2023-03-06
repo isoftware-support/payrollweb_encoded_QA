@@ -193,7 +193,8 @@ methods: {
 
 mounted(){
 
-	getById("burger-menu").style.zIndex = 101
+	let e = getById("burger-menu")
+	if ( e ) e.style.zIndex = 101
 	
 },
 

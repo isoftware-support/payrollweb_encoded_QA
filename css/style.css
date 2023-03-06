@@ -905,7 +905,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .fs-25{ font-size: 25px !important;  }
 .fs-50{ font-size: 50px !important;  }
 
-.fw-n{ font-weight: normal;}
+.fw-n{ font-weight: normal !important;}
 /* ----------------------------- */
 
 .border-1{
