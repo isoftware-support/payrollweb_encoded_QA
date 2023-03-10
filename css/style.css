@@ -2059,6 +2059,17 @@ input[type='datetime-local']{
 	overflow: auto;
 }
 
+a.version_note{
+	/*text-decoration: none !important;*/
+	font-weight: normal !important;
+	font-size: 11px !important;
+}
+a.version_note:hover{
+	color: red;
+	font-weight: normal !important;
+	font-size: 11px !important;
+
+}
 
 /*read only checkbox*/
 input[type="checkbox"][readonly] {

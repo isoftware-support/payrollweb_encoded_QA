@@ -482,7 +482,8 @@ const reimDetail = Vue.createApp({
 				}else if( this.leave.mode == this.LEAVE_SELECTIVE ){
 					p.selective_hour = this.leave.selective_hour
 				}else if( this.leave.mode == this.LEAVE_DURATION){
-					p.leave_batch_filing_dates = this.leave.selected_batch_dates
+					if (this.leave.selected_batch_dates) 
+						p.leave_batch_filing_dates = this.leave.selected_batch_dates
 				}
 
 			}else if( type == this.TYPE_SC){
@@ -501,8 +502,7 @@ const reimDetail = Vue.createApp({
 			if( mode == this.SUBMIT_APPROVER_ADD || mode == this.SUBMIT_APPROVER_UPDATE ){
 				p.member_no = this.approver.member_no
 				p.override_comment = this.approver.reason
-			}
-			
+			}			
 			p.x = 1
 
 			// return console.log( p)
