@@ -1,87 +1,11 @@
 
-{
-
-	let body = get("body");
-
-	let div = document.createElement('div');
-	div.id = "user-account";	
-	body.appendChild(div);
-
-}
 
 if ( busy == undefined)
 	var busy = new BusyGif();
 
 var timer;
 
-
-Vue.createApp({
-
-	template: `
-
-	<div id='ua_box' class='modal-box bg-white p-20 w-350'  style="left:-999">
-		<form @submit.prevent='save' method="post">
-
-		<fieldset class=' p-20' width='87%'>
-	  	<legend id='ua_caption' >{{ title }}</legend>
-		
-			<div class="aligner">
-			<label class='fw-100 '>Employee:</label>
-			<select v-model='employee_no' @change='name_change' ref='_employees'  class='flex-1'>
-			</select>
-			</div>
-
-			<div class="aligner" v-show='! isEmployee'>
-			<label class='fw-100 '>Filed As:</label>
-			<input v-model='filed_as' type="text"  class="flex-1" ref="_filedas">
-			</div>
-
-			<div class="aligner">
-			<label class='fw-100 '>Email</label>
-			<input v-model='email' type="email" ref="_email"  class="flex-1 EditBox">
-			</div>
-
-	  	<div class="aligner ">
-			<label class='fw-100'>Username:</label>	
-			<input v-model="username" type="text"  ref='_username' class="flex-1" >
-			</div>
-			  
-			<div class="aligner">
-			<label class='fw-100 '>Password:</label>
-			<input v-model='password' type="password" ref="_password"  class="flex-1">
-			<input @click="randomPass"class='button w-50 ml-5' type="button" value='Reset' tabindex="-1">
-			</div>
-			
-			<div class="aligner">
-			<label class='fw-100 '>Confirm Password:</label>
-			<input v-model='confirm_password' type="password" ref="_password_confim"  class="flex-1">
-			</div>
-
-			<div class="aligner">
-			<label class='fw-100 '>Privileges:</label>
-			<select v-model='privilege_no' ref='_privileges' class='flex-1' :value='privilege_no'></select>
-			</div>
-
-			<br>
-			<div class='aligner'>
-			<input  v-model='email_alert' id='email_alert' class='mr-5'   type="checkbox"/>
-			<label for="email_alert">Email user of changes to account information.</label>
-			</div>
-			<br>
-
-			<div class="aligner flex-justify-center">
-				<button  type='submit' class="button mr-5">Save</button>
-				<input @click='cancel' type="button" value="Cancel" class="button" >
-			</div>
-
-			<div  v-html="error_msg" v-show="error_msg" :class="error_class" class=' ta-c pt-10' style='font-weight: normal; width: 280px;'>
-			</div>
-
-		</fieldset>	
-		</form>
-	</div>
-	`,
-
+const app  =  Vue.createApp({
 	data(){
 			return this.init();
 	},
@@ -130,6 +54,8 @@ Vue.createApp({
 
 	  	xxhrPost( rootURI + "/ajax_calls.php", p, (res)=>{
 
+	  		console.log( res )
+
 	 			const ret = JSON.parse(res)
 
 	  		if ( ret.errors ){	  	
@@ -149,6 +75,13 @@ Vue.createApp({
 	  },
 
 	  delete(){
+
+	  	// const e = get("input[type='radio']:checked");
+	  	// if ( !e ) return
+		  
+		  // const no = e.value, user = e.dataset.user; 
+		  	
+		  // if ( ! confirm(`Are you sure you want to delete user '${user}'?`) ) return;
 
 		  busy.show2();
 		  
@@ -216,7 +149,7 @@ Vue.createApp({
 	  show(){
 	  	dimBack(true, 'dim_back', () => this.cancel() );
 			CenterItem('ua_box');
-			this.$refs._employees.focus()
+			this.$refs._username.focus()
 
 	  },
 	  cancel(){
@@ -226,7 +159,6 @@ Vue.createApp({
 	  	hideItem('ua_box');
 
 	  },
-	  
 	  randomPass() {
 
 	  	busy.show2();
@@ -247,6 +179,7 @@ Vue.createApp({
 			  busy.hide();
 
 			});
+
 		},
 
 	  error_message( msg, sec = 5, colorClass = "c-red" ){
@@ -256,39 +189,35 @@ Vue.createApp({
 			if (timer) window.clearTimeout(timer);
 			timer = setTimeout( () => this.error_msg = "", sec * 1000);	  	
 	  },
-
 	  check_fields(){
 			
 			let msg = "", e = "";
-			
-			if ( this.privilege_no < 0 ) msg = "Please select privilege item."
-
+			if ( !this.privilege_no ) msg = "Please select privilege item."
+			if ( !this.email ) 				msg = "Email is empty."
+			if ( !this.isEmployee && !this.filed_as ) 		msg = "Filed As is empty."
+  		
   		if ( this.password && this.password != this.confirm_password )
   			msg = 'Please confirm the password. Password did not match.'
 
 	  	if ( ! this.isEdit ){
 	  		if ( !this.password ) 	msg = "Password is empty."
 	  	}
-
-			if ( !this.username ) msg = "Please input username."
-
-			if ( !this.email ) 				msg = "Email is empty."
-			if ( !this.isEmployee && !this.filed_as ) 		msg = "Filed As is empty." 		
+			if ( !this.username ){
+				msg = "Please input username."
+			}
 
 	  	if (msg){
 	  		this.error_message(msg)
+
 	  		return false
 	  	}
 	  	return true
+
 	  },
 
 	  name_change(){	  	
-	  	
 	  	this.isEmployee = this.employee_no > 0 ? true : false
-
-	  	this.email = emps_email[ this.employee_no ];
-	  	// suggest email
-	  	console.log( emps_email);
+	  	// console.log( this.isEmployee)
 	  },
 
 		reset(){
@@ -305,39 +234,38 @@ Vue.createApp({
 
 		},
 
-	},
+	  load(){
 
-  mounted(){
+			this.$refs._privileges.innerHTML = privileges_list.join("");
 
-		this.$refs._privileges.innerHTML = privileges_list.join("");
-	},
-
-	beforeMount(){
-
-		// bind add button
-		let e = getById('add_user')
-		if ( e) e.onclick = this.add
-		
-		e = getById('edit_user')
-		if ( e ) e.onclick = this.edit
-		
-		e = getById('delete_user')
-	  if (e){
-	  	e.onclick = () => {
-		  	const e = get("input[type='radio']:checked");
-		  	if ( !e ) return
-			  
-			  const no = e.value, user = e.dataset.user; 
-			  
-			  msgBox(`Are you sure you want to delete user '${user}'?`, 
-			  	{okCallBack: this.delete, cancelButton: true}
-			  )
+			// bind add button
+			let e = getById('add_user')
+			if ( e) e.onclick = () => proxy.add()
+			
+			e = getById('edit_user')
+			if ( e ) e.onclick = ()=> proxy.edit()
+			
+			e = getById('delete_user')
+		  if (e){
+		  	e.onclick = () => {
+			  	const e = get("input[type='radio']:checked");
+			  	if ( !e ) return
+				  
+				  const no = e.value, user = e.dataset.user; 
+				  
+				  msgBox(`Are you sure you want to delete user '${user}'?`, 
+				  	{okCallBack: proxy.delete, cancelButton: true}
+				  )
+				}
 			}
-		}
 
-  }
+	  }
 
-}).mount('#user-account')
+	}
+})
+
+const proxy = app.mount('#user-account')
+proxy.load();
 
 
 

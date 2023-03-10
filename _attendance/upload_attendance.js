@@ -4,6 +4,8 @@
 
     // events
 
+    //alert("xxx");
+
     function uploadAttdLogs(){
 
         let file = getById("import-log-file").files[0];  // file from input
@@ -70,6 +72,7 @@
         xhr.open("POST", 'xhtml_response.php?q=UploadAttdLogs' + _session_vars, true);
         xhr.onload = function( res ){
             
+            // alert(this.responseText);
             //console.log( this.responseText);
 
             if (this.status == 200) showUploadedAttdLogs(this.responseText);                     
@@ -147,7 +150,7 @@
 
         getById('uploaded-attds').innerHTML = data.html;
 
-        if ( data.error ) msgBox( data.error )
+        if ( data.error.length ) msgBox( data.error )
 
         // hide or show upload button
         let e = get("#attd_upload_button");
@@ -216,6 +219,8 @@
 
         deletedNos = a.join(",");
 
+        // alert( deletedNos);
+
         xxhr('GET', 'xhtml_response.php?q=delUploadAttd&no='+ deletedNos + tmm + _session_vars,             
         function(){
                
@@ -263,7 +268,7 @@
 
     function approveAttd( approval ){
 
-        var chks = getApprovalChecked(approval);
+        var chks = getApprovalChecked();
         if ( ! chks ) return;
 
         busy.show2(); 
@@ -339,7 +344,7 @@
             }
 
             // clear selected checboxes
-            let chks = getApprovalChecked("ddddd");
+            let chks = getApprovalChecked();
             for(var i = 0; i < chks.length; i++){
                 chks[i].checked = false;
             }
@@ -357,19 +362,12 @@
         });        
     }
 
-    function getApprovalChecked( approval ){
-
-        let msg = "No selected entry for approval."
-        if ( approval == -1 )
-            msg = "No selected entry for disapproval."
-
-        if ( approval == 0)
-            msg = "No selected entry."
+    function getApprovalChecked(){
 
         let chks = getAll("input.uploaded-attd-apr:checked");
-        
+
         if ( ! chks.length ){
-            msgBox(msg)
+            alert("No selected entry for approval.")
             return 0;
         }
         return chks;

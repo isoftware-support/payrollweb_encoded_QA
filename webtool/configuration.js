@@ -309,7 +309,7 @@
 				if (!d) days = 0;
 				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|d|c|v1', v:tn+'|'+d+'|'+val+'|'+ days, xp:xp} );
 
-			// ticket approval rules
+			//selected attendances
 			var chk = $("input[name='chkTRA']");
 			$(chk).each(function(){
 
@@ -317,6 +317,8 @@
 				var xp = $(this).data('exp');				
 				var tn = $(this).data('t');
 				var cd = $(this).data('c');
+
+				// console.log(val + " . " + xp + " . " + tn + " . " + cd);
 
 				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v1', v:tn+'|'+cd+'|'+val, xp:xp}, function(data){
 						//alert(data);
@@ -326,14 +328,13 @@
 			//posting of approved ticket
 			var cbx = $("select[name='TRA1_action']");
 			var xp = $(cbx).data("exp");
-      var txt = $(cbx).val();
+            var txt = $(cbx).val();
 
-      var posting = $.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v3', v:"'TKT_APR'|1|'"+txt+"'", xp:xp});
-      posting.done(function(data){
-      	// alert(data + ' - ' + xp + ' - ' + txt);
-      	busy.hide();
-      });
-
+            var posting = $.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v3', v:"'TKT_APR'|1|'"+txt+"'", xp:xp});
+            posting.done(function(data){
+            	// alert(data + ' - ' + xp + ' - ' + txt);
+            	busy.hide();
+            });
 		});
 
 

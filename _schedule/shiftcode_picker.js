@@ -1,26 +1,10 @@
 
 
-// <div id="" class="modal-box" style="left:-9999"></div>
-{
-  const body = getById("wrapper");
-  if (body){
-
-    // sched request 
-    let div = document.createElement('div')
-    div.id = "shiftcode_picker";
-    div.classList.add("modal-box")
-    div.style.left = -999
-    body.appendChild(div)
-
-  }
-}
-
-
 
 const shiftcode_picker = Vue.createApp({
 
 	template :`
-		<div id='shiftcode_picker_box' >
+		<div id='shiftcode_picker_box'>
 			<div class="aligner ContentTextNormal" v-for="sc in shift_codes" key="sc.id">
 				<input v-bind:type="input_type" class='mr-5' name="shifts" v-model="shifts"
 					v-bind:id="sc.id" v-bind:value="sc.shiftcode"/> 
@@ -166,7 +150,7 @@ const shiftcode_picker = Vue.createApp({
   		const chks = getAll("input[name='sched_date']:checked");
   		const bln = chks.length > 0 ? true : false;
   		if ( ! bln )
-  			msgBox("Please select schedule dates to set.");
+  			alert("Please select schedule dates to set.");
 
   		return bln;
   	},

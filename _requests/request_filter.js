@@ -10,6 +10,7 @@ e.appendChild(div)
 
 var section = ''
 
+
 const app = Vue.createApp({
 
 	template:`
@@ -95,7 +96,7 @@ const app = Vue.createApp({
 						<label class="flex-1">Team:</label>						
 						<div class="flex-2 ">
 							<select class="DropDownList wp-98" v-model="team">
-								<option v-for="team in teams" key="team.no" :value="team.no">{{ team.name }}</option>
+								<option v-for="team in teams" key="team.id4" :value="team.id4">{{ team.f9 }}</option>
 							</select>
 						</div>
 					</div>
@@ -232,34 +233,18 @@ const app = Vue.createApp({
 		if ( this._section == "REIM")
 			this._types = [{no: 100, title: 'Reimbursements Request'}]
 
-		xxhrPost( root_uri + "/ajax_calls.php", {func: 'myTeams', 'x': 1}, (res) => {
-			console.log( 'resxx', res)
-
-			const ret = JSON.parse(res);
-			console.log( 'ret', ret);
-
-			let teams = Object.values(ret.data) 
-
-			teams = [ {'no': '-1', 'name': '', 'desc': ''}, ...teams ]
-			this.teams = teams;
-			console.log( teams);
-
-		})
-
 		// get teams
-		// let p = {func: 'GetMultiRecs', t:14, f:'id4|f9', o:'f9', rc: 1 }
-  //   xxhrPost( root_uri + "/ajax_calls.php", p, (res) => {
+		let p = {func: 'GetMultiRecs', t:14, f:'id4|f9', o:'f9', rc: 1 }
+    xxhrPost( root_uri + "/ajax_calls.php", p, (res) => {
     	
-  //   	// console.log ('res', res);    	
-  //   	const ret = JSON.parse(res)     	
-  //   	let teams = Object.values(ret) 
+    	// console.log ('res', res);    	
+    	const ret = JSON.parse(res)     	
+    	let teams = Object.values(ret) 
 
-  // 		teams = [ {id4: '-1', f9:''}, ...teams]
-  //   	this.teams = teams
+  		teams = [ {id4: '-1', f9:''}, ...teams]
+    	this.teams = teams
 
-  //   	console.log( 'teams',teams)
-
-  //   })
+    })
 
 		// current filter record
 		p = {func: 'GetRec', t:17, f:'*', xp:`f10 ='${uid}' and section = '${this._section}'`}

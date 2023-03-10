@@ -1295,7 +1295,7 @@ function show_yearly_calendar() {
 }
 function convertPayrollCutoff()
 {		
-
+	//alert(typeof document.forms[0].allow_custom_date);
 	if(typeof document.forms[0].allow_custom_date != 'undefined'){
 		var weekly_start = document.forms[0].strWeeklyStart.value;
 		var weekly_end   = document.forms[0].strWeeklyEnd.value;

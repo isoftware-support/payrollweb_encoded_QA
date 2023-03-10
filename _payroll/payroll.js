@@ -24,6 +24,8 @@ function _suggestEmail(){
 function _isValidDomain( email )
 {
 
+  //alert(domains);
+
   if (domains.length == 0) return true;  // no domain setting
 
   let ret = false;
@@ -71,16 +73,13 @@ function email_ajax(){
     }
 
   }
-  
-
+    
   xxhr("GET", "_payroll/pdf_print.php?pd="+pdfParams +"&ea="+email,
     function(msg){
-      msgBox( msg.trim() );        
-      busy.hide()
+      alert('Payroll payslip successfully sent to '+ email);        
     });
 
-  busy.show2()
-  msgBox('Please wait for a moment while sending to your email account.');  
+  alert('Please wait for a moment while sending an email to your email account.');  
 
 }
 
@@ -222,25 +221,23 @@ function acknowledgePayslip(t){
 
       });
   
-  }else if( t == -111 ){    // delete dispute entry           
+  }else if( t == -111 ){    // delete dispute entry      
 
-      const func = () => {
-        busy.show2();
-        xxhrGet( PAYROLLWEB_URI + "/_payroll/payroll_ajax.php?q=removeDisputeLog"+ ds + d + _session_vars,
-        function(res){      
+      if ( ! confirm("Remove created payslip dispute log?") ) return;
 
-          var data = JSON.parse( res);
+      busy.show2();
+      xxhrGet( PAYROLLWEB_URI + "/_payroll/payroll_ajax.php?q=removeDisputeLog"+ ds + d + _session_vars,
+      function(res){      
 
-          if ( data.success == "1")
-            _err_msg( "Dipute log has been deleted.");
+        var data = JSON.parse( res);
 
-          _showDisputeBox( -1 );
+        if ( data.success == "1")
+          _err_msg( "Dipute log has been deleted.");
 
-          busy.hide();
-        });
-      }
+        _showDisputeBox( -1 );
 
-      msgBox("Remove created payslip dispute log?", {okCallBack: func, cancelButton: true}) 
+        busy.hide();
+      });
 
   }else if( t == 0 ){       // cancel dispute
 
@@ -248,8 +245,8 @@ function acknowledgePayslip(t){
 
   }else{
 
-    const func = () => {
-
+    if (confirm("I hereby acknowledge this payslip.") ){
+      
       busy.show2();
 
       let d = "&debug=1";
@@ -266,11 +263,11 @@ function acknowledgePayslip(t){
         _err_msg(msg);
 
         busy.hide();
-      });      
-    }
 
-    msgBox("I hereby acknowledge this payslip.", 
-      {okCallBack: func, cancelButton: true})
+        // console.log(data);
+      });
+      
+    }
 
   }
 }
@@ -282,14 +279,14 @@ function _showDisputeBox( mode ){
 
   let idDispute = "#dispute_box";
   let div = get(idDispute);
-
   if ( mode == -1 ){ // hide
     
     div.classList.add("d-none");  
 
   }else{    
+       
     div.classList.remove("d-none");        
-    CenterItem(idDispute) ;
+    CenterDiv(idDispute) ;
   }
 
 }

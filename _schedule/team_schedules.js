@@ -37,7 +37,7 @@ function loadTeamSchedule( cbf = undefined ){
             if ( validStartDate ){
               btn = document.createElement("input");
               btn.type = 'button';
-              btn.classList.add("button", "wm-150", "ml-5");
+              btn.classList.add("Button", "w-150", "ml-5");
               btn.value = "Upload Team Schedules";
               btn.id = "upload_sched";
               btn.onclick = () => getById('import_team_sched').click();
@@ -94,63 +94,53 @@ function uploadTeamSchedules(){
     const file = getById("import_team_sched").files[0];  // file from input
     if (! file) return;
 
-    var funcOk = () => {
+    if (! confirm('Uploaded schedules template file will overwrite the currently selected team members schedules.\r\n\r\nContinue?' ) ){
 
-      busy.show2();      
-      
-      let post = {};
-      post['tn'] = getById('dd_teamname').value;
-      post["team_sched"] = file; 
-
-      xxhrPost('xhtml_response.php?q=UploadTeamSched&'+ _session_vars, post, 
-      ( res ) => {             
-        
-        // console.log('res', res);
-
-        // reset file value
-        getById("import_team_sched").value = "";            
-
-        let msg;
-        if ( res.trim() ){
-
-          loadTeamSchedule();                  
-
-          const ret = JSON.parse(res);
-          
-          msg = ret.invalids.error;        
-          if ( ret.invalids.dates || ret.invalids.ids || ret.invalids.shiftcodes ){
-            
-            msg = "Invalid entries found in Schedules import template.";
-
-            if ( ret.invalids.dates )
-              msg += "\r\n\r\nInvalid Date Columns:\r\n" + ret.invalids.dates.join(", ");
-
-            if ( ret.invalids.ids )
-              msg += "\r\n\r\nInvalid Employee Ids:\r\n" + ret.invalids.ids.join(", ");
-
-            if ( ret.invalids.shiftcodes)
-              msg += "\r\n\r\nInvalid Shift Codes:\r\n" + ret.invalids.shiftcodes.join(", ");          
-          }            
-
-        }else{
-          msg = "Invalid Schedules template."
-        }
-
-
-        busy.hide();
-        msgBox(msg);
-
-      });
-    }
-
-    const funcCancel = () => {   
         // reset file selected
         getById("import_team_sched").value = "";            
         return;  
     } 
 
-    msgBox('Uploaded schedules template file will overwrite the currently selected team members schedules.<br><br>Continue?' ,
-      {okCallBack: funcOk, cancelbutton: true, cancelCallBack: funcCancel} ) 
+    busy.show2();      
+    const xhr = new XMLHttpRequest();
+    
+    let post = {};
+    post['tn'] = getById('dd_teamname').value;
+    post["team_sched"] = file; 
+
+    xxhrPost('xhtml_response.php?q=UploadTeamSched&'+ _session_vars, post, 
+    ( res ) => {             
+      
+      // reset file value
+      getById("import_team_sched").value = "";            
+
+      loadTeamSchedule();
+      
+      busy.hide();
+
+      const ret = JSON.parse(res);
+      // console.log(ret);
+      
+      // prompt invalid ids and dates
+
+      if ( ret.invalids.dates || ret.invalids.ids || ret.invalids.shiftcodes ){
+        
+        let msg = "Invalid entries found in importation template.";
+
+        if ( ret.invalids.dates )
+          msg += "\r\n\r\nInvalid Date Columns:\r\n" + ret.invalids.dates.join(", ");
+
+        if ( ret.invalids.ids )
+          msg += "\r\n\r\nInvalid Employee Ids:\r\n" + ret.invalids.ids.join(", ");
+
+        if ( ret.invalids.shiftcodes)
+          msg += "\r\n\r\nInvalid Shift Codes:\r\n" + ret.invalids.shiftcodes.join(", ");
+
+        alert(msg);
+      }
+
+      
+    });
     
 }
 
@@ -202,8 +192,8 @@ function clearSelected(){
       return;
 
     const selected_ids = selected.no_dt_sc.join(",");
-    
-    const func = () => {
+
+    if ( confirm("Clear schedules for selected items?") ){
 
       busy.show2();
 
@@ -214,24 +204,26 @@ function clearSelected(){
         const ret = JSON.parse( data );
         // console.log(ret);
         if ( ret.result == 'Error'){
-          msgBox('An error occurred.\r\n\r\n' + ret.msg);
+          alert('An error occurred.\r\n\r\n' + ret.msg);
           return;
         }
         loadTeamSchedule();
         
       });
     }
-    msgBox( "Clear schedules for selected items?", {okCallBack: func, cancelbutton: true})    
 }    
 
 function UsePreviousSched(){
    
+  
   const selected = collectSelected( "Please select date schedules to set." );
 
   if ( selected.no_dt == undefined )
     return;
 
-  const func = () => {
+
+  if (confirm('Values from Previous week Schedules will overwrite current selection.\r\nAre you sure?')){
+
     busy.show2();
 
     const year = getById("week_year").value;
@@ -252,12 +244,8 @@ function UsePreviousSched(){
       });     
 
     });
+
   }
-
-  msgBox('Values from Previous week Schedules will overwrite current selection.\r\nAre you sure?',
-    {okCallBack: func, cancelbutton: true})
-
-
 }
 
 
@@ -275,7 +263,7 @@ function collectSelected( errorMsg ){
 
   const chks = getAll("input[name='sched_date']:checked");
   if ( ! chks.length ){
-      msgBox(errorMsg);
+      alert(errorMsg);
       return {};
   }
 
@@ -418,6 +406,8 @@ function collectSelected( errorMsg ){
 
 //             mb = -1;
 //        }
+
+//         //alert(mb);
 
 
 //         var xmlhttp;

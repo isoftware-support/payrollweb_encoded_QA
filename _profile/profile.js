@@ -50,6 +50,6 @@
     elems = getAll("input[type='button'], input[type='submit']");
     for( var i = 0; i< elems.length; i++ ){
         e = elems[i];
-        e.className = "button";
+        e.className = "Button";
     }
 
