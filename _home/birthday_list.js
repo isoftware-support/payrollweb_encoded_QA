@@ -7,9 +7,10 @@
         const url = 'includes/ajax/sections/birthday_celebrants_section/birthday_celebrants_section.php?s='+ s;
         xxhrGet(url, (res)=>{
 
-            get('#birthday_celebrants_section').innerHTML = res;
+            let e = get('#birthday_celebrants_section')
+            if (e) e.innerHTML = res;
 
-            const e = getById('bdate-list');
+            e = getById('bdate-list');
             if ( e ){
                 e.style.cursor = "pointer" ;
                 e.onclick = ()=>{

@@ -16,29 +16,50 @@ $(document).ready(function(){
     //selected from home
     $('tr.home-select').css('background-color','#E0EBEB');
         
-    $('a.req_remarks,.req_disapproved').click(function(){	
+    $('a.req_remarks, a.req_disapproved, a.tkt_remarks').click(function(){	
 			return false;
-	});    
+		});    
 
+		$('a.req_disapproved').click(		
 
-    $('a.req_remarks').hover(                         
+			(e) =>{ 
+
+				let id = e.target.id
+				let apr = e.target.dataset.approval
+
+				if ( isEmpty(id) ){
+					id = e.target.parentElement.id
+					apr = e.target.parentElement.dataset.approval
+				}
+				popRemarks( id, apr );
+				
+			}
+		)
+
+    $('a.req_remarks, a.tkt_remarks').hover(        
+
         function(e){  
-
+        		
             var top = $(window).scrollTop();
             var id = $(this).attr('id');                             		        		
-            var txt = PAYROLLWEB.requests["'"+id+"'"];
+            var txt = PAYROLLWEB.requests[ "'"+id+"'" ];
+            
             var divID = "div_"+id;
 
-			//for webticket remarks            
+						//for webticket remarks            
             if (id.indexOf("tkt") > -1){
             	txt = $(this).data("remark");
             }            
 
-            // alert(e.clientX - 40 + " - " + (e.clientY + 15 + top));
-            $('body').append("<div id='"+divID+"' class='tooltip'>Payroll Remarks:<br><br>"+ txt + "</div>");                        
+            $('body').append(
+            	`<div id='${divID}' class='tooltip'>
+            		<p class='py-5'>Payroll Remarks:</p>
+            		<p class='py-5'>${txt}</p> 
+            	</div>`
+            )                        
             
             var div = $('#'+ divID);
-            $(div).css({'left':e.clientX - 40, 'top':e.clientY + 15 + top}).fadeIn('fast');
+            $(div).css({'left':e.clientX - 120, 'top':e.clientY + 15 + top}).fadeIn('fast');
                                                  
         },
         function(){
@@ -53,7 +74,7 @@ $(document).ready(function(){
     	
     	
     	var id = $(this).parent().attr('id');
-		var blnReplace = true;
+			var blnReplace = true;
 
     	if (id !== undefined){  //team requests
     		
@@ -76,7 +97,7 @@ $(document).ready(function(){
 
 
     //busy gif on approval buttons
-    $('#approve_x, #clear_x, #disapproval_saved, #disapprove_x').click(function(){   	
+    $('#approve_x, #clear_x, #disapproval_saved ').click(function(){   	
     	
         var num = $("input:checked[name^=apr]").length;
         if (num < 1){
@@ -124,6 +145,7 @@ function updateTeam()
     if (param == "") return alert("Please select at least one record.");
     window.location = "cm.php?qid=01&en=" + escape(param) + "&t=" + document.forms[0].AssignTeam.value + getCurrent();
 }
+
 function validation1()
 {
 	f = document.forms[0];
@@ -132,6 +154,7 @@ function validation1()
 		f.WelcomeNotice.focus();
 	}
 }
+
 function extractVals()
 {
     param = "";
@@ -184,7 +207,7 @@ function popitup_request(url,ar,w,h) {
 	var left = (screen.width/2)-(w/2);
 	var top = (screen.height/2)-(h/2);
 	var f = document.forms[0];
-	alert(2)
+	
 	if(ar==""){
 		msgBox("Please select record to edit.");
 		return false;
@@ -295,7 +318,6 @@ function deleteRequest_confirmed(q,n,m,r,l)
 	
 
 	//window.location = "index.php?qid="+escape(q)+"&rn="+escape(r)+"&ar="+escape(n)+"&uen="+escape(m) + addpath;
-     //alert(n);
 	 document.getElementById('hidden_rn').value = r;
 	 document.getElementById('hidden_ar').value = n;
 	 document.getElementById('hidden_uen').value = m;

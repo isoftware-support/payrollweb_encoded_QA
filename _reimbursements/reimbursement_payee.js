@@ -70,8 +70,8 @@ Vue.createApp({
 				</div>
 
 				<div class="flex flex-justify-center py-5">
-					 <input class='Button mr-5' type='button' @click='save' value='Save'/>
-					 <input class='Button' type='button' value='Close'  @click="close"/>
+					 <input class='button mr-5' type='button' @click='save' value='Save'/>
+					 <input class='button' type='button' value='Close'  @click="close"/>
 				</div>
 			</div>
 

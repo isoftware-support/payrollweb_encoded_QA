@@ -35,7 +35,7 @@ function submitAttdWarningAcknowledgement(t){
 			
 			_showAckBox(false);
 
-			alert("Acknowledgement remarks submitted.");
+			msgBox("Acknowledgement remarks submitted.");
 
 			// remove section if empty
 			let entries = getAll(".class_attd_warning_entries");
@@ -59,14 +59,16 @@ function _showAckBox(show = true){
 
 	if ( show ){
 
-	    box.classList.remove("d-none");
-	    CenterItem(id);
+    box.classList.remove("d-none");
+    dimBack(true, 'dimback', ()=> submitAttdWarningAcknowledgement(0) )
+    CenterItem(id);
 
 		let txt = get("#attd_warning_txt");
 		txt.value = "";
 		txt.focus();
 
 	}else{
+		dimBack(false, 'dimback');
 		box.classList.add("d-none");
 	}
 

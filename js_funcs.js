@@ -56,11 +56,35 @@
 
     }
 
-    function addClass(groupSelector, className){
+    function classAdd(groupSelector, className){
 
         var elements = getAll(groupSelector);
         for(var i = 0; i < elements.length; i++){
             elements[i].classList.add(className);
+        }
+    }
+
+    function classToggle(groupSelector, className){
+
+        var elements = getAll(groupSelector);
+        for(var i = 0; i < elements.length; i++){
+            elements[i].classList.toggle(className);
+        }
+    }
+
+    function classRemove(groupSelector, className){
+
+        var elements = getAll(groupSelector);
+        for(var i = 0; i < elements.length; i++){
+            elements[i].classList.remove(className);
+        }
+    }
+
+    function classReplace(groupSelector, oldClass, newClass){
+
+        var elements = getAll(groupSelector);
+        for(var i = 0; i < elements.length; i++){
+            elements[i].classList.replace(oldClass, newClass);
         }
     }
 
@@ -111,9 +135,13 @@
     function msgBox(message = [], options = {}){
 
         /*
-         message = [ {message : '', class:''}, {message:'', class:''} ]
-         options = {class: 'w-300', msgbg: 'bg-white'
-            okCallBack: '', cancelButton: false,
+         message = [ {message:'', class:''} ]
+         options = {
+            title: '',
+            class: 'w-300', 
+            msgbg: 'bg-white'
+            okCallBack: '', 
+            cancelButton: false,
             cancellCallBack:''
          }
         */
@@ -122,13 +150,14 @@
         let keys = Object.keys(options)
         if ( keys.indexOf('class') == -1)           options.class = "w-300 d-block"                    
         if ( keys.indexOf('msgbg') == -1)           options.msgbg = "bg-white"
+        if ( keys.indexOf('title') == -1)           options.title = ""
 
         // if ( keys.indexOf('cancelButton') == -1)    options.cancelButton = false
         //if ( keys.indexOf('cancelCallBack') == -1)  options.cancelCallBack = ''
 
         // if passed is a string only
         const txt = message
-        if ( typeof message == "string") message = [{message: txt, class: ''}];        
+        if ( typeof message == "string") message = [{message: txt, title: '', class: ''}];        
 
         const id = "msg-box-prompt"
 
@@ -154,23 +183,27 @@
 
         div_main = getById("msg-box-prompt");
 
-        // // title
-        // e = document.createElement('div')
-        // e.id = "msg-box-title"
-        // e.innerHTML = `<p>${title.text}</p>`
-        // e.classList.add('bg-menu', 'c-white', 'ta-c', 'py-3')
-        // div_main.appendChild(e);
-        // const div_title = getById("msg-box-title")
+        // title
+        if ( options.title ){
+            e = document.createElement('div')
+            e.id = "msg-box-title"
+            e.innerHTML = `<p>${options.title}</p>`
+            e.classList.add('bg-menu', 'c-white', 'ta-c', 'py-5', 'h4')
+            div_main.appendChild(e);            
+        }
 
         // message
-        let msg = ""
+        let msg = ""        
         if ( Array.isArray(message) ){
-            message.forEach((item)=>{
 
-                // if ( ! item.class ) item.class = "h4 lh-15"
-                msg += `<p class='h4 lh-15 ${item.class}'>${item.message}</p>`
+            message.forEach((item)=>{
+                const txt = item.message.replaceAll("\r\n", "<br>")                
+                msg += `<p class='h4 lh-18 ${item.class}'>${txt}</p>`
+
             })
         }
+        if ( ! msg ) return;
+
         e = document.createElement('div')
         e.id = "msg-box-message"
         e.innerHTML = msg;
@@ -199,38 +232,31 @@
         div_main.appendChild(e)
 
         // button event
-
-        var _hide = ()=>{            
+        const _hide = ()=>{            
             div_main.style.left = -999
-            dimBack2( {dimIt: false, id:'dimback'} );
-
-            // call okCallback if no candellCallBack
-            if ( ( ! options.cancellCallBack && ! options.cancelButton) && options.okCallBack )
-                options.okCallBack();
+            dimBack2( {dimIt: false, id:'msgdim'} );
         }
 
-        e = getById("msg-box-button-ok")
-        e.onclick = ()=>{
+        // OK Click
+        getById("msg-box-button-ok").onclick = ()=>{
 
             _hide()
 
-            if ( options.okCallBack )
-                 options.okCallBack();
+            if ( options.okCallBack ) options.okCallBack();                       
         }
 
-        e = getById('msg-box-button-cancel')
+        // Cancel click
+        getById('msg-box-button-cancel')
         if ( e ){
             e.onclick = () =>{
-
                 _hide()
-                if ( options.cancelCallBack )
-                     options.cancelCallBack();
+                if ( options.cancelCallBack ) options.cancelCallBack();
             }
         }
         
         CenterItem( id);
-        dimBack2( {dimIt: true, id:'dimback', 
-            hideCallback: _hide , bg:"black", opacity:.3, zIndex: z_index - 2} )
+        dimBack2( {dimIt: true, id:'msgdim', 
+            hideCallback: _hide, zIndex: z_index - 2} )
 
     }
 
@@ -356,6 +382,10 @@
         // day
         ret = ret.replace("d", d);
         
+        // year
+        ret = ret.replace("Y", y);
+        ret = ret.replace("y", y2);
+
         // Day name
         ret = ret.replace("D", days[dayOfWeek]);
 
@@ -363,9 +393,6 @@
         ret = ret.replace("M", months[month]);
         ret = ret.replace("m", m);
 
-        // year
-        ret = ret.replace("Y", y);
-        ret = ret.replace("y", y2);
        
         return ret;
     }
@@ -405,7 +432,6 @@
         if (pos > -1) s = dateString.substring(pos, pos + 2);
 
         // console.log( dateString, dateFormat, y, m, d, h, i, s, pos);
-        // alert(y + "-" + m + "-" + d +" " + h + ":" + i + ":" + s);
 
         this.formatDate = function(sFormat, lQuoted){
             
@@ -421,7 +447,6 @@
             if (s) sDate = sDate.replace('ss',s);
 
             if (lQuoted) sDate = "'" + sDate + "'";
-            // alert(sDate);
             return sDate;
         }
 
@@ -441,6 +466,22 @@
 
 
 //functions
+
+function selectOptionItem( id, value ){
+
+    let e = getById(id)
+    if ( ! e ) return;
+
+    for( key in e.options){
+        const option = e.options[key]
+        if ( option.tagName == "OPTION"){
+            if ( option.value == value ){
+                option.selected = true
+            }
+        }
+    }
+
+}
 
 var isCheckedByCheckbox = false;
 function selectChecbox(e, id="", id2=""){
@@ -486,6 +527,10 @@ function log()
     //     if (typeof l !== 'function')
     //         console.log( l );
     // }
+}
+
+function toggleValue( _var, val1, val2 ){
+    return _var == val1 ? val2 : val1
 }
 
 function quoteText(sString, lWrap = true){
@@ -546,7 +591,7 @@ function slideUpDown(id, lDown, sDuration){
 }
 //-------------------------------
 
-function dimBack2( options = {dimIt: true, id: 'dimback', hideCallback: "", bg: 'black', opacity: 0.6, zIndex: 99} ){
+function dimBack2( options = {dimIt: true, id: 'dimback', hideCallback: "", bg: 'black', opacity: 0.4, zIndex: 99} ){
 
     let keys = Object.keys(options)
 
@@ -555,7 +600,7 @@ function dimBack2( options = {dimIt: true, id: 'dimback', hideCallback: "", bg: 
     if ( keys.indexOf('id') == -1)           options.id = "dimback"
     if ( keys.indexOf('hideCallback') == -1) options.hideCallback = ""
     if ( keys.indexOf('bg') == -1)           options.bg = "black"
-    if ( keys.indexOf('opacity') == -1)      options.opacity = 0.6
+    if ( keys.indexOf('opacity') == -1)      options.opacity = 0.4
     if ( keys.indexOf('zIndex') == -1)       options.zIndex = 99
     
     // console.log('zindex', options.zIndex)        ;
@@ -563,31 +608,24 @@ function dimBack2( options = {dimIt: true, id: 'dimback', hideCallback: "", bg: 
     dimBack( options.dimIt, options.id, options.hideCallback, options.bg, options.opacity, options.zIndex)
 }
 
-function dimBack(dimIt, id='dimback', hideCallback = "", bg = 'black', opacity = 0.6, zIndex = 99){
+function dimBack(dimIt, id='dimback', hideCallback = "", bg = 'black', opacity = 0.4, zIndex = 99){
    
     if (typeof dimIt == 'undefined' || dimIt == null) dimIt = true;
 
     // id is blank
     if ( ! id ) id = "dimback";
     if ( ! bg ) bg = 'black'
-    if ( ! opacity ) opacity = 0.6
-
+    if ( ! opacity ) opacity = 0.4
+    
     if (dimIt){
 
-        var h = parseInt($("html").css("height"));
-        var h2 = window.innerHeight;
-        if (h2 > h) h = h2;
+        if ( get("div[name='dim_back']") ) opacity = 0.2
 
- 
-        $('body').append(`<div id='${id}'></div>`);
+        $('body').append(`<div id='${id}' name='dim_back'></div>`);
 
-  
-        $(`div#${id}`).css({"left":"0", "height": h, "position":"absolute", 'display': 'block',
-            'top': 0, 'left': 0, 'width':'100%', 'margin-top': '0px',
-            'z-index': zIndex , 'background-color': bg, 'opacity': opacity});
-           
+        $(`div#${id}`).addClass("modal-dim")
+        $(`div#${id}`).css({'z-index': zIndex , 'background-color': bg, 'opacity': opacity});           
         $(`div#${id}`).fadeIn("normal");              
- 
 
         if ( hideCallback ){
             $(`div#${id}`).click(hideCallback);
@@ -636,8 +674,21 @@ function CenterItem(id){
     let x = (ww / 2) - (ew / 2) + sx;
     let y = (wh / 2) - (eh / 2) + sy;
 
-    e.style.top = y;
-    e.style.left = x;    
+    let topAdj = 0
+    let leftAdj = 0
+
+    // ticket windows exception - parent is relative,
+    // centered div correction
+    const parent =  e.parentElement
+    if ( parent ){
+        if ( parent.id == "body-content"){
+            y -= parent.offsetTop
+            x -= parent.offsetLeft
+        }
+    }
+
+    e.style.top = y 
+    e.style.left = x
 
 }
 
@@ -706,13 +757,18 @@ function isOnScreen(elem)
         var elemTop = $(elem).offset().top;
         var elemBottom = elemTop + $(elem).height();
 
-        // console.log(elemTop);
-        // console.log(elemBottom);
-        
         return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
     }else{
         return false;
     }
+}
+
+function getXY(el) {
+  const rect = el.getBoundingClientRect();
+  return {
+    x: rect.left + window.scrollX,
+    y: rect.top + window.scrollY
+  };
 }
 
 function popWindow(url, _width, _height, specs = ""){
@@ -949,7 +1005,9 @@ function xxhr(method, path, func, id_contentHolder = ""){
             if (func) func(this.responseText);                     
 
             if ( id_contentHolder ){
+                // console.log( id_contentHolder)
                 const e = getById(id_contentHolder);
+                // console.log('e', e)
                 if ( e ) e.innerHTML = this.responseText;
             }
 

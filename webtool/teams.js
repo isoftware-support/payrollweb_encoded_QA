@@ -88,7 +88,7 @@ function formPost(url, postStr)
 {
     retval = "";
     xmlPossible = Sarissa.IS_ENABLED_XMLHTTP;
-    alert(url);
+    // alert(url);
     if (xmlPossible) {
         
         xmlObj = new XMLHttpRequest();

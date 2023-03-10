@@ -1,7 +1,7 @@
 
 
 {
-	const body = get("body");
+	const body = getById("wrapper");
 	if (body){
 
 		// sched request 
@@ -20,7 +20,8 @@ const reimDetail = Vue.createApp({
 	template: `
 
 		<!-- <div id='sched-request-ui' class='modal-box bg-white wp-80 wmx-500 p-5' style="left: -999"> -->
-		<div id='sched-request-ui' class='modal-box bg-white wp-80 wmx-600 p-5' style="left: -999">
+
+		<div id='sched-request-ui' class='modal-box bg-white wp-80 wmx-600 p-5 ss-hide' style="left: -999">
 			
 			<fieldset class="p-20 pl-30">
 			<legend>{{title}}</legend>
@@ -31,7 +32,7 @@ const reimDetail = Vue.createApp({
 			<!-- type -->
 			<div v-if="submit_mode != SUBMIT_APPROVER_ADD" class="flex ml-5">
 				<div class="req-label py-10">
-					<label class="">Request Type:</label>
+					<p class="">Request Type:</p>
 				</div>
 				<div class="req-data ">
 
@@ -57,7 +58,7 @@ const reimDetail = Vue.createApp({
 			<!-- approver overtime request for member -->
 			<div v-if="submit_mode == SUBMIT_APPROVER_ADD"class="flex ml-5">
 				<div class="req-label py-10">
-					<label class="">Overtime Request for:</label>
+					<p class="">Overtime Request for:</p>
 				</div>
 				<div class="req-data ">
 
@@ -72,7 +73,7 @@ const reimDetail = Vue.createApp({
 			<!-- leave types -->
 			<div v-if="type == TYPE_LEAVE" class="flex ml-5">
 				<div class="req-label py-10">
-					<label class="">Leave Type:</label>
+					<p class="">Leave Type:</p>
 				</div>
 				<div class="req-data ">
 					<div class="w-200 my-5">
@@ -201,7 +202,7 @@ const reimDetail = Vue.createApp({
 				</div>
 				<div class="req-data  ">
 
-					<input class="Button mt-3" type="button" value="Browse" onclick="document.getElementById('att_file').click();" />  		
+					<input class="button mt-3" type="button" value="Browse" onclick="document.getElementById('att_file').click();" />  		
 					<label class="ml-5" id="att_file_name">{{filename}}</label>
 
 					<input type="file" name="att_file" id="att_file" 
@@ -217,7 +218,7 @@ const reimDetail = Vue.createApp({
 				</div>
 				<div class="req-data flex flex-column flex-justify-center">
 					<p v-if="submit_mode == SUBMIT_APPROVER_UPDATE" class="label" >{{reason}}</p>
-					<textarea v-else class="my-5" v-model="reason" rows=3 ></textarea>
+					<textarea v-else class="my-5 wp-100" v-model="reason" rows=3 ></textarea>
 				</div>
 			</div>
 
@@ -253,6 +254,7 @@ const reimDetail = Vue.createApp({
 			req_no: 0,
 			error_msg: '',
 			filename: '',
+			time_value : {value: 0, unit: "hour"},
 
 			dttm_from: '', dttm_to: '',
 			duration_text: 'Actual Total Hours: 0',
@@ -354,7 +356,7 @@ const reimDetail = Vue.createApp({
 		edit( event, mode = this.SUBMIT_UPDATE){			
 
 			event.preventDefault()
-			console.log('mode', mode);
+
 			if ( mode == this.SUBMIT_UPDATE ){
 				this.init()				
 				if ( ! this._selected("edit") ) return
@@ -368,9 +370,9 @@ const reimDetail = Vue.createApp({
 			busy.show2()
 			xxhrPost('_requests/schedule_request_api.php', p, (res) =>{		
 
-				console.log(res)	
+				// console.log(res)	
 				const ret = JSON.parse(res)
-				console.log(ret);				
+				// console.log(ret);				
 
 				const type = ret.type
 				
@@ -480,7 +482,8 @@ const reimDetail = Vue.createApp({
 				}else if( this.leave.mode == this.LEAVE_SELECTIVE ){
 					p.selective_hour = this.leave.selective_hour
 				}else if( this.leave.mode == this.LEAVE_DURATION){
-					p.leave_batch_filing_dates = this.leave.selected_batch_dates
+					if (this.leave.selected_batch_dates) 
+						p.leave_batch_filing_dates = this.leave.selected_batch_dates
 				}
 
 			}else if( type == this.TYPE_SC){
@@ -499,17 +502,16 @@ const reimDetail = Vue.createApp({
 			if( mode == this.SUBMIT_APPROVER_ADD || mode == this.SUBMIT_APPROVER_UPDATE ){
 				p.member_no = this.approver.member_no
 				p.override_comment = this.approver.reason
-			}
-			
+			}			
 			p.x = 1
 
 			// return console.log( p)
 			
 			xxhrPost("_requests/schedule_request_api.php", p, (res)=>{
 
-				console.log('res', res)
+				// console.log('res', res)
 				const ret = JSON.parse(res)
-				console.log('ret', ret );
+				// console.log('ret', ret );
 
 				busy.hide()
 
@@ -528,7 +530,7 @@ const reimDetail = Vue.createApp({
 
 			this.init()
 
-			console.log( member);
+			// console.log( member);
 			this.req_no = member.req_no
 			this.approver.member_no = member.member_no
 			this.approver.row_to_remove = member.row;
@@ -541,7 +543,7 @@ const reimDetail = Vue.createApp({
 
 			event.preventDefault();
 
-			console.log( mode)
+			// console.log( mode)
 			// employee mode
 			if ( mode == this.SUBMIT_UPDATE ) {
 				if ( ! this._selected("delete") ) return	
@@ -559,9 +561,9 @@ const reimDetail = Vue.createApp({
 				busy.show2()       
 				xxhrPost( '_requests/schedule_request_api.php', p, (res)=>{
 
-					console.log( res)
+					// console.log( res)
 					const ret = JSON.parse(res)
-					console.log( JSON.parse(res))
+					// console.log( JSON.parse(res))
 
 					if ( ret.error ){
 						msgBox( ret.error )
@@ -595,7 +597,7 @@ const reimDetail = Vue.createApp({
 			}
 
 			msgBox(`Are you sure you want to delete this Request #${this.req_no}?`, 
-				{ cancelButton: true, okCallBack: deleteRequest })		
+				{ cancelbutton: true, okCallBack: deleteRequest })		
 
 		},	
 
@@ -963,7 +965,7 @@ const reimDetail = Vue.createApp({
 			this.req_no = 0
 
 			let e = get("input[type='radio'][name='req_no']:checked")			
-			console.log( 'selected', e)
+			// console.log( 'selected', e)
 			if ( e ){
 				this.req_no = e.value		
 				return true
