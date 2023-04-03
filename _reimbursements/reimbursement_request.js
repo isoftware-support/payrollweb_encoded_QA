@@ -470,6 +470,8 @@ const reimDetail = Vue.createApp({
 		},
 
 		getRecord( _detail_no, callBack  ){
+			
+			busy.show2()
 					
 			let url = rootURI + `/_reimbursements/reimbursement_request.php?func=GetRecItem&dn=${_detail_no}`		
 			url = url + (`&vcd=${this.verify.verifierCode}`)
@@ -505,7 +507,7 @@ const reimDetail = Vue.createApp({
 
 					// pic viewer
 					const src = rootURI + `/reimbursephoto.php?h=1&rd=${encoded_detail_no}&rn=${encoded_reim_no}`;				
-					const params = { prefix: 'view-img', rootFolder: rootURI, src: src};
+					const params = { prefix: 'view-img', rootFolder: rootURI, src: src, outsideButtons: true};
 					const view_att_file = new PicViewer( params );			
 					view_att_file.showOnClickOf( 'att_file_link')
 

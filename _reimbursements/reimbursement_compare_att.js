@@ -102,6 +102,8 @@
 			p.f = "f7|f8";
 			// console.log(p, id, this.imgIndex)
 
+			busy.show2();
+
 			xxhrPost(rootURI + '/ajax_calls.php', p, (res)=>{
 
 				const ret = JSON.parse(res)
@@ -119,6 +121,8 @@
 
 				txt = "- " + ret.f8
 				setProp( getById('rec-desc'), "innerHTML", txt)
+
+				busy.hide();
 			});
 
 		},
@@ -139,8 +143,10 @@
 
 	 mounted(){
 	 	 
+	 	 console.log('detailNos', recDetailNos)
 	 	 	// console.log(encoded_detail_no, ' - ', encoded_reim_no)
 
+	 	 	console.log("starts here")
 			let params = { prefix: 'top-img', rootFolder: 
 				rootURI, withClose: false, parent: '#img-top',
 				nav: 'left'};

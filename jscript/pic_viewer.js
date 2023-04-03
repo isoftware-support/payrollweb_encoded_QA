@@ -4,11 +4,14 @@ function PicViewer( params ){
 	
 	/* keys
 		prefix, rootFolder, src, withClose, parent,
-		width, height
+		width, height, ousideButtons
 	*/
 
 	if ( params.withClose == undefined ) 		params.withClose = true;
 	if ( params.parent == undefined ) 			params.parent = "body";
+	if ( params.outsideButtons == undefined ) 			params.outsideButtons = false;
+
+	console.log('params', params);
 
 	let xViewer = {}
 
@@ -47,22 +50,28 @@ function PicViewer( params ){
 		let div_wrapper = document.createElement('div')
 		div_wrapper.id = xViewer.params.prefix + "-pic-button-wrapper"
 		div_wrapper.classList.add('pic_buttons_wrapper')
-		div_wrapper.innerHTML = `<div id='${ xViewer.divButtonsId }' class='pic_buttons'></div>`;
+
+		let sClass = "pic_buttons";
+		if ( xViewer.params.outsideButtons ){
+			sClass += " pic_buttons-outside-wrapper"
+			div_wrapper.classList.add("pic_buttons-outside")
+		}
+		div_wrapper.innerHTML = `<div id='${ xViewer.divButtonsId }' class='${sClass}'></div>`;
+		
 		div.appendChild( div_wrapper )
 
 		// inner div
 		xViewer.imgDivId = xViewer.params.prefix + "pic_image"
 		let div_image = document.createElement('div')
 		div_image.id = xViewer.imgDivId
-		div_image.classList.add( 'pic_image' );
+		div_image.classList.add( 'pic_image_wrapper' );
 		div.appendChild( div_image )
 		xViewer.divImg = div_image;
 
 		// image
 		xViewer.imgId = xViewer.params.prefix + "pic_viewer_img"
 		let img = document.createElement('img')
-		img.id = xViewer.imgId
-
+		img.id = xViewer.imgId		
 		if ( xViewer.params.src )
 			img.src = xViewer.params.src;
 		
@@ -124,12 +133,13 @@ function PicViewer( params ){
 	}
 
 	this.changeImageSource = function(src){
+		console.log( src)
 		xViewer.img.src = src;
 		// console.log('image id', xViewer.img.id)
 	}
 
-	this.showNow = () => show();
-
+	this.showNow = () => show();	
+		
 	function show(event){
 
 		if (event) event.preventDefault()
@@ -140,11 +150,22 @@ function PicViewer( params ){
 		dimBack2( {dimIt: true, id: xViewer.dimId, hideCallback: this.viewerExit, bg: 'black', opacity: 0.4} )
 		CenterItem(xViewer.divId );
 
+		retry_centered();		
+
 		//add dim event
 		let e = getById( xViewer.dimId );
 		if ( e )
 			e.onclick = () => viewerExit( xViewer );
 
+	}
+
+	function retry_centered(){
+
+		setTimeout( ()=> {
+			if ( ! img_centered(xViewer) ){
+				call_centered();
+			} 
+		}, 100)
 	}
 
 	// ------------------------------
@@ -190,7 +211,6 @@ function PicViewer( params ){
 	  // console.log(walk);
 	});
 
-
 }
 
 function viewerExit( xViewer ){
@@ -208,6 +228,8 @@ function viewerZoom(key, xViewer){
 		w = xViewer.img.width,
 		cH = xViewer.divImg.offsetHeight,
 		cW = xViewer.divImg.offsetWidth;
+	
+	// xViewer.divImg.style.display = "block";
 
 	if ( key == 'out'){ 
 		
@@ -225,6 +247,33 @@ function viewerZoom(key, xViewer){
 		xViewer.img.width = cW - 5;
 	}
 
+	img_centered(xViewer);
+
 }	
+
+	function img_centered(xViewer){
+
+
+		// return
+		let h = xViewer.img['height'],
+			w = xViewer.img.width,
+			cH = xViewer.divImg.offsetHeight,
+			cW = xViewer.divImg.offsetWidth;
+		
+		if ( h ){
+			if ( h > cH){
+				xViewer.img.style.marginTop = 0;
+			}else{
+			
+				let y = (cH * .5) - ( h * .5);
+				xViewer.img.style.marginTop = y;
+
+			}
+			return true;
+		}		
+
+		console.log('h: ', h);
+		return false;
+	}
 
 
