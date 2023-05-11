@@ -1,14 +1,19 @@
 		
 		//check file
 		
-		function checkAttachment(e, putFilenameToID = "", maxFileSize = 2){
+		function checkAttachment(e, putFilenameToID = "", maxFileSize = 2, isSkipImage = false){
 				
 				let ret = false
 
 		    if (e.files.length){
 
-		    	var size = e.files[0].size;
-		    	if ( (size / 1024) > ( 1024 * maxFileSize) ){   //greater than 2 MB
+		    	let file = e.files[0];
+
+		    	let isImage = file.type.indexOf("image") > -1
+		    	if ( isSkipImage ) isImage = false;
+
+		    	let mb = e.files[0].size / (1024 * 1024);
+		    	if ( isImage && mb > maxFileSize ){   //greater than 2 MB
 
 		    		const txt = `Attachment file more than ${maxFileSize} MB is not allowed!`;
 		    		if (typeof msgBox === "function" ){
@@ -47,3 +52,5 @@
 
 			  return ret
 		}
+
+

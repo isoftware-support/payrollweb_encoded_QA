@@ -46,8 +46,10 @@
         var aprv_btn = approves.replace(regexp,''); 
 
         // GET APPROVE LEVEL
-
         var apr_lvl = approves.match(/apr([^_]*)/gi);
+
+        console.log( 'approves : ', approves, ' apr_lvl : ', apr_lvl);
+
         var apr_lvl_new = apr_lvl.join(",").replace(/apr/gi,"");
 
         // SPLIT VALUES INTO ARRAY

@@ -206,7 +206,7 @@ const reimDetail = Vue.createApp({
 					<label class="ml-5" id="att_file_name">{{filename}}</label>
 
 					<input type="file" name="att_file" id="att_file" 
-						onchange="checkAttachment(this, 'att_file_name', req_vars.maxFileSize );" accept="image/*, application/pdf" style="display:none;">		    	
+						onchange="checkAttachment(this, 'att_file_name', req_vars.maxFileSize, true );" accept="image/*, application/pdf" style="display:none;">		    	
 
 				</div>
 			</div>
@@ -461,14 +461,6 @@ const reimDetail = Vue.createApp({
 			if ( this.dttm_to ) p.dttm_to = this.dttm_to
 			p.reason = this.reason
 
-			// file
-			const file = getById('att_file')		
-			if ( file ){
-				if ( file.files ){
-					p.att_file = file.files[0];
-				}
-			}
-
 			if( type == this.TYPE_LEAVE){
 				
 				if ( this.leave.dttm_from ) p.dttm_from = this.leave.dttm_from
@@ -505,9 +497,8 @@ const reimDetail = Vue.createApp({
 			}			
 			p.x = 1
 
-			// return console.log( p)
-			
-			xxhrPost("_requests/schedule_request_api.php", p, (res)=>{
+			// post to db
+			const postIt = () => xxhrPost("_requests/schedule_request_api.php", p, (res)=>{
 
 				// console.log('res', res)
 				const ret = JSON.parse(res)
@@ -523,6 +514,25 @@ const reimDetail = Vue.createApp({
 					location.reload()
 				}
 			})
+
+			// file
+			const file = getById('att_file')					
+			if ( file.files.length ){
+
+				const att = file.files[0];
+				p.att_file = att
+
+				resizeImageQuality(att, this.vars.maxFileSize, (blob) => {
+
+					if (blob != null ){
+						p.att_file = new File([blob], att.name, { type: blob.type });						
+					}
+					postIt()						
+				})
+
+			}else{
+				postIt()				
+			}				
 
 		},
 
@@ -780,7 +790,7 @@ const reimDetail = Vue.createApp({
 								}
 							}
 												
-							let checked = 'checked';
+							let checked = '';  // default unchecked
 							
 							// put check status to previously selected dates
 							if ( listedDates.length ){						

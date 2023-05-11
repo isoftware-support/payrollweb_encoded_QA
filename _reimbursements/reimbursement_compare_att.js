@@ -16,7 +16,7 @@
 	const appReimbComparePic = Vue.createApp({
 
 		template: `
-		<div id='div_compare' >
+		<div id='div_compare' class="compare-width">
 
 			<div class='_modal-header px-10'>
 				<span id='compare-close' class='_close' @click="hide">&times;</span>
@@ -129,7 +129,8 @@
 
 		compareImage(){
 
-			dimBack(true, 'dimBack', this.hide);
+			// dimBack(true, 'dimBack', this.hide);
+			dimBack2( {dimIt: true, id: 'dimback', hideCallback: this.hide, zIndex: 199} )
 			CenterItem('div_compare')
 		},
 
@@ -142,14 +143,23 @@
 	 },
 
 	 mounted(){
-	 	 
-	 	 console.log('detailNos', recDetailNos)
+
+		const h = Math.min(
+		  document.body.scrollHeight,
+		  document.body.offsetHeight,
+		  document.documentElement.clientHeight,
+		  document.documentElement.scrollHeight,
+		  document.documentElement.offsetHeight
+		);
+
+	 
+	 	 // console.log('detailNos', recDetailNos)
 	 	 	// console.log(encoded_detail_no, ' - ', encoded_reim_no)
 
-	 	 	console.log("starts here")
+	 	 	
 			let params = { prefix: 'top-img', rootFolder: 
 				rootURI, withClose: false, parent: '#img-top',
-				nav: 'left'};
+				nav: 'left', width:'100%', height: `${h*.35}px`};
 			topPicViewer = new PicViewer( params );
 
 			// bottom image

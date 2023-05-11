@@ -2161,9 +2161,13 @@ a.jobs-link-sub{
 	padding: 5px;
 	left: 0px;
 	top: 0px;
-	z-index: 100;
+	z-index: 200;
 	border-radius: 5px
 }
+
+.pic_width  {	width: 60%;	}
+.pic_height { height: 70%; }
+
 
 .pic_viewer_child{
 	display: block;
@@ -2176,7 +2180,7 @@ a.jobs-link-sub{
 	width: 100%;
 	height: 100%;
 	border: 1px solid grey;
-	overflow: auto;
+	overflow: scroll;
 	text-align: center;
 	cursor: grab;
 	background-color: #424242;
@@ -2234,20 +2238,21 @@ a.jobs-link-sub{
 	cursor: pointer;
 }
 
+
 /* -------------------------- */
 
 /* --- recurring compare image ----*/
 
 #div_compare{
 	position : absolute;
-	display: block;
-	width: 80%;
-	height: 95vh;
+	display: block;	
+	/*height: 95vh;*/
 	top: 0;
 	background: #E7E4E4;
 	left: -9999;
-	z-index: 100;
+	z-index: 200;
 }
+.compare-width{ width: 80%; }
 
 .compare-body{
 	padding:10px;
@@ -2256,7 +2261,6 @@ a.jobs-link-sub{
 	background: white ;
 	padding: 5px;
 	border-radius: 5px;
-
 }
 
 .top-text{
@@ -2285,7 +2289,7 @@ a.jobs-link-sub{
 	text-align: center;
 	font-size: 100px;
 	font-weight: bold;
-	margin-top: 100px;
+	margin-top: 40px;
 	cursor: pointer;
 	transition: 0.3s;
 }
@@ -2295,7 +2299,7 @@ a.jobs-link-sub{
 }
 
 #bottom-wrapper .next{
-	right: 40px;
+	right: 25px;
 }
 #bottom-wrapper .nav-img:hover{
 	background: rgba(0,0,0, .3);
@@ -2319,6 +2323,12 @@ a.jobs-link-sub{
 	padding: 5px;
 }
 /*---------------*/
+
+/* ---- reimbursement record ---- */
+.reimb-detail-width{
+	width:80%;
+	max-width: 500px;
+}
 
 /* --- recurring payee -----*/
 
@@ -2582,6 +2592,9 @@ a.jobs-link-sub{
 	display: none;
 }
 
+/*
+	medium view
+*/
 @media (max-width: 750px){
 
 	.wrapper{ width: 90% }
@@ -2591,9 +2604,15 @@ a.jobs-link-sub{
 	.md-px-20{ padding-left: 20px; padding-right: 20px;	}	
 	.md-px-10{ padding-left: 10px; padding-right: 10px;	}	
 
+	.pic_width  {	width: 90%;	}
+	.pic_height { height: 90%; }
 
+	.compare-width{ width: 90%; }
 }
 
+/*
+		small view
+*/
 @media (max-width: 600px){
 	
 	input[type='text'], input[type='date'], textarea, select{
@@ -2632,6 +2651,14 @@ a.jobs-link-sub{
 		font-size:11px !important;
 		height: 20px;
 	}
+
+	.pic_width  {	width: 90%;	}
+	.pic_height { height: 70%; }
+
+  .reimb-detail-width{
+  	width: 98%;
+  }
+  .compare-width{ width: 98%; }
 
 	.ss-wp{ width: 100%; }
 	.ss-wmx{ width: 100% !important; max-width: 100% !important; }

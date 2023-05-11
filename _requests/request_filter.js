@@ -233,16 +233,17 @@ const app = Vue.createApp({
 			this._types = [{no: 100, title: 'Reimbursements Request'}]
 
 		xxhrPost( root_uri + "/ajax_calls.php", {func: 'myTeams', 'x': 1}, (res) => {
-			console.log( 'resxx', res)
+			
+			//console.log( 'resxx', res)
 
 			const ret = JSON.parse(res);
-			console.log( 'ret', ret);
+			// console.log( 'ret', ret);
 
 			let teams = Object.values(ret.data) 
 
 			teams = [ {'no': '-1', 'name': '', 'desc': ''}, ...teams ]
 			this.teams = teams;
-			console.log( teams);
+			// console.log( teams);
 
 		})
 

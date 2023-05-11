@@ -868,6 +868,84 @@ function overrideFormEnterKey( formID, elementID, runFunc = "" )
     }
 }
 
+function resizeImageQuality(file, maxSize, callback) {
+
+
+    const isImage = file.type.indexOf('image') > -1
+    const mb = file.size / (1024 * 1024) 
+    if ( ! isImage || mb < maxSize) {
+        callback( null )
+        console.log('isImage:', isImage, 'image mb:', mb, 
+            'max mb:', maxSize, 'nothing to resize')
+        return;
+    }
+
+    // add canvas for redrawing in html body
+    let canvasId = 'resizeCanvas'
+    const body = getById("wrapper");            
+    console.log('body', body)
+    if (body){
+
+        // sched request                
+        let e = getById(canvasId);
+        if ( ! e ){
+            let canvas = document.createElement('canvas');
+            canvas.id = canvasId;   
+            canvas.style.display = "none";
+            body.appendChild(canvas);
+            console.log( 'canvas created')
+        }
+    }
+
+    let image = new Image();
+    let reader = new FileReader();
+
+    reader.onload = function(event) {
+
+        image.onload = function() {
+
+            var width = image.width;
+            var height = image.height;
+
+            var canvas = document.getElementById( canvasId );
+            // console.log( canvas);
+            var context = canvas.getContext('2d');
+
+            canvas.width = width;
+            canvas.height = height;
+            context.drawImage(image, 0, 0, width, height);
+
+            const resizeIt = () => {                                                
+                canvas.toBlob( (blob) => repeatOrDone(blob), file.type, quality );               
+            }
+
+            const repeatOrDone = (blob) => {
+
+                const mb = blob.size / (1024 * 1024);
+                console.log( 'resize or done', 'mb:', mb, 'size:', blob.size, 'quality:', quality)
+
+                if ( mb < maxSize ){
+                    console.log('call back')
+                    callback(blob)
+                }else{
+                    quality -= 0.05
+                    resizeIt();
+                }
+            }
+
+            var quality = 0.95
+            resizeIt()
+
+        };
+
+        image.src = event.target.result;
+    };
+
+    reader.readAsDataURL(file);
+
+
+}
+
 // --------------- auto complete ------------
 
 function autocomplete(inputId, values, callBack = "") {
@@ -1028,8 +1106,8 @@ function xxhrPost(url, data=[], callBackFunc = ""){
     let xhr = new XMLHttpRequest();
     let formData = new FormData();
 
-    for( const name in data ){        
-        formData.append(name, data[name]);                                
+    for( const name in data ){      
+        formData.append(name, data[name]);  
     }
     xhr.open("POST", url, true );
     xhr.send(formData);

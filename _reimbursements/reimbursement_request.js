@@ -23,7 +23,7 @@ const reimDetail = Vue.createApp({
 
 	template: `
 
-		<div id='reimb-request-ui' class='modal-box bg-white wp-80 wmx-500 p-5' style="left: -999">
+		<div id='reimb-request-ui' class='modal-box bg-white reimb-detail-width p-5' style="left: -999">
 			
 		<fieldset class="wp-99 p-20">
 		<legend>Reimbursement Request</legend>
@@ -158,7 +158,7 @@ const reimDetail = Vue.createApp({
 				<div class="reim-data">
 					<div class="flex ">
 
-						<input type="file" name="att_file" id="att_file" @change="pickFile" accept="image/*" class="d-none" >
+						<input type="file" name="att_file" id="att_file" @change="pickFile" accept="image/*" class="d-none" > 
 					  <input v-if="mode != VIEW" class="button w-100 mr-5" type="button" value="Browse" onclick="document.getElementById('att_file').click();" />  		
 
 						<a v-show="att_file" id="att_file_link"  class="link_simple mt-3" href="#" > {{ att_file }}</a>
@@ -266,7 +266,7 @@ const reimDetail = Vue.createApp({
 			this._setPayee();			
 			if ( ! this._checkEntry() ) return;
 
-			busy.show(2);
+			busy.show2();
 
 			const p = {func: 'SaveRecItem' }
 			p.d = this.mode
@@ -281,36 +281,53 @@ const reimDetail = Vue.createApp({
 			p.amount = this.amount
 			p.net = this.net_of_vat;
 			p.vat_amount = this.vat_amount			
+			p.x = 1
+
+			const postIt = () => {
+				xxhrPost( rootURI + '/_reimbursements/reimbursement_request.php', p, (res)=>{
+
+					busy.hide();
+					
+					// console.log('res ', res)
+					const ret = JSON.parse(res);			
+					// console.log( 'ret ', ret)
+
+					if ( ret.err ){
+						return msgBox( ret.err );
+					}
+
+					if ( this.is1stItem ){				
+						// view recurring details
+						location.href = rootURI + '/index.php?qid=07c';
+					}else{					
+						location.reload();
+					}
+
+				})
+			}
 
 			// file
 			const file = getById('att_file')		
-			if ( file.files ){
-				p.att_file = file.files[0];
+			if ( file.files.length ){
+
+				const att = file.files[0]
+				p.att_file = att
+
+				// console.log( 'max:', maxFileSize)
+				resizeImageQuality(att, maxFileSize, (blob) => {
+
+					if (blob != null ){
+						p.att_file = new File([blob], att.name, { type: att.type });						
+					}
+					// console.log(' resize post', 'file:', blob, p.att_file)
+					postIt()						
+				})
+
+			}else{
+				// console.log( ' no files post')
+				postIt()
 			}
 
-			xxhrPost( rootURI + '/_reimbursements/reimbursement_request.php', p, (res)=>{
-
-				// console.log('res', res)
-				// console.log('res', JSON.parse(res))
-				// return;
-
-				busy.hide();
-				
-				const ret = JSON.parse(res);			
-
-				if ( ret.err ){
-					return msgBox( ret.err );
-				}
-
-				if ( this.is1stItem ){				
-					// view recurring details
-					location.href = rootURI + '/index.php?qid=07c';
-				}else{
-				
-					location.reload();
-				}
-
-			})
 		},
 
 		edit(){
@@ -388,7 +405,7 @@ const reimDetail = Vue.createApp({
 		pickFile(event){
 			
 			let filename = ""
-			if ( checkAttachment(event.target, "", maxFileSize) )
+			if ( checkAttachment(event.target, "", maxFileSize, true) )
 				filename = event.target.files[0].name;
 
 			this.att_file = ""
@@ -477,7 +494,8 @@ const reimDetail = Vue.createApp({
 			url = url + (`&vcd=${this.verify.verifierCode}`)
 
 			xxhrGet( url, (res)=>{
-			
+				
+				// console.log( 'res', res)
 				const ret = JSON.parse(res);
 				const detail = ret.res;
 				// console.log('detail', detail)
@@ -507,6 +525,7 @@ const reimDetail = Vue.createApp({
 
 					// pic viewer
 					const src = rootURI + `/reimbursephoto.php?h=1&rd=${encoded_detail_no}&rn=${encoded_reim_no}`;				
+					console.log( 'src', src)
 					const params = { prefix: 'view-img', rootFolder: rootURI, src: src, outsideButtons: true};
 					const view_att_file = new PicViewer( params );			
 					view_att_file.showOnClickOf( 'att_file_link')

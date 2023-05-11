@@ -11,7 +11,7 @@ function PicViewer( params ){
 	if ( params.parent == undefined ) 			params.parent = "body";
 	if ( params.outsideButtons == undefined ) 			params.outsideButtons = false;
 
-	console.log('params', params);
+	// console.log('params', params);
 
 	let xViewer = {}
 
@@ -33,17 +33,14 @@ function PicViewer( params ){
 		xViewer.divId = xViewer.params.prefix + 'pic_viewer'
 		let div = document.createElement('div');
 		div.id = xViewer.divId
-		div.classList.add( 'pic_viewer', 'shadow-3' );
+		div.classList.add( 'pic_viewer', 'pic_width', 'pic_height', 'shadow-3' );
 		body.appendChild(div);
 		xViewer.div = div;		
 
-		// if with width
-			if ( params.width){
-				div.style.width = `${params.width}%`
-			}
-			if ( params.height){
-				div.style.height = `${params.height}%`
-			}
+		// if with width & height
+			if ( params.width) div.style.width = params.width						
+			if ( params.height) div.style.height = params.height
+			
 
 		// buttons div
 		xViewer.divButtonsId = xViewer.params.prefix + '-pic-buttons';
@@ -133,7 +130,7 @@ function PicViewer( params ){
 	}
 
 	this.changeImageSource = function(src){
-		console.log( src)
+		// console.log( src)
 		xViewer.img.src = src;
 		// console.log('image id', xViewer.img.id)
 	}
@@ -147,7 +144,7 @@ function PicViewer( params ){
 		const div = getById( xViewer.divId);
 		div.style.display = "block";
 		
-		dimBack2( {dimIt: true, id: xViewer.dimId, hideCallback: this.viewerExit, bg: 'black', opacity: 0.4} )
+		dimBack2( {dimIt: true, id: xViewer.dimId, hideCallback: this.viewerExit, bg: 'black', opacity: 0.4, zIndex: 199} )
 		CenterItem(xViewer.divId );
 
 		retry_centered();		
@@ -272,7 +269,7 @@ function viewerZoom(key, xViewer){
 			return true;
 		}		
 
-		console.log('h: ', h);
+		// console.log('h: ', h);
 		return false;
 	}
 
