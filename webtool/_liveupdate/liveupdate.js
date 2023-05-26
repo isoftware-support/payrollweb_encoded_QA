@@ -19,9 +19,9 @@
 	  const p = { func: 'CKVersion' }
 	  xxhrPost( PAYROLLWEB_URI + "/webtool/_liveupdate/liveupdate.php", p, (res)=>{
 	  	
-	  	console.log( 'check version', res)
+	  	// console.log( 'check version', res)
 	  	const ret = JSON.parse(res);
-	  	console.log( 'Check version', ret);
+	  	// console.log( 'Check version', ret);
 
 	  	// hide check update
 	  	if ( ret.status == "old" || ret.status == "updated")
@@ -30,7 +30,7 @@
 	  	let msg = "Current Phoenix PayrollWEB version is up to date."; 	
 	  	if ( ret.status == "old"){
 	  		
-	  		msg = `An update is available. Phoenix PayrollWEB latest version is ${ret.version}.`;
+	  		msg = `Phoenix PayrollWEB version <label class='c-red'><b>${ret.version}</b></label> is now available.`;
 	  		msg += `<br><br><a href="#" id="do-next" class="ta-c version_note">Download latest version ${ret.version}</a>`;
 
 	  		classReplace('#update-msg', 'c-red', 'c-blue');	  		
@@ -41,8 +41,8 @@
 
 	  	}else if( ret.status == 'downloaded'){  // update file already available
 
-	  		msg = `Latest PayrollWEB version ${ret.version} update is already available.`
-	  		msg += `<br><br><a href="#" id="do-next" class="ta-c version_note">Apply downloaded update.</a>`;
+	  		msg = `Latest PayrollWEB version <label class='c-red'>${ret.version}</label> updates is ready to apply.`
+	  		msg += `<br><br><a href="#" id="do-next" class="ta-c version_note">Apply version updates now.</a>`;
 	  		
 	  		classReplace('#update-msg', 'c-red', 'c-blue');	  		
 	  		e_msg.innerHTML = msg;
@@ -77,10 +77,10 @@ function downloadUpdate( version ){
   const p = { func: 'DLUpdate', 'v': version }
   xxhrPost( PAYROLLWEB_URI + "/webtool/_liveupdate/liveupdate.php", p, (res)=>{
 
-  	console.log( 'download updaes', res); 	
-
+  	// console.log( 'download updaes', res); 	
   	const ret = JSON.parse(res);
-  	console.log( 'download update', ret );
+  	// console.log( 'download update', ret );
+
   	if ( ret.status == 'success'){
   		
   		msg = `Latest PayrollWEB version ${version} download successful.`
@@ -110,40 +110,44 @@ function applyUpdate( version ){
 	busy.show2();
 
 	const e_msg = getById('update-msg');
-	e_msg.innerHTML = `<br>Extracting update files.`;
+	e_msg.innerHTML = `<br>Extracting update files`;
 
 	const p = {func: 'ExtractUpdate', v: version}	
 	xxhrPost( PAYROLLWEB_URI + "/webtool/_liveupdate/liveupdate.php", p, (res) => {
 
-		console.log( 'extract', res);
+		// console.log( 'extract', res);
 
 		let ret = JSON.parse( res );
 		e_msg.innerHTML += ' - done';
 
-		console.log( 'extract', ret);
+		// console.log( 'extract', ret);
 
 		if ( ret.status == 'success'){
+
+			e_msg.innerHTML += '<br>Generate server-side update scripts';
 
 			p.func = 'ApplyUpdate'
 			xxhrPost(PAYROLLWEB_URI + "/webtool/_liveupdate/liveupdate.php", p, (res) => {
 
-				console.log('ApplyUpdate', res);
-
+				// console.log('ApplyUpdate', res);
 				ret = JSON.parse( res )	
-				console.log('ApplyUpdate', ret);
+				// console.log('ApplyUpdate', ret);
 
-				e_msg.innerHTML += '<br>' + ret.msg;
+				e_msg.innerHTML += ' - done'
+				e_msg.innerHTML += '<br>Run server-side update scripts'
 
 				if ( ret.status == 'success'){					
 
 					// run update script file
 					xxhrPost( ret.url, {}, (res) => {
 						
+						e_msg.innerHTML += ' - done'
+
 						ret = JSON.parse(res);
-						console.log("run script", ret)
+						// console.log("run script", ret)
 
 						// chech finish update											
-						let msg = " - update script run done.";
+						let msg = "";
 						if ( ret.status == 'success'){
 							msg += "<br><br>Update successful. PayrollWEB version is now "+ version + "<br>";
 
@@ -168,8 +172,5 @@ function applyUpdate( version ){
 		}
 
 	});
-
-	
-
 
 }
