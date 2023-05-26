@@ -313,6 +313,7 @@ button, .button {
 	border-radius: 4px;
 }
 
+
 button:hover:enabled, .button:hover:enabled {
 	color: #525453; /*#175385;*/
 	background-color: white;
@@ -684,6 +685,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .mt-10 { margin-top: 10px !important; }
 .mt-20 { margin-top: 20px !important; }
 .mt-50 { margin-top: 50px !important; }
+.mt-80 { margin-top: 80px !important; }
 .mt-100 { margin-top: 100px !important; }
 .mt-200 { margin-top: 200px !important; }
 
@@ -871,9 +873,9 @@ label, .CheckBoxLabel, .label, .label-i {
 .va-t{vertical-align: top;}
 
 .c-white {color: white !important; }	 
-.c-red   {color: red; }	
-.c-gold {color: #e88538; }
-.c-orange  {color: orange;} 
+.c-red   {color: red !important; }	
+.c-gold {color: #e88538 !important; }
+.c-orange  {color: orange !important;} 
 .c-cyan  {color: cyan; }
 .c-green {color: green; }
 .c-icon-dark  {color: #292929;}
@@ -905,7 +907,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .fs-25{ font-size: 25px !important;  }
 .fs-50{ font-size: 50px !important;  }
 
-.fw-n{ font-weight: normal !important;}
+.fs-n{ font-weight: normal !important;}
 /* ----------------------------- */
 
 .border-1{
@@ -2063,9 +2065,10 @@ a.version_note{
 	/*text-decoration: none !important;*/
 	font-weight: normal !important;
 	font-size: 11px !important;
+	cursor: pointer;
 }
 a.version_note:hover{
-	color: red;
+	color: red !important;
 	font-weight: normal !important;
 	font-size: 11px !important;
 
@@ -2689,6 +2692,7 @@ a.jobs-link-sub{
 	.ss-ml-n30 { margin-left: -30px; }
 
 	.ss-wp-80{ width: 80% !important; }
+	.ss-wp-90{ width: 90% !important; }
 	.ss-wp-100{ width: 100% !important; max-width: 100% !important;}
 
 	

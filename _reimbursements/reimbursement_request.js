@@ -34,7 +34,7 @@ const reimDetail = Vue.createApp({
 					<label class="">No:</label>
 				</div>
 				<div class="reim-data">
-					<p  class="lh-15 fw-n bold h5">{{nos}}</p>
+					<p  class="lh-15 fs-n bold h5">{{nos}}</p>
 				</div>
 			</div>
 
@@ -174,7 +174,7 @@ const reimDetail = Vue.createApp({
 					<label class="pr-5">Status:</label>
 				</div>
 				<div class="reim-data">
-					<p  class="lh-15 fw-n" v-html="status_text"></p>
+					<p  class="lh-15 fs-n" v-html="status_text"></p>
 				</div>
 			</div>
 

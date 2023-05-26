@@ -1,11 +1,11 @@
 
 
-
 // sanitize allowed domains
 altDomains = altDomains.replace(/ /g,"");  // remove spaces
 altDomains = altDomains.replace(/;/g,",");  // remove spaces
 altdomains = altDomains.toLowerCase();
 let domains = altDomains.split(',');
+
 
 var pdfParams = '1'; 
 var newDispute = true;
@@ -147,7 +147,7 @@ function generatePayroll(){
 
 function previewPDFpayslip(){
     
-    window.open( PAYROLLWEB_URI + "/_payroll/pdf_print.php?pd="+ pdfParams, "_blank"); 
+    window.open( PAYROLLWEB_URI + "/_payroll/pdf_print.php?pd="+ pdfParams + "&t=" + PAYSLIP_PAYROLL, "_blank"); 
 
 }
 
@@ -293,5 +293,6 @@ function _showDisputeBox( mode ){
   }
 
 }
+
 
 

@@ -132,6 +132,24 @@
         return encodeURIComponent(string)
     }
 
+    function urlParams( obj ){
+
+      const params = [];
+
+      for (let key in obj) {
+
+        if (obj.hasOwnProperty(key)) {
+
+          const _key = encodeURIComponent(key);
+          const _value = encodeURIComponent( obj[key] );
+          const _param = `${_key}=${_value}`;
+          params.push( _param );
+        }
+      }
+      return params.join('&');
+
+    }
+
     function msgBox(message = [], options = {}){
 
         /*
@@ -295,12 +313,15 @@
                 
     	//remove first
         var div = $("div#busygif");
-        // console.log( 'busy div', div)
         if (div){
    	        if (div.length) $(div).remove();
         }
 
-        $('body').append("<div id='busygif'><img src=images/loading-gif.gif width="+ w +"/></div>");          
+        $('body').append(
+            `<div id='busygif'>
+                <label id='busy-msg'></label><img src=images/loading-gif.gif width=${w}/>                
+            </div>`
+        );          
         $('div#busygif').css({'display':'block', 'position':'absolute'}).hide();   
         $("div#busygif").css("z-index",9999);
 
@@ -315,10 +336,11 @@
             });         	
         };
 
-        this.show2 = function(topAdj = 0){
+        this.show2 = function(topAdj = 0, msg = ""){
 
+            getById('busy-msg').innerHTML = msg;
             CenterDiv('div#busygif', topAdj );
-        	$("div#busygif").show();   
+        	$("div#busygif").show();               
         }
         this.hide = function(){
         	$("div#busygif").hide();
@@ -649,11 +671,16 @@ function CenterDiv(id, topAdj = 0) {
 }
 //-------------------------------
 
-function hideItem(id){
+function hideItem(id, isMoveOffScreenOnly = true){
     
     if ( id.indexOf("#") == -1 ) id = "#" + id;
     const e = get(id);
-    e.style.left = -999;
+
+    if ( isMoveOffScreenOnly ){
+        e.style.left = -999;
+    }else{
+        e.style.display = 'none';
+    }
 }
 
 
