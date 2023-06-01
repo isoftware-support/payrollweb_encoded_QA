@@ -19,9 +19,9 @@
 	  const p = { func: 'CKVersion' }
 	  xxhrPost( PAYROLLWEB_URI + "/webtool/_liveupdate/liveupdate.php", p, (res)=>{
 	  	
-	  	// console.log( 'check version', res)
+	  	console.log( 'check version', res)
 	  	const ret = JSON.parse(res);
-	  	// console.log( 'Check version', ret);
+	  	console.log( 'Check version', ret);
 
 	  	// hide check update
 	  	if ( ret.status == "old" || ret.status == "updated")
@@ -77,9 +77,9 @@ function downloadUpdate( version ){
   const p = { func: 'DLUpdate', 'v': version }
   xxhrPost( PAYROLLWEB_URI + "/webtool/_liveupdate/liveupdate.php", p, (res)=>{
 
-  	// console.log( 'download updaes', res); 	
+  	console.log( 'download updaes', res); 	
   	const ret = JSON.parse(res);
-  	// console.log( 'download update', ret );
+  	console.log( 'download update', ret );
 
   	if ( ret.status == 'success'){
   		
@@ -115,12 +115,12 @@ function applyUpdate( version ){
 	const p = {func: 'ExtractUpdate', v: version}	
 	xxhrPost( PAYROLLWEB_URI + "/webtool/_liveupdate/liveupdate.php", p, (res) => {
 
-		// console.log( 'extract', res);
+		console.log( 'extract', res);
 
 		let ret = JSON.parse( res );
 		e_msg.innerHTML += ' - done';
 
-		// console.log( 'extract', ret);
+		console.log( 'extract', ret);
 
 		if ( ret.status == 'success'){
 
@@ -129,9 +129,9 @@ function applyUpdate( version ){
 			p.func = 'ApplyUpdate'
 			xxhrPost(PAYROLLWEB_URI + "/webtool/_liveupdate/liveupdate.php", p, (res) => {
 
-				// console.log('ApplyUpdate', res);
+				console.log('ApplyUpdate', res);
 				ret = JSON.parse( res )	
-				// console.log('ApplyUpdate', ret);
+				console.log('ApplyUpdate', ret);
 
 				e_msg.innerHTML += ' - done'
 				e_msg.innerHTML += '<br>Run server-side update scripts'
@@ -144,7 +144,7 @@ function applyUpdate( version ){
 						e_msg.innerHTML += ' - done'
 
 						ret = JSON.parse(res);
-						// console.log("run script", ret)
+						console.log("run script", ret)
 
 						// chech finish update											
 						let msg = "";
