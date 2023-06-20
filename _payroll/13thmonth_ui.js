@@ -91,8 +91,11 @@ const ui13thmonth = Vue.createApp({
 
 		},
 
-		preview(){			
+		preview(){						
+			
 			const p = { b: this.selected.id, t: PAYSLIP_13THPAY, yr: this.selected.year }
+			
+			if ( ! p.b ) return msgBox('Please select item.')
 
 			console.log( urlParams(p) );
 			window.open( PAYROLLWEB_URI + "/_payroll/pdf_print.php?"+ urlParams(p), "_blank" ); 

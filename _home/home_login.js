@@ -53,28 +53,39 @@ function loginAttempt()
     let _busy = new BusyGif();
     _busy.show2();
 
+    _post['browser_info'] = uriString(navigator.appVersion)
+
     xxhrPost( PAYROLLWEB_URI + "/_home/home_login.php", _post, (res)=>{
-        
-        log( res);
-        
+               
         let ret = JSON.parse(res);
-        if ( ret.ret == "success") {
+        const status = ret.ret
+
+        console.log( 'ret', ret);
+        // return
+        
+        if ( status == "success") {
+            
             window.location.replace( PAYROLLWEB_URI +"/index.php?qid=01");
+
         }else{
             
             let div = getById("invalid-login");
-
             let msg_id = "invalid-login-msg";
-            div.innerHTML = "<p class='ContentTextNormal bold c-red t-wrap' id='"+ msg_id +"'>" +
-                "Access denied." +
-                "</p>";
+            let msg = "Access Denied."
+
+            if ( status == "multi_session"){
+                msg = "Multiple login is not allowed."
+            }
+
+            div.innerHTML = 
+                `<p class='ContentTextNormal bold c-red t-wrap' id='${msg_id}'> ${msg} </p>`;
             
-            let msg = getById('invalid-login-message');
+            // let msg = getById('invalid-login-message');
             $("div#"+ msg_id).fadeIn("normal");
 
             setTimeout( () => { 
                 $("p#"+ msg_id).fadeOut("normal", () => div.innerHTML = "");                                  
-            }, 5000);    
+            }, 8000);    
 
         }
         _busy.hide();

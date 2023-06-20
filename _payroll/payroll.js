@@ -53,6 +53,7 @@ function _err_msg( msg ){
 
 function email_ajax(){
 
+
   let email = employee_email;   // actual employee email
   
   if ( isSendToAltEmail == "1" ){
@@ -72,12 +73,14 @@ function email_ajax(){
 
   }
   
+  // console.log( 'params', pdfParams)
 
-  xxhr("GET", "_payroll/pdf_print.php?pd="+pdfParams +"&ea="+email,
-    function(msg){
+  xxhr("GET", "_payroll/pdf_print.php?pd="+pdfParams +"&ea="+email + "&x=1",
+  (msg) => {
+      // console.log('msg', msg)
       msgBox( msg.trim() );        
       busy.hide()
-    });
+  });
 
   busy.show2()
   msgBox('Please wait for a moment while sending to your email account.');  

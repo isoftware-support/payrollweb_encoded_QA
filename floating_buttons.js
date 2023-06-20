@@ -25,11 +25,18 @@
 
 			// show button
  			if ( !bln ){
-				var x = ($(window).width() / 2) + $("table.table_company_head").width() / 2;
+ 				
+ 				const w = $(window).width();
+
+				var x = ( w / 2) + $("table.table_company_head").width() / 2;
 				var y = ($(window).height() * .4) -  $("div#mybox").height()/2;
 
-        	$(div).css({"top":y, "left":x});	        
-        	$(div).fadeIn();
+				
+				// console.log('w', w)
+				// if ( w <= 600) x -= 25;  // covers request overall status
+
+      	$(div).css({"top":y, "left":x});	        
+      	$(div).fadeIn();
 		  }
 
  		}

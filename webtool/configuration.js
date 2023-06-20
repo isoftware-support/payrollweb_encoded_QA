@@ -5,12 +5,124 @@
 	//UPDATE Ticket Rule	
 	$(document).ready(function(){
 		
+		// ---------------------	
+		// #3263 self save component
+		// ---------------------	
+			const setting_save_self = (e) =>{			
+
+				let el = e.target			
+
+				//console.dir( el)
+				//return
+
+				const busy = new BusyGif();
+				busy.show2();
+
+				let url = root_uri + "/ajax_calls.php"
+				const p = {func: 'UpdateSettings', t: 1}
+
+				// to = table override
+				if ( "to" in el.dataset ) p.t = el.dataset.to
+
+				p.f = "t" 
+				p.v = el.dataset.t
+
+				// other fields
+					if ( "c" in el.dataset){
+						p.f += "|c"
+						p.v += "|" + el.dataset.c
+					}
+
+					if ( "d" in el.dataset){
+						p.f += "|d"
+						p.v += "|" + el.dataset.d
+					}
+
+				// filter
+				let xp = "";				
+				if ( "xp" in el.dataset ){
+					
+					let xps = el.dataset.xp.split(",")  // ex. "t:s,c" means t is string, c is not
+					
+					for (let i = 0; i < xps.length; i++) {
+						
+						let a = xps[i].split(":")
+						let field = a[0]   // field
+						let type = ""
+						if ( a.length > 1) type = a[1];
+
+						let value = el.dataset[ field ];
+						if ( type == "s") value = wrapWith(value)
+
+						if ( i > 0) xp += " and "
+						xp += field + "=" + value;
+					}
+					xp = xp.replaceAll(", ", " and ")
+					xp = xp.replaceAll(",", " and ")
+
+				}else{
+					xp = `t='${el.dataset.t}'`
+				}
+
+				p.xp = xp
+
+				// field to update		
+				p.f += `,${el.dataset.f}`
+				if ( el.type == "checkbox" ){
+					p.v += el.checked ? ",1" : ",0"
+				
+				}else if( el.type == "radio" || el.type == 'text'){				
+					p.v += `,${el.value}`
+
+				}else if( el.type == "number"){
+					let v = el.value
+					if ( isEmpty(v) ) v = "0"
+					p.v += `,${v}`
+
+				}
+				
+				p.f = p.f.replaceAll("," , "|")
+				p.v = p.v.replaceAll("," , "|")
+				p.x = 1
+
+				// call back
+				if ( "cb" in el.dataset){				
+					const fn = new Function("param", el.dataset.cb + "(param)");
+					fn(el);
+				}
+
+				// console.log( 'p', p)				
+				// return
+
+	      xxhrPost(url, p, (res)=>{
+
+	      	// console.log( 'res', res)
+	      	// const ret = JSON.parse(res)
+	      	// console.log('ret', ret)
+
+	      	busy.hide()
+	      });
+
+			}
+			
+			const chks = getAll("input[data-selfsave='1']")
+			chks.forEach( (e) => {
+				// console.dir(e)
+				if ( e.type == 'number' || e.type == 'text'){					
+					e.onkeyup = setting_save_self
+				}else{
+					// checkbox, radio
+					e.onclick = setting_save_self;
+				}
+			} )
+
+		// ------------------------------
+
 		// remove input text auto suggest
 		const txts = getAll("input[type='text']");
 		txts.forEach((e) => {
 			e.autocomplete = 'off';
 		})
-
 
 		//save req max hours settings
 		$("#UpdateReqRules").click( function(){						
@@ -336,7 +448,8 @@
 
 		});
 
-
+		// 	#3263  - upgraded to self update elements
+		/*	
 		$("#UpdateAttendanceRules").click(function(){
 			busy.show2();
 
@@ -350,16 +463,26 @@
             	busy.hide();
             });
 		});
+		*/
+		
 
 	});
 
 
 function passwordRuleLabel( e ){
-
-	const id = `s${e.id}`, orig = e.defaultValue, num = e.value;
-	const label = getById(id);
-
+	
+	const id = `lbl_${e.id}`
+	let num = e.value;
+	if ( isEmpty(num) ) num = 0
+	
+	const label = getById(id)	
+	const orig = label.dataset.v
 	const txt = label.innerHTML;
+	
+	// keep new value
+	label.dataset.v = num
+
+	// console.log( 'id', id, 'orig', orig, 'num', num, 'txt',txt)
 
 	label.innerHTML = txt.replace(orig, num);
 }

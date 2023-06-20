@@ -31,13 +31,13 @@ const reimDetail = Vue.createApp({
 
 			<!-- type -->
 			<div v-if="submit_mode != SUBMIT_APPROVER_ADD" class="flex ml-5">
-				<div class="req-label py-10">
+				<div class="req-label ">
 					<p class="">Request Type:</p>
 				</div>
 				<div class="req-data ">
 
 					<div v-if="submit_mode == SUBMIT_ADD || submit_mode == SUBMIT_APPROVER_ADD" 
-						class="w-200 my-5">
+						class="w-200 ">
 						<select v-model="type">
 							<option value="5" >COA</option>
 							<option value="0" >Overtime</option>
@@ -48,7 +48,7 @@ const reimDetail = Vue.createApp({
 						</select>
 					</div>
 
-					<div v-else class="my-5 ">						
+					<div v-else class="">						
 						<label class='h4 mr-5'>{{type_name}}</label>
 						<label class="h4">( No: {{req_no_text}} )</label>
 					</div>
@@ -57,7 +57,7 @@ const reimDetail = Vue.createApp({
 
 			<!-- approver overtime request for member -->
 			<div v-if="submit_mode == SUBMIT_APPROVER_ADD"class="flex ml-5">
-				<div class="req-label py-10">
+				<div class="req-label">
 					<p class="">Overtime Request for:</p>
 				</div>
 				<div class="req-data ">
@@ -72,11 +72,11 @@ const reimDetail = Vue.createApp({
 
 			<!-- leave types -->
 			<div v-if="type == TYPE_LEAVE" class="flex ml-5">
-				<div class="req-label py-10">
+				<div class="req-label">
 					<p class="">Leave Type:</p>
 				</div>
 				<div class="req-data ">
-					<div class="w-200 my-5">
+					<div class="w-200">
 						<select v-model="leave.type">
 							<option v-for="item in vars.leave_types" :value="item.code">{{item.description}}</option>
 						</select>
@@ -87,7 +87,7 @@ const reimDetail = Vue.createApp({
 			<!-- leave filing mode -->
 			<div v-if="type == TYPE_LEAVE"class="flex ml-5">
 
-				<div class="req-label flex flex-column flex-justify-center">
+				<div class="req-label ">
 					
 					<div class="ml-20">
 						<div v-if="rules.can_shift_mode" class="flex flex-align-right">
@@ -119,11 +119,11 @@ const reimDetail = Vue.createApp({
 
 					<!-- leave duration mode -->
 					<div v-if="leave.mode == LEAVE_DURATION">
-						<div class="my-5">
-							<label class="my-5">{{leave.duration_text}}</label>
+						<div class="">
+							<label class="">{{leave.duration_text}}</label>
 						</div>
 						
-						<div class="flex my-5">
+						<div class="flex mt-3">
 							<input class="EditBox " :type="leave.duration_date_type" id="leave.dttm_from" step="any" 
 								v-model="leave.dttm_from" @change="date_changed" />
 							<label class="pt-5 px-5">to</label>
@@ -131,7 +131,7 @@ const reimDetail = Vue.createApp({
 								v-model="leave.dttm_to" @change="date_changed" />
 						</div>
 						
-						<div v-if="rules.can_duration_hours_mode" class="flex mb-5">
+						<div v-if="rules.can_duration_hours_mode" class="flex mt-3">
 							<input type="checkbox" id="in-days" v-model="leave.in_days" @change="in_days_changed">
 							<label class="mt-2 ml-5" for="in-days">In Days</label>
 						</div>
@@ -156,35 +156,35 @@ const reimDetail = Vue.createApp({
 
 			<!-- duration -->
 			<div v-if="type == TYPE_COA || type == TYPE_OB || type == TYPE_OT || type == TYPE_TOIL" class="flex ml-5">
-				<div class="req-label py-10 ">
+				<div class="req-label ">
 					<label class="">Duration:</label>
 				</div>
-				<div class="req-data pt-5 ">
-					<div class="flex my-5">
+				<div class="req-data ">
+					<div class="flex">
 						<input class="EditBox " type="datetime-local" step="any" id="dttm_from"
 							v-model="dttm_from" @change="date_changed"/>
 						<label class="pt-5 px-5">to</label>
 						<input class="EditBox " type="datetime-local" step="any" id="dttm_to"
 							v-model="dttm_to" @change="date_changed" @click="date_to_suggest"/>
 					</div>
-					<div class="my-5">
-						<label class="my-5">{{duration_text}}</label>
+					<div class="mt-5">
+						<label class="">{{duration_text}}</label>
 					</div>
 				</div>
 			</div>
 
 			<!-- change schedule -->
 			<div v-show="type == TYPE_SC" class="flex ml-5">
-				<div class="req-label py-10 ">
+				<div class="req-label ">
 					<label class="">Change Schedule:</label>
 				</div>
-				<div class="req-data pt-5 ">
-					<div class="flex my-5">
+				<div class="req-data ">
+					<div class="flex ">
 						<label class="mt-5 fw-30" >From:</label>
 						<input class="EditBox mx-5" type="date" ref="sched_date" step="any" v-model="sched_change.date" @change="schedChange_date_status" />
 						<label class="mt-5 ">{{sched_change.status}}</label>
 					</div>
-					<div class="flex my-5">
+					<div class="flex mt-3">
 						<label class="mt-5 fw-30" >To:</label>
 						<select class="ml-5 w-200" v-model="sched_change.shift_code">
 							<option value="RESTDAY">- - - - - - - - REST DAY - - - - - - - -</option>
@@ -195,14 +195,28 @@ const reimDetail = Vue.createApp({
 				</div>
 			</div>
 
+			<!-- Job code -->
+			<div v-if="vars.jobs.is_active && type == TYPE_OT" class="flex ml-5">
+				<div class="req-label">
+					<label>Job Costing:</label>
+				</div>
+				<div class="aligner req-data">
+					<label class='fw-60'>Job Code:</label>
+					<select class="ml-5 flex-grow" v-model="job_code">
+						<option value=""></option>
+						<option v-for="item in vars.jobs.data" :value="item.jobcode">{{item.description}} ({{item.jobcode}})</option>
+					</select>
+				</div>
+			</div>
+
 			<!-- Attachment -->
 			<div v-if="submit_mode != SUBMIT_APPROVER_UPDATE"class="flex ml-5">
-				<div class="req-label py-10 ">
+				<div class="req-label ">
 					<label class="">Attachment:</label>
 				</div>
 				<div class="req-data  ">
 
-					<input class="button mt-3" type="button" value="Browse" onclick="document.getElementById('att_file').click();" />  		
+					<input class="button " type="button" value="Browse" onclick="document.getElementById('att_file').click();" />  		
 					<label class="ml-5" id="att_file_name">{{filename}}</label>
 
 					<input type="file" name="att_file" id="att_file" 
@@ -213,12 +227,12 @@ const reimDetail = Vue.createApp({
 
 			<!-- Remarks -->
 			<div class="flex ml-5  ">
-				<div class="req-label py-10 ">
+				<div class="req-label ">
 					<label class="">Reason:</label>
 				</div>
 				<div class="req-data flex flex-column flex-justify-center">
 					<p v-if="submit_mode == SUBMIT_APPROVER_UPDATE" class="label" >{{reason}}</p>
-					<textarea v-else class="my-5 wp-100" v-model="reason" rows=3 ></textarea>
+					<textarea v-else class="wp-100" v-model="reason" rows=3 ></textarea>
 				</div>
 			</div>
 
@@ -265,6 +279,8 @@ const reimDetail = Vue.createApp({
 				date: '',
 				status: 'Open Schedule',				
 			},
+
+			job_code: '',
 
 			leave: {
 				type: 0,
@@ -357,6 +373,10 @@ const reimDetail = Vue.createApp({
 
 			event.preventDefault()
 
+			if ( window.innerWidth <= 600){
+				return msgBox("Please rotate the screen.")
+			}
+
 			if ( mode == this.SUBMIT_UPDATE ){
 				this.init()				
 				if ( ! this._selected("edit") ) return
@@ -389,14 +409,16 @@ const reimDetail = Vue.createApp({
 
 				this.type = type
 				this.type_name = type_names[ type]					
-
 				this.reason = ret.reason
+
 				this.filename = null
 				if ( ret.filename ) this.filename = ret.filename
 
 				if ( type == this.TYPE_OT  || type == this.TYPE_COA ||
 					   type == this.TYPE_OB  || type == this.TYPE_TOIL
 					){
+
+					if (type == this.TYPE_OT ) this.job_code = ret.string
 
 					this.dttm_from = ret.dttm_from
 					this.dttm_to = ret.dttm_to					
@@ -473,6 +495,7 @@ const reimDetail = Vue.createApp({
 
 				}else if( this.leave.mode == this.LEAVE_SELECTIVE ){
 					p.selective_hour = this.leave.selective_hour
+					
 				}else if( this.leave.mode == this.LEAVE_DURATION){
 					if (this.leave.selected_batch_dates) 
 						p.leave_batch_filing_dates = this.leave.selected_batch_dates
@@ -485,6 +508,8 @@ const reimDetail = Vue.createApp({
 				p.sched_to = this.sched_change.shift_code
 
 			}
+			// job code
+			p.job_code = this.job_code
 
 			// edit mode
 			if ( mode == this.SUBMIT_UPDATE || mode == this.SUBMIT_APPROVER_UPDATE){
@@ -502,8 +527,8 @@ const reimDetail = Vue.createApp({
 
 				// console.log('res', res)
 				const ret = JSON.parse(res)
-				// console.log('ret', ret );
-
+				console.log('ret', ret );
+				
 				busy.hide()
 
 				this.error_msg = ""
@@ -516,8 +541,14 @@ const reimDetail = Vue.createApp({
 			})
 
 			// file
-			const file = getById('att_file')					
-			if ( file.files.length ){
+			const file = getById('att_file')								
+			let is_with_file = false;
+
+			if ( file !== null){
+				is_with_file = file.files.length
+			}
+
+			if ( is_with_file ){
 
 				const att = file.files[0];
 				p.att_file = att
@@ -607,7 +638,7 @@ const reimDetail = Vue.createApp({
 			}
 
 			msgBox(`Are you sure you want to delete this Request #${this.req_no}?`, 
-				{ cancelbutton: true, okCallBack: deleteRequest })		
+				{ cancelButton: true, okCallBack: deleteRequest })		
 
 		},	
 

@@ -555,6 +555,13 @@ function toggleValue( _var, val1, val2 ){
     return _var == val1 ? val2 : val1
 }
 
+function wrapWith(string, char = "'"){
+
+    string = string.replaceAll(char, "");
+    string = char + string + char
+    return string
+}
+
 function quoteText(sString, lWrap = true){
 
     var txt;
