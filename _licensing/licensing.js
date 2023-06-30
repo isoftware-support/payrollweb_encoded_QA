@@ -42,13 +42,13 @@ function registerOnline(e){
 	// debug
 	//url = "http://localhost/license-generator/custom/generator.php?c="+ company + "&k="+ key + "&o="+o;
 	
-	// console.log('url', url)
+	url += "&t="+ Math.random();
 
 	xxhrGet(url, (res)=>{
 
-	  // log('stat', res);
+	  // console.log('stat', res);
 
-		const ret = JSON.parse(res);
+   	const ret = JSON.parse(res);
 		
 		const e = getById("license_status");
 		if ( ret.error ){
@@ -69,7 +69,7 @@ function registerOnline(e){
 				// log(res);
 
 				const reg = JSON.parse(res);
-				// log(reg);
+				log(reg);
 
 				if ( reg.status == "success" ){
 

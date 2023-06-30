@@ -114,25 +114,81 @@ function formPost(url, postStr)
     }
     return retval;
 }
-function transferFrom(source, dest)
+
+function transferFrom( action , source, dest)
 {
-    var f, s, d, i, xx;
-    f = document.forms[0];
-    s = findControl(f, source);
-    d = findControl(f, dest);
-//alert(s.options.length);
-    for (i = s.options.length-1; i >= 0; i--) {
-        if (s.options[i].selected) {
-            xx = new Option();
-            xx.value = s.options[i].value;
-            xx.text = s.options[i].text;
-            d.options[d.options.length] = xx;
-            s.options[i] = null;
-        }
+
+	console.log( action )
+	const s = get("[name='" + source + "']")    
+	const d = get("[name='" + dest + "']")    
+
+	const nos = []
+  for (i = s.options.length-1; i >= 0; i--) {
+
+    if (s.options[i].selected) {
+
+  		const no = s.options[i].value;
+  		nos.push(no);
+
+      xx = new Option();
+      xx.value = no
+      xx.text = s.options[i].text;
+      d.options[d.options.length] = xx;
+      s.options[i] = null;
     }
-    sortList(d);
+  }
+  sortList(d);
+
+
+  // ---------------------
+  // update privileges   
+  // ---------------------
+  if ( nos.length ) {	
+  	
+  	const busy = new BusyGif();
+  	busy.show2()
+
+  	let url = root_uri + "/ajax_calls.php"
+  	const p = {}
+
+  	if ( action == 1 || action == -1){
+	  	// get selected group
+		  const select = getById("user_group");
+			const option = select.options[ select.selectedIndex ];
+		
+			p.func = 'UGPriv'
+			p.d = action
+			p.w = option.dataset.w
+			p.g = option.value
+			p.n = nos.join(',')
+
+		}else{ // WT = 2 , WI = 3
+
+			p.func = 'UGAccess'
+			p.d = action > 1 ? 1 : -1
+			p.w = Math.abs(action) == 2 ? "WT" : "WI"
+			p.n = nos.join(',')
+
+		}			
+
+		// console.log( p)
+		// return
+	  xxhrPost(url, p, (res)=>{
+	    	
+	    	console.log('res', res)
+	    	const ret = JSON.parse(res)
+	    	console.log('ret', ret)
+
+	    	busy.hide()
+	    	delete busy
+	  });
+
+	}
+	// --------------------------
+
 
 }
+
 function findControl(f, s)
 {
     var i;

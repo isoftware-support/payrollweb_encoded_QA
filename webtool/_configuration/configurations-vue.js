@@ -5,33 +5,43 @@ if (currentSection == "Emails") {
   const appLazyApproval = Vue.createApp({
 
     template: `
-	  <fieldset class="wp-85 wmx-450">
+	  <fieldset class="wp-85 wmx-450 py-20 pl-25">
 		<legend>Lazy Approval Mailbox</legend>		
-		<div class='px-20 ContentTextNormal'>
+		<div class='ContentTextNormal'>
 
 			<div class="aligner">
 				<label class='fw-110 pr-5' for="">Allow Lazy Approvals:</label>
-				<input v-model="active" type="checkbox">
+				<input v-model="active" type="checkbox" 
+                data-selfsave=1 data-t='APR_LAZY' data-c='1' data-f='v1' data-xp='t,c'
+                >
 			</div>	
 
 			<div class="aligner" >
 				<label class='fw-110 ' >Mail Server:</label>
 				<input v-model="mail_server" class='EditBox wp-60 wmx-300' type="text" 
-					title="Ex: &#013 mail.issti.com:993/imap/ssl &#013 pop.example.com:995/pop3/ssl/novalidate-cert">
+					title="Ex: &#013 mail.issti.com:993/imap/ssl &#013 pop.example.com:995/pop3/ssl/novalidate-cert"
+                    data-selfsave=1 data-t='APR_LAZY' data-c='7' data-f='v3' data-d='Mail server' data-xp='t,c'
+                >
 			</div>	
 
 			<div class="aligner">
 				<label class='fw-110 ' >Email Account:</label>
-				<input v-model="email" class='EditBox wp-60 wmx-300' type="text">
+				<input v-model="email" class='EditBox wp-60 wmx-300' type="text" 
+                data-selfsave=1 data-t='APR_LAZY' data-c='2' data-f='v3' data-d='Email Account' data-xp='t,c'
+                >
 			</div>	
 
 			<div class="aligner">
 				<label class='fw-110 pr-5' for="">Password:</label>
-				<input v-model="password" class='EditBox wp-60 wmx-300' type="password">
+				<input v-model="password" class='EditBox wp-60 wmx-300' type="password"
+                data-selfsave=1 data-t='APR_LAZY' data-c='3' data-f='v3' data-d='Email Account Password' data-xp='t,c'                
+                >
 			</div>	
 			<div class="aligner">
 				<label class='fw-110 pr-5' for="">Poll time:</label>
-				<input v-model="poll_secs" class='wmx-30 mr-5 EditBox' type="number">
+				<input v-model="poll_secs" class='wmx-30 mr-5 EditBox' type="number"
+                data-selfsave=1 data-t='APR_LAZY' data-c='4' data-f='v3' data-d='Poll time seconds' data-xp='t,c'                                
+                >
 				<label>secs</label>
 			</div>	
 			<div v-if="active" class='aligner'>
@@ -48,12 +58,16 @@ if (currentSection == "Emails") {
 			<label class='fw-110 pr-5' for="">Recovery:</label>
 			<div class="aligner">
 				<label class='fw-110 pr-5' for="">Start Date:</label>
-				<input v-model="date_start" class="ContentTextNormal" type="date">
+				<input v-model="date_start" class="ContentTextNormal" type="date"
+                data-selfsave=1 data-t='APR_LAZY' data-c='5' data-f='v3' data-d='Recovery start date' data-xp='t,c'                                
+                >
 			</div>	
 
 			<div class="aligner">
 				<label class='fw-110 pr-5 ' for="">End Date:</label>
-				<input v-model="date_end" class="ContentTextNormal" type="date">
+				<input v-model="date_end" class="ContentTextNormal" type="date"
+                data-selfsave=1 data-t='APR_LAZY' data-c='6' data-f='v3' data-d='Recovery end date' data-xp='t,c'                                
+                >
 				<button @click="recover" class="button ml-5 wmx-70" type="button">Recover</button>
 			</div>	
 
@@ -61,16 +75,19 @@ if (currentSection == "Emails") {
 				<label class='fw-110 pr-5 ' for=""></label>
 				<textarea class="flex-1" readonly rows=8>{{ recover_response }}</textarea>
 			</div>	
-			<br>
-
-			<div class='aligner'>
+			
+            
+			<!-- updated to selfsave components
+            <div class='aligner'> 
 				<label class="fw-110 pr-5" for=""></label>
 				<button @click="update" class="button">Update</button>				
 			</div>
+            -->
+
 
 		</div>
 		</fieldset>
-
+        <br>
   	`,
 
         data() {
@@ -192,6 +209,8 @@ if (currentSection == "Emails") {
 
             save() {
 
+                /* #8749 - updated to self save components 
+
         		// check fields
         		if ( ! this.checkFields() ) return false;
 
@@ -259,6 +278,7 @@ if (currentSection == "Emails") {
                 saveSetting();
 
                 return true;
+                */
             },
 
             msg( msg, isError = false, sec = 5000){
@@ -268,6 +288,7 @@ if (currentSection == "Emails") {
 
 		          setTimeout( ()=> this.test_result = "" , sec);
 		        },
+            
         },
 
         beforeMount() {

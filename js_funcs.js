@@ -29,6 +29,42 @@
         return document.querySelectorAll( selector );
     }
 
+
+    function getChildren(element, children = []) {
+          
+      // Iterate over the children of the current element
+      const items = element.children;
+      for (var i = 0; i < items.length; i++) {
+        
+        const child = items[i]
+        children.push( child )
+        getChildren( child, children )
+      }     
+    }
+
+    function disableChildren( parentElement, disabled = true ){
+
+        const children = []
+        getChildren( parentElement, children )
+
+        for( let index in children){
+
+            const el = children[index]      
+            if ( ["INPUT", "LABEL"].includes(el.tagName) ){
+
+                if ( disabled ){
+                    el.disabled = true
+                    el.classList.add("disabled")
+                    
+                } else {
+                    el.disabled = false
+                    el.classList.remove("disabled")
+                }
+            }
+        }
+     
+    }
+
     function removeChild(id){ 
         const e = getById(id);
         if ( e )
