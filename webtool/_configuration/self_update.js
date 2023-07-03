@@ -33,7 +33,7 @@
 		}
 
 		// call function
-		if ( "cf" in el.dataset){				
+		if ( "cf" in el.dataset){					
 			const fn = new Function("param", el.dataset.cf + "(param)");
 			fn(el);
 		}

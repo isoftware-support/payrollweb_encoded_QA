@@ -310,7 +310,7 @@ if (currentSection == "Emails") {
                     } else if (item.fc == 3) {
                         this.password = item.fv3
                     } else if (item.fc == 4) {
-                        this.poll_secs = item.fv1
+                        this.poll_secs = item.fv3
                     } else if (item.fc == 5) {
                         this.date_start = item.fv3
                     } else if (item.fc == 6) {

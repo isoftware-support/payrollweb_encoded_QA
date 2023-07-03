@@ -1179,12 +1179,13 @@ function xxhrPost(url, data=[], callBackFunc = ""){
     for( const name in data ){      
         formData.append(name, data[name]);  
     }
+
     xhr.open("POST", url, true );
     xhr.send(formData);
 
     if ( callBackFunc ){
         xhr.onload = function(){
-            if (this.status == 200) callBackFunc(this.responseText);                     
+            if (this.status == 200) callBackFunc(this.responseText);                                         
         };
     }
 }

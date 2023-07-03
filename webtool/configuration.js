@@ -630,10 +630,11 @@ function onSubmitForm(FormName){
 }
 
 // others
-function approvalEmailTxt()
+function approvalEmailTxt(el = null)
 {
-	// const checked = getById("other_approval_email_line_chk").checked;	
-	// getById("other_approval_email_line_txt").disabled = !checked;
+	
+	const checked = getById("other_approval_email_line_chk").checked;	
+	getById("other_approval_email_line_txt").disabled = !checked;
 
 	// // capture texts to temp element event chkbox is unchecked
 	// getById("other_approval_email_line_txt_tmp").value =

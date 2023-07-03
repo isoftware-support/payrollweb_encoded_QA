@@ -47,8 +47,13 @@ function registerOnline(e){
 	xxhrGet(url, (res)=>{
 
 	  // console.log('stat', res);
-
-   	const ret = JSON.parse(res);
+	  let ret
+	  try{
+   		ret = JSON.parse(res);
+   	}catch( e ){
+   		console.error(e); 
+   		ret = {'error': "Unable to connect to licensing service."}
+   	}
 		
 		const e = getById("license_status");
 		if ( ret.error ){
@@ -66,10 +71,7 @@ function registerOnline(e){
 
 			xxhrPost( url, ret, (res)=>{
 
-				// log(res);
-
 				const reg = JSON.parse(res);
-				log(reg);
 
 				if ( reg.status == "success" ){
 
