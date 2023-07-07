@@ -129,10 +129,12 @@
 					const type = item['typename'] == 'RQST_RULES_LV_BEFORE' ? 'before' : 'after';
 
 					let id = `lv_${type}_chk_` + item.value2;
-					getById(id).checked = item.code == 1 ? true : false;
+					let el = getById(id)
+					if ( el ) el.checked = item.code == 1 ? true : false;
 
 					id = `lv_${type}_` + item.value2;
-					getById(id).value = item.value1;
+					el = getById(id)
+					if ( el ) el.value = item.value1;
 
 				});
 				
@@ -144,44 +146,64 @@
 		if (e.length){
 			
 			$.post('../ajax_calls.php', {func:'GetMultiRecs', t:1, f:"code|value1|value2|value3", k:"value2",
-				xp:"typename='RQST_RULES' and value2 in (1.5, 2.5, 3.5, 3.6, 3.7, 3.8, 3.9, 3.11, 3.12)"}, 
+				xp:"typename='RQST_RULES' and value2 in (1.5, 2.5, 3.5, 3.6, 3.7, 3.8, 3.9, 3.11, 3.12)" }, 
 			function(data){
 
 
 				const aRet = JSON.parse(data);			
+				console.log( 'data', aRet)
+
 				if (!isEmpty(aRet)){
 
 					let row = aRet['1.5'];
-					$("input#coa_max").prop('checked', ( (row.code == "1") ? true : false) );
-					$("input#coa_max_hours").prop('value', row.value1);
-					
-					row = aRet['2.5'];
-					$("input#ot_max").prop('checked', ( (row.code == "1") ? true : false) );
-					$("input#ot_max_hours").prop('value', row.value1);
+					if ( row ){
+						$("input#coa_max").prop('checked', ( (row.code == "1") ? true : false) );
+						$("input#coa_max_hours").prop('value', row.value1);
+					}
 
-					row = aRet['3.5'];
-					$("input#leave_max").prop('checked', ( (row.code == "1") ? true : false) );
-					$("input#leave_max_hours").prop('value', row.value1);
+					row = aRet['2.5'];
+					if ( row ){
+						$("input#ot_max").prop('checked', ( (row.code == "1") ? true : false) );
+						$("input#ot_max_hours").prop('value', row.value1);
+					}
+
+					row = aRet['3.5'];					
+					if ( row ){
+						$("input#leave_max").prop('checked', ( (row.code == "1") ? true : false) );
+						$("input#leave_max_hours").prop('value', row.value1);
+					}
 
 					row = aRet['3.6'];
-					$("input#leave_min").prop('checked', ( (row.code == "1") ? true : false) );
-					$("input#leave_min_hours").prop('value', row.value1);
+					if ( row ){
+						$("input#leave_min").prop('checked', ( (row.code == "1") ? true : false) );
+						$("input#leave_min_hours").prop('value', row.value1);
+					}
 
 					row = aRet['3.7'];
-					$("input#leave_disable_shift").prop('checked', ( (row.code == "1") ? true : false) );
+					if ( row ){
+						$("input#leave_disable_shift").prop('checked', ( (row.code == "1") ? true : false) );
+					}
 
 					row = aRet['3.8'];
-					$("input#leave_disable_hours").prop('checked', ( (row.code == "1") ? true : false) );
+					if ( row ){
+						$("input#leave_disable_hours").prop('checked', ( (row.code == "1") ? true : false) );
+					}
 
 					row = aRet['3.9'];
-					$("input#leave_disable_duration").prop('checked', ( (row.code == "1") ? true : false) );
+					if ( row ){
+						$("input#leave_disable_duration").prop('checked', ( (row.code == "1") ? true : false) );
+					}
 
 					row = aRet['3.11'];
-					$("input#leave_selective_hours").prop('checked', ( (row.code == "1") ? true : false) );
-					$("input#leave_hours_list").val(row.value3);
+					if ( row ){
+						$("input#leave_selective_hours").prop('checked', ( (row.code == "1") ? true : false) );
+						$("input#leave_hours_list").val(row.value3);
+					}
 
 					row = aRet['3.12'];
-					getById('leave_batch_filing').checked = ( (row.code == "1") ? true : false);
+					if ( row ){
+						getById('leave_batch_filing').checked = ( (row.code == "1") ? true : false);
+					}
 
 				}
 			});

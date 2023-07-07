@@ -111,6 +111,14 @@ if (currentSection == "Emails") {
 
             async check_account() {
                 
+                /*
+                let url = root_uri + '/ajax_calls.php?func=checkMailBox'
+                xxhrGet(url, (res) => {
+                    console.log( res)
+                })
+                return
+                */
+                
                 const res = await fetch("../ajax_calls.php?func=checkMailBox")
                 const ret = await res.json();
 
@@ -120,6 +128,8 @@ if (currentSection == "Emails") {
 					this.msg( ret.error, true);
   	            }
                 busy.hide();
+
+                this.isTest = false
 
             },
 
@@ -195,16 +205,20 @@ if (currentSection == "Emails") {
 
             update(){
 
-            	this.isTest = false;
-            	this.isCheckRecoverDates = false;
-            	this.save();
+            	// this.isTest = false;
+            	// this.isCheckRecoverDates = false;
+            	// this.save();
             },
 
             test(){
+                if ( this.isTest ) return
 
-            	this.isTest = true;
-            	this.isCheckRecoverDates = false;
-            	this.save();
+                this.isTest = true;
+                busy.show2();
+                this.check_account();
+            	
+            	// this.isCheckRecoverDates = false;
+            	// this.save();
             },
 
             save() {

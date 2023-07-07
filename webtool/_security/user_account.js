@@ -131,7 +131,8 @@ Vue.createApp({
 	  	xxhrPost( rootURI + "/ajax_calls.php", p, (res)=>{
 
 	 			const ret = JSON.parse(res)
-
+	 			// return console.log('ret', ret)
+	 			
 	  		if ( ret.errors ){	  	
 	  			let sec = ret.errors.length * 3;
 	  			sec = sec < 5 ? 5 : sec
