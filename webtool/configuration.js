@@ -150,10 +150,11 @@
 			function(data){
 
 
-				const aRet = JSON.parse(data);			
-				console.log( 'data', aRet)
+				const aRet = JSON.parse(data);							
 
 				if (!isEmpty(aRet)){
+
+					console.log( 'data', aRet)
 
 					let row = aRet['1.5'];
 					if ( row ){
