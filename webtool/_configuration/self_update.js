@@ -125,9 +125,11 @@
 
     xxhrPost(url, p, (res)=>{
     	
-    	// console.log('res', res)
-    	const ret = JSON.parse(res)
-    	console.log('ret', ret)
+    	if ( res.trim().length ){
+	    	console.log('res', res)
+	    	const ret = JSON.parse(res)
+	    	console.log('ret', ret)
+      }
 
     	busy.hide()
     	delete busy
