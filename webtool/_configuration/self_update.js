@@ -125,11 +125,9 @@
 
     xxhrPost(url, p, (res)=>{
     	
-    	if ( res.trim().length ){
-	    	console.log('res', res)
-	    	const ret = JSON.parse(res)
-	    	console.log('ret', ret)
-      }
+    	// console.log('res', res)
+    	const ret = JSON.parse(res)
+    	console.log('ret', ret)
 
     	busy.hide()
     	delete busy
@@ -148,7 +146,7 @@
 	// ----------------------------------------------		
 	{
 		
-		console.log('self update unit')		
+		// console.log('self update unit')		
 
 		const chks = getAll("[data-selfsave='1']")
 		chks.forEach( (e) => {

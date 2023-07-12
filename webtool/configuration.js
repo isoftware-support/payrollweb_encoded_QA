@@ -1,4 +1,4 @@
-	
+
 
 		
 	//UPDATE Ticket Rule	
@@ -148,7 +148,6 @@
 			$.post('../ajax_calls.php', {func:'GetMultiRecs', t:1, f:"code|value1|value2|value3", k:"value2",
 				xp:"typename='RQST_RULES' and value2 in (1.5, 2.5, 3.5, 3.6, 3.7, 3.8, 3.9, 3.11, 3.12)" }, 
 			function(data){
-
 
 				const aRet = JSON.parse(data);							
 
