@@ -105,7 +105,7 @@ function uploadTeamSchedules(){
       xxhrPost('xhtml_response.php?q=UploadTeamSched&'+ _session_vars, post, 
       ( res ) => {             
         
-        console.log('res', res);
+        // console.log('res', res);
 
         // reset file value
         getById("import_team_sched").value = "";            
