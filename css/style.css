@@ -876,6 +876,7 @@ label, .CheckBoxLabel, .label, .label-i {
 
 .c-white {color: white !important; }	 
 .c-red   {color: red !important; }	
+.c-red-l {color: #ff8787 !important; }	
 .c-gold {color: #e88538 !important; }
 .c-orange  {color: orange !important;} 
 .c-cyan  {color: cyan; }
