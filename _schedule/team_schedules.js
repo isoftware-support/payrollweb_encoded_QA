@@ -105,7 +105,7 @@ function uploadTeamSchedules(){
       xxhrPost('xhtml_response.php?q=UploadTeamSched&'+ _session_vars, post, 
       ( res ) => {             
         
-        // console.log('res', res);
+        console.log('res', res);
 
         // reset file value
         getById("import_team_sched").value = "";            
@@ -197,25 +197,37 @@ function clearSelected(){
 
     const selected = collectSelected( "Please select date schedules to clear." );
 
-    if ( selected.no_dt_sc == undefined )
-      return;
+    if ( isEmpty(selected.yr1) && isEmpty( selected.yr2) )
+      return msgBox("Nothing to clear.");
 
-    if ( ! selected.sc_count )
-      return;
+    const p = {
+      y1_nos: selected.yr1_nos.join(","),
+      y2_nos: selected.yr2_nos.join(","),      
+      y1_dts: selected.yr1_dates.join(","),      
+      y2_dts: selected.yr2_dates.join(","),
+      y1: selected.yr1,
+      y2: selected.yr2
+    }
 
-    const selected_ids = selected.no_dt_sc.join(",");
-    
+    qs = urlParams( p);
+
+    console.log( 'p: ', p, 'qs: ', qs)    
+
     const func = () => {
 
       busy.show2();
 
-      xxhrGet( "_schedule/team_schedules_ajax.php?fn=clr&ids="+ selected_ids, 
-      ( data )=> {
+      xxhrGet( `_schedule/team_schedules_ajax.php?fn=clr&${qs}`, 
+      ( data )=> {  
 
-        busy.hide();
+        
+        console.log( data);
+
         const ret = JSON.parse( data );
-        // console.log(ret);
+        console.log(ret);
+
         if ( ret.result == 'Error'){
+          busy.hide();
           msgBox('An error occurred.\r\n\r\n' + ret.msg);
           return;
         }
@@ -281,9 +293,15 @@ function collectSelected( errorMsg ){
       return {};
   }
 
-  let ids = [], no_dt_sc = [], no_dt = [], sc_count = 0;
+  const ids = [], no_dt_sc = [], no_dt = []
+  let sc_count = 0;  
+  let year1 = "", year2 = "";
+
+  const yr1_nos = [], yr1_dates = [];
+  const yr2_nos = [], yr2_dates = [];
 
   chks.forEach( (e)=>{
+
     const p = e.parentElement;
     const 
       sc = p.dataset.sc, 
@@ -292,9 +310,24 @@ function collectSelected( errorMsg ){
 
     no_dt.push( no + "_" + dt);
 
+    // with shiftcode only
     if ( sc.length ){
       no_dt_sc.push( no + "_" + dt + "_" + sc.replace(",","@") );
       sc_count += 1;
+
+      year = DateFormat(dt, "Y");
+      if ( year1 == "") year1 = year        
+
+      // year 1
+      if ( year1 == year){
+        if ( ! yr1_nos.includes( no ) )   yr1_nos.push( no );
+        if ( ! yr1_dates.includes( dt ) ) yr1_dates.push( dt );
+      
+      }else{ // year 2      
+        year2 = year
+        if ( ! yr2_nos.includes( no ) )   yr2_nos.push( no );
+        if ( ! yr2_dates.includes( dt ) ) yr2_dates.push( dt );
+      }
     }
 
     ids.push( e.id);
@@ -305,7 +338,15 @@ function collectSelected( errorMsg ){
   ret.sc_count = sc_count;
   ret.ids = ids;
 
-  // console.log(ret);
+  // uniq dates and nos with shiftcodes only
+  ret.yr1 = year1;
+  ret.yr1_nos = yr1_nos;
+  ret.yr1_dates = yr1_dates;
+  ret.yr2 = year2;
+  ret.yr2_nos = yr2_nos;
+  ret.yr2_dates = yr2_dates;
+  
+
   return ret;
 
 }

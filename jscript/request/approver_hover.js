@@ -33,13 +33,20 @@
                 const prop_val = el.dataset[ elDataSetKey ];
                 if ( ! prop_val ) continue;
 
-                if ( data[prop_val] === undefined ) continue;
+                let text = "";
+                if ( data.length ){
+                    
+                    if ( data[prop_val] === undefined ) continue;                
+                    text = data[ prop_val ][ dataTextField ];
 
-                const text = data[ prop_val ][ dataTextField ];
+                }else{
+                    text = prop_val
+                }
                 // console.log( el);
 
                 el.onmouseover = (event)=>{
-
+                    
+                    console.log( 'mouse')                    
                     const hover_div = getById( div_id );
                     // if ( hover_div.style.display == "block") return;
 

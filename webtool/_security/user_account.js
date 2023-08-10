@@ -130,8 +130,11 @@ Vue.createApp({
 
 	  	xxhrPost( rootURI + "/ajax_calls.php", p, (res)=>{
 
+	  		console.log( 'res:', res );
+
 	 			const ret = JSON.parse(res)
-	 			// return console.log('ret', ret)
+	 			
+	 			console.log('ret', ret)
 	 			
 	  		if ( ret.errors ){	  	
 	  			let sec = ret.errors.length * 3;
@@ -288,8 +291,7 @@ Vue.createApp({
 	  	this.isEmployee = this.employee_no > 0 ? true : false
 
 	  	this.email = emps_email[ this.employee_no ];
-	  	// suggest email
-	  	console.log( emps_email);
+			this.username = emps_init_usernames[ this.employee_no ];
 	  },
 
 		reset(){

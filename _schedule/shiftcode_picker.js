@@ -120,23 +120,48 @@ const shiftcode_picker = Vue.createApp({
 
 	  			// selected dates
 	  			const chks = getAll("input[name='sched_date']:checked");
+          
+          let year1 = "", year2 = "", year = "";
+          const yr1_nos = [], yr1_dates = [], yr2_nos = [], yr2_dates = [];
+
 	  			chks.forEach((chk) =>{
 	  				
 	  				const div = chk.parentElement;
-	  				let item = div.dataset.eno + "_" + div.dataset.dt;
-	  				items.push(item);
+
+            const dt = div.dataset.dt,
+              no = div.dataset.eno;
+
+            year = DateFormat(dt, "Y");
+            if ( year1 == "") year1 = year        
+
+            // year 1
+            if ( year1 == year){
+              if ( ! yr1_nos.includes( no ) )   yr1_nos.push( no );
+              if ( ! yr1_dates.includes( dt ) ) yr1_dates.push( dt );
+            
+            }else{ // year 2      
+              year2 = year
+              if ( ! yr2_nos.includes( no ) )   yr2_nos.push( no );
+              if ( ! yr2_dates.includes( dt ) ) yr2_dates.push( dt );
+            }
 	  			})
-	  			p.items = items.join(",");
+
+	  			p.y1 = year1
+          p.y2 = year2
+          p.y1_nos = yr1_nos
+          p.y2_nos = yr2_nos
+          p.y1_dts = yr1_dates
+          p.y2_dts = yr2_dates
 	  		}
 
-        // console.log( p);
+        // return console.log( p);
 
   			xxhrPost(`${rootURI}/_schedule/team_schedules_ajax.php`, p, (res)=>{
           
   				// console.log(res);
 
   				loadTeamSchedule();
-  				busy.hide();
+  				// busy.hide();
   			});
 
   		}

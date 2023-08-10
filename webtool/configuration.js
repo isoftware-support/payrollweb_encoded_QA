@@ -1,6 +1,6 @@
 
 
-		
+
 	//UPDATE Ticket Rule	
 	$(document).ready(function(){
 		
@@ -15,106 +15,10 @@
 			e.autocomplete = 'off';
 		})		
 
-		/* 8749 upgraded to self save components
-		//save req max hours settings
-		$("#UpdateReqRules").click( function(){						
-
-			let f=[], v=[], xp=[];
-			let chks, v2, v3;
-
-			//coa
-			let c = $("input#coa_max").prop('checked') ? 1 : 0;
-			let v1 = $("input#coa_max_hours").val();
-			if (isEmpty(v1)) v1 = 0;			
-			
-			let t = "'RQST_RULES'";
-
-				f.push('t|c|v1|v2');
-				v.push(t+"|"+c+"|"+v1+"|1.5");
-				xp.push("t="+t+" and v2 = 1.5");
-
-				//ot
-				c = $("input#ot_max").prop('checked') ? 1 : 0;
-				v1 = $("input#ot_max_hours").val();			
-				if (isEmpty(v1)) v1 = 0;
-				f.push('t|c|v1|v2')
-				v.push(t+"|"+c+"|"+v1+"|2.5");
-				xp.push("t="+t+" and v2 = 2.5");
-
-				//leaves Max
-				c = $("input#leave_max").prop('checked') ? 1 : 0;
-				v1 = $("input#leave_max_hours").val();			
-				if (isEmpty(v1)) v1 = 0;
-				f.push('t|c|v1|v2');
-				v.push(t+"|"+c+"|"+v1+"|3.5");
-				xp.push("t="+t+" and v2 = 3.5");
-					
-				//leaves Min
-				c = $("input#leave_min").prop('checked') ? 1 : 0;
-				v1 = $("input#leave_min_hours").val();			
-				if (isEmpty(v1)) v1 = 0;
-				f.push('t|c|v1|v2');
-				v.push(t+"|"+c+"|"+v1+"|3.6");
-				xp.push("t="+t+" and v2 = 3.6");
-
-				//leaves - disable via shift
-				c = $("input#leave_disable_shift").prop('checked') ? 1 : 0;
-				f.push('t|c|v2');
-				v.push(t+"|"+c+"|3.7");
-				xp.push("t="+t+" and v2 = 3.7");
-
-				//leaves - disable via shift
-				c = $("input#leave_disable_hours").prop('checked') ? 1 : 0;
-				f.push('t|c|v2');
-				v.push(t+"|"+c+"|3.8");
-				xp.push("t="+t+" and v2 = 3.8");
-
-				//leaves - disable duration
-				c = $("input#leave_disable_duration").prop('checked') ? 1 : 0;
-				f.push('t|c|v2');
-				v.push(t+"|"+c+"|3.9");
-				xp.push("t="+t+" and v2 = 3.9");
-
-				//leaves - enable selective hours mode + list hours
-				c = $("input#leave_selective_hours").prop('checked') ? 1 : 0;
-				v3 = $("input#leave_hours_list").val();
-				f.push('t|c|v2|v3');
-				v.push(t+"|"+c+"|3.11"+"|"+v3);
-				xp.push("t="+t+" and v2 = 3.11");
-
-				// leaves - enable batch filing			
-				c = getById("leave_batch_filing").checked ? 1 : 0;
-				f.push( 't|c|v2');
-				v.push( [t,c,3.12].join("|") );
-				xp.push( "t="+ t +" and v2 = 3.12");
-
-			// leave specific rule - AFTER				
-				chks = getByName("lv_specific_rule");
-				chks.forEach((e) => {
-
-					let t = "'RQST_RULES_LV_BEFORE'";
-					if ( e.dataset.t == 'after')
-						t = "'RQST_RULES_LV_AFTER'";
-
-					v1 = getById( e.dataset.tx ).value;  
-					if ( !v1 || isNaN(v1) ) v1 = 0;
-
-					v2 = e.dataset.c;													
-					c = e.checked ? 1 : 0;
-
-					f.push( 't|c|v1|v2')
-					v.push( [t, c, v1, v2 ].join("|") );
-					xp.push( 't='+ t +" and v2 ="+ v2 );
-				})
-
-			$.post('../ajax_calls.php', 
-				{func:'UpdateSettings', f:f.join("|:|"), v:v.join("|:|"), xp:xp.join("|:|") },
-				function(data){
-					 // console.log(data);
-				}
-			);		
-		});
-		*/
+		// disable request checkboxes click event
+		request_group_status_event();
+		request_group_status_event( false );		
+		// -------------------------------------
 
 		// put leaves specific rules
 		if ( currentSection == "RequestSchedule" || currentSection == "RequestRules" ){
@@ -207,187 +111,65 @@
 
 				}
 			});
-		}
-
-
-		//Ticket Request rule
-		/* #8749 - upgraded to self update components
-
-		$("#btnTicketRule").click(function(){
-			
-			// var busy = new BusyGif("#btnTicketRule");
-			busy.show2();
-
-			var chk, val, xp, tn, cd, d;
-			
-			//date rules
-				//before cutoff				
-				val = $("input#chk_tkt_before").prop('checked') ? 1 :0;
-				xp = "t='RQST_RULES' and v2=8.1";
-				tn = "'RQST_RULES'";	
-				d = $("input#txt_tkt_before").val();
-				if (!d) d = 0;
-				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v2|v1', v:tn+'|'+val+'|8.1|'+ d, xp:xp});
-
-				//after cutoff
-				val = $("input#chk_tkt_after").prop('checked') ? 1 :0;
-				xp = "t='RQST_RULES' and v2=8.2";
-				tn = "'RQST_RULES'";	
-				d = $("input#txt_tkt_after").val();
-				if (!d) d = 0;
-				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v2|v1', v:tn+'|'+val+'|8.2|'+ d, xp:xp});
-
-				//before target date
-				val = $("input#chk_tkt_target_before").prop('checked') ? 1 :0;
-				xp = "t='RQST_RULES' and v2=8.3";
-				tn = "'RQST_RULES'";	
-				d = $("input#txt_tkt_target_before").val();
-				if (!d) d = 0;
-				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v2|v1', v:tn+'|'+val+'|8.3|'+ d, xp:xp});
-
-				//before target date
-				val = $("input#chk_tkt_target_after").prop('checked') ? 1 :0;
-				xp = "t='RQST_RULES' and v2=8.4";
-				tn = "'RQST_RULES'";	
-				d = $("input#txt_tkt_target_after").val();
-				if (!d) d = 0;
-				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v2|v1', v:tn+'|'+val+'|8.4|'+ d, xp:xp});
-
-			//reimbursement ticket rule
-				
-				val = $("input[name='chkTicketRule_reim']").prop('checked') ? 1 :0;
-				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v1', v:"'TKT_REQ'|4|"+val , xp:"t='TKT_REQ' and c=4"});
-
-			//attendance ticket rules
-				chk = $("input[name='chkTicketRule']");
-				val = $(chk).prop('checked') ? 1 : 0;
-				xp = $(chk).data('exp');				
-				tn = $(chk).data('t');
-				cd = $(chk).data('c');				
-				// alert(xp + ' - ' + tn + ' - ' + cd);
-				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v1', v:tn+'|'+cd+'|'+val, xp:xp});
-
-			//attendance types
-				cd = [];
-				val = [];
-				$("input:checkbox[name='attdtypes']").each(function(){
-					chk = $(this);
-					if ($(chk).prop("checked")){
-						var aTxt = $(this).data('c').split(",");
-						cd.push(aTxt[0]);
-						val.push(aTxt[1]);
-					}
-				});
-
-				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v3', v:"'TKT_REQ'|2|'" + cd.join(",") + "'", xp:"t='TKT_REQ' and c=2"});
-
-				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v3', v:"'TKT_REQ'|3|'" + val.join(",") + "'", xp:"t='TKT_REQ' and c=3"},			
-					function(data){
-						busy.hide();		
-					});	
-
-		});
-		*/
-
-		//ticket approval - #8749  upgraded to selfsave components
-		/* 
-		$("#btnTicketRule_apr").click(function(){
-			// var busy = new BusyGif("#btnTicketRule_apr");
-			busy.show2();
-
-			var chk, val, xp, tn, cd, d;
-
-			//date approval rules
-				//before cutoff				
-				val = $("input#chk_tkt_before_apr").prop('checked') ? 1 :0;
-				xp = "t='APRV_RULES' and v2=8.1";
-				tn = "'APRV_RULES'";	
-				d = $("input#txt_tkt_before_apr").val();
-				if (!d) d = 0;
-				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v2|v1', v:tn+'|'+val+'|8.1|'+ d, xp:xp});
-
-				//after cutoff
-				val = $("input#chk_tkt_after_apr").prop('checked') ? 1 :0;
-				xp = "t='APRV_RULES' and v2=8.2";
-				tn = "'APRV_RULES'";	
-				d = $("input#txt_tkt_after_apr").val();
-				if (!d) d = 0;
-				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v2|v1', v:tn+'|'+val+'|8.2|'+ d, xp:xp});
-
-				//before target date
-				val = $("input#chk_tkt_target_before_apr").prop('checked') ? 1 :0;
-				xp = "t='APRV_RULES' and v2=8.3";
-				tn = "'APRV_RULES'";	
-				d = $("input#txt_tkt_target_before_apr").val();
-				if (!d) d = 0;
-				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v2|v1', v:tn+'|'+val+'|8.3|'+ d, xp:xp});
-
-				//before target date
-				val = $("input#chk_tkt_target_after_apr").prop('checked') ? 1 :0;
-				xp = "t='APRV_RULES' and v2=8.4";
-				tn = "'APRV_RULES'";	
-				d = $("input#txt_tkt_target_after_apr").val();
-				if (!d) d = 0;
-				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v2|v1', v:tn+'|'+val+'|8.4|'+ d, xp:xp});
-
-				// $ticket_expiry_rule = GetSetting_SetReturn( "typename='REQ_APR_GENERAL_RULES' and description='ticket_expiry_rule'", "code", "1", "checked", "", $con);	
-				// $ticket_expiry_days = GetSetting( "typename='REQ_APR_GENERAL_RULES' and description='ticket_expiry_rule'", "value1", "", $con); 
-				// expiry
-				val = $("input#ticket_expiry_rule").prop('checked') ? 1 :0;
-				xp = "t='REQ_APR_GENERAL_RULES' and d='TicketExpiryRule'";
-				tn = "'REQ_APR_GENERAL_RULES'";	
-				d = "'TicketExpiryRule'";
-				days = $("input#ticket_expiry_days").val();
-				if (!d) days = 0;
-				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|d|c|v1', v:tn+'|'+d+'|'+val+'|'+ days, xp:xp} );
-
-			// ticket approval rules
-			var chk = $("input[name='chkTRA']");
-			$(chk).each(function(){
-
-				var val = $(this).prop('checked') ? 1 : 0;
-				var xp = $(this).data('exp');				
-				var tn = $(this).data('t');
-				var cd = $(this).data('c');
-
-				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v1', v:tn+'|'+cd+'|'+val, xp:xp}, function(data){
-						//alert(data);
-				});
-            });
-
-			//posting of approved ticket
-			var cbx = $("select[name='TRA1_action']");
-			var xp = $(cbx).data("exp");
-      var txt = $(cbx).val();
-
-      var posting = $.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v3', v:"'TKT_APR'|1|'"+txt+"'", xp:xp});
-      posting.done(function(data){
-      	// alert(data + ' - ' + xp + ' - ' + txt);
-      	busy.hide();
-      });
-
-		});
-		*/
-
-		// 	#3263  - upgraded to self update elements
-		/*	
-		$("#UpdateAttendanceRules").click(function(){
-			busy.show2();
-
-			let v = $("#upload_timelogs").prop('checked') ? "1" : "0";
-			let t = "'UPLOAD_TIMELOGS'";
-			let xp = "t="+ t;
-
-            let post = $.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c', v:t +"|"+v, xp:xp});
-            post.done(function(data){
-            	//alert(data);
-            	busy.hide();
-            });
-		});
-		*/
-		
+		}			
 
 	});
+
+function request_group_status_event( is_init_event = true){
+		
+	const chks = getAll("input[type='checkbox'][data-group]")
+	chks.forEach( (chk) =>{
+
+		if ( is_init_event ){
+			chk.onchange = () => {
+			
+				const group = chk.dataset.group
+				const divs = getAll(`div[group='${group}']`)
+				divs.forEach( (div) =>{
+					disableChildren( div, chk.checked )
+				})				
+			}
+		} else {
+			chk.onchange();  // 1st load status
+		}
+	})
+
+}
+
+function GeoLocationTest_ipinfo()
+{
+
+		const url = payrollwebURI + "/ajax_calls.php";
+		xxhrPost( url, {func: 'geoloc'}, (res) => {
+			
+			console.log( res );
+			const ret = JSON.parse(res)
+
+			let status = ret.status
+
+			let msg = [];
+						
+			if (status == "error"){
+				msg.push( `<p>Status: <label class='c-red'>${status.toUpperCase()} - ${ret.msg}</label></p>` )
+
+			}else{
+				msg.push(`<p>Status: ${status.toUpperCase()} </p>` )
+				msg.push(`<p>IP: ${ret.ip} </p>`)
+				msg.push(`<p>Location: ${ret.city}, ${ret.region}, ${ret.country} </p>`)
+				msg.push(`<p>Latitude: ${ret.latitude} </p>`)
+				msg.push(`<p>Longitude: ${ret.longitude} </p>`)				
+			}
+
+
+			let html = msg.join(" ")
+			let e = getById('ipinfo_message')
+			e.innerHTML = html;
+
+			setTimeout( ()=>{ e.innerHTML = ""; console.log('cleared') }, 10000);
+
+		})
+
+}
 
 function collect_attd_types_tktreq(){
 
@@ -801,3 +583,291 @@ function popitup(url) {
     }
 	newwindow.moveTo(screen.availWidth/2-(500/2),screen.availHeight/2-(300/2));
 }
+
+
+
+	/*
+	$(document).ready(function(){
+
+	/* 8749 upgraded to self save components
+		//save req max hours settings
+		$("#UpdateReqRules").click( function(){						
+
+			let f=[], v=[], xp=[];
+			let chks, v2, v3;
+
+			//coa
+			let c = $("input#coa_max").prop('checked') ? 1 : 0;
+			let v1 = $("input#coa_max_hours").val();
+			if (isEmpty(v1)) v1 = 0;			
+			
+			let t = "'RQST_RULES'";
+
+				f.push('t|c|v1|v2');
+				v.push(t+"|"+c+"|"+v1+"|1.5");
+				xp.push("t="+t+" and v2 = 1.5");
+
+				//ot
+				c = $("input#ot_max").prop('checked') ? 1 : 0;
+				v1 = $("input#ot_max_hours").val();			
+				if (isEmpty(v1)) v1 = 0;
+				f.push('t|c|v1|v2')
+				v.push(t+"|"+c+"|"+v1+"|2.5");
+				xp.push("t="+t+" and v2 = 2.5");
+
+				//leaves Max
+				c = $("input#leave_max").prop('checked') ? 1 : 0;
+				v1 = $("input#leave_max_hours").val();			
+				if (isEmpty(v1)) v1 = 0;
+				f.push('t|c|v1|v2');
+				v.push(t+"|"+c+"|"+v1+"|3.5");
+				xp.push("t="+t+" and v2 = 3.5");
+					
+				//leaves Min
+				c = $("input#leave_min").prop('checked') ? 1 : 0;
+				v1 = $("input#leave_min_hours").val();			
+				if (isEmpty(v1)) v1 = 0;
+				f.push('t|c|v1|v2');
+				v.push(t+"|"+c+"|"+v1+"|3.6");
+				xp.push("t="+t+" and v2 = 3.6");
+
+				//leaves - disable via shift
+				c = $("input#leave_disable_shift").prop('checked') ? 1 : 0;
+				f.push('t|c|v2');
+				v.push(t+"|"+c+"|3.7");
+				xp.push("t="+t+" and v2 = 3.7");
+
+				//leaves - disable via shift
+				c = $("input#leave_disable_hours").prop('checked') ? 1 : 0;
+				f.push('t|c|v2');
+				v.push(t+"|"+c+"|3.8");
+				xp.push("t="+t+" and v2 = 3.8");
+
+				//leaves - disable duration
+				c = $("input#leave_disable_duration").prop('checked') ? 1 : 0;
+				f.push('t|c|v2');
+				v.push(t+"|"+c+"|3.9");
+				xp.push("t="+t+" and v2 = 3.9");
+
+				//leaves - enable selective hours mode + list hours
+				c = $("input#leave_selective_hours").prop('checked') ? 1 : 0;
+				v3 = $("input#leave_hours_list").val();
+				f.push('t|c|v2|v3');
+				v.push(t+"|"+c+"|3.11"+"|"+v3);
+				xp.push("t="+t+" and v2 = 3.11");
+
+				// leaves - enable batch filing			
+				c = getById("leave_batch_filing").checked ? 1 : 0;
+				f.push( 't|c|v2');
+				v.push( [t,c,3.12].join("|") );
+				xp.push( "t="+ t +" and v2 = 3.12");
+
+			// leave specific rule - AFTER				
+				chks = getByName("lv_specific_rule");
+				chks.forEach((e) => {
+
+					let t = "'RQST_RULES_LV_BEFORE'";
+					if ( e.dataset.t == 'after')
+						t = "'RQST_RULES_LV_AFTER'";
+
+					v1 = getById( e.dataset.tx ).value;  
+					if ( !v1 || isNaN(v1) ) v1 = 0;
+
+					v2 = e.dataset.c;													
+					c = e.checked ? 1 : 0;
+
+					f.push( 't|c|v1|v2')
+					v.push( [t, c, v1, v2 ].join("|") );
+					xp.push( 't='+ t +" and v2 ="+ v2 );
+				})
+
+			$.post('../ajax_calls.php', 
+				{func:'UpdateSettings', f:f.join("|:|"), v:v.join("|:|"), xp:xp.join("|:|") },
+				function(data){
+					 // console.log(data);
+				}
+			);		
+		});
+		*/
+
+	
+//Ticket Request rule
+		/* #8749 - upgraded to self update components
+
+		$("#btnTicketRule").click(function(){
+			
+			// var busy = new BusyGif("#btnTicketRule");
+			busy.show2();
+
+			var chk, val, xp, tn, cd, d;
+			
+			//date rules
+				//before cutoff				
+				val = $("input#chk_tkt_before").prop('checked') ? 1 :0;
+				xp = "t='RQST_RULES' and v2=8.1";
+				tn = "'RQST_RULES'";	
+				d = $("input#txt_tkt_before").val();
+				if (!d) d = 0;
+				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v2|v1', v:tn+'|'+val+'|8.1|'+ d, xp:xp});
+
+				//after cutoff
+				val = $("input#chk_tkt_after").prop('checked') ? 1 :0;
+				xp = "t='RQST_RULES' and v2=8.2";
+				tn = "'RQST_RULES'";	
+				d = $("input#txt_tkt_after").val();
+				if (!d) d = 0;
+				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v2|v1', v:tn+'|'+val+'|8.2|'+ d, xp:xp});
+
+				//before target date
+				val = $("input#chk_tkt_target_before").prop('checked') ? 1 :0;
+				xp = "t='RQST_RULES' and v2=8.3";
+				tn = "'RQST_RULES'";	
+				d = $("input#txt_tkt_target_before").val();
+				if (!d) d = 0;
+				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v2|v1', v:tn+'|'+val+'|8.3|'+ d, xp:xp});
+
+				//before target date
+				val = $("input#chk_tkt_target_after").prop('checked') ? 1 :0;
+				xp = "t='RQST_RULES' and v2=8.4";
+				tn = "'RQST_RULES'";	
+				d = $("input#txt_tkt_target_after").val();
+				if (!d) d = 0;
+				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v2|v1', v:tn+'|'+val+'|8.4|'+ d, xp:xp});
+
+			//reimbursement ticket rule
+				
+				val = $("input[name='chkTicketRule_reim']").prop('checked') ? 1 :0;
+				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v1', v:"'TKT_REQ'|4|"+val , xp:"t='TKT_REQ' and c=4"});
+
+			//attendance ticket rules
+				chk = $("input[name='chkTicketRule']");
+				val = $(chk).prop('checked') ? 1 : 0;
+				xp = $(chk).data('exp');				
+				tn = $(chk).data('t');
+				cd = $(chk).data('c');				
+				// alert(xp + ' - ' + tn + ' - ' + cd);
+				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v1', v:tn+'|'+cd+'|'+val, xp:xp});
+
+			//attendance types
+				cd = [];
+				val = [];
+				$("input:checkbox[name='attdtypes']").each(function(){
+					chk = $(this);
+					if ($(chk).prop("checked")){
+						var aTxt = $(this).data('c').split(",");
+						cd.push(aTxt[0]);
+						val.push(aTxt[1]);
+					}
+				});
+
+				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v3', v:"'TKT_REQ'|2|'" + cd.join(",") + "'", xp:"t='TKT_REQ' and c=2"});
+
+				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v3', v:"'TKT_REQ'|3|'" + val.join(",") + "'", xp:"t='TKT_REQ' and c=3"},			
+					function(data){
+						busy.hide();		
+					});	
+
+		});
+		*/
+
+		//ticket approval - #8749  upgraded to selfsave components
+		/* 
+		$("#btnTicketRule_apr").click(function(){
+			// var busy = new BusyGif("#btnTicketRule_apr");
+			busy.show2();
+
+			var chk, val, xp, tn, cd, d;
+
+			//date approval rules
+				//before cutoff				
+				val = $("input#chk_tkt_before_apr").prop('checked') ? 1 :0;
+				xp = "t='APRV_RULES' and v2=8.1";
+				tn = "'APRV_RULES'";	
+				d = $("input#txt_tkt_before_apr").val();
+				if (!d) d = 0;
+				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v2|v1', v:tn+'|'+val+'|8.1|'+ d, xp:xp});
+
+				//after cutoff
+				val = $("input#chk_tkt_after_apr").prop('checked') ? 1 :0;
+				xp = "t='APRV_RULES' and v2=8.2";
+				tn = "'APRV_RULES'";	
+				d = $("input#txt_tkt_after_apr").val();
+				if (!d) d = 0;
+				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v2|v1', v:tn+'|'+val+'|8.2|'+ d, xp:xp});
+
+				//before target date
+				val = $("input#chk_tkt_target_before_apr").prop('checked') ? 1 :0;
+				xp = "t='APRV_RULES' and v2=8.3";
+				tn = "'APRV_RULES'";	
+				d = $("input#txt_tkt_target_before_apr").val();
+				if (!d) d = 0;
+				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v2|v1', v:tn+'|'+val+'|8.3|'+ d, xp:xp});
+
+				//before target date
+				val = $("input#chk_tkt_target_after_apr").prop('checked') ? 1 :0;
+				xp = "t='APRV_RULES' and v2=8.4";
+				tn = "'APRV_RULES'";	
+				d = $("input#txt_tkt_target_after_apr").val();
+				if (!d) d = 0;
+				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v2|v1', v:tn+'|'+val+'|8.4|'+ d, xp:xp});
+
+				// $ticket_expiry_rule = GetSetting_SetReturn( "typename='REQ_APR_GENERAL_RULES' and description='ticket_expiry_rule'", "code", "1", "checked", "", $con);	
+				// $ticket_expiry_days = GetSetting( "typename='REQ_APR_GENERAL_RULES' and description='ticket_expiry_rule'", "value1", "", $con); 
+				// expiry
+				val = $("input#ticket_expiry_rule").prop('checked') ? 1 :0;
+				xp = "t='REQ_APR_GENERAL_RULES' and d='TicketExpiryRule'";
+				tn = "'REQ_APR_GENERAL_RULES'";	
+				d = "'TicketExpiryRule'";
+				days = $("input#ticket_expiry_days").val();
+				if (!d) days = 0;
+				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|d|c|v1', v:tn+'|'+d+'|'+val+'|'+ days, xp:xp} );
+
+			// ticket approval rules
+			var chk = $("input[name='chkTRA']");
+			$(chk).each(function(){
+
+				var val = $(this).prop('checked') ? 1 : 0;
+				var xp = $(this).data('exp');				
+				var tn = $(this).data('t');
+				var cd = $(this).data('c');
+
+				$.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v1', v:tn+'|'+cd+'|'+val, xp:xp}, function(data){
+						//alert(data);
+				});
+            });
+
+			//posting of approved ticket
+			var cbx = $("select[name='TRA1_action']");
+			var xp = $(cbx).data("exp");
+      var txt = $(cbx).val();
+
+      var posting = $.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c|v3', v:"'TKT_APR'|1|'"+txt+"'", xp:xp});
+      posting.done(function(data){
+      	// alert(data + ' - ' + xp + ' - ' + txt);
+      	busy.hide();
+      });
+
+		});
+		*/
+
+		// 	#3263  - upgraded to self update elements
+		/*	
+		$("#UpdateAttendanceRules").click(function(){
+			busy.show2();
+
+			let v = $("#upload_timelogs").prop('checked') ? "1" : "0";
+			let t = "'UPLOAD_TIMELOGS'";
+			let xp = "t="+ t;
+
+            let post = $.post('../ajax_calls.php', {func:'UpdateSettings', f:'t|c', v:t +"|"+v, xp:xp});
+            post.done(function(data){
+            	//alert(data);
+            	busy.hide();
+            });
+		});
+		*/
+		
+	/*
+	}
+	*/
+	// ----------------

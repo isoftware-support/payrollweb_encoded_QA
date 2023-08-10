@@ -170,19 +170,21 @@
 
     function urlParams( obj ){
 
-      const params = [];
+        // use urldecode() in php
+        
+        const params = [];
 
-      for (let key in obj) {
+        for (let key in obj) {
 
-        if (obj.hasOwnProperty(key)) {
+            if (obj.hasOwnProperty(key)) {
 
-          const _key = encodeURIComponent(key);
-          const _value = encodeURIComponent( obj[key] );
-          const _param = `${_key}=${_value}`;
-          params.push( _param );
+                const _key = encodeURIComponent(key);
+                const _value = encodeURIComponent( obj[key] );
+                const _param = `${_key}=${_value}`;
+                params.push( _param );
+            }
         }
-      }
-      return params.join('&');
+        return params.join('&');
 
     }
 

@@ -39,12 +39,12 @@ const reimDetail = Vue.createApp({
 					<div v-if="submit_mode == SUBMIT_ADD || submit_mode == SUBMIT_APPROVER_ADD" 
 						class="w-200 ">
 						<select v-model="type">
-							<option value="5" >COA</option>
-							<option value="0" >Overtime</option>
-							<option v-if="rules.can_avail_leave" value="1" >Leave</option>
-							<option value="4" >Official Business</option>
-							<option v-if="rules.can_sched_change" value="2" >Change Schedule</option>
-							<option v-if="rules.can_toil" value="3" >TOIL</option>
+							<option v-if="rules.coa_filing_active" value="5" >COA</option>
+							<option v-if="rules.ot_filing_active" value="0" >Overtime</option>
+							<option v-if="rules.can_avail_leave && rules.leave_filing_active" value="1" >Leave</option>
+							<option v-if="rules.ob_filing_active" value="4" >Official Business</option>
+							<option v-if="rules.can_sched_change && rules.sc_filing_active" value="2" >Change Schedule</option>
+							<option v-if="rules.can_toil && rules.toil_filing_active" value="3" >TOIL</option>
 						</select>
 					</div>
 

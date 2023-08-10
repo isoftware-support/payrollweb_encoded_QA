@@ -116,6 +116,7 @@ function registerOnline(e){
   });
   */
   
+  
 
 	xxhrGet(url, (res)=>{
 
@@ -128,6 +129,8 @@ function registerOnline(e){
    		ret = {'error': "Unable to connect to licensing service."}
    	}
 		
+   	console.log( ret);
+
 		const e = getById("license_status");
 		if ( ret.error ){
 			
@@ -145,6 +148,8 @@ function registerOnline(e){
 			xxhrPost( url, ret, (res)=>{
 
 				const reg = JSON.parse(res);
+
+				console.log( reg)
 
 				if ( reg.status == "success" ){
 
