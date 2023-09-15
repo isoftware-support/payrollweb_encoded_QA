@@ -125,9 +125,6 @@
             posts['fu'] = fu.join("|");
         }
 
-        // posts['debug'] = 1;
-        // console.log( posts);
-
         let url = 'xhtml_response.php?q=LoadUploadedAttdLogs' + _session_vars;
         xxhrPost(url, posts, showUploadedAttdLogs);
 
@@ -143,13 +140,13 @@
 
         var data = JSON.parse(res);
 
-        // console.log('data :', data);
+        console.log('data :', data);
 
         getById('uploaded-attds').innerHTML = data.html;
 
         if ( data.error ) msgBox( data.error )
 
-        // hide or show upload button
+        // hide or show upload button        
         let e = get("#attd_upload_button");
         if ( e ){
             if ( parseInt(data.locked) ){                        
@@ -166,6 +163,7 @@
         
         // for floating buttons
             if ( isTeamMode ) xy();
+
             // remove floating delete button if no bottom delete button 
             if (! get('#delete-uploaded-attd') ){
 

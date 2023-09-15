@@ -13,9 +13,8 @@
  			var div =  $("div#floatingbtn");
 
  			if ( type != 4){  // if not team add request 
-
+ 				
 	 			var elem = $(f);	 			
-
 	 			bln = isOnScreen(elem);	 			
 	 			if (bln) $(div).fadeOut();
 

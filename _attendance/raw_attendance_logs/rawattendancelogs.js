@@ -4,6 +4,11 @@
 	var btn = get("#btnOk");
 	btn.addEventListener('click',  showRawLogs);
 
+	// select name event 
+	const sel_member = getById('team_emps')
+	if ( sel_member ) sel_member.onchange = showRawLogs
+
+
 	var busy = new BusyGif;	
 
 	function showRawLogs(){
@@ -23,6 +28,7 @@
 	function show(ret){
 
 		// console.log(ret);
+		
 		busy.hide();
 
 		get("#logs").innerHTML = ret;
@@ -31,7 +37,6 @@
 		
 		// columnt sort indicator
 		setColumnIndicator();
-
 
 	}
 

@@ -139,6 +139,13 @@ const reimDetail = Vue.createApp({
 						<!-- batch filing date -->
 						<div v-if="leave.batch_dates" id="leave_batch_filing_box" v-html="leave.batch_dates"></div>
 
+						<div v-if="leave.batch_dates && rules.batch_filing_require_shiftcode ">
+							<label class="mt-5 fw-80" >Shift Schedule:</label>
+							<select class="ml-5 w-200" v-model="leave.shift_code">
+								<option v-for="item in vars.shift_codes" :value="item.code">{{item.desc}}</option>
+							</select>							
+						</div>
+
 					</div>
 
 					<!-- selective mode -->
@@ -499,6 +506,9 @@ const reimDetail = Vue.createApp({
 				}else if( this.leave.mode == this.LEAVE_DURATION){
 					if (this.leave.selected_batch_dates) 
 						p.leave_batch_filing_dates = this.leave.selected_batch_dates
+
+					// #8881 - require shiftcode rule
+					p.shift_code = this.leave.shift_code
 				}
 
 			}else if( type == this.TYPE_SC){
@@ -525,7 +535,8 @@ const reimDetail = Vue.createApp({
 			// post to db
 			const postIt = () => xxhrPost("_requests/schedule_request_api.php", p, (res)=>{
 
-				// console.log('res', res)
+				console.log('res', res)
+				
 				const ret = JSON.parse(res)
 				console.log('ret', ret );
 				
@@ -866,8 +877,8 @@ const reimDetail = Vue.createApp({
 						})								
 					}
 				}
-			}
-			
+			}		
+
 			this.leave.batch_dates = dates.join("");  // dates
 		},
 
@@ -954,25 +965,33 @@ const reimDetail = Vue.createApp({
 				}else if( mode == this.LEAVE_DURATION ) {  
 
 					if ( this.leave.in_days && ! this.leave.in_days_value )
-						msg = "Please select leave date"
+						msg = "Please select leave date."
 				}
 
 				// ---------------
 				// check batch date filing if inDays
 				// ---------------
 				let chks = getAll("input[name='batch_dates']");
-				if ( this.rules.can_batch_filing && this.leave.in_days && chks.length  ){
+				if ( this.rules.can_batch_filing && this.leave.in_days  ){
 
-					chks = getAll("input[name='batch_dates']:checked");
-					if (! chks.length){
-						msg = "Please select date.";
+					if ( chks.length ){
+						chks = getAll("input[name='batch_dates']:checked");
+						if (! chks.length){
+							msg = "Please select date.";
+						}
+
+						let v = [];
+						chks.forEach( (e)=>{
+							v.push( e.dataset.dt );
+						})
+						this.leave.selected_batch_dates = v.join();
+						
 					}
 
-					let v = [];
-					chks.forEach( (e)=>{
-						v.push( e.dataset.dt );
-					})
-					this.leave.selected_batch_dates = v.join();
+					// #8881 required shiftcode - check shiftcode
+					if ( this.rules.batch_filing_require_shiftcode ){
+						if ( ! this.leave.shift_code ) msg = "Please select shift schedule."	
+					}
 				}
 
 				if ( ! this.leave.type ) msg = "Please select leave type."
@@ -991,6 +1010,14 @@ const reimDetail = Vue.createApp({
 				if ( this.vars.min_ot_hours > 0 && this.time_value.value < this.vars.min_ot_hours ){
 					msg = `Minimum Overtime value is ${this.vars.min_ot_hours} `
 					msg += + this.vars.min_ot_hours > 1 ? "hours." : "hour."
+				}
+			}
+
+			// TOIL
+			if ( type == this.TYPE_TOIL){
+				if ( this.rules.toil_minimum_hours > this.time_value.value ){
+					msg = `Minimum TOIL credit is ${this.rules.toil_minimum_hours}` 
+					msg += pluralize(" hour", this.rules.toil_minimum_hours)
 				}
 			}
 			

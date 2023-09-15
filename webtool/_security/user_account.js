@@ -199,7 +199,7 @@ Vue.createApp({
 
 	    xxhrPost( rootURI + "/ajax_calls.php", p, (res)=>{
 	      
-	      // console.log('res', res);      
+	      console.log('res', res);      
 	      
 	      const ret = JSON.parse(res)
 	      this.id = no

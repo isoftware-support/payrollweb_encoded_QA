@@ -51,6 +51,9 @@ const shiftcode_picker = Vue.createApp({
     xxhrPost(`${rootURI}/ajax_calls.php`, p, res => {
 
         const ret = JSON.parse(res);
+
+        console.log('ret', ret)
+        
         Object.values(ret).forEach( (item, i) => {
 
 					const start = TimeFormat( item.timeStart);

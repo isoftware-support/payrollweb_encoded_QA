@@ -29,6 +29,16 @@
         return document.querySelectorAll( selector );
     }
 
+    function callEvent( id, event_name = 'click' ){
+        // event = click , change , ... exclude on in event name
+
+        const el = getById( id )
+        if ( el ){
+            const event = new Event( event_name )
+            el.dispatchEvent(event)
+        }
+
+    }
 
     function getChildren(element, children = []) {
           
@@ -227,7 +237,8 @@
         const z_index = 999
         e.id = "msg-box-prompt";
         e.style.zIndex = z_index
-        e.classList.add('modal-box', 'br-b-5', 'shadow-3', )
+        // e.classList.add('modal-box', 'br-b-5', 'shadow-3', )
+        e.classList.add('modal-box', 'br-b-5', 'shadow-2-black' )
 
         const classes = options.class.split(" ")
         classes.forEach( (c)=>{
@@ -600,6 +611,29 @@ function wrapWith(string, char = "'"){
     return string
 }
 
+function pluralize( word, num)
+{
+    const last = word[ word.length -1]
+    const new_word = word.slice(0, -1)
+
+    const add = "s";
+
+    if ( last == "y"){
+        add = "ies"
+
+    }else if ( last == "Y"){
+        add = "IES"
+
+    }else if( last == "s"){
+        add = "es"
+
+    }else if( last == "S"){
+        add = "ES"
+    }
+    return new_word + add;
+
+}
+
 function quoteText(sString, lWrap = true){
 
     var txt;
@@ -819,6 +853,7 @@ function padLeft(sNum, sChar, num){
 
 function isOnScreen(elem)
 {
+
     var elem = $(elem);
     var scr = $(window);
 
@@ -826,8 +861,12 @@ function isOnScreen(elem)
         var docViewTop = $(scr).scrollTop();
         var docViewBottom = docViewTop + $(scr).height();
 
-        var elemTop = $(elem).offset().top;
-        var elemBottom = elemTop + $(elem).height();
+        let elemTop = 0;
+        let elemBottom = 0;
+        if ( elem.length ) {            
+            elemTop = $(elem).offset().top;
+            elemBottom = elemTop + $(elem).height();
+        }
 
         return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
     }else{
@@ -1154,10 +1193,9 @@ function xxhr(method, path, func, id_contentHolder = ""){
 
             if (func) func(this.responseText);                     
 
+            // put returned html to element id 
             if ( id_contentHolder ){
-                // console.log( id_contentHolder)
                 const e = getById(id_contentHolder);
-                // console.log('e', e)
                 if ( e ) e.innerHTML = this.responseText;
             }
 

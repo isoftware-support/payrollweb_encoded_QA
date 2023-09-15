@@ -35,7 +35,7 @@
     
 
     function btn_approve(){ // APPROVE
-               
+
         // GET REQUEST NO.
         // var userno = <?php echo json_encode($tl_approver); ?>;
         // var teamnox =<?php echo json_encode($gt_team_nox); ?>; 
@@ -48,7 +48,7 @@
         // GET APPROVE LEVEL
         var apr_lvl = approves.match(/apr([^_]*)/gi);
 
-        console.log( 'approves : ', approves, ' apr_lvl : ', apr_lvl);
+        console.log( 'approves : ', approves, ' apr_lvl : ', apr_lvl, 'userno: ', userno);
 
         var apr_lvl_new = apr_lvl.join(",").replace(/apr/gi,"");
 
@@ -94,7 +94,7 @@
         document.getElementById('web_id').value = final_aprv_btn;
         document.getElementById('aprv_id').value = userno;
 
-        ajaxCall(approves,aprv_btn_count,final_aprv_btn,final_aprv_lvl,userno,teamnox,-1);	
+        ajaxCall(approves, aprv_btn_count, final_aprv_btn, final_aprv_lvl, userno, teamnox, -1);	
 
            	
     }
@@ -105,12 +105,10 @@
         if (document.team_rqst.arno_collect.value){
             
             dimBack(true, 'dimback', chkCancel)
-            CenterItem('popDiv')
+            CenterItem('popDiv')       
 
-            // showDiv('popDiv');      
-            // $('p#remarks').css('color','white');
-            // $('#dis_remark').css('color','black');
-        
+            const el = getById('dis_remark');
+            if ( el ) el.focus();
         } 
     	
     }
@@ -271,9 +269,14 @@
             }            
         }
 
-        // console.log( approves,array_countx,approve_rqno,approve_lvlno,userno,teamnos,stats );
+        // if disapproval - get remarks text
+        let remarks = ""
+        if ( stats == -1){
+            remarks = uriString( getById('dis_remark').value);  
+        } 
 
-        let url = '_approvals/request_approval.php?tdcontent='+ approves +'&userno='+userno+'&tn='+teamnos+'&stats='+stats+'&tbl=WA';
+        let url = '_approvals/request_approval.php?tdcontent='+ approves +'&userno='+userno+'&tn='+teamnos+'&stats='+stats+'&tbl=WA'+
+                    '&rem='+ remarks;
         xmlhttpxxx.open('GET', url,true);
         xmlhttpxxx.send();
 

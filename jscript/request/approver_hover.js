@@ -9,8 +9,6 @@
         // delete first
         removeChild(div_id);
 
-        //console.log( data);
-
         const body = get(parentTagName);
         if ( body ){
     
@@ -23,7 +21,8 @@
             body.appendChild(e);
 
             const els = getByClass(elClassName);
-            // console.log( els);
+            
+            // console.log( 'data', data, dataTextField, data.lenth )
 
             for( index in els ){
 
@@ -34,19 +33,18 @@
                 if ( ! prop_val ) continue;
 
                 let text = "";
-                if ( data.length ){
+                if ( Object.keys(data).length ){
                     
                     if ( data[prop_val] === undefined ) continue;                
                     text = data[ prop_val ][ dataTextField ];
-
+                    
                 }else{
                     text = prop_val
-                }
-                // console.log( el);
+                }                
 
                 el.onmouseover = (event)=>{
                     
-                    console.log( 'mouse')                    
+                    // console.log( 'mouse')                    
                     const hover_div = getById( div_id );
                     // if ( hover_div.style.display == "block") return;
 

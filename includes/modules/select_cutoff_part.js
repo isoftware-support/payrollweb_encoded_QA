@@ -50,34 +50,41 @@
         $.post('ajax_calls.php', param, 
         function(data){   
                                   
+            // console.log('res', data);
+
             const a = JSON.parse(data);            
             
             $("#cutoff_nav_start").val(a.start);
             $("#cutoff_nav_end").val(a.end);          
 
+            // entity filter active
+            const sel_entity = getById("entity_db")
+            const is_entity_filter_active = sel_entity ? true : false;
+
             // #2320
             // hide non existing emps in member filter
-            if ( isTeamMode ){
-                
+            if ( isTeamMode && ! is_entity_filter_active ){
+                                
                 const attd_table_emps = a.emps; 
 
                 if ( cutoff_nav_is_attendance ){
-                    const chks = getByName('team_emps');
-                    chks.forEach((chk)=>{
-                        
-                        const empNo = chk.dataset.no;
-                        
-                        if ( attd_table_emps.indexOf(empNo) >= 0 ){
-                            chk.parentElement.classList.remove("d-none");
-                        }else{
-                            chk.parentElement.classList.add("d-none");
-                        }
-                    });
-                }
 
+                    const chks = getByName('team_emps');
+                    if ( chks ){
+                        chks.forEach((chk)=>{
+                            
+                            const empNo = chk.dataset.no;
+                            
+                            if ( attd_table_emps.indexOf(empNo) >= 0 ){
+                                chk.parentElement.classList.remove("d-none");
+                            }else{
+                                chk.parentElement.classList.add("d-none");
+                            }
+                        });
+                    }
+                }
                 hideInactiveMembers( a.emps );
             }
-
 
             busy.hide();
         });				

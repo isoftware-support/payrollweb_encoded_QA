@@ -50,6 +50,18 @@ const app = Vue.createApp({
 					</div>
 				</div>
 
+				<div v-if="CONSLDT.active" class="mb-2 py-5 bg-lightgrey br-2 my-5">
+					<div class="aligner">
+						<label class=" bold pl-5">Entity:</label>						
+						<div class=" flex-grow">						
+							<select class="DropDownList w-300 ml-10 " v-model="CONSLDT.db" @change='db_change'>
+								<option value=""></option>
+								<option class='fs-14 ' v-for="(db, index) in CONSLDT.dbs" key="index" :value="db.db">{{ db.name }}</option>
+							</select>
+						</div>
+					</div>
+				</div>
+
 				<div class="mb-2">
 					<div class="aligner">
 						<label class="flex-1">Employee Name:</label>						
@@ -105,7 +117,7 @@ const app = Vue.createApp({
 					<button class="button w-80" type="button" @click="applyFilter( $event)">Apply Filter</button>
 					<button class="button mx-5 w-80" type="button" @click="applyFilter($event, false)">Clear Filter</button>
 					<button class="button w-60" type="button" @click="hideFilter">Cancel</button>
-				</center>
+			</center>
 
 			</fieldset>
 
@@ -127,6 +139,7 @@ const app = Vue.createApp({
 			type: -1,
 			team: -1,
 			teams: [],
+			CONSLDT: { dbs: [], active: false, db: '', err_msg: ''},
 		}
 	},
 
@@ -163,6 +176,11 @@ const app = Vue.createApp({
 				if ( parseInt(this.status) > -2 )	p.push( 'fs=' + this.status )
 				if ( parseInt(this.type) > -1 ) 	p.push( 'frt=' + this.type )
 				if ( parseInt(this.team) > -1 ) 	p.push( 'frm=' + this.team)
+				if ( this.CONSLDT.db) p.push( 'db=' + this.CONSLDT.db)
+
+				if ( this.CONSLDT.active && this.CONSLDT.err_msg.length ){
+					return msgBox( this.CONSLDT.err_msg )
+				}						
 			}
 
 			const params = p.join('&')
@@ -174,10 +192,78 @@ const app = Vue.createApp({
 				 // console.log( 'res',res)				
 				// const ret = JSON.parse(res)
 				// console.log(ret);
-
+								
 				document.location.reload();
 
+
 			});
+		},
+
+		db_change(){
+
+			this.load_MyTeams();
+
+		},
+
+		load_MyTeams(){
+
+			// console.log('3', this.CONSLDT, 'xx');
+
+			const p = {func: 'myTeams', db: this.CONSLDT.db }
+			xxhrPost( root_uri + "/ajax_calls.php", p, (res) => {
+				
+				const ret = JSON.parse(res);
+				// console.log( ret);
+
+				this.CONSLDT.err_msg = "";  // default
+
+				if ( ret.err_msg ){
+
+					msgBox( ret.err_msg);
+
+					this.teams = [];
+					this.team = -1;
+
+					this.CONSLDT.err_msg = ret.err_msg
+
+				}else{
+
+					let teams = Object.values(ret.data) 
+
+					teams = [ {'no': '-1', 'name': '', 'desc': ''}, ...teams ]
+					this.teams = teams;
+				}
+
+			})
+
+		},
+
+		load_RememberedUserFilter(){
+
+			p = {func: 'GetRec', t:17, f:'*', xp:`f10 ='${uid}' and section = '${this._section}'`}
+			xxhrPost( root_uri + "/ajax_calls.php", p, (res) => {
+
+				const ret = JSON.parse(res)				
+
+				if ( Object.keys(ret).length){
+
+					this.name = ret.name
+					this.status = ret.status
+					this.type = ret.type
+					this.CONSLDT.db = ret.db;
+					this.team = ret.team
+
+					if ( parseInt(ret.requestFrom) ) 		this.date_req_start = ret.requestFrom
+					if ( parseInt(ret.requestTo ))  		this.date_req_end = ret.requestTo
+					if ( parseInt(ret.targetFrom ))	  	this.date_target_start = ret.targetFrom
+					if ( parseInt(ret.targetTo)) 				this.date_target_end = ret.targetTo
+
+					// load my teams
+					this.load_MyTeams();
+
+				}
+			})
+
 		},
 
 	},
@@ -200,6 +286,8 @@ const app = Vue.createApp({
 
 	beforeMount(){
 
+		this.CONSLDT.active = CONSLDT_active;
+		this.CONSLDT.dbs = CONSLDT_dbs;
 
 		const url = location.href;
 		let section
@@ -232,56 +320,9 @@ const app = Vue.createApp({
 		if ( this._section == "REIM")
 			this._types = [{no: 100, title: 'Reimbursements Request'}]
 
-		xxhrPost( root_uri + "/ajax_calls.php", {func: 'myTeams', 'x': 1}, (res) => {
-			
-			//console.log( 'resxx', res)
-
-			const ret = JSON.parse(res);
-			// console.log( 'ret', ret);
-
-			let teams = Object.values(ret.data) 
-
-			teams = [ {'no': '-1', 'name': '', 'desc': ''}, ...teams ]
-			this.teams = teams;
-			// console.log( teams);
-
-		})
-
-		// get teams
-		// let p = {func: 'GetMultiRecs', t:14, f:'id4|f9', o:'f9', rc: 1 }
-  //   xxhrPost( root_uri + "/ajax_calls.php", p, (res) => {
-    	
-  //   	// console.log ('res', res);    	
-  //   	const ret = JSON.parse(res)     	
-  //   	let teams = Object.values(ret) 
-
-  // 		teams = [ {id4: '-1', f9:''}, ...teams]
-  //   	this.teams = teams
-
-  //   	console.log( 'teams',teams)
-
-  //   })
-
 		// current filter record
-		p = {func: 'GetRec', t:17, f:'*', xp:`f10 ='${uid}' and section = '${this._section}'`}
-		xxhrPost( root_uri + "/ajax_calls.php", p, (res) => {
+		this.load_RememberedUserFilter();	
 
-			const ret = JSON.parse(res)
-			
-			if ( Object.keys(ret).length){
-
-				this.name = ret.name
-				this.status = ret.status
-				this.type = ret.type
-				this.team = ret.team
-
-				if ( parseInt(ret.requestFrom) ) 		this.date_req_start = ret.requestFrom
-				if ( parseInt(ret.requestTo ))  		this.date_req_end = ret.requestTo
-				if ( parseInt(ret.targetFrom ))	  	this.date_target_start = ret.targetFrom
-				if ( parseInt(ret.targetTo)) 				this.date_target_end = ret.targetTo
-
-			}
-		})
 	}
 
 }).mount( "#" + parentId )
