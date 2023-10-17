@@ -146,10 +146,17 @@
 	// ----------------------------------------------		
 	{
 		
+		// initialize self save items
 		// console.log('self update unit')		
-
+			
 		const chks = getAll("[data-selfsave='1']")
 		chks.forEach( (e) => {
+
+			init_self_save_item( e );
+
+		})
+
+		function init_self_save_item( e ){
 
 			if ( e.type == 'number' || e.type == 'text' ||
 				   e.type == "datetime-local" || e.type == "time" ||
@@ -162,8 +169,8 @@
 			} else {
 				// checkbox, radio
 				e.onclick = setting_save_self;
-			}
-		})
+			}			
+		}
 
 	}
 

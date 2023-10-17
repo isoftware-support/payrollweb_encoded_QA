@@ -41,6 +41,13 @@ body
 	border-top-left-radius: 20px;
 }
 
+.icon-logo{
+	height : 30px;
+	border-radius: 5px;
+	box-shadow: 4px 4px 4px #aaaaaa;	
+
+}
+
 .CompanyName{
 	font-size:13px;
     font-weight:bold;
@@ -683,6 +690,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .mb-50 { margin-bottom: 50px !important; }
 .mb-100 { margin-bottom: 100px !important; }
 
+.mt-0  { margin-top: 0px !important; }
 .mt-1  { margin-top: 1px !important; }
 .mt-2  { margin-top: 2px !important; }
 .mt-3  { margin-top: 3px !important; }
@@ -2574,7 +2582,7 @@ a.jobs-link-sub{
 .home-col2{
 	display: relative;
 	min-width: 200px;
-	max-width: 350px;
+	max-width: 280px;
 }
 /*--------------------*/
 
@@ -2619,7 +2627,7 @@ a.jobs-link-sub{
 /*
 	medium view
 */
-@media (max-width: 850px){
+@media (max-width: 1000px){
 
 	.wrapper{ width: 90% }
 
@@ -2660,6 +2668,11 @@ a.jobs-link-sub{
 	.home-col2{
 		margin: 10px auto 20px;
 		min-width: 100px;
+	}
+
+	.icon-logo{
+		height : 45px;
+		margin: 3px;
 	}
 
 	button, .button {

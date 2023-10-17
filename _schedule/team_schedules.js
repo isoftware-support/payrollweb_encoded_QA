@@ -105,7 +105,7 @@ function uploadTeamSchedules(){
       xxhrPost('xhtml_response.php?q=UploadTeamSched&'+ _session_vars, post, 
       ( res ) => {             
         
-        console.log('res', res);
+        // console.log('res', res);
 
         // reset file value
         getById("import_team_sched").value = "";            
@@ -117,7 +117,7 @@ function uploadTeamSchedules(){
 
           const ret = JSON.parse(res);
           
-          console.log('ret', ret)
+          // console.log('ret', ret)
           
           msg = ret.invalids.error;        
           if ( ret.invalids.dates || ret.invalids.ids || ret.invalids.shiftcodes ){
@@ -201,17 +201,15 @@ function clearSelected(){
       return msgBox("Nothing to clear.");
 
     const p = {
-      y1_nos: selected.yr1_nos.join(","),
-      y2_nos: selected.yr2_nos.join(","),      
-      y1_dts: selected.yr1_dates.join(","),      
-      y2_dts: selected.yr2_dates.join(","),
       y1: selected.yr1,
-      y2: selected.yr2
+      y2: selected.yr2,
+      y1_data: selected.yr1_data.join(","),      
+      y2_data: selected.yr2_data.join(","),
     }
 
     qs = urlParams( p);
 
-    console.log( 'p: ', p, 'qs: ', qs)    
+    // console.log( 'p: ', p, 'qs: ', qs)    
 
     const func = () => {
 
@@ -219,12 +217,11 @@ function clearSelected(){
 
       xxhrGet( `_schedule/team_schedules_ajax.php?fn=clr&${qs}`, 
       ( data )=> {  
-
         
-        console.log( data);
+        // console.log( data);
 
         const ret = JSON.parse( data );
-        console.log(ret);
+        // console.log(ret);
 
         if ( ret.result == 'Error'){
           busy.hide();
@@ -297,8 +294,7 @@ function collectSelected( errorMsg ){
   let sc_count = 0;  
   let year1 = "", year2 = "";
 
-  const yr1_nos = [], yr1_dates = [];
-  const yr2_nos = [], yr2_dates = [];
+  const yr1_data = [], yr2_data = [];
 
   chks.forEach( (e)=>{
 
@@ -312,6 +308,7 @@ function collectSelected( errorMsg ){
 
     // with shiftcode only
     if ( sc.length ){
+
       no_dt_sc.push( no + "_" + dt + "_" + sc.replace(",","@") );
       sc_count += 1;
 
@@ -320,13 +317,11 @@ function collectSelected( errorMsg ){
 
       // year 1
       if ( year1 == year){
-        if ( ! yr1_nos.includes( no ) )   yr1_nos.push( no );
-        if ( ! yr1_dates.includes( dt ) ) yr1_dates.push( dt );
-      
+        yr1_data.push( no + "|" + dt);
+
       }else{ // year 2      
         year2 = year
-        if ( ! yr2_nos.includes( no ) )   yr2_nos.push( no );
-        if ( ! yr2_dates.includes( dt ) ) yr2_dates.push( dt );
+        yr2_data.push( no + "|" + dt);
       }
     }
 
@@ -340,173 +335,11 @@ function collectSelected( errorMsg ){
 
   // uniq dates and nos with shiftcodes only
   ret.yr1 = year1;
-  ret.yr1_nos = yr1_nos;
-  ret.yr1_dates = yr1_dates;
   ret.yr2 = year2;
-  ret.yr2_nos = yr2_nos;
-  ret.yr2_dates = yr2_dates;
-  
+  ret.yr1_data = yr1_data
+  ret.yr2_data = yr2_data
 
   return ret;
 
 }
 
-/*
-
-// function changeSched(e){
- 
-//   // collect ids
-//   const parent = e.parentElement;
-//   const id = parent.dataset.eno + "_" + parent.dataset.dt;
-//   const sc = e.value;
-
-//   const h = 420, w = 300;
-//   var left = (screen.width/2)-(w/2);
-//   var top = (screen.height/2)-(h/2);    
-
-//   let url = 'multipleshift.php?ids=' + id +'&sc='+ sc;
-//   popWindow(url, w, h, 'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=0,resizable=0');
-
-// }
-
-
-// function setAs()
-// {
-
-//     const selected = collectSelected( "Please select date schedules to set." );
-
-//     if ( selected.no_dt_sc == undefined )
-//       return;
-
-//     const selected_ids = selected.no_dt.join(",");
-
-//     const h = 420, w = 300;
-//     var left = (screen.width/2)-(w/2);
-//     var top = (screen.height/2)-(h/2);    
-
-//     // let url = 'multipleshift.php?tl='+tl_empno +"&sc="+shiftCodes;
-//     let url = 'multipleshift.php?ids='+selected_ids;
-//     popWindow(url, w, h, 'toolbar=0,location=0,directories=0,status=0,menubar=0,scrollbars=0,resizable=0');
-
-// }
-    // $(document).ready(function(){
-
-    //     $('#titled_arrow').hide();
-    //     $('#schedpic').hide();
-     
-    //     $('#leg_arrow').click(function(){
-    //         $('#titled_arrow').show();
-    //         $('#schedpic').fadeToggle();
-    //         $('#leg_arrow').hide();
-    //         $('#schedline').hide();    
-    //     });
- 
-    //     $('#titled_arrow').click(function(){
-    //         $('#leg_arrow').show();
-    //         $('#schedline').show();
-    //         $('#titled_arrow').hide();
-    //         $('#schedpic').hide();
- 
-    //     });
-
-
-
-    // });
-
- 
-    const checkList = document.getElementById('list1');
-    const items = document.getElementById('items');
-    
-    checkList.getElementsByClassName('anchor')[0].onclick = function (evt) {
-        
-        if (items.classList.contains('visible')){
-            items.classList.remove('visible');
-            items.style.display = "none";
-        }else{
-            items.classList.add('visible');
-            items.style.display = "block";
-        }                       
-    }
-    
-    items.onblur = function(evt) {
-        items.classList.remove('visible');
-    }             
-
-//     function getchecked_dd(en,d) {
-
-
-//       var tm = document.getElementById('dd_teamname').value;
-//       var mn = document.getElementById('months').value;
-//       var y = document.getElementById('weekm_year').value;
-//       var mb = -1;
-
-//       var newtxt = '';
-//       var chkbx = document.getElementsByTagName('input');
-
-//         for(var i = 0; i < chkbx.length; i ++) 
-//         {
-//             if(chkbx[i].type == 'checkbox' && chkbx[i].name == 'chk_for_dd' && chkbx[i].checked === true) {
-//                 if(newtxt.length !== 0) {
-//                     newtxt += ',';
-//                 }
-//                 newtxt += chkbx[i].value;
-//             }
-
-//         }
-
-//        document.getElementById('collect_id').value = newtxt;
-//        var mb = document.getElementById('collect_id').value;
-
-//        if(mb==''){
-
-//             mb = -1;
-//        }
-
-
-//         var xmlhttp;
-
-//         if (window.XMLHttpRequest)
-//           {// code for IE7+, Firefox, Chrome, Opera, Safari
-//           xmlhttp=new XMLHttpRequest();
-//           }
-//         else
-//           {// code for IE6, IE5
-//           xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
-//           }
-//         xmlhttp.onreadystatechange=function()
-//           {
-//           if (xmlhttp.readyState==4 && xmlhttp.status==200)
-//             {
-
-//             //var res = xmlhttp.responseText.split("NEW_LINE");
-//             document.getElementById("tbl_monthsched").innerHTML=xmlhttp.responseText;    
-//             }else{ 
-//             document.getElementById("tbl_monthsched").innerHTML= "<center><img src='images/loader.gif' width=50 border=0></center>";
-//             }
-//           }
-
-//         xmlhttp.open("GET","_schedule/team_schedules_monthly.php?q="+tm+"&e="+en+"&mb="+mb+"&d="+d+"&mn="+mn+"&y="+y,true);
-//         xmlhttp.send();
-
-//     }
-
-// function getcollect_caldate(id) {
-
-
-//   let newtxt = '';
-//   let chkbx = document.getElementsByTagName('input');
-
-//     for(var i = 0; i < chkbx.length; i ++) 
-//     {
-//         if(chkbx[i].type == 'checkbox' && chkbx[i].name == 'getselmon' && chkbx[i].checked === true) {
-//             if(newtxt.length !== 0) {
-//                 newtxt += ',';
-//             }
-//             newtxt += chkbx[i].id;
-//         }
-
-//     }
-//    document.getElementById('coll_sched').value = newtxt;
-// }
-
-*/

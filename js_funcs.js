@@ -52,7 +52,7 @@
       }     
     }
 
-    function disableChildren( parentElement, disabled = true ){
+    function disableChildren( parentElement, disabled = true, showOrhide = false){
 
         const children = []
         getChildren( parentElement, children )
@@ -65,10 +65,12 @@
                 if ( disabled ){
                     el.disabled = true
                     el.classList.add("disabled")
-                    
+                    if ( showOrhide ) el.classList.add("d-hide")
+
                 } else {
                     el.disabled = false
                     el.classList.remove("disabled")
+                    if ( showOrhide ) el.classList.remove("d-hide")
                 }
             }
         }
@@ -102,11 +104,24 @@
 
     }
 
-    function classAdd(groupSelector, className){
+    function classAdd(groupSelector, className ){
 
         var elements = getAll(groupSelector);
         for(var i = 0; i < elements.length; i++){
             elements[i].classList.add(className);
+        }
+    }
+
+    function classAddIf(groupSelector, className, isAdd = true ){
+
+        var elements = getAll(groupSelector);
+        for(var i = 0; i < elements.length; i++){
+
+            if ( isAdd ){
+                elements[i].classList.add(className);
+            }else{
+                elements[i].classList.remove(className);
+            }
         }
     }
 
@@ -1053,8 +1068,6 @@ function resizeImageQuality(file, maxSize, callback) {
     };
 
     reader.readAsDataURL(file);
-
-
 }
 
 // --------------- auto complete ------------
@@ -1188,8 +1201,14 @@ function xxhr(method, path, func, id_contentHolder = ""){
     var xhr = new XMLHttpRequest();
 
     xhr.open(method, path, true);  
+
+    xhr.onerror = function(){        
+        if (func) func( '{"status":"Invalid Link '+ path +'"}' )
+    }
+
     xhr.onload = function(){
-        if (this.status == 200){
+
+        if (this.status == 200){        
 
             if (func) func(this.responseText);                     
 
@@ -1222,6 +1241,10 @@ function xxhrPost(url, data=[], callBackFunc = ""){
 
     xhr.open("POST", url, true );
     xhr.send(formData);
+
+    xhr.onerror = function(){        
+        if (callBackFunc) callBackFunc( '{"status":"Invalid Link '+ url +'"}' )
+    }
 
     if ( callBackFunc ){
         xhr.onload = function(){

@@ -52,7 +52,7 @@ const shiftcode_picker = Vue.createApp({
 
         const ret = JSON.parse(res);
 
-        console.log('ret', ret)
+        // console.log('ret', ret)
         
         Object.values(ret).forEach( (item, i) => {
 
@@ -125,7 +125,7 @@ const shiftcode_picker = Vue.createApp({
 	  			const chks = getAll("input[name='sched_date']:checked");
           
           let year1 = "", year2 = "", year = "";
-          const yr1_nos = [], yr1_dates = [], yr2_nos = [], yr2_dates = [];
+          const yr1_data = [], yr2_data = [];
 
 	  			chks.forEach((chk) =>{
 	  				
@@ -139,29 +139,27 @@ const shiftcode_picker = Vue.createApp({
 
             // year 1
             if ( year1 == year){
-              if ( ! yr1_nos.includes( no ) )   yr1_nos.push( no );
-              if ( ! yr1_dates.includes( dt ) ) yr1_dates.push( dt );
+              yr1_data.push( no + "|" + dt);
             
             }else{ // year 2      
               year2 = year
-              if ( ! yr2_nos.includes( no ) )   yr2_nos.push( no );
-              if ( ! yr2_dates.includes( dt ) ) yr2_dates.push( dt );
+              yr2_data.push( no + "|" + dt);
             }
 	  			})
 
 	  			p.y1 = year1
           p.y2 = year2
-          p.y1_nos = yr1_nos
-          p.y2_nos = yr2_nos
-          p.y1_dts = yr1_dates
-          p.y2_dts = yr2_dates
+
+          p.y1_data = yr1_data
+          p.y2_data = yr2_data
 	  		}
 
         // return console.log( p);
 
   			xxhrPost(`${rootURI}/_schedule/team_schedules_ajax.php`, p, (res)=>{
           
-  				// console.log(res);
+          // const ret = JSON.parse(res);
+  				// console.log(ret);
 
   				loadTeamSchedule();
   				// busy.hide();

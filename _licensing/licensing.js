@@ -44,7 +44,7 @@ function registerOnline(e){
 	xxhrGet(url, (res)=>{
 
 	  console.log('stat', res);
-	  
+
 	  let ret
 	  try{
    		ret = JSON.parse(res);
@@ -72,7 +72,6 @@ function registerOnline(e){
 			xxhrPost( url, ret, (res)=>{
 
 				const reg = JSON.parse(res);
-
 				console.log( reg)
 
 				if ( reg.status == "success" ){

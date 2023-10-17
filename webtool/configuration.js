@@ -113,7 +113,121 @@
 			});
 		}			
 
+		// load multi web items
+		multiWebItem_load_items();
+
 	});
+
+// ===== multi payroll web access ===============
+	
+		function multiWebItem_load_items(){
+
+			if ( typeof multi_payrollweb_items == 'undefined') return;
+			
+			multi_payrollweb_items.forEach( item => {
+				multiWebItem_new_item( item.code, item.value3 )				
+				multi_payrollweb_item_count = Math.max(multi_payrollweb_item_count, item.code );
+			})
+
+		}
+
+		function multiWebItem_add(){
+
+			multi_payrollweb_item_count++;
+			multiWebItem_new_item( multi_payrollweb_item_count );
+		}
+
+		function multiWebItem_remove(){	
+			
+			const item = get("input[type='radio'][name='remote-payrollweb']:checked")
+			if ( ! item ) return;
+
+			const func = () => {
+				
+				busy.show2()
+
+				const f1 = 'SYSMULTIACCESS', f8 = 'MultiPayrollWebItem'
+				const fc = item.dataset.c;
+				let p = { func: 'x', t: 1, d:-1, xp:`f1='${f1}' and f8='${f8}' and fc=${fc}`};
+				console.log( p)
+
+				xxhrPost( payrollwebURI + "/ajax_calls.php", p, (res) => {					
+					console.log('res', res)
+					removeParent( item.id);
+					busy.hide();
+				})				
+			} 
+
+			msgBox("Remove remote payrollweb access item?", 
+				{okCallBack: func, cancelButton: true	})	
+		}			
+
+		function multiWebItem_new_item( index, link = "" ){
+
+			const parent = getById("remote-payrollweb-items")
+			
+			const item = document.createElement("div");
+			item.innerHTML = 
+				`<div class="aligner pt-3">
+
+					<input type="radio" id="remote-payrollweb${index}" name="remote-payrollweb" 
+						data-c="${index}"
+					>
+					<input type="text" class="wp-95" id="remote-payrollweb-txt${index}" 
+						value = "${link}" onclick="multiWebItem_select(this)"
+						data-selfsave='1' data-t='SYSMULTIACCESS' data-f='v3' data-c='${index}'
+						data-d='MultiPayrollWebItem' data-xp="t,d,c"
+					>
+
+				</div>`
+			parent.appendChild( item );
+
+			// add event to self save text boxes
+			const el = getById(`remote-payrollweb-txt${index}`)
+			if ( el ) init_self_save_item( el );
+
+		}
+
+		function multiWebItem_test(){
+
+			let e = get("input[name='remote-payrollweb']:checked")
+			if ( ! e ) return;
+
+			busy.show2();
+
+			e = getById(`remote-payrollweb-txt${e.dataset.c}`)
+			url = e.value + "/_multi-access/multi_access_api.php?func=LT"
+			xxhrGet(url, (res) =>{
+
+				const ret = JSON.parse(res)
+				let msg = "Invalid Link!";
+				if ( ret.status == "success" ){
+					msg = "PayrollWeb link test success!";
+
+					// mark link as valid
+					const f1 = 'SYSMULTIACCESS', f8 = 'MultiPayrollWebItem'
+					const fc = e.dataset.c;
+					let p = { func: 'x', t:1, d:'0', f:'f6', v:'valid', xp:`f1='${f1}' and f8='${f8}' and fc=${fc}`};
+					xxhrPost( payrollwebURI + "/ajax_calls.php", p, (res) => {											
+						// console.log('res', res)
+						// const ret = JSON.parse( res)						
+						// console.log( 'valid', ret)
+						
+					})				
+
+				}		
+				busy.hide();		
+				msgBox(msg, );
+			})
+		}
+
+		function multiWebItem_select(e){
+			const id = "remote-payrollweb" + e.dataset.c
+			getById(id).checked = true
+		}
+
+// ====== muti payrollweb access end ===============
+
 
 function request_group_status_event( is_init_event = true){
 		
