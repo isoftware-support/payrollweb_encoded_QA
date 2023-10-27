@@ -137,7 +137,7 @@ const reimDetail = Vue.createApp({
 						</div>
 
 						<!-- batch filing date -->
-						<div v-if="leave.batch_dates" id="leave_batch_filing_box" v-html="leave.batch_dates"></div>
+						<div v-if="leave.batch_dates" id="batch_mode_filing_box" v-html="leave.batch_dates"></div>
 
 						<div v-if="leave.batch_dates && rules.batch_filing_require_shiftcode ">
 							<label class="mt-5 fw-80" >Shift Schedule:</label>
@@ -163,10 +163,47 @@ const reimDetail = Vue.createApp({
 
 			<!-- duration -->
 			<div v-if="type == TYPE_COA || type == TYPE_OB || type == TYPE_OT || type == TYPE_TOIL" class="flex ml-5">
-				<div class="req-label ">
+
+				<div v-if="type == TYPE_OB && rules.ob_batch_filing_mode" class='req-label'>
+
+					<div class="flex flex-align-right mb-5">
+						<label class="" for="ob_duration">Time Duration:</label>
+						<input type="radio" name='ob_filing_mode' id='ob_duration' class="m-0 ml-5" 
+							v-model="ob.mode" :value="OB_DURATION">
+					</div>
+					<div class="flex flex-align-right">
+						<label class="" for="ob_batch">Batch Mode:</label>
+						<input type="radio" name='ob_filing_mode' id="ob_batch" class="m-0 ml-5" 
+							v-model="ob.mode" :value="OB_BATCH">
+					</div>
+
+				</div>
+				<div v-else class="req-label ">
 					<label class="">Duration:</label>
 				</div>
-				<div class="req-data ">
+
+				<div v-if="type == TYPE_OB && ob.mode == OB_BATCH " class="req-data ">
+
+					<div class="flex mt-3">
+						<input class="EditBox " type="date" step="any" 
+							v-model="ob.dt_from" @change="date_changed" />
+						<label class="pt-5 px-5">to</label>
+						<input class="EditBox " type="date" step="any" 
+							v-model="ob.dt_to" @change="date_changed" />
+					</div>
+
+					<div v-if="ob.batch_dates" id="batch_mode_filing_box" v-html="ob.batch_dates"></div>
+
+					<div class="aligner mt-5">
+						<label class="mt-3 fw-80" >Shift Schedule:</label>
+						<select class="ml-5 w-200" v-model="ob.shift_code">
+							<option v-for="item in vars.shift_codes" :value="item.code">{{item.desc}}</option>
+						</select>						
+					</div>	
+
+				</div>
+
+				<div v-else class="req-data ">
 					<div class="flex">
 						<input class="EditBox " type="datetime-local" step="any" id="dttm_from"
 							v-model="dttm_from" @change="date_changed"/>
@@ -302,6 +339,14 @@ const reimDetail = Vue.createApp({
 				batch_dates: '',
 			},
 
+			ob: {
+				mode: 1,
+				dt_from: '',
+				dt_to: '',
+				shift_code: '',
+				batch_dates: '',
+			},
+
 			approver:{
 				member_no: 0,
 				reason: '',
@@ -315,6 +360,8 @@ const reimDetail = Vue.createApp({
 			LEAVE_DURATION: 0, LEAVE_SHIFT: 1,  LEAVE_SELECTIVE: 2,
 
 			SUBMIT_ADD: 1, SUBMIT_UPDATE: 2, SUBMIT_APPROVER_ADD: 11, SUBMIT_APPROVER_UPDATE: 22,
+
+			OB_DURATION: 1, OB_BATCH: 2,
 
 		}
 	},
@@ -517,7 +564,15 @@ const reimDetail = Vue.createApp({
 				p.sched_from = this.sched_change.shift_code_from
 				p.sched_to = this.sched_change.shift_code
 
+			}else if( type == this.TYPE_OB && this.ob.mode == this.OB_BATCH){
+
+				p.ob_mode = this.OB_BATCH
+				p.shift_code = this.ob.shift_code
+				p.ob_dates = this.ob.selected_batch_dates
+				
 			}
+
+
 			// job code
 			p.job_code = this.job_code
 
@@ -689,6 +744,15 @@ const reimDetail = Vue.createApp({
 				if ( !name || name != "batch_dates") this._loadLeaveDates()
 
 			}
+
+			// ob batch filing
+			if ( this.type == this.TYPE_OB && this.ob.mode == this.OB_BATCH ){
+
+				// to is empty
+				if ( this.ob.dt_from && ! this.ob.dt_to ) this.ob.dt_to = this.ob.dt_from;
+				this._loadLeaveDates( false )  // reuse for OB
+				
+			}
 		},
 
 		date_to_suggest(event){
@@ -779,12 +843,23 @@ const reimDetail = Vue.createApp({
 			return txt;
 		},
 
-		_loadLeaveDates(){
+		_loadLeaveDates( isLeave = true ){
 
-			if ( ! this.rules.can_batch_filing) return;
-			
-			let dtFrom = this.leave.dttm_from
-			let dtTo = this.leave.dttm_to
+			let dtFrom, dtTo 
+
+			if ( isLeave ){
+				
+				if ( ! this.rules.can_batch_filing) return;
+				
+				dtFrom = this.leave.dttm_from
+				dtTo = this.leave.dttm_to
+
+			}else{
+
+				dtFrom = this.ob.dt_from
+				dtTo = this.ob.dt_to
+
+			}
 
 			let dates = [];
 						
@@ -820,12 +895,16 @@ const reimDetail = Vue.createApp({
 							if ( day == "Sun" || day == "Sat")
 								color = "c-red";
 
-							if ( Array.isArray(holidays) ){
-								if ( holidays.includes(v) ){
-									color = "c-red bold ";
+							let title = "";
+							//if ( Array.isArray(holidays) ){
+							if ( holidays ){
+								const val = holidays[v];
+								if ( holidays[v] ){
+									color = "c-orange";
+									title = holidays[v];
 
 									// #8494 - disallow leave filing on holidays
-									if ( ! this.rules.can_file_on_holidays ){
+									if ( ! this.rules.can_file_on_holidays && isLeave ){
 										dtFrom.setDate( dtFrom.getDate() + 1);
 										continue;
 									}									
@@ -845,10 +924,12 @@ const reimDetail = Vue.createApp({
 								}
 							}
 
+							let chk_id = "batch_dates"
+							if ( ! isLeave) chk_id = "ob_batch_dates"
 							let chk = 
-								`<input class='mr-3' type='checkbox' name='batch_dates' id='${id}' ${checked} data-dt='${v}' ` 
+								`<input class='mr-3' type='checkbox' name='${chk_id}' id='${id}' ${checked} data-dt='${v}' ` 
 							chk += " @click='date_changed' />"
-							chk +=	`<label class='fw-130 ${color}' for='${id}'>${date}</label>`
+							chk +=	`<label class='fw-130 ${color}' for='${id}' title='${title}'>${date} </label>`
 
 							if (index == 1){
 								dates1.push( chk );
@@ -879,7 +960,11 @@ const reimDetail = Vue.createApp({
 				}
 			}		
 
-			this.leave.batch_dates = dates.join("");  // dates
+			if ( isLeave ){
+				this.leave.batch_dates = dates.join("");  // dates
+			}else{
+				this.ob.batch_dates = dates.join("");
+			}
 		},
 
 		_errorMsg( msg ){
@@ -920,7 +1005,7 @@ const reimDetail = Vue.createApp({
 			// check datetime to
 			if ( type == this.TYPE_OT || 
 					type == this.TYPE_TOIL	|| 
-					type == this.TYPE_OB	||
+					( type == this.TYPE_OB && this.ob.mode == this.OB_DURATION )	||
 					( type == this.TYPE_LEAVE && this.leave.mode == this.LEAVE_DURATION )	){  // only for duration
 
 				if (! dttm_to ) msg = "Please input valid end date time."
@@ -930,7 +1015,7 @@ const reimDetail = Vue.createApp({
 			if ( type == this.TYPE_OT 		|| 
 					 type == this.TYPE_TOIL 	||
 					 (type == this.TYPE_COA && ! this.dttm_to) ||
-					 type == this.TYPE_OB 		||
+					 (type == this.TYPE_OB && this.ob.mode == this.OB_DURATION ) 		||
 					 type == this.TYPE_SC 		||
 					 type == this.TYPE_LEAVE ){
 
@@ -940,7 +1025,7 @@ const reimDetail = Vue.createApp({
 			// datefrom and datetime to
 			if ( type == this.TYPE_OT 		|| 
 					 type == this.TYPE_TOIL 	||
-					 type == this.TYPE_OB 		||
+					 (type == this.TYPE_OB && this.ob.mode == this.OB_DURATION )		||
 					 (type == this.TYPE_COA && dttm_from && dttm_to )
 					 ){
 
@@ -951,6 +1036,38 @@ const reimDetail = Vue.createApp({
 					if ( this.dttm_from == this.dttm_to)
 						msg = "Date time from and to cannot be equal."
 				}	
+			}
+
+			// OB batch filing mode
+			if ( type == this.TYPE_OB && this.ob.mode == this.OB_BATCH ){
+
+				if ( ! this.ob.shift_code ) msg = "Please select shift schedule."
+
+				// ---------------
+				// check batch date filing if inDays
+				// ---------------
+				const chks = getAll("input[name='ob_batch_dates']:checked");
+				if (! chks.length){
+
+					if ( (this.ob.dt_from && this.ob.dt_to) && 
+						   (this.ob.dt_from == this.ob.dt_to) ){
+
+						this.ob.selected_batch_dates = this.ob.dt_to;
+
+					}else{
+						msg = "Please select date.";
+					}
+
+				}else{
+
+					const v = [];
+					chks.forEach( (e)=>{
+						v.push( e.dataset.dt );
+					})
+					this.ob.selected_batch_dates = v.join();
+					
+				}
+
 			}
 
 			//leave
