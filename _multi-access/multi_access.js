@@ -18,6 +18,8 @@
 	
 		const links = remote_payrollweb_access.links;
 
+		console.log( 'links', links);
+
 		// #9028 - remove caching
 		// disabled local cached - local storage not cross website
 		// load cached data if valid
@@ -66,13 +68,21 @@
 					
 					// localStorage.setItem( store_key, JSON.stringify(data) );
 
-					const html = 
-					`<a href="${ret.data.link}" >
-            <img class="icon-logo" src="${ret.data.logo}" title="${ret.data.name}" name='logo-icon' 
-						>
-          </a>`
+					// skip current db icon
+					if ( ret.data.owner != remote_payrollweb_access.owner ){
 
-					logoItems.push( html )					
+						const params = { func: 'SC', p: `${ret.data.userid}|${ret.data.userpass}|${ret.data.owner}` }
+						const url = ret.data.link + "?" + urlParams( params )
+
+						const html = 
+						`<a href="${url}" >
+	            <img class="icon-logo" src="${ret.data.logo}" title="${ret.data.name}" name='logo-icon' 
+							>
+	          </a>`
+
+						logoItems.push( html )					
+					}
+
 				}
 
 				if ( cnt == links.length  ){			
