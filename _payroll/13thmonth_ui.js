@@ -30,6 +30,7 @@ const ui13thmonth = Vue.createApp({
         
     </div>
     <center class="pt-10">
+    	<input type="button" class="button mr-5" value="Acknowledge" @click="acknowledge">
     	<input type="button" class="button" value="Preview Payslip" @click="preview">
     </center>
 	`	,
@@ -99,6 +100,38 @@ const ui13thmonth = Vue.createApp({
 
 			console.log( urlParams(p) );
 			window.open( PAYROLLWEB_URI + "/_payroll/pdf_print.php?"+ urlParams(p), "_blank" ); 
+		},
+
+		acknowledge(){
+
+			const p = { b: this.selected.id, yr: this.selected.year }		
+			if ( ! p.b ) return msgBox('Please select item.')
+
+	 		const func = () => {
+
+	      busy.show2();
+	      const g = `&md=13&bid=${p.b}&yr=${p.yr}`;   // acknowledge 13th pay payslip
+
+
+	      xxhrGet( PAYROLLWEB_URI + "/_payroll/payroll_ajax.php?q=acknowledgeLog"+ g + _session_vars,
+	      function(res){      
+	        
+	        let data = JSON.parse(res);
+	        console.log('data', data);
+
+	        var msg="13th Month payslip acknowledgment has been submitted.";
+	        if ( data.success == "0"){          
+	          msg = "The 13th Month payslip was already acknowledged on "+ data.dateAcknowledged +".";
+	        }
+	        msgBox(msg);
+
+	        busy.hide();
+	      });      
+    	}
+
+	    msgBox("I hereby acknowledge this 13th Month payslip.", 
+	      {okCallBack: func, cancelButton: true})      			
+
 		}
 	},
 

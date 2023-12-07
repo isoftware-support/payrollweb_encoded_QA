@@ -1,6 +1,8 @@
     
     // global vars
     var deletedNos;
+    
+    var prev_linkNo = 0;
 
     // events
 
@@ -132,8 +134,6 @@
 
     function showUploadedAttdLogs(res){        
         
-        // console.log('res :', res);
-
         busy.hide();        
         let file =  getById("import-log-file");
         if (file) file.value = "";  // reset file selected
@@ -155,6 +155,13 @@
                 e.innerHTML = data.btn;
             }
         }
+
+        // #9010 - highlight linked rows
+        const trs = getAll("tr[data-linkno]");
+        trs.forEach( (tr) => {
+            tr.onclick = () => highlightLinkedRows(tr.dataset.linkno);
+        })
+
 
         // show jobs if any
         showAttendanceJobs();        
@@ -374,3 +381,13 @@
     }
 
 
+    function highlightLinkedRows( linkNo){
+
+        // remove highlight
+        if ( prev_linkNo ) classRemove(`tr[data-linkno='${prev_linkNo}']`, "RowHighlight" )
+
+        // highlight
+        classAdd(`tr[data-linkno='${linkNo}']`, "RowHighlight" )      
+
+        prev_linkNo = linkNo;
+    }

@@ -18,11 +18,13 @@
 	
 		const links = remote_payrollweb_access.links;
 
+		// #9028 - remove caching
+		// disabled local cached - local storage not cross website
 		// load cached data if valid
-		if ( validate_local_data() ){
-			load_multi_payrollweb_access();
-			return;
-		}
+		// if ( validate_local_data() ){
+		// 	load_multi_payrollweb_access();
+		// 	return;
+		// }
 
 		let cnt = 0;
 
@@ -32,40 +34,54 @@
 			eid: remote_payrollweb_access.eid,			
 			}
 
-		for( const link of links){
-
-			cnt ++;
+		const logoItems = [];
+		for( const link of links){		
 
 			xxhrPost(link, p, res => {	
+
+				cnt ++;
 
 				const ret = JSON.parse( res);
 				console.log( 'ret', ret);
 
 				if ( ret.status == "success" ){
 					
-					let data = [];					
+					// #9028 - remove caching
+					// let data = [];					
 
-					const current = JSON.parse( localStorage.getItem( store_key ) );										
-					if ( current !== null ) data = current;
+					// const current = JSON.parse( localStorage.getItem( store_key ) );										
+					// if ( current !== null ) data = current;
 
-					// check first before add
-					let is_add = true;
-					for( index in data ){
+					// // check first before add
+					// let is_add = true;
+					// for( index in data ){
 
-						const item = data[ index ]
-						if ( item.owner == ret.data.owner ){
-							is_add = false;
-							break;
-						}
-					}
-					if ( is_add )data.push( ret.data );					
+					// 	const item = data[ index ]
+					// 	if ( item.owner == ret.data.owner ){
+					// 		is_add = false;
+					// 		break;
+					// 	}
+					// }
+					// if ( is_add )data.push( ret.data );					
 					
-					localStorage.setItem( store_key, JSON.stringify(data) );
+					// localStorage.setItem( store_key, JSON.stringify(data) );
 
+					const html = 
+					`<a href="${ret.data.link}" >
+            <img class="icon-logo" src="${ret.data.logo}" title="${ret.data.name}" name='logo-icon' 
+						>
+          </a>`
+
+					logoItems.push( html )					
 				}
 
 				if ( cnt == links.length  ){			
-					load_multi_payrollweb_access()		
+
+					// load_multi_payrollweb_access()		
+
+					const div = getById("multi-payrollweb-section")
+					div.classList.remove("d-hide")	
+					div.innerHTML = logoItems.join(" ");
 				}
 			})
 

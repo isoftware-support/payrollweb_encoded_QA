@@ -164,7 +164,7 @@ const reimDetail = Vue.createApp({
 			<!-- duration -->
 			<div v-if="type == TYPE_COA || type == TYPE_OB || type == TYPE_OT || type == TYPE_TOIL" class="flex ml-5">
 
-				<div v-if="type == TYPE_OB && rules.ob_batch_filing_mode" class='req-label'>
+				<div v-if="type == TYPE_OB && rules.ob_batch_filing_mode && submit_mode == SUBMIT_ADD" class='req-label'>
 
 					<div class="flex flex-align-right mb-5">
 						<label class="" for="ob_duration">Time Duration:</label>
@@ -214,6 +214,16 @@ const reimDetail = Vue.createApp({
 					<div class="mt-5">
 						<label class="">{{duration_text}}</label>
 					</div>
+
+					<!-- OT Shiftcode for Res day -->					
+					<div v-if="type == TYPE_OT && rules.ot_shiftcode && is_member_filing() " class="aligner mt-5">
+						<label class="mt-3 fw-140" >Shift schedule for Rest Day:</label>
+						<select class="ml-10 w-200" v-model="shift_code" title="No need to specify shift schedule if request\r\nis NOT intended for Rest Day attendance">
+							<option v-for="item in vars.shift_codes" :value="item.code">{{item.desc}}</option>
+						</select>						
+					</div>	
+
+
 				</div>
 			</div>
 
@@ -246,7 +256,7 @@ const reimDetail = Vue.createApp({
 				</div>
 				<div class="aligner req-data">
 					<label class='fw-60'>Job Code:</label>
-					<select class="ml-5 flex-grow" v-model="job_code">
+					<select class="ml-2 wmx-290 " v-model="job_code">
 						<option value=""></option>
 						<option v-for="item in vars.jobs.data" :value="item.jobcode">{{item.description}} ({{item.jobcode}})</option>
 					</select>
@@ -312,6 +322,7 @@ const reimDetail = Vue.createApp({
 			req_no: 0,
 			error_msg: '',
 			filename: '',
+			shift_code: '',
 			time_value : {value: 0, unit: "hour"},
 
 			dttm_from: '', dttm_to: '',
@@ -476,6 +487,7 @@ const reimDetail = Vue.createApp({
 
 					this.dttm_from = ret.dttm_from
 					this.dttm_to = ret.dttm_to					
+					this.shift_code = ret.shift_code
 					this.date_changed()
 
 				}else if( type == this.TYPE_LEAVE ){
@@ -570,6 +582,9 @@ const reimDetail = Vue.createApp({
 				p.shift_code = this.ob.shift_code
 				p.ob_dates = this.ob.selected_batch_dates
 				
+			}else if ( type == this.TYPE_OT ){
+
+				p.shift_code = this.shift_code
 			}
 
 
@@ -631,6 +646,11 @@ const reimDetail = Vue.createApp({
 				postIt()				
 			}				
 
+		},
+
+		is_member_filing(){
+			return this.submit_mode == this.SUBMIT_ADD || 
+				this.submit_mode == this.SUBMIT_UPDATE ? true : false;
 		},
 
 		approver_delete(event, member = {} ){

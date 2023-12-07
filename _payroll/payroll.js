@@ -111,7 +111,7 @@ function generatePayroll(){
     }
 
      // posts['debug'] = 1;
-    //console.log( posts);
+    //console.log( posts);    
 
     xxhrPost("_payroll/payroll_ajax.php?q=payrollHistory"+ _session_vars, posts, 
     function( res ){

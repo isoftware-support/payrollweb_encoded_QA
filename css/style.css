@@ -254,6 +254,11 @@ a.ContentTextLink:hover { font-weight: bold; font-size: 11px; color: #ed2140; te
 	background-color: #F2F2F2;
 }
 
+.RowHighlight{
+	background-color: #abedf7;	
+	/*color: white;*/
+}
+
 .Clickable{
 	cursor: pointer;
 }
@@ -806,6 +811,8 @@ label, .CheckBoxLabel, .label, .label-i {
 .wmx-380 {max-width: 380; }
 .wmx-350 {max-width: 350px !important; }
 .wmx-300 {max-width: 300px !important; }
+.wmx-290 {max-width: 290px !important; }
+.wmx-280 {max-width: 280px !important; }
 .wmx-270 {max-width: 270px !important; }
 .wmx-250 {max-width: 250; }
 .wmx-200 {max-width: 200; }

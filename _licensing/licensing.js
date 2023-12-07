@@ -44,7 +44,7 @@ function registerOnline(e){
 	xxhrGet(url, (res)=>{
 
 	  console.log('stat', res);
-
+	  
 	  let ret
 	  try{
    		ret = JSON.parse(res);
