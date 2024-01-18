@@ -116,6 +116,21 @@
 		// load multi web items
 		multiWebItem_load_items();
 
+
+		// hide show mail setup
+			// change event
+			const main_rule = getById('mailer_setup')
+			main_rule.onclick = () => {					
+				const isOff = main_rule.value == "Off";
+				console.log( isOff);
+				classAddIf("#mailer_els", "d-hide", isOff );
+				classAddIf("#mailer_els_test", "d-hide", isOff );			
+			}		
+
+			// on load
+			main_rule.onclick();
+		// =========================
+
 	});
 
 // ===== multi payroll web access ===============

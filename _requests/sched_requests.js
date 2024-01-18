@@ -48,7 +48,7 @@
         // GET APPROVE LEVEL
         var apr_lvl = approves.match(/apr([^_]*)/gi);
 
-        console.log( 'approves : ', approves, ' apr_lvl : ', apr_lvl, 'userno: ', userno);
+        //console.log( 'approves : ', approves, ' apr_lvl : ', apr_lvl, 'userno: ', userno);
 
         var apr_lvl_new = apr_lvl.join(",").replace(/apr/gi,"");
 
