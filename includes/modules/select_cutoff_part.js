@@ -189,9 +189,7 @@
     // hide team members dropdownlist not in cutoff
     function hideInactiveMembers( emps ){
 
-        if ( isTeamMode ){            
-
-            log(cutoff_active_emps);
+        if ( isTeamMode ){                        
             
             let members = [];
 

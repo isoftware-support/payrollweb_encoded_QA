@@ -10,12 +10,19 @@ function options_select(btn)
 	if ( ! getAll(".chk-emp:checked").length ) return;
 
 	let o = $(btn).offset();	
+
 	let div = $('#select-options');
+	
 
 	div.css("left", o.left + 20);
 	div.css("top", o.top - window.scrollY);
-	$(div).show();
 
+	classReplace("#select-options", "d-hide", "d-show");
+	// classRemove("#select-options", "d-hide");
+	// classAdd("#select-options", "d-show");
+
+	// $(div).show();
+	console.log(div)
 }
 
 function select_emp(e)
@@ -41,7 +48,8 @@ function select_emp(e)
 
 function options_cancel(uncheckEmps = false)
 {
-	div = $('#select-options').hide();
+	// div = $('#select-options').hide();
+	classReplace("#select-options", "d-show", "d-hide");
 
 	// uncheck all checkbox
 	if ( uncheckEmps ) $("input").prop("checked", false );

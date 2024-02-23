@@ -90,8 +90,10 @@
 					// load_multi_payrollweb_access()		
 
 					const div = getById("multi-payrollweb-section")
-					div.classList.remove("d-hide")	
-					div.innerHTML = logoItems.join(" ");
+					if ( div ){
+						div.classList.remove("d-hide")	
+						div.innerHTML = logoItems.join(" ");
+					}
 				}
 			})
 
@@ -148,10 +150,11 @@
 
 			if ( items.length ){
 				const div = getById("multi-payrollweb-section")
-				div.classList.remove("d-hide")	
-				div.innerHTML = items.join(" ");
+				if ( div ){
+					div.classList.remove("d-hide")	
+					div.innerHTML = items.join(" ");
+				}
 			}
-
 		}
 		
 	}

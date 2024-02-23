@@ -1,3 +1,80 @@
+
+    function upload_ot_template(){
+
+        const file_id = "import-ot-template";
+        let file = getById( file_id ).files[0];  // file from input
+        if (! file) return;        
+
+        busy.show2();      
+
+        let xhr = new XMLHttpRequest();
+        let formData = new FormData();
+
+        formData.append( file_id , file); 
+        xhr.open("POST", 'xhtml_response.php?q=uploadOTReqs' + _session_vars, true);
+        xhr.onload = function( res ){
+            
+            // success
+            if (this.status == 200){             
+                
+                busy.hide();
+
+                const ret = JSON.parse(xhr.response);
+                console.log('ret', ret);
+                
+                let msg = [], errors = [], less_errors = [];
+                let _title, _class = "w-500";
+
+                if ( ! ret.data.success ){
+
+                    errors = ret.data.msgs
+                    less_errors = errors.slice(0, 15);
+
+                    msg = [ 
+                        {message :"Unable to import Overtime Request template for the following reasons.", class:'c-red mb-10' },
+                        {message : errors.join("<br>"), class: 'ml-10 mb-10' }
+                    ];
+
+                    _title = "Import Failed"                
+
+                }else{
+
+                    // success
+                    errors = ret.data.entry_error_res;
+                    if ( errors.length ){
+                        
+                        less_errors = errors.slice(0, 10);
+
+                        msg = [
+                            {message: "Upload successfull but "+ pluralize("error", errors.length) +" found in filing template entries:", class: 'c-red mb-10'},
+                            {message: less_errors.join("<br>"), class: 'ml-10 mb-10'}
+                        ]
+
+                    }else{
+                        msg.push({message: "Upload successful!"} )
+                    }
+
+                    _title = 'Overtime Request Upload'
+
+                }
+
+                if ( less_errors.length < errors.length )
+                    msg.push( {message: "..." })
+
+                msg.push( {message: "Click OK to continue." })               
+
+                msgBox( msg, {title: _title, class: _class} )
+
+            }
+
+            // clear file input
+            getById( file_id ).value = '';
+        };
+        
+
+        xhr.send(formData);
+
+    }
     
     function team_action( mode ){
         

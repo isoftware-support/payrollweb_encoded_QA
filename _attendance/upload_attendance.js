@@ -72,7 +72,7 @@
         xhr.open("POST", 'xhtml_response.php?q=UploadAttdLogs' + _session_vars, true);
         xhr.onload = function( res ){
             
-            //console.log( this.responseText);
+            // console.log( this.responseText);            
 
             if (this.status == 200) showUploadedAttdLogs(this.responseText);                     
         };
@@ -140,7 +140,7 @@
 
         var data = JSON.parse(res);
 
-        console.log('data :', data);
+        // console.log('data :', data);
 
         getById('uploaded-attds').innerHTML = data.html;
 

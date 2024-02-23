@@ -601,7 +601,7 @@ function selectChecbox(e, id="", id2=""){
     }  
 }
 
-
+/*
 // function log(...all)
 function log()
 {
@@ -614,7 +614,7 @@ function log()
     //         console.log( l );
     // }
 }
-
+*/
 function toggleValue( _var, val1, val2 ){
     return _var == val1 ? val2 : val1
 }
@@ -629,15 +629,17 @@ function wrapWith(string, char = "'"){
 function pluralize( word, num)
 {
     const last = word[ word.length -1]
-    const new_word = word.slice(0, -1)
+    let new_word = word;
 
     const add = "s";
 
     if ( last == "y"){
         add = "ies"
+        new_word = word.slice(0, -1)
 
     }else if ( last == "Y"){
         add = "IES"
+        new_word = word.slice(0, -1)
 
     }else if( last == "s"){
         add = "es"

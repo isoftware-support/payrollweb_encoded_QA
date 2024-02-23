@@ -443,29 +443,29 @@ label, .CheckBoxLabel, .label, .label-i {
 /* request or approval status class*/
 .stat-pending,   .stat-approved, .stat-disapproved,
 .stat-processed, .stat-locked {
-	width: 15px;
-	max-height: 100%;
-  	background-repeat: no-repeat;
+	background-size: 15px;
+	background-position: center;
+  background-repeat: no-repeat;
 }
 
 .stat-pending{
-	background: url('../img/pending.gif');
+	background-image: url('../img/pending.gif');
 }
 
 .stat-approved {
-	background: url('../img/approved.gif');
+	background-image: url('../img/approved.gif');
 }
 
 .stat-disapproved{
-	background: url('../img/disapproved.gif');
+	background-image: url('../img/disapproved.gif');
 }
 
 .stat-processed {
-	background: url('../img/processed_16.png');
+	background-image: url('../img/processed_16.png');
 }
 
 .stat-locked{	
-	background: url('../img/lock_small_16.png');
+	background-image: url('../img/lock_small_16.png');
 }
 
 
@@ -598,6 +598,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .pt-10  { padding-top: 10px !important; }
 .pt-15  { padding-top: 15px !important; }
 .pt-20  { padding-top: 20px !important; }
+.pt-30  { padding-top: 30px !important; }
 .pt-100  { padding-top: 100px !important; }
 .pb-2  { padding-bottom: 2px !important; }
 .pb-3  { padding-bottom: 3px !important; }
