@@ -651,6 +651,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .m-7  { margin: 7px; }
 .m-8  { margin: 8px; }
 .m-20  { margin: 20px; }
+.my-1 { margin-top: 1px !important; margin-bottom: 1px !important; }
 .my-2 { margin-top: 2px !important; margin-bottom: 2px !important; }
 .my-3 { margin-top: 3px !important; margin-bottom: 3px !important; }
 .my-5 { margin-top: 5px !important; margin-bottom: 5px !important; }
@@ -672,6 +673,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .ml-3{ margin-left: 3px !important; }
 .ml-5{ margin-left: 5px !important; }
 .ml-10{ margin-left: 10px !important; }
+.ml-15{ margin-left: 15px !important; }
 .ml-20{ margin-left: 20px !important; }
 .ml-30{ margin-left: 30px !important; }
 .ml-40{ margin-left: 40px !important; }
@@ -718,6 +720,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .w-50, .fw-50  {width: 50px !important; }
 .w-60, .fw-60  {width: 60px !important; }
 .w-70, .fw-70  {width: 70px !important; }
+.w-75, .fw-75  {width: 75px !important; }
 .w-80, .fw-80  {width: 80px !important; }
 .w-90, .fw-90  {width: 90px !important; }
 .w-100, .fw-100 {width: 100px !important; }
@@ -768,7 +771,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .wp-20 { width: 20%  }
 .wp-25 { width: 25%  }
 .wp-30 { width: 30%; }
-.wp-40 { width: 40%; }
+.wp-40 { width: 40% !important; }
 .wp-45 { width: 45%; }
 .wp-50 { width: 50% }
 .wp-55 { width: 55% ; }
@@ -816,6 +819,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .wmx-280 {max-width: 280px !important; }
 .wmx-270 {max-width: 270px !important; }
 .wmx-250 {max-width: 250; }
+.wmx-300 {max-width: 300; }
 .wmx-200 {max-width: 200; }
 .wmx-150 {max-width: 150; }
 .wmx-120 {max-width: 120; }
@@ -897,28 +901,37 @@ label, .CheckBoxLabel, .label, .label-i {
 
 .c-white {color: white !important; }	 
 .c-red   {color: red !important; }	
+.c-red-05   {color: rgba(255, 0, 0, .5) !important; }	
 .c-red-l {color: #ff8787 !important; }	
-.c-gold {color: #e88538 !important; }
+.c-yellow{ color: #c7a430 !important; }
 .c-orange  {color: orange !important;} 
+.c-orange2 {color: #e88538 !important; }
 .c-cyan  {color: cyan; }
 .c-green {color: green; }
+.c-grey { color: rgba(107, 107, 107, 1) !important;}
+.c-grey2 { color: rgba(107, 107, 107, 0.8) !important;}
+.c-black-05 { color: rgba(0, 0, 0, 0.5) !important;}
 .c-icon-dark  {color: #292929;}
 .c-disabled {color: silver !important;}
-.c-grey1 {background-color: #DEDEDE !important;}
-.c-grey2 {background-color: #f2f2f2 !important;}
-.c-grey3 {background-color: #f1f1f1 !important;}
 .c-blue {color: #1576d1 !important;}
 .disabled{ color: silver; }
 
 .bg-white{background-color: white !important; }
 .bg-silver{background-color: silver !important; }
 .bg-grey{background-color: grey; }
+
+.bg-grey1 {background-color: #DEDEDE !important;}
+.bg-grey2 {background-color: #f2f2f2 !important;}
+.bg-grey3 {background-color: #f1f1f1 !important;}
+
 .bg-lightgrey{background-color: var(--lightgrey); }
 .bg-lightgrey-2{background-color: var(--lightgrey-2); }
 .bg-lightgrey-3{background-color: var(--lightgrey-3); }
+
 .bg-menu{ background-color: var(--menu); }
 .bg-menu-sub{ background-color: var(--menu-sub);}
 .bg-red{ background-color: red; }
+.bg-red-08{ background-color: rgba(200, 0, 0, .8 ); }
 .bg-row-stripe{ background-color: var(--row-stripe); }
 
 
@@ -2625,6 +2638,40 @@ a.jobs-link-sub{
 	background: var(--menu);
 	color: white;
 	padding: 10px 0 ;	
+}
+
+
+.chip {
+    display: inline-block;
+    background-color: #e0e0e0;
+    color: #333;
+    border-radius: 16px;
+    padding: 4px 6px;
+    font-family: Arial, sans-serif;
+    box-shadow: 2px 2px 6px #aaaaaa;	
+}
+.chip.approved{
+	background-color: rgba(0,160,0, 0.8);
+	color: white;
+}
+.chip.disapproved{
+	background-color: rgba(255,0,0, 0.7);
+	color: white;
+}
+
+.chip.no-approval{
+	background-color: rgba(255,255,255, 0.1);
+}
+
+/*.chip:hover {
+    background-color: #ccc;
+}
+*/
+.chip .close {
+    margin-left: 4px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 /* small screen*/

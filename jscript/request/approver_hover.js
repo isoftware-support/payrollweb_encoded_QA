@@ -2,7 +2,7 @@
     // #8323
     // hover event for approver name
 
-    function hover_over(parentTagName, elClassName, elDataSetKey, data, dataTextField){
+    function hover_over(parentTagName, elClassName, elDataSetKey, data = [], dataTextField = ""){
 
         const div_id = "apr_hover_name";
 
@@ -26,13 +26,13 @@
 
             for( index in els ){
 
-                const el = els[index];
+                const el = els[index];                
                 if ( el.tagName == undefined ) continue;  // its an element
 
                 const prop_val = el.dataset[ elDataSetKey ];
-                if ( ! prop_val ) continue;
+                if ( ! prop_val ) continue;                            
 
-                let text = "";
+                let text = "";                
                 if ( Object.keys(data).length ){
                     
                     if ( data[prop_val] === undefined ) continue;                
@@ -41,7 +41,7 @@
                 }else{
                     text = prop_val
                 }                
-
+                
                 el.onmouseover = (event)=>{
                     
                     // console.log( 'mouse')                    
@@ -50,19 +50,22 @@
 
                     const _el = event.target;
                     const td_w = _el.clientWidth / 2;
+                    
+                    if ( _el.tagName == "TD" ){                   
 
-                    hover_div.style.display = "block";
-                    hover_div.innerHTML = text;
+                        hover_div.style.display = "block";
+                        hover_div.innerHTML = text;
 
-                    const xy = _el.getBoundingClientRect();
-                    xy.y += window.scrollY;
+                        const xy = _el.getBoundingClientRect();
+                        xy.y += window.scrollY;
 
-                    const less = hover_div.offsetWidth / 2;
-                    // const x = event.pageX, y = event.pageY;
+                        const less = hover_div.offsetWidth / 2;
+                        // const x = event.pageX, y = event.pageY;
 
-                    hover_div.style.left = xy.x - less + td_w;
-                    hover_div.style.top = xy.y - 13;        
-                    hover_div.style.display = "";    
+                        hover_div.style.left = xy.x - less + td_w;
+                        hover_div.style.top = xy.y - 20;        
+                        hover_div.style.display = "";    
+                    }
                 };
 
                 el.onmouseleave = () => {

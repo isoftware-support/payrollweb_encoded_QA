@@ -34,8 +34,11 @@
 			token: remote_payrollweb_access.token, 
 			eno: remote_payrollweb_access.eno,
 			eid: remote_payrollweb_access.eid,			
+			elast: remote_payrollweb_access.elast,			
+			efirst: remote_payrollweb_access.efirst,			
+			emiddle: remote_payrollweb_access.emiddle,			
 			}
-
+			
 		const logoItems = [];
 		for( const link of links){		
 

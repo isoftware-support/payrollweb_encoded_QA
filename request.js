@@ -119,6 +119,39 @@ $(document).ready(function(){
 
 });
 
+function approvalExpandDetails(e){
+		
+		let el = e.target.parentElement
+		let no = el.dataset.id
+
+		// find ke in parent parent 
+		while(true){
+			if ( ! no ){
+
+				el = el.parentElement
+				if ( el ){ 
+					no = el.dataset.id
+				}else{
+					break;
+				}
+
+			}else{
+				break;
+			}
+		}
+		const key = ".extra-" + no
+		classToggle( key, "d-none")		
+		
+}
+
+function approvalDetailsClick(){
+	
+	const els = getAll(".show_details")
+	els.forEach( (td) => {
+		td.style.cursor = 'pointer'
+		td.onclick = (e) => approvalExpandDetails(e) 	
+	})		
+}
 
 function selectIt(e){
 	

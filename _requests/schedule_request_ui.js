@@ -104,7 +104,13 @@ const reimDetail = Vue.createApp({
 							<label for="leave-selective" >Selective</label>
 							<input type="radio" id="leave-selective" class="m-0 ml-5" name="leave-file-mode" v-model="leave.mode" value="2">
 						</div>
-					</div>
+
+						<div v-if="rules.can_consecutive_days_mode" class="flex mt-5 flex-align-right">
+							<label for="leave-consecutive" >Consecutive</label>
+							<input type="radio" id="leave-consecutive" class="m-0 ml-5" name="leave-file-mode" v-model="leave.mode" value="3">
+						</div>
+
+					</div>					
 				</div>
 				
 				<div class="req-data flex flex-column flex-justify-center">
@@ -157,6 +163,31 @@ const reimDetail = Vue.createApp({
 						<label class="mt-5">(Hours)</label>
 					</div>
 
+					<!-- consecutive mode -->
+					<div v-if="leave.mode == LEAVE_CONSECUTIVE" >
+
+						<div class="aligner">
+							<label class="fw-50">Days</label>	
+							<input type="text" class="editbox w-50" v-model="leave.consecutive_days">							
+
+						</div>
+
+						<div class="aligner">
+							<label class="fw-50">Starting:</label>
+							<input type="date" class="editbox w-120" v-model="leave.dttm_from">	
+						</div>					
+						
+						<div class="aligner">
+							<label for="consecutive_type" class="fw-50">Type</label>
+							
+							<select v-model="leave.consecutive_type" id="consecutive_type" class="w-120" 								
+								title = "Schedule Days - working days\r\nCalendar Days - all dates including rest days"
+								>
+								<option value="3" >Schedule Days</option>
+								<option value="4" >Calendar Days</option>
+							</select>
+						</div>
+					</div>
 
 				</div>
 			</div>
@@ -172,7 +203,7 @@ const reimDetail = Vue.createApp({
 							v-model="ob.mode" :value="OB_DURATION">
 					</div>
 					<div class="flex flex-align-right">
-						<label class="" for="ob_batch">Batch Mode:</label>
+						<label class="" for="ob_batch">Date Duration:</label>
 						<input type="radio" name='ob_filing_mode' id="ob_batch" class="m-0 ml-5" 
 							v-model="ob.mode" :value="OB_BATCH">
 					</div>
@@ -222,7 +253,6 @@ const reimDetail = Vue.createApp({
 							<option v-for="item in vars.shift_codes" :value="item.code">{{item.desc}}</option>
 						</select>						
 					</div>	
-
 
 				</div>
 			</div>
@@ -348,6 +378,8 @@ const reimDetail = Vue.createApp({
 				dttm_from: '',
 				dttm_to: '',
 				batch_dates: '',
+				consecutive_days: 0,
+				consecutive_type: 3,  // 3 : schedule days, 4 : calendar days
 			},
 
 			ob: {
@@ -368,7 +400,7 @@ const reimDetail = Vue.createApp({
 			
 			TYPE_OT: 0, TYPE_LEAVE: 1, TYPE_SC: 2, TYPE_TOIL: 3, TYPE_OB: 4, TYPE_COA: 5,
 
-			LEAVE_DURATION: 0, LEAVE_SHIFT: 1,  LEAVE_SELECTIVE: 2,
+			LEAVE_DURATION: 0, LEAVE_SHIFT: 1,  LEAVE_SELECTIVE: 2, LEAVE_CONSECUTIVE: 3,
 
 			SUBMIT_ADD: 1, SUBMIT_UPDATE: 2, SUBMIT_APPROVER_ADD: 11, SUBMIT_APPROVER_UPDATE: 22,
 
@@ -457,7 +489,7 @@ const reimDetail = Vue.createApp({
 
 				// console.log(res)	
 				const ret = JSON.parse(res)
-				// console.log(ret);				
+				console.log(ret);				
 
 				const type = ret.type
 				
@@ -492,10 +524,18 @@ const reimDetail = Vue.createApp({
 
 				}else if( type == this.TYPE_LEAVE ){
 
-					const leave_mode = ret.leave_mode
+					const leave_mode = ret.leave_mode  
 
 					this.leave.type = ret.leave_type
 					this.leave.mode = leave_mode
+
+					// #9327
+					if ( leave_mode == 3 || leave_mode == 4 ){   // consecutive schedules or calendar days
+						this.leave.consecutive_type = leave_mode
+						this.leave.mode = this.LEAVE_CONSECUTIVE
+						this.leave.consecutive_days = ret.consecutive_days
+					}
+
 					this.leave.dttm_from = ret.dttm_from
 
 					if ( leave_mode == this.LEAVE_SHIFT ){
@@ -568,6 +608,12 @@ const reimDetail = Vue.createApp({
 
 					// #8881 - require shiftcode rule
 					p.shift_code = this.leave.shift_code
+
+				}else if( this.leave.mode == this.LEAVE_CONSECUTIVE){
+					p.consecutive_days = this.leave.consecutive_days
+
+					// leave mode override - CALENDAR OR SCHEDULE DAYS mode
+					p.leave_mode = this.leave.consecutive_type   
 				}
 
 			}else if( type == this.TYPE_SC){
@@ -600,15 +646,16 @@ const reimDetail = Vue.createApp({
 				p.member_no = this.approver.member_no
 				p.override_comment = this.approver.reason
 			}			
-			p.x = 1
 
+		
 			// post to db
 			const postIt = () => xxhrPost("_requests/schedule_request_api.php", p, (res)=>{
 
-				console.log('res', res)
+				// console.log('res', res)
 				
 				const ret = JSON.parse(res)
 				console.log('ret', ret );
+				
 				
 				busy.hide()
 
@@ -1006,7 +1053,7 @@ const reimDetail = Vue.createApp({
 				dttm_from = this.leave.dttm_from
 				dttm_to = this.leave.dttm_to
 
-				if (mode == this.LEAVE_SHIFT || mode == this.LEAVE_SELECTIVE)
+				if (mode == this.LEAVE_SHIFT || mode == this.LEAVE_SELECTIVE || mode == this.LEAVE_CONSECUTIVE)
 					dttm_to = ""
 			}
 
@@ -1018,9 +1065,7 @@ const reimDetail = Vue.createApp({
 			// reason			
 			if ( ! this.reason ) msg = "Please input reson for this request."				
 			if ( this.submit_mode == this.SUBMIT_APPROVER_UPDATE && ! this.approver.reason)
-				msg = "Please input override comment.";
-			
-
+				msg = "Please input override comment.";			
 
 			// check datetime to
 			if ( type == this.TYPE_OT || 
@@ -1103,13 +1148,17 @@ const reimDetail = Vue.createApp({
 
 					if ( this.leave.in_days && ! this.leave.in_days_value )
 						msg = "Please select leave date."
+
+				}else if( mode == this.LEAVE_CONSECUTIVE){
+					if( this.leave.consecutive_days <= 0 ) msg = "Please input total consecutive leave days."
+
 				}
 
 				// ---------------
 				// check batch date filing if inDays
 				// ---------------
 				let chks = getAll("input[name='batch_dates']");
-				if ( this.rules.can_batch_filing && this.leave.in_days  ){
+				if ( this.rules.can_batch_filing && this.leave.in_days && mode != this.LEAVE_CONSECUTIVE  ){
 
 					if ( chks.length ){
 						chks = getAll("input[name='batch_dates']:checked");
