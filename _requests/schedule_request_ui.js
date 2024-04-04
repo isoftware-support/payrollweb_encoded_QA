@@ -656,9 +656,8 @@ const reimDetail = Vue.createApp({
 				const ret = JSON.parse(res)
 				console.log('ret', ret );
 				
-				
 				busy.hide()
-
+			
 				this.error_msg = ""
 				if ( ret.error ){
 					this._errorMsg( ret.error )

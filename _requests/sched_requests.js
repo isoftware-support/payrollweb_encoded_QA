@@ -305,7 +305,7 @@ function ajaxCall(approves, array_countx, approve_rqno, approve_lvlno,
 
         const ret = JSON.parse(res);
         console.log('ret', ret)
-        
+               
         if ( ret.is_refresh_browser ){
             location.reload();
             return;

@@ -25,13 +25,15 @@
 
 	}
 
-	function show(ret){
+	function show(res){
 
-		// console.log(ret);
+		const ret = JSON.parse(res)
+
+		console.log(ret);		
 		
 		busy.hide();
 
-		get("#logs").innerHTML = ret;
+		get("#logs").innerHTML = ret.html;
 
 		setSortColumnEvent();
 		
