@@ -181,17 +181,19 @@ Vue.createApp({
 
  		},
 	  edit(){
-
+	  	
 	  	const radio = get("input[type='radio']:checked");
 	  	if ( ! radio ) return;
-	  	
+
+	  	const no = radio.value
+
 	  	busy.show2()
 
 	  	this.isEdit = true;
 	  	this.title = "Update User Account"
   		this.$refs._employees.innerHTML = emps_edit_list.join("");
 
-      const no = radio.value
+      
 
 	    // get record
 	    const p = {func:'GetRec', t:9, xp:`id2=${no}`, sep:'||', rc:1}
@@ -199,7 +201,7 @@ Vue.createApp({
 
 	    xxhrPost( rootURI + "/ajax_calls.php", p, (res)=>{
 	      
-	      console.log('res', res);      
+	      // console.log('res', res);      
 	      
 	      const ret = JSON.parse(res)
 	      this.id = no
@@ -336,6 +338,25 @@ Vue.createApp({
 			  	{okCallBack: this.delete, cancelButton: true}
 			  )
 			}
+		}
+
+		// row event
+		e = getAll("tr[name='user-entry']")
+		if ( e ){
+			
+			e.forEach( (el) => {
+				el.style.cursor = "pointer"
+
+				el.onclick = () => {
+					const id = "rdo_" + el.dataset.no
+					getById(id).checked = true
+				}
+
+				el.ondblclick = () => {
+					this.edit()
+				}
+			})
+			
 		}
 
   }

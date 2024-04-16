@@ -7,7 +7,7 @@
 		// after ui load element status
 			alerts_items_status()
 		// -----------------------------
-	
+		
 
 		// remove input text auto suggest
 		const txts = getAll("input[type='text']");
@@ -120,16 +120,21 @@
 		// hide show mail setup
 			// change event
 			const main_rule = getById('mailer_setup')
-			main_rule.onclick = () => {					
-				const isOff = main_rule.value == "Off";
-				console.log( isOff);
-				classAddIf("#mailer_els", "d-hide", isOff );
-				classAddIf("#mailer_els_test", "d-hide", isOff );			
-			}		
+			if ( main_rule ){
 
-			// on load
-			main_rule.onclick();
-		// =========================
+				main_rule.onclick = () => {					
+					const isOff = main_rule.value == "Off";
+					console.log( isOff);
+					classAddIf("#mailer_els", "d-hide", isOff );
+					classAddIf("#mailer_els_test", "d-hide", isOff );			
+				}		
+
+				// on load
+				main_rule.onclick();
+				// =========================
+
+			}
+
 
 	});
 
@@ -243,6 +248,44 @@
 
 // ====== muti payrollweb access end ===============
 
+
+function importSettings(){
+
+	const file_btn = getById("upload-setting-file")
+
+	file_btn.onchange = (e) => {
+		
+	  const file = e.target.files[0];
+	  if (file) {
+
+	  	const url = payrollwebURI + "/webtool/_configuration/import_export_settings.php"
+	  	xxhrPost(url, {func: 'imp', setting_file: file}, ( res ) => {
+
+	  		console.log( 'res', res);	  		
+	  		const ret = JSON.parse(res);
+
+	  		if ( ret.status == "success"){
+	  			msgBox("Import payrollweb settings successful.");
+	  		}else{
+
+	  			msgBox( [
+	  				{message: "Import payrollweb settings failed."},
+	  				{message: "error: " + ret.error }
+	  				] );
+	  		}
+		    
+	  		e.target.value = ''
+	  	});
+
+	  }
+  }
+	
+	file_btn.click()
+}
+
+function exportSettings(){	
+	window.location.href = payrollwebURI + "/webtool/_configuration/import_export_settings.php?func=exp"
+}
 
 function request_group_status_event( is_init_event = true){
 		

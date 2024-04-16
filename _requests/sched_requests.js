@@ -303,6 +303,7 @@ function ajaxCall(approves, array_countx, approve_rqno, approve_lvlno,
     
     xxhrGet(_url, (res) => {
 
+        console.log('res',res)
         const ret = JSON.parse(res);
         console.log('ret', ret)
                

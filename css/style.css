@@ -730,6 +730,9 @@ label, .CheckBoxLabel, .label, .label-i {
 .w-130, .fw-130 {width: 130px !important; }
 .w-140, .fw-140 {width: 140px !important; }
 .w-150, .fw-150 {width: 150px !important; }
+.w-150, .fw-160 {width: 160px !important; }
+.w-150, .fw-170 {width: 170px !important; }
+.w-150, .fw-180 {width: 180px !important; }
 .w-200, .fw-200 {width: 200px !important; }
 .w-250, .fw-250 {width: 250px !important; }
 .w-260, .fw-260 {width: 260px !important; }
@@ -928,10 +931,12 @@ label, .CheckBoxLabel, .label, .label-i {
 .bg-lightgrey-2{background-color: var(--lightgrey-2); }
 .bg-lightgrey-3{background-color: var(--lightgrey-3); }
 
+.bg-black{ background-color: rgb(0, 0, 0) !important; }
 .bg-menu{ background-color: var(--menu); }
 .bg-menu-sub{ background-color: var(--menu-sub);}
-.bg-red{ background-color: red; }
-.bg-red-08{ background-color: rgba(200, 0, 0, .8 ); }
+.bg-red{ background-color: red !important; }
+.bg-red-08{ background-color: rgba(200, 0, 0, .8 ) !important; }
+.bg-deep-green{ background-color: rgba(0, 100, 0, .8) !important; }
 .bg-row-stripe{ background-color: var(--row-stripe); }
 
 
@@ -1036,6 +1041,7 @@ label, .CheckBoxLabel, .label, .label-i {
 	/*background-color:#eeeeee;*/
 	font:12px Arial, Helvetica, sans-serif;
 }
+
 
 
 .table_menu{
@@ -2661,6 +2667,37 @@ a.jobs-link-sub{
 
 .chip.no-approval{
 	background-color: rgba(255,255,255, 0.1);
+}
+
+.chip.shade{
+    box-shadow: 1px 1px 2px #aaaaaa;	
+    /*box-shadow: none;	*/
+    border: dotted 1px;
+
+}
+
+.chip.shade.pending{
+	background-color: rgba(11, 68, 140, .2);
+	color: rgb(11, 68, 140);
+}
+.chip.shade.approved{
+	background-color: rgba(27, 137, 14, .2);
+	color: rgb(27, 137, 14);
+	
+}
+.chip.shade.processed{
+
+	background-color: rgb(255, 165, 0, .2);
+	color: rgb(219, 135, 61);
+}
+.chip.shade.locked{
+	background-color: rgba(120, 14, 120, .2);
+	color: rgb(120, 14, 120);
+}
+
+.chip.shade.disapproved{
+	background-color: rgba(196, 42, 22, .2);
+	color: rgb(196, 42, 22);
 }
 
 /*.chip:hover {
