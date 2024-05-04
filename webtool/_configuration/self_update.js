@@ -51,21 +51,22 @@
 
 		// fields = s : string, n: numeric
 			const keyFields = {'t':'s', 'v':'n', 'v1':'n', 'v2':'n', 'v3':'s', 
-				'c':'n', 'c2':'n', 'd':'s', 'n':'n', 's':'n', 'e':'n', 'i':'n'}
+				'c':'n', 'c2':'n', 'd':'s', 'n':'n', 's':'n', 'e':'n', 'i':'n',
+				g:'n', lw: 's' }
 			const fields = Object.keys(keyFields)
 
-			// const fields = ["t", "v", "v1", 'v2', 'v3', "c", "d", "n", "s", "e", "i"]
-
-			fields.forEach( (field) =>{
-
-				// const field = fields[i]						
+			for( const field of fields){
+			
 				if ( field in el.dataset ){
+
 					if ( p.f ) p.f += "|"
 					if ( p.v ) p.v += "|"
 					p.f += field
 					p.v += el.dataset[ field ]
+
 				}
-			})
+
+			}
 
 		// filter
 		let xp = "";				
@@ -93,25 +94,27 @@
 		p.xp = xp
 
 		// field to update		
-		p.f += `|${el.dataset.f}`
-		if ( el.type == "checkbox" ){
-			p.v += "|"
-			p.v += el.checked ? "1" : "0"
-		
-		}else if( el.type == "radio" || el.type == 'text' ||
-			el.type == "datetime-local" || el.type == 'time' ||
-			el.tagName == "TEXTAREA" || el.tagName == "SELECT" ||
-			el.type == 'password' || el.type == 'date'
-			){				
+		if ( el.dataset.f ){
+			p.f += `|${el.dataset.f}`
+			if ( el.type == "checkbox" ){
+				p.v += "|"
+				p.v += el.checked ? "1" : "0"
+			
+			}else if( el.type == "radio" || el.type == 'text' ||
+				el.type == "datetime-local" || el.type == 'time' ||
+				el.tagName == "TEXTAREA" || el.tagName == "SELECT" ||
+				el.type == 'password' || el.type == 'date'
+				){				
 
-			p.v += `|${el.value}`
+				p.v += `|${el.value}`
 
-		}else if( el.type == "number"){
-			let v = el.value
-			if ( isEmpty(v) ) v = "0"
-			p.v += `|${v}`
+			}else if( el.type == "number"){
+				let v = el.value
+				if ( isEmpty(v) ) v = "0"
+				p.v += `|${v}`
+			}	
+		}
 
-		}			
 		p.x = 1
 
 		// console.log( 'p', p)				
@@ -123,11 +126,13 @@
 			return;
 		}
 
+		console.log( 'selfupdate p', p)
+
     xxhrPost(url, p, (res)=>{
     	
     	// console.log('res', res)
     	const ret = JSON.parse(res)
-    	console.log('ret', ret)
+    	console.log('self update', ret)
 
     	busy.hide()
     	delete busy
@@ -150,10 +155,10 @@
 		// console.log('self update unit')		
 			
 		const chks = getAll("[data-selfsave='1']")
+		// console.log(chks)
+
 		chks.forEach( (e) => {
-
 			init_self_save_item( e );
-
 		})
 
 		function init_self_save_item( e ){

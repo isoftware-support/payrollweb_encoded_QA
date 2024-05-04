@@ -277,21 +277,8 @@ function sortList(d)
         }
     }
 }
-function submitTeamMembers()
-{
 
-    f = document.forms[0];
-    z = findControl(f, 'supervisors[]');
-    for (i = 0; i < z.options.length; i++) {
-        z.options[i].selected = true;
-    }
 
-	z = findControl(f, 'members[]');
-    for (i = 0; i < z.options.length; i++) {
-        z.options[i].selected = true;
-    }    
-    f.submit();
-}
 function SelectAll(FormName, ObjName, check){
 	f = document.forms[FormName];
     for (i = 0; i < f.elements.length; i++) {

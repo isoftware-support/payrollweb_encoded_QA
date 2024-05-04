@@ -143,6 +143,7 @@ function transferFrom( action , source, dest)
   // ---------------------
   // update privileges   
   // ---------------------
+  /*
   if ( nos.length ) {	
   	
   	const busy = new BusyGif();
@@ -185,7 +186,7 @@ function transferFrom( action , source, dest)
 
 	}
 	// --------------------------
-
+	*/
 
 }
 

@@ -509,13 +509,13 @@ label, .CheckBoxLabel, .label, .label-i {
 	display: none;
 }
 .scroll-y{
-	overflow-y: auto; 
+	overflow-y: auto !important; 
 }
 .scroll-x{
-	overflow-x: auto; 
+	overflow-x: auto !important; 
 }
 .scroll-a{
-	overflow: auto;
+	overflow: auto !important;
 }
 
 .flex{ display: flex; }
@@ -657,6 +657,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .my-5 { margin-top: 5px !important; margin-bottom: 5px !important; }
 .my-10{ margin-top: 10px !important; margin-bottom: 10px !important; }
 .my-20{ margin-top: 20px !important; margin-bottom: 20px !important; }
+.my-30{ margin-top: 30px !important; margin-bottom: 30px !important; }
 .my-50{ margin-top: 50px; margin-bottom: 50px; }
 
 .mp-2{ margin-left: 2% !important; margin-right: 5% !important; }
@@ -714,7 +715,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .w-0 {width: 0px !important; }
 .w-10, .fw-10 {width: 10px !important; }
 .w-20, .fw-20 {width: 20px !important; }
-
+.w-25, .fw-25 {width: 25px !important; }
 .w-30, .fw-30  {width: 30px !important; }
 .w-40, .fw-40  {width: 40px !important; }
 .w-50, .fw-50  {width: 50px !important; }
@@ -810,7 +811,7 @@ label, .CheckBoxLabel, .label, .label-i {
 /* max widths */
 .wmx-900 {max-width: 900px; }
 .wmx-800 {max-width: 800px; }
-.wmx-700 {max-width: 700px; }
+.wmx-700 {max-width: 700px !important; }
 .wmx-600 {max-width: 600px; }
 .wmx-500 {max-width: 500; }
 .wmx-450 {max-width: 450; }
@@ -845,12 +846,14 @@ label, .CheckBoxLabel, .label, .label-i {
 .h-30  {height: 30px !important;}
 .h-40  {height: 40px;}
 .h-50  {height: 50px;}
-.h-80 { height: 80px !important;}
+.h-80  { height: 80px !important;}
 .h-100 { height: 100px;}
+.h-150 { height: 150px;}
 .h-200 { height: 200px;}
 .h-250 { height: 250px;}
 .h-300 { height: 300px;}
 .h-400 { height: 400px;}
+.h-450 { height: 450px;}
 .h-600 { height: 600px;}
 
 .hp-50 {height: 50% !important;}
@@ -953,6 +956,14 @@ label, .CheckBoxLabel, .label, .label-i {
 
 .fs-n{ font-weight: normal !important;}
 /* ----------------------------- */
+
+.hover-grey-01:hover{
+	background-color: rgba(128,128,128,.1);
+}
+
+.hover-grey-02:hover{
+	background-color: rgba(128,128,128,.2);
+}
 
 .border-1{
 	border: 1px solid grey;

@@ -1,6 +1,11 @@
 
-function clickCancel(){
-    window.location = "index.php?qid=02";
+function clickCancel( backTo ){
+
+    let link = "index.php"
+    if ( backTo == "profile"){
+        link += "?qid=02"        
+    }
+    window.location = link;
 }
 
 

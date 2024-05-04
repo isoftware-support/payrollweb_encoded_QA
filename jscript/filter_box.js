@@ -1,7 +1,7 @@
 
 var timer_filter  
 
-function filterBox( param = {parentId:'', row_name:"", select_name:"", minRows: 0} ){
+function filterBox( param = {parentId:'', row_name:"", select_name:"", div_id:"", minRows: 0} ){
 
 	// remove form entry key submit
 	const frms = getAll('form')
@@ -19,21 +19,24 @@ function filterBox( param = {parentId:'', row_name:"", select_name:"", minRows: 
 		root_uri = rootURI
 	}
 
-	let {parentId, row_name, select_name, minRows} = param
+	let {parentId, row_name, select_name, minRows, div_id} = param
 
 	if (typeof parentId == 'undefined') parentId = "filter_box"
 	if (typeof row_name == 'undefined') row_name = ""
-	if (typeof select_name == 'undefined') select_name = ""
+	if (typeof select_name == 'undefined') select_name = ""		
 	if (typeof minRows == 'undefined') minRows = 0
+	if (typeof div_id == 'undefined') div_id = ""
 
 	// hideFilterBox()
 
 	// vue component
-	Vue.createApp({
+	const app = Vue.createApp({
 
 		template: `
 			<div class="flex w-140 ml-a ">
-				<input type="text" class='w-110 mr-2 ' autocomplete="off" v-model="text" @keyup="onEnter" > 
+				<input type="text" class='w-110 mr-2 ' autocomplete="off" v-model="text" 
+					@keyup="onEnter" :id="filter_text_id"
+					> 
 
 				<a href="#/"  class="filter-button px-2" @click="filter">
 					<img class="mt-3" src="${root_uri}/images/filter.png" style="width: 11px">
@@ -46,7 +49,8 @@ function filterBox( param = {parentId:'', row_name:"", select_name:"", minRows: 
 		`,
 		data(){
 			return {
-				text: ''
+				text: '',
+				filter_text_id: parentId + "_txt",
 			}
 		},
 
@@ -102,9 +106,15 @@ function filterBox( param = {parentId:'', row_name:"", select_name:"", minRows: 
 					const e = getByName(select_name)					
 					all = Object.values(e[0].options)
 
+				}else if( div_id ){
+
+					const e = getById( div_id )
+					all = e.children
+
+					console.log('filter div', div_id)
 				}
 				
-				all.forEach( (item)=> {
+				for( const item of all ){
 				
 					let isFound = true
 					if ( row_name ){														
@@ -127,12 +137,24 @@ function filterBox( param = {parentId:'', row_name:"", select_name:"", minRows: 
 					}else if( select_name ){
 
 						const txt = item.innerText.toLowerCase()
-						isFound = txt.indexOf( text.toLowerCase()) > -1 ? true : false
+						isFound = txt.indexOf( text.toLowerCase() ) > -1 ? true : false
+
+					}else if( div_id ){
+
+						const txt = item.dataset.title.toLowerCase()
+						isFound = txt.indexOf( text.toLowerCase() ) > -1 ? true : false
+
+						if ( isFound ){
+							item.classList.remove("d-none");
+						}else{
+							item.classList.add("d-none");
+						}
+						continue;
 					}
 
 					item.hidden = ! isFound;
 
-				})
+				}
 
 			},
 
@@ -170,6 +192,7 @@ function filterBox( param = {parentId:'', row_name:"", select_name:"", minRows: 
 				
 				setTimeout( ()=>this._showHideTimer(), 1000)
 			},
+
 			_countRows(){
 
 				if (! minRows) return 0
@@ -181,6 +204,10 @@ function filterBox( param = {parentId:'', row_name:"", select_name:"", minRows: 
 				}else if( select_name ){
 					const e = getByName(select_name)
 					all = e[0].options
+
+				}else if( div_id ){
+					const e = getById( div_id )
+					all = e.children;
 				}
 
 				if ( all ) return all.length
@@ -191,6 +218,8 @@ function filterBox( param = {parentId:'', row_name:"", select_name:"", minRows: 
 
 	}).mount("#" + parentId );
 
+
+	return app
 }
 
 

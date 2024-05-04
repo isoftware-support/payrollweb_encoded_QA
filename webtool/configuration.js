@@ -681,6 +681,7 @@ function onValidEmail(emailStr) {
     return true;
 }
 
+
 function transferFrom(btn, source, dest){
 
   var f, s, d, i, xx;

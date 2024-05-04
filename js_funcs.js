@@ -217,13 +217,14 @@
 
         /*
          message = [ {message:'', class:''} ]
-         options = {
+         options = {            
             title: '',
             class: 'w-300', 
             msgbg: 'bg-white'
             okCallBack: '', 
             cancelButton: false,
-            cancellCallBack:''
+            cancellCallBack:'',
+            persistent: false
          }
         */
 
@@ -232,6 +233,7 @@
         if ( keys.indexOf('class') == -1)           options.class = "w-300 d-block"                    
         if ( keys.indexOf('msgbg') == -1)           options.msgbg = "bg-white"
         if ( keys.indexOf('title') == -1)           options.title = ""
+        if ( keys.indexOf('persistent') == -1)      options.persistent = false
 
         // if ( keys.indexOf('cancelButton') == -1)    options.cancelButton = false
         //if ( keys.indexOf('cancelCallBack') == -1)  options.cancelCallBack = ''
@@ -337,8 +339,14 @@
         }
         
         CenterItem( id);
-        dimBack2( {dimIt: true, id:'msgdim', 
-            hideCallback: _hide, zIndex: z_index - 2} )
+        
+        if ( options.persistent ){            
+            dimBack2( {dimIt: true, id:'msgdim', zIndex: z_index - 2} )            
+
+        }else{
+            dimBack2( {dimIt: true, id:'msgdim', 
+                hideCallback: _hide, zIndex: z_index - 2} )            
+        }
 
     }
 
@@ -552,6 +560,29 @@
 
 
 //functions
+function markUnmark( item_class, collection, value, callback = "" ){
+
+    const from = getAll("."+ item_class)    
+
+    const changed = []
+    for( const cb of from){
+        
+        // hidden
+        if ( cb.offsetParent === null ) continue
+
+        if ( cb.checked ){
+
+            const no = cb.dataset.no            
+            const item = collection.find( (i) => i.id == no)
+            item.value = value
+            changed.push( item )
+        }
+    }    
+
+    if ( callback ) callback( changed );
+
+}
+
 
 function selectOptionItem( id, value ){
 
@@ -626,29 +657,42 @@ function wrapWith(string, char = "'"){
     return string
 }
 
-function pluralize( word, num)
+function pluralize( word, num, plural = "")
 {
-    const last = word[ word.length -1]
-    let new_word = word;
 
-    const add = "s";
+    if ( num > 1 ){
 
-    if ( last == "y"){
-        add = "ies"
-        new_word = word.slice(0, -1)
+        const last = word[ word.length -1]
+        const last2nd = word[ word.length -2]
+        
+        if ( last.toLowerCase() == "y"){
 
-    }else if ( last == "Y"){
-        add = "IES"
-        new_word = word.slice(0, -1)
+            if ( "aeiou".indexOf( last2nd.toLowerCase() ) > -1){
+                return word + "s"
+            }
+        }
 
-    }else if( last == "s"){
-        add = "es"
+        let new_word = word;            
+        let add = "s";
 
-    }else if( last == "S"){
-        add = "ES"
+        if ( last == "y"){
+            add = "ies"
+            new_word = word.slice(0, -1)
+
+        }else if ( last == "Y"){
+            add = "IES"
+            new_word = word.slice(0, -1)
+
+        }else if( last == "s"){
+            add = "es"
+
+        }else if( last == "S"){
+            add = "ES"
+        }
+        return new_word + add;
+    }else{
+        return word
     }
-    return new_word + add;
-
 }
 
 function quoteText(sString, lWrap = true){
