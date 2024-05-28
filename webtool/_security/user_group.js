@@ -38,7 +38,10 @@ const appUG = Vue.createApp({
 
 			xxhrPost( rootURI + "/ajax_calls.php", p, (res) => {
 
+				// console.log('res', res)
 				const ret = JSON.parse(res)
+				// console.log('ret',ret)
+				
 				if ( ret.error ){
 					this.error_message( ret.error )
 				}else{

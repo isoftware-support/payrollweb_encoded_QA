@@ -43,20 +43,25 @@ function focusNext(event, e){
 
 function loginAttempt()
 {
-    
+    const user = getById("user_name").value;
+    const pass= getById("user_pass").value;
+    if ( ! user.trim().length || ! pass.trim().length ) return
+        
     let _post = [];
     _post['user-login'] = "login-user";
-    _post['user'] = getById("user_name").value;
-    _post['pass'] = getById("user_pass").value;
+    _post['user'] = user;
+    _post['pass'] = pass;
     _post['token'] = getById("reg_token").value;
-    
+
+
     let _busy = new BusyGif();
     _busy.show2();
 
     _post['browser_info'] = uriString(navigator.appVersion)
 
     xxhrPost( PAYROLLWEB_URI + "/_home/home_login.php", _post, (res)=>{
-               
+        
+        console.log( 'res',res)               
         let ret = JSON.parse(res);
         const status = ret.ret
 
@@ -75,17 +80,20 @@ function loginAttempt()
 
             if ( status == "multi_session"){
                 msg = "Multiple login is not allowed."
+
+            }else if( status == "login_fail"){
+                msg = ret.login_fail_msg
             }
 
             div.innerHTML = 
-                `<p class='ContentTextNormal bold c-red t-wrap' id='${msg_id}'> ${msg} </p>`;
+                `<p class='ContentTextNormal bold c-red t-wrap mb-5' id='${msg_id}'> ${msg} </p>`;
             
             // let msg = getById('invalid-login-message');
             $("div#"+ msg_id).fadeIn("normal");
 
             setTimeout( () => { 
                 $("p#"+ msg_id).fadeOut("normal", () => div.innerHTML = "");                                  
-            }, 8000);    
+            }, 10000);    
 
         }
         _busy.hide();

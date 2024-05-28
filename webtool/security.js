@@ -1,4 +1,32 @@
 
+
+window.onload = () => {
+
+	// #9450
+	const e = getAll("tr[name='group-entry']");
+	if ( e ){
+			
+		e.forEach( (el) => {
+			el.style.cursor = "pointer"
+
+			el.onclick = () => {
+				const id = "group-" + el.dataset.no
+				getById(id).checked = true
+			}
+
+			el.ondblclick = () => {
+				const btn = getById("edit")
+				if( btn ) btn.click()
+			}
+
+		})
+		
+	}	
+
+
+}
+
+
 function extractVals()
 {
     param = "";

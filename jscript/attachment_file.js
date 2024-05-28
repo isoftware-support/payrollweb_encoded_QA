@@ -13,9 +13,9 @@
 		    	if ( isSkipImage ) isImage = false;
 
 		    	let mb = e.files[0].size / (1024 * 1024);
-		    	if ( isImage && mb > maxFileSize ){   //greater than 2 MB
+		    	if ( isImage && mb > maxFileSize.maxSize ){   //greater than 2 MB
 
-		    		const txt = `Attachment file more than ${maxFileSize} MB is not allowed!`;
+		    		const txt = `Attachment file more than ${maxFileSize.maxSize} MB is not allowed!`;
 		    		if (typeof msgBox === "function" ){
 		    			msgBox( txt )
 		    		}else{		    		

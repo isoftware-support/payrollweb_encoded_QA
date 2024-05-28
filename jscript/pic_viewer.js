@@ -140,6 +140,7 @@ function PicViewer( params ){
 	function show(event){
 
 		if (event) event.preventDefault()
+		
 
 		const div = getById( xViewer.divId);
 		div.style.display = "block";

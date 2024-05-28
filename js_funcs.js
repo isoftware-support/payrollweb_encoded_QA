@@ -77,6 +77,17 @@
      
     }
 
+    function removeMe( id ){
+
+        const e = getById(id)
+        if ( e ){
+            e.classList.add("anim-hide-item");
+            setTimeout( function(){
+                e.parentElement.removeChild(e) 
+            }, 300);
+        }
+    }
+
     function removeChild(id){ 
         const e = getById(id);
         if ( e )
@@ -88,8 +99,15 @@
     }
 
     function removeParent(id){
+        
         const parent = getById(id).parentElement;
-        parent.parentElement.removeChild(parent);
+        console.log('parent', parent)
+        
+        parent.classList.add("anim-hide-item");
+        setTimeout( function(){
+            parent.parentElement.removeChild(parent) 
+        }, 300);
+        
     }
     function removeGrandParent(id, isObject = false){
 
@@ -1040,15 +1058,16 @@ function overrideFormEnterKey( formID, elementID, runFunc = "" )
     }
 }
 
-function resizeImageQuality(file, maxSize, callback) {
+function resizeImageQuality(file, maxSizeKB, callback) {
 
+    const maxSize = maxSizeKB / 1024;  // convert to MB, setting is in KB
 
     const isImage = file.type.indexOf('image') > -1
     const mb = file.size / (1024 * 1024) 
     if ( ! isImage || mb < maxSize) {
         callback( null )
-        console.log('isImage:', isImage, 'image mb:', mb, 
-            'max mb:', maxSize, 'nothing to resize')
+        // console.log('isImage:', isImage, 'image mb:', mb, 
+        //     'max mb:', maxSize, 'nothing to resize')
         return;
     }
 
@@ -1096,7 +1115,7 @@ function resizeImageQuality(file, maxSize, callback) {
                 const mb = blob.size / (1024 * 1024);
                 console.log( 'resize or done', 'mb:', mb, 'size:', blob.size, 'quality:', quality)
 
-                if ( mb < maxSize ){
+                if ( mb <= maxSize ){
                     console.log('call back')
                     callback(blob)
                 }else{
@@ -1293,7 +1312,7 @@ function xxhrPost(url, data=[], callBackFunc = ""){
     }
 
     if ( callBackFunc ){
-        xhr.onload = function(){
+        xhr.onload = function(){            
             if (this.status == 200) callBackFunc(this.responseText);                                         
         };
     }

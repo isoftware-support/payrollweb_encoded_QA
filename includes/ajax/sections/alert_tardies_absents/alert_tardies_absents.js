@@ -4,6 +4,30 @@
 var selected_id = -1;
 var selected_no = -1;
 
+function dismiss_member_alert(e){
+	
+	
+
+	const id = e.dataset.id
+
+	xxhrPost(PAYROLLWEB_URI + "/ajax_calls.php", {func: 'dms_mem_alrt', id: id}, (res) => {
+
+		const ret = JSON.parse(res);
+
+		// fade parent
+		e.parentElement.classList.add("anim-hide-item");
+
+		removeParent("member_alert_" + id)
+
+		// remove group if none left
+		setTimeout( () => {
+			const es = getAll("div.member_alert_entries")
+			if ( ! es.length ) removeMe("member_alerts")
+		}, 400)
+
+	})
+
+}
 
 function acknowledgeAttdWarning(e){	
 
@@ -42,7 +66,6 @@ function submitAttdWarningAcknowledgement(t){
 			if ( ! entries.length ){
 				let e = get("#alert_tardies_absents_section");
 				e.parentNode.removeChild(e);
-
 			}
 		});
 	}

@@ -19,7 +19,7 @@ Vue.createApp({
 
 	template: `
 
-	<div id='ua_box' class='modal-box bg-white p-20 w-350'  style="left:-999">
+	<div id='ua_box' class='modal-box bg-white p-20 w-350' :class="locked_user ? 'bg-silver' : ''"  style="left:-999">
 		<form @submit.prevent='save' method="post">
 
 		<fieldset class=' p-20' width='87%'>
@@ -49,7 +49,7 @@ Vue.createApp({
 			<div class="aligner">
 			<label class='fw-100 '>Password:</label>
 			<input v-model='password' type="password" ref="_password"  class="flex-1">
-			<input @click="randomPass"class='button w-50 ml-5' type="button" value='Reset' tabindex="-1">
+			<input @click="randomPass"class='button w-50 ml-5' type="button" value='Reset' tabindex="-1" ref="_btn_reset">
 			</div>
 			
 			<div class="aligner">
@@ -63,14 +63,18 @@ Vue.createApp({
 			</div>
 
 			<br>
-			<div class='aligner'>
-			<input  v-model='email_alert' id='email_alert' class='mr-5'   type="checkbox"/>
-			<label for="email_alert">Email user of changes to account information.</label>
+
+			<div 
+				v-if=" ! locked_user"
+				class='aligner'>			
+				<input  v-model='email_alert' id='email_alert' class='mr-5'   type="checkbox"/>
+				<label for="email_alert">Email user of changes to account information.</label>
 			</div>
+
 			<br>
 
 			<div class="aligner flex-justify-center">
-				<button  type='submit' class="button mr-5">Save</button>
+				<button  type='submit' class="button mr-5" >{{ submit_text() }}</button>
 				<input @click='cancel' type="button" value="Cancel" class="button" >
 			</div>
 
@@ -103,11 +107,17 @@ Vue.createApp({
 		    email_alert: false,
 		    isEdit: false,	  
 		    error_msg: "",
-		    error_class: ""		    
+		    error_class: "",   
+		    locked_user: false,
 		  }
 		},
 
 	  save(){
+
+	  	if ( this.locked_user ){
+	  		this.unlock_user()
+	  		return
+	  	}
 	  	
 	  	if ( ! this.check_fields() ) return
 
@@ -131,7 +141,7 @@ Vue.createApp({
 	  	xxhrPost( rootURI + "/ajax_calls.php", p, (res)=>{
 
 	 			const ret = JSON.parse(res) 			
-	 			console.log('ret', ret)
+	 			// console.log('ret', ret)
 	 			
 	  		if ( ret.errors ){	  	
 	  			let sec = ret.errors.length * 3;
@@ -183,14 +193,15 @@ Vue.createApp({
 	  	if ( ! radio ) return;
 
 	  	const no = radio.value
+	  	this.locked_user = radio.dataset.locked_user
 
 	  	busy.show2()
 
 	  	this.isEdit = true;
 	  	this.title = "Update User Account"
   		this.$refs._employees.innerHTML = emps_edit_list.join("");
-
-      
+	
+			if ( this.locked_user ) this.title = "Locked User Account"
 
 	    // get record
 	    const p = {func:'GetRec', t:9, xp:`id2=${no}`, sep:'||', rc:1}
@@ -210,6 +221,16 @@ Vue.createApp({
 	      this.privilege_no = ret.wugno
 	      this.email_alert = ret.alertssum ? true : false
 
+	      if ( this.locked_user ){
+	      	this.$refs._employees.disabled = true
+	      	this.$refs._email.readOnly = true	      	
+	      	this.$refs._username.readOnly = true	
+	      	this.$refs._password.readOnly = true	
+	      	this.$refs._password_confim.readOnly = true	
+	      	this.$refs._privileges.disabled = true
+	      	this.$refs._btn_reset.disabled = true	
+
+	      }
 	      this.show()
 	      busy.hide();
 
@@ -230,6 +251,22 @@ Vue.createApp({
 
 	  },
 	  
+	  unlock_user(){
+	  	
+	  	busy.show2();
+
+	  	let p = {func:'x', t:23 , d:-1, xp:`id1 = ${this.employee_no} and type=2` };
+	  	
+	  	xxhrPost( rootURI + "/ajax_calls.php", p, (res)=>{
+  		
+	  		// console.log(res)
+	 			// const ret = JSON.parse(res) 				 				 			
+		  	location.reload();
+
+	  	})
+
+	  },
+
 	  randomPass() {
 
 	  	busy.show2();
@@ -307,7 +344,12 @@ Vue.createApp({
 
 		},
 
+	  submit_text(){
+	  	return this.locked_user ? "Unlock User" : "Save"
+	  },
+
 	},
+
 
   mounted(){
 
@@ -345,7 +387,7 @@ Vue.createApp({
 				el.style.cursor = "pointer"
 
 				el.onclick = () => {
-					const id = "rdo_" + el.dataset.no
+					const id = "rdo_" + el.dataset.no					
 					getById(id).checked = true
 				}
 

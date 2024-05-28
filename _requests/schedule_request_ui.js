@@ -296,7 +296,7 @@ const reimDetail = Vue.createApp({
 			<!-- Attachment -->
 			<div v-if="submit_mode != SUBMIT_APPROVER_UPDATE"class="flex ml-5">
 				<div class="req-label ">
-					<label class="">Attachment:</label>
+					<label class="">Attachment:</label> 
 				</div>
 				<div class="req-data  ">
 
@@ -647,7 +647,9 @@ const reimDetail = Vue.createApp({
 				p.override_comment = this.approver.reason
 			}			
 
-		
+			// console.log('p', p)
+			// return
+			
 			// post to db
 			const postIt = () => xxhrPost("_requests/schedule_request_api.php", p, (res)=>{
 
@@ -660,7 +662,7 @@ const reimDetail = Vue.createApp({
 			
 				this.error_msg = ""
 				if ( ret.error ){
-					this._errorMsg( ret.error )
+					this._errorMsg( ret.error ) 
 
 				}else{
 					location.reload()
@@ -680,7 +682,7 @@ const reimDetail = Vue.createApp({
 				const att = file.files[0];
 				p.att_file = att
 
-				resizeImageQuality(att, this.vars.maxFileSize, (blob) => {
+				resizeImageQuality(att, this.vars.maxImageFileSize, (blob) => {
 
 					if (blob != null ){
 						p.att_file = new File([blob], att.name, { type: blob.type });						

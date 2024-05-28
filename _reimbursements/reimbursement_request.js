@@ -313,8 +313,7 @@ const reimDetail = Vue.createApp({
 				const att = file.files[0]
 				p.att_file = att
 
-				// console.log( 'max:', maxFileSize)
-				resizeImageQuality(att, maxFileSize, (blob) => {
+				resizeImageQuality(att, maxImageFileSize, (blob) => {
 
 					if (blob != null ){
 						p.att_file = new File([blob], att.name, { type: att.type });						

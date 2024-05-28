@@ -172,7 +172,6 @@
 				console.log( p)
 
 				xxhrPost( payrollwebURI + "/ajax_calls.php", p, (res) => {					
-					console.log('res', res)
 					removeParent( item.id);
 					busy.hide();
 				})				
@@ -294,11 +293,14 @@ function request_group_status_event( is_init_event = true){
 
 		if ( is_init_event ){
 			chk.onchange = () => {
-			
+				
+				let bln = chk.checked
+				if ( chk.dataset.on_uncheck ) bln = ! bln
+
 				const group = chk.dataset.group
 				const divs = getAll(`div[group='${group}']`)
 				divs.forEach( (div) =>{
-					disableChildren( div, chk.checked )
+					disableChildren( div, bln )
 				})				
 			}
 		} else {
