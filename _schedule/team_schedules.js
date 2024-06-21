@@ -2,6 +2,10 @@
 
 const busy = new BusyGif();
 
+const batch_run = []
+let batch_run_count = 0
+
+
 // load current week on 1st load only
 loadTeamSchedule();
 
@@ -200,37 +204,82 @@ function clearSelected(){
     if ( isEmpty(selected.yr1) && isEmpty( selected.yr2) )
       return msgBox("Nothing to clear.");
 
-    const p = {
-      y1: selected.yr1,
-      y2: selected.yr2,
-      y1_data: selected.yr1_data.join(","),      
-      y2_data: selected.yr2_data.join(","),
-    }
-
-    qs = urlParams( p);
-
-    // console.log( 'p: ', p, 'qs: ', qs)    
-
-    const func = () => {
-
-      busy.show2();
+    const db_push = (p, callback = "") => {
+      
+      const qs = urlParams( p);      
 
       xxhrGet( `_schedule/team_schedules_ajax.php?fn=clr&${qs}`, 
-      ( data )=> {  
+      ( res )=> {  
         
-        // console.log( data);
+        const ret = JSON.parse( res );
 
-        const ret = JSON.parse( data );
-        // console.log(ret);
+        batch_run.push(true);
 
         if ( ret.result == 'Error'){
           busy.hide();
           msgBox('An error occurred.\r\n\r\n' + ret.msg);
           return;
-        }
-        loadTeamSchedule();
+        }  
         
-      });
+        console.log('batch', batch_run.length, batch_run_count )
+        if ( batch_run.length == batch_run_count ) loadTeamSchedule();
+
+      });      
+
+    }
+
+    const func = () => {
+
+      busy.show2();
+
+      let cnt = 0
+      let data = []
+      batch = 0     
+
+      // year 2
+      for( key in selected.yr2_data ){
+
+        cnt ++
+        data.push( selected.yr2_data[key] )
+
+        if ( cnt > 40){
+          
+          batch_run_count ++;          
+          db_push( { y2: selected.yr2, y2_data: data.join(",") } )
+
+          cnt = 0
+          data = []
+        }
+      }
+      if ( cnt ){
+
+        batch_run_count ++;          
+        db_push( { y2: selected.yr2, y2_data: data.join(",") })        
+      }
+
+      // year 1
+      cnt = 0
+      data = []
+      for( key in selected.yr1_data ){
+
+        cnt ++
+        data.push( selected.yr1_data[key] )
+
+        if ( cnt > 40){
+          
+          batch_run_count ++;          
+          db_push( { y1: selected.yr1, y1_data: data.join(",") } )
+
+          cnt = 0
+          data = []
+        }
+      }
+      if ( cnt ){        
+        batch_run_count ++;          
+        db_push( { y1: selected.yr1, y1_data: data.join(",") } )        
+      }
+
+
     }
     msgBox( "Clear schedules for selected items?", {okCallBack: func, cancelbutton: true})    
 }    

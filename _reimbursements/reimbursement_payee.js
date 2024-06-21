@@ -158,9 +158,11 @@ Vue.createApp({
 
 			xxhrPost(rootURI + "/ajax_calls.php", p, (res) =>{				
 				// console.log( 'res', res)	
+				const ret = JSON.parse(res)
+
 				if ( typeof reimDetail == "object" ){
 
-					let id = res
+					let id = ret.data
 					if ( this.mode == this.EDIT) id = this.payee_no
 							
 					// select new payee				

@@ -143,12 +143,8 @@ function btn_approve(){ // APPROVE
         
 }
    
-function btn_disapprove(){ // DISAPPROVE
+function btn_disapprove( reason ){ // DISAPPROVE
    
-
-    // var userno = <?php echo json_encode($tl_approver); ?>;
-    // var teamnox =<?php echo json_encode($gt_team_nox); ?>; 
-    
     var approves = document.team_rqst.arno_collect.value;	
     var replace_apr = Array("apr1_","apr2_","apr4_");
     var regexp = new RegExp(replace_apr.join('|'),'g');  
@@ -171,7 +167,8 @@ function btn_disapprove(){ // DISAPPROVE
     document.getElementById('web_id').value = final_aprv_btn;
     document.getElementById('aprv_id').value = userno;
 
-    ajaxCall(approves, aprv_btn_count, final_aprv_btn, final_aprv_lvl, userno, teamnox, -1);	
+    ajaxCall(approves, aprv_btn_count, final_aprv_btn, final_aprv_lvl, 
+        userno, teamnox, -1, reason);	
        	
 }
 
@@ -291,18 +288,21 @@ function findCheckBox() {
 
 
 function ajaxCall(approves, array_countx, approve_rqno, approve_lvlno,
-    userno, teamnos, stats){
+    userno, teamnos, stats, disapproval_reason = ""){
 	
     // if disapproval - get remarks text
-    let _remarks = ""
-    if ( stats == -1) _remarks = uriString( getById('dis_remark').value);  
+    // let _remarks = ""
+    // if ( stats == -1) _remarks = uriString( getById('dis_remark').value);  
     
-
     const _url = '_approvals/request_approval.php?tdcontent='+ approves +'&userno='+userno+'&tn='+teamnos+'&stats='+stats+'&tbl=WA'+
-            '&rem='+ _remarks;
+            '&rem='+ uriString( disapproval_reason );
     
+    busy.show2()
+
     xxhrGet(_url, (res) => {
 
+        busy.hide()
+        
         console.log('res',res)
         const ret = JSON.parse(res);
         console.log('ret', ret)
@@ -332,83 +332,7 @@ function ajaxCall(approves, array_countx, approve_rqno, approve_lvlno,
 
     getById('clear_x').disabled = true;
     getById('approve_x').disabled = true;
-    getById('disapprove_x').disabled = true;
-
-    return
-
-    /*
-    // called from Scheduled request
-
-    var xmlhttpxxx;
-
-    if(window.XMLHttpRequest){
-        xmlhttpxxx=new XMLHttpRequest();
-    }else{
-        xmlhttpxxx=new ActiveXObject('Microsoft.XMLHTTP');
-    }
-
-    xmlhttpxxx.onreadystatechange=function(){
-        if (xmlhttpxxx.readyState==4 && xmlhttpxxx.status==200){
-                            
-            const result = xmlhttpxxx.responseText;                
-            // console.log(result)
-
-            const ret = JSON.parse(result);
-            console.log('ret', ret)
-            
-            if ( ret.is_refresh_browser ){
-                location.reload();
-                return;
-            }
-
-            var ajaxDisplay = ret.result;
-
-       	
-        	// SEPARATE FINAL STATUS to Approver Info Display Starts
-            var replace_st = Array("<br>_0_","<br>_1_","<br>_-1_");
-            var regexp_st = new RegExp(replace_st.join('|'),'g');  
-            var sep_st = ajaxDisplay.replace(regexp_st,''); 
-              
-             
-            var flag_x = ajaxDisplay.match(/<br>_([^_]*)/gi);
-            var flag_st_x = flag_x.join(",").replace(/<br>_/gi,""); 
-
-        	var res = sep_st.split(','); // Supervisor Approvers
-        	var flag_res = flag_st_x.split(","); // Final Status Display
-        	
-            for(i=0; i<array_countx; i++){
-        	   var element_name = "apr" + approve_lvlno[i] + "_" + approve_rqno[i] + " ";
-    	       var flagx_name = "flagx_" + approve_rqno[i];
-        	
-               document.getElementById(element_name).innerHTML = res[i] ; // approve
-        	   document.getElementById(flagx_name).innerHTML =   getFlagImage(flag_res[i],approve_rqno);    	
-            }                                                
-
-            uncheck();
-            document.team_rqst.arno_collect.value = "";
-
-            //hide busy gif
-            $("div#busygif").remove();
-            $('img#floating_busygif').css('display','none');
-
-        }            
-    }
-
-    // if disapproval - get remarks text
-    let remarks = ""
-    if ( stats == -1){
-        remarks = uriString( getById('dis_remark').value);  
-    } 
-
-    let url = '_approvals/request_approval.php?tdcontent='+ approves +'&userno='+userno+'&tn='+teamnos+'&stats='+stats+'&tbl=WA'+
-                '&rem='+ remarks;
-    xmlhttpxxx.open('GET', url,true);
-    xmlhttpxxx.send();
-
-    document.getElementById('clear_x').disabled=true;
-    document.getElementById('approve_x').disabled=true;
-    document.getElementById('disapprove_x').disabled=true;
-    */
+    getById('disapprove_x').disabled = true;  
 
 }
 

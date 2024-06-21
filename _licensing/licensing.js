@@ -1,6 +1,7 @@
 
 // disable login if registration is required
 
+
 	if ( registration_required ){
 
 		const div = getById("login_user");
@@ -25,7 +26,7 @@
 
 
 
-function registerOnline(e){
+function registerOnline(e, callback = ""){
 
 	const busy = new BusyGif();
 
@@ -53,8 +54,6 @@ function registerOnline(e){
    		ret = {'error': "Unable to connect to licensing service."}
    	}
 		
-   	// console.log( 'register', ret);
-
 		const e = getById("license_status");
 		if ( ret.error ){
 			
@@ -72,7 +71,16 @@ function registerOnline(e){
 			xxhrPost( url, ret, (res)=>{
 
 				const reg = JSON.parse(res);
-				console.log( reg)
+
+				// #8802 - update licene via webtool
+				if ( callback ){
+
+					busy.hide();
+					reg.data = ret
+					callback( reg )
+					return
+				}
+				// console.log( reg)
 
 				if ( reg.status == "success" ){
 
@@ -105,6 +113,8 @@ function registerOnline(e){
 				e.innerHTML = txt;
 
 				busy.hide();
+
+
 			});
 		}
 		

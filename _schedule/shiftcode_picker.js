@@ -41,6 +41,10 @@ const shiftcode_picker = Vue.createApp({
 			shifts: [],
 			selected_shiftcode: "",
 			edit: {},
+      edit_box_element: null,
+      batch_count: 0,
+      batch: [],
+      items: {},
 		}
 	},
 
@@ -71,7 +75,7 @@ const shiftcode_picker = Vue.createApp({
 
   methods:{
 
-  	setPerDate( edit ){
+  	setPerDate( edit ){      
 
   		const div = edit.parentElement;
   		const sc = div.dataset.sc;
@@ -80,6 +84,8 @@ const shiftcode_picker = Vue.createApp({
 
   		this.shifts = sc.split(",");
   		this.edit = { eno: div.dataset.eno, sc: sc, dt: div.dataset.dt };
+      
+      this.edit_box_element = edit
 
   		// single edit
   		if ( ! isMultiShift)
@@ -98,10 +104,30 @@ const shiftcode_picker = Vue.createApp({
   		let shifts = this.shifts;
   		if ( shifts.length ){
 
-  			busy.show2();
+        const db_push = (p, callback = "" ) => {
+          xxhrPost(`${rootURI}/_schedule/team_schedules_ajax.php`, p, (res)=>{
+
+            const ret = JSON.parse(res)
+
+            const items = this.items[ ret.batch ];
+            for(const key in items){
+              
+              const item = items[key]
+              const div = get(`div[data-eno='${item.no}'][data-dt='${item.date}'`)
+              if ( div ){                
+                div.children[1].value = p.shifts; // edit component
+              }
+            }
+
+            this.batch.push('done');
+            if ( this.batch.length == this.batch_count ) busy.hide()
+            
+          });
+        }            
+       
+        busy.show2();
 
   			let p = {fn : 'sa'};
-  			let items = [];
 
         // remove empty in array
         if ( Array.isArray(shifts) ){
@@ -109,8 +135,10 @@ const shiftcode_picker = Vue.createApp({
         }
 
         p.shifts = Array(shifts).join(",");
-        // console.log( 'shift', shifts, '2', p.shifts);
-        // return;
+        
+        this.items = []
+        this.batch = []
+        this.batch_count = 0
 
   			if ( Object.keys(this.edit).length ){   // set 1
 
@@ -118,6 +146,12 @@ const shiftcode_picker = Vue.createApp({
   				p.sc = p.shifts;
   				p.eno = this.edit.eno;
   				p.dt = this.edit.dt;
+          p.b = 1
+
+          this.batch_count = 1
+          this.items[1] = [{no: p.eno, date: p.dt, sc: p.sc}]
+          
+          db_push(p)
 
   			}else{																	// set as many
 
@@ -125,14 +159,20 @@ const shiftcode_picker = Vue.createApp({
 	  			const chks = getAll("input[name='sched_date']:checked");
           
           let year1 = "", year2 = "", year = "";
-          const yr1_data = [], yr2_data = [];
+          let yr1_data = [], yr2_data = [];
+
+          let cnt = 0
+          let items = []
 
 	  			chks.forEach((chk) =>{
 	  				
-	  				const div = chk.parentElement;
+            cnt++;
 
+	  				const div = chk.parentElement;
             const dt = div.dataset.dt,
               no = div.dataset.eno;
+
+            items.push( {no: no, date: dt, sc: p.shifts} )
 
             year = DateFormat(dt, "Y");
             if ( year1 == "") year1 = year        
@@ -145,25 +185,46 @@ const shiftcode_picker = Vue.createApp({
               year2 = year
               yr2_data.push( no + "|" + dt);
             }
+
+            if ( cnt > 40 ){
+
+              this.batch_count ++
+
+              p.y1 = year1
+              p.y2 = year2
+              p.y1_data = yr1_data
+              p.y2_data = yr2_data
+              p.b = this.batch_count;
+
+              this.items[ p.b ] = items
+              db_push(p)
+
+              cnt = 0
+              year1 = ""
+              year2 = ""              
+              yr1_data = []
+              yr2_data = [];
+              items = []
+            }
+
 	  			})
 
-	  			p.y1 = year1
-          p.y2 = year2
+          if ( cnt ){
 
-          p.y1_data = yr1_data
-          p.y2_data = yr2_data
+            this.batch_count ++
+
+            p.y1 = year1
+            p.y2 = year2
+            p.y1_data = yr1_data
+            p.y2_data = yr2_data
+            p.b = this.batch_count
+            
+            this.items[ p.b ] = items
+            db_push(p)          
+
+          }
+
 	  		}
-
-        // return console.log( p);
-
-  			xxhrPost(`${rootURI}/_schedule/team_schedules_ajax.php`, p, (res)=>{
-          
-          // const ret = JSON.parse(res);
-  				// console.log(ret);
-
-  				loadTeamSchedule();
-  				// busy.hide();
-  			});
 
   		}
   		this._hide();

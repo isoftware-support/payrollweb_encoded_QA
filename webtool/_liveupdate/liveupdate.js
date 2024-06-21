@@ -24,8 +24,8 @@
 	  	console.log( 'Check version', ret);
 
 	  	// hide check update
-	  	if ( ret.status == "old" || ret.status == "updated")
-	  		hideItem(e.target.id, false)
+	  	// if ( ret.status == "old" || ret.status == "updated")
+	  	// 	hideItem(e.target.id, false)
 
 	  	let msg = "Current Phoenix PayrollWEB version is up to date."; 	
 	  	if ( ret.status == "old"){
@@ -47,7 +47,7 @@
 	  		classReplace('#update-msg', 'c-red', 'c-blue');	  		
 	  		e_msg.innerHTML = msg;
 
-	  		hideItem( e.target.id, false);
+	  		// hideItem( e.target.id, false);
 
 		  	// next action
 		  	getById('do-next').onclick = () => applyUpdate(ret.version);

@@ -345,6 +345,8 @@ const reimDetail = Vue.createApp({
 			title: "Create Schedule Request",
 			submit_text: "Submit Request",
 
+			is_saving: false,
+
 			type: 0,		
 			type_name: '',
 			submit_mode: 1,
@@ -353,7 +355,7 @@ const reimDetail = Vue.createApp({
 			error_msg: '',
 			filename: '',
 			shift_code: '',
-			time_value : {value: 0, unit: "hour"},
+			time_value : {value: 0, unit: "hour"},			
 
 			dttm_from: '', dttm_to: '',
 			duration_text: 'Actual Total Hours: 0',
@@ -575,9 +577,12 @@ const reimDetail = Vue.createApp({
 		},
 
 		save(){
-			
+
+			if ( this.is_saving ) return
+				
 			if ( ! this._checkentry() ) return
 
+			this.is_saving = true
 			busy.show2();
 
 			const type = parseInt(this.type)

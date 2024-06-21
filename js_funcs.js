@@ -240,9 +240,11 @@
             class: 'w-300', 
             msgbg: 'bg-white'
             okCallBack: '', 
+            okCaption: 'Ok',
             cancelButton: false,
             cancellCallBack:'',
-            persistent: false
+            persistent: false,
+
          }
         */
 
@@ -252,6 +254,7 @@
         if ( keys.indexOf('msgbg') == -1)           options.msgbg = "bg-white"
         if ( keys.indexOf('title') == -1)           options.title = ""
         if ( keys.indexOf('persistent') == -1)      options.persistent = false
+        if ( keys.indexOf('okCaption') == -1)       options.okCaption = "Ok"
 
         // if ( keys.indexOf('cancelButton') == -1)    options.cancelButton = false
         //if ( keys.indexOf('cancelCallBack') == -1)  options.cancelCallBack = ''
@@ -329,7 +332,7 @@
 
         e = document.createElement('div')
         e.id = "msg-box-buttons"
-        e.innerHTML = `<center><button id='msg-box-button-ok' type='button' >Ok</button>${cancel}<center>`
+        e.innerHTML = `<center><button id='msg-box-button-ok' type='button' >${options.okCaption}</button>${cancel}<center>`
         e.classList.add('py-8','bg-lightgrey-3')
         div_main.appendChild(e)
 
@@ -1312,8 +1315,9 @@ function xxhrPost(url, data=[], callBackFunc = ""){
     }
 
     if ( callBackFunc ){
-        xhr.onload = function(){            
-            if (this.status == 200) callBackFunc(this.responseText);                                         
+        xhr.onload = function(){        
+            let ret = this.responseText
+            if (this.status == 200) callBackFunc(ret);                                                     
         };
     }
 }

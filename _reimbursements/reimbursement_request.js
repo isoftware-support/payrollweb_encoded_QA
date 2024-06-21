@@ -220,7 +220,8 @@ const reimDetail = Vue.createApp({
 			local_att_file: '',
 			mode: 0,
 			exit_caption: 'Cancel',
-			status_text: '',			
+			status_text: '',		
+			is_saving: false,	
 			
 			verify: { 
 					isVerifyMode: false,    // team approver view
@@ -262,9 +263,13 @@ const reimDetail = Vue.createApp({
 
 		save(){
 
+			if ( this.is_saving ) return
+
 			// re select payee
 			this._setPayee();			
 			if ( ! this._checkEntry() ) return;
+
+			this.is_saving = true
 
 			busy.show2();
 
