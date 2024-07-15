@@ -524,10 +524,11 @@ label, .CheckBoxLabel, .label, .label-i {
 .flex-column{ flex-direction: column; }
 .flex-justify-center{ justify-content: center; }
 .flex-justify-left{ justify-content: flex-start; }
-.flex-space-between{ justify-content: space-between; }
+.flex-space-between{ justify-content: space-between !important; }
 .flex-space-around{ justify-content: space-around; }
 .flex-align-right{ justify-content: flex-end !important; }
 .flex-align-center{ align-items: flex-center; }
+
 
 
 .flex-wrap { flex-wrap: wrap }
