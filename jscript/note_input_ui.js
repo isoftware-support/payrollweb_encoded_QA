@@ -181,7 +181,7 @@ Vue.createApp({
 					this.cancel()
 				})	  		
 
-	  	}else if(this.owher == "DISAPPROVAL"){										
+	  	}else if(this.owner == "DISAPPROVAL"){										
 
 				btn_disapprove(this.reason);			
 				this.cancel()
@@ -273,7 +273,7 @@ Vue.createApp({
 					const ret = JSON.parse(res)
 					console.log('ret', ret)
 
-					if ( ret.data ){
+					if ( ret.status == "success" ){
 
 						const {data} = ret
 

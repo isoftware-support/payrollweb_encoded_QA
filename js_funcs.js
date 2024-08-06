@@ -244,6 +244,7 @@
             cancelButton: false,
             cancellCallBack:'',
             persistent: false,
+            buttons_bg: 'bg-lightgrey-3',
 
          }
         */
@@ -255,6 +256,7 @@
         if ( keys.indexOf('title') == -1)           options.title = ""
         if ( keys.indexOf('persistent') == -1)      options.persistent = false
         if ( keys.indexOf('okCaption') == -1)       options.okCaption = "Ok"
+        if ( keys.indexOf('buttons_bg') == -1)      options.buttons_bg = 'bg-lightgrey-3'
 
         // if ( keys.indexOf('cancelButton') == -1)    options.cancelButton = false
         //if ( keys.indexOf('cancelCallBack') == -1)  options.cancelCallBack = ''
@@ -333,7 +335,7 @@
         e = document.createElement('div')
         e.id = "msg-box-buttons"
         e.innerHTML = `<center><button id='msg-box-button-ok' type='button' >${options.okCaption}</button>${cancel}<center>`
-        e.classList.add('py-8','bg-lightgrey-3')
+        e.classList.add('py-8', options.buttons_bg)
         div_main.appendChild(e)
 
         // button event
@@ -431,7 +433,9 @@
 
         this.show2 = function(topAdj = 0, msg = ""){
 
-            getById('busy-msg').innerHTML = msg;
+            const el = getById('busy-msg')
+            if (el) el.innerHTML = msg;
+            
             CenterDiv('div#busygif', topAdj );
         	$("div#busygif").show();               
         }
@@ -1077,7 +1081,7 @@ function resizeImageQuality(file, maxSizeKB, callback) {
     // add canvas for redrawing in html body
     let canvasId = 'resizeCanvas'
     const body = getById("wrapper");            
-    console.log('body', body)
+    // console.log('body', body)
     if (body){
 
         // sched request                
@@ -1119,7 +1123,7 @@ function resizeImageQuality(file, maxSizeKB, callback) {
                 console.log( 'resize or done', 'mb:', mb, 'size:', blob.size, 'quality:', quality)
 
                 if ( mb <= maxSize ){
-                    console.log('call back')
+                    // console.log('call back')
                     callback(blob)
                 }else{
                     quality -= 0.05

@@ -187,7 +187,8 @@ function openDisPopup(){
 }
 
 function btn_clear(){ // CLEAR
-   	
+    
+
     // var userno = <?php echo json_encode($tl_approver); ?>;
     // var teamnox =<?php echo json_encode($gt_team_nox); ?>; 
     var approves = document.team_rqst.arno_collect.value;	
@@ -209,6 +210,7 @@ function btn_clear(){ // CLEAR
     // GET THE SIZE OF THE ARRAY
 
     var aprv_btn_count =  final_aprv_btn.length;
+
 
     ajaxCall(approves,aprv_btn_count,final_aprv_btn,final_aprv_lvl,userno,teamnox,0);
 	
@@ -290,13 +292,14 @@ function findCheckBox() {
 function ajaxCall(approves, array_countx, approve_rqno, approve_lvlno,
     userno, teamnos, stats, disapproval_reason = ""){
 	
+
     // if disapproval - get remarks text
     // let _remarks = ""
     // if ( stats == -1) _remarks = uriString( getById('dis_remark').value);  
     
     const _url = '_approvals/request_approval.php?tdcontent='+ approves +'&userno='+userno+'&tn='+teamnos+'&stats='+stats+'&tbl=WA'+
-            '&rem='+ uriString( disapproval_reason );
-    
+            '&rem='+ uriString( disapproval_reason );    
+
     busy.show2()
 
     xxhrGet(_url, (res) => {
@@ -305,7 +308,7 @@ function ajaxCall(approves, array_countx, approve_rqno, approve_lvlno,
         
         console.log('res',res)
         const ret = JSON.parse(res);
-        console.log('ret', ret)
+        console.log('ret requests', ret)
                
         if ( ret.is_refresh_browser ){
             location.reload();
