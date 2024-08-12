@@ -10,17 +10,33 @@ let batch_run_count = 0
 loadTeamSchedule();
 
 function loadTeamSchedule( cbf = undefined ){
-    
+
     const week =  getById('weeks').value;
     const teamNo = getById('dd_teamname').value;        
     const year = getById("week_year").value;
     
     busy.show2() ;
-   
-    xxhrGet( "_schedule/team_schedules_ajax.php?q="+teamNo+"&e="+aprNo+"&m=-1&w="+week+"&y="+year, 
-    (res)=> {        
 
-        getById("weekly_sched_tab").innerHTML= res;
+    let index = 0;
+    let batch_names = [];
+    let session_html = "";
+
+    const get_session_html = () => {
+
+      if ( index < batch_names.length ){
+
+        const s_name = batch_names[ index ]        
+        xxhrPost("_schedule/team_schedules_ajax.php", {fn: 'shtml', sn: s_name }, (html) => {
+          
+          index ++
+          session_html += html
+          get_session_html();
+
+        })
+
+      }else{
+
+        getById("weekly_sched_tab").innerHTML = session_html;
 
         // check valid start date
         const e = getById("valid-start-date");
@@ -69,6 +85,19 @@ function loadTeamSchedule( cbf = undefined ){
         proxy_shiftcode_picker._schedDatesClick();
 
         busy.hide();
+
+      }
+      
+    }
+    
+    const p = `q=${teamNo}&e=${aprNo}&m=-1&w=${week}&y=${year}`    
+    xxhrGet( "_schedule/team_schedules_ajax.php?" + p, (res)=> {        
+
+      const ret = JSON.parse(res)
+
+      batch_names = ret.batch_names
+      get_session_html();
+
     });   
 
 }
@@ -156,7 +185,7 @@ function uploadTeamSchedules(){
     } 
 
     msgBox('Uploaded schedules template file will overwrite the currently selected team members schedules.<br><br>Continue?' ,
-      {okCallBack: funcOk, cancelbutton: true, cancelCallBack: funcCancel} ) 
+      {okCallBack: funcOk, cancelButton: true, cancelCallBack: funcCancel} ) 
     
 }
 
@@ -201,17 +230,20 @@ function clearSelected(){
 
     const selected = collectSelected( "Please select date schedules to clear." );
 
-    if ( isEmpty(selected.yr1) && isEmpty( selected.yr2) )
+    console.log( 'selected', selected)    
+
+    if ( ! selected.sc_count )
       return msgBox("Nothing to clear.");
 
     const db_push = (p, callback = "") => {
       
       const qs = urlParams( p);      
 
-      xxhrGet( `_schedule/team_schedules_ajax.php?fn=clr&${qs}`, 
-      ( res )=> {  
-        
+      xxhrGet( `_schedule/team_schedules_ajax.php?fn=clr&${qs}`, ( res )=> {  
+          
         const ret = JSON.parse( res );
+
+        console.log( ret )
 
         batch_run.push(true);
 
@@ -225,7 +257,6 @@ function clearSelected(){
         if ( batch_run.length == batch_run_count ) loadTeamSchedule();
 
       });      
-
     }
 
     const func = () => {
@@ -278,10 +309,9 @@ function clearSelected(){
         batch_run_count ++;          
         db_push( { y1: selected.yr1, y1_data: data.join(",") } )        
       }
-
-
     }
-    msgBox( "Clear schedules for selected items?", {okCallBack: func, cancelbutton: true})    
+    msgBox( "Clear schedules for selected items?", {
+      okCallBack: func, cancelButton: true})    
 }    
 
 function UsePreviousSched(){
@@ -315,8 +345,7 @@ function UsePreviousSched(){
   }
 
   msgBox('Values from Previous week Schedules will overwrite current selection.\r\nAre you sure?',
-    {okCallBack: func, cancelbutton: true})
-
+    {okCallBack: func, cancelButton: true})
 
 }
 
@@ -361,17 +390,18 @@ function collectSelected( errorMsg ){
       no_dt_sc.push( no + "_" + dt + "_" + sc.replace(",","@") );
       sc_count += 1;
 
-      year = DateFormat(dt, "Y");
-      if ( year1 == "") year1 = year        
+    }
 
-      // year 1
-      if ( year1 == year){
-        yr1_data.push( no + "|" + dt);
+    year = DateFormat(dt, "Y");
+    if ( year1 == "") year1 = year        
 
-      }else{ // year 2      
-        year2 = year
-        yr2_data.push( no + "|" + dt);
-      }
+    // year 1
+    if ( year1 == year){
+      yr1_data.push( no + "|" + dt);
+
+    }else{ // year 2      
+      year2 = year
+      yr2_data.push( no + "|" + dt);
     }
 
     ids.push( e.id);

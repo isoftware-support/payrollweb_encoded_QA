@@ -60,12 +60,13 @@ const shiftcode_picker = Vue.createApp({
         
         Object.values(ret).forEach( (item, i) => {
 
-					const start = TimeFormat( item.timeStart);
-					const end = TimeFormat( item.timeEnd);
-        	this.shift_codes.push( 
-        		{shiftcode: item.shiftCode, title: `${item.shiftCode} ( ${start} - ${end} )`, 
-        		id:'shift_'+ i } );
-
+          if ( 'shiftCode' in item ){
+  					const start = TimeFormat( item.timeStart);
+  					const end = TimeFormat( item.timeEnd);
+          	this.shift_codes.push( 
+          		{shiftcode: item.shiftCode, title: `${item.shiftCode} ( ${start} - ${end} )`, 
+          		id:'shift_'+ i } );
+          }
         });
     })
 
@@ -104,17 +105,20 @@ const shiftcode_picker = Vue.createApp({
   		let shifts = this.shifts;
   		if ( shifts.length ){
 
+
         const db_push = (p, callback = "" ) => {
-          xxhrPost(`${rootURI}/_schedule/team_schedules_ajax.php`, p, (res)=>{
+          xxhrPost('_schedule/team_schedules_ajax.php', p, (res)=>{
 
             const ret = JSON.parse(res)
 
             const items = this.items[ ret.batch ];
+            console.log( 'items',items)
             for(const key in items){
               
               const item = items[key]
               const div = get(`div[data-eno='${item.no}'][data-dt='${item.date}'`)
               if ( div ){                
+                div.dataset.sc = p.shifts
                 div.children[1].value = p.shifts; // edit component
               }
             }

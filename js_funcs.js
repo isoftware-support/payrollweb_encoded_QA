@@ -242,7 +242,7 @@
             okCallBack: '', 
             okCaption: 'Ok',
             cancelButton: false,
-            cancellCallBack:'',
+            cancelCallBack:'',
             persistent: false,
             buttons_bg: 'bg-lightgrey-3',
 
@@ -1321,7 +1321,16 @@ function xxhrPost(url, data=[], callBackFunc = ""){
     if ( callBackFunc ){
         xhr.onload = function(){        
             let ret = this.responseText
-            if (this.status == 200) callBackFunc(ret);                                                     
+            if (this.status == 200){
+
+                if ( 'json' in data){
+                    if ( data.json == 1){
+                        ret = JSON.parse(ret)                        
+                    }
+                }                
+                callBackFunc(ret);                                                     
+
+            }
         };
     }
 }

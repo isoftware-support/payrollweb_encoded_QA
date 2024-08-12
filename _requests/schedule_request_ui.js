@@ -489,9 +489,8 @@ const reimDetail = Vue.createApp({
 			busy.show2()
 			xxhrPost('_requests/schedule_request_api.php', p, (res) =>{		
 
-				// console.log(res)	
 				const ret = JSON.parse(res)
-				console.log(ret);				
+				// console.log(ret);				
 
 				const type = ret.type
 				
@@ -657,18 +656,17 @@ const reimDetail = Vue.createApp({
 			
 			// post to db
 			const postIt = () => xxhrPost("_requests/schedule_request_api.php", p, (res)=>{
-
-				// console.log('res', res)
-				
+			
 				const ret = JSON.parse(res)
-				console.log('ret', ret );
+				// console.log('ret', ret );
 				
 				busy.hide()
 			
 				this.error_msg = ""
 				if ( ret.error ){
 					this._errorMsg( ret.error ) 
-
+					this.is_saving = false
+					
 				}else{
 					location.reload()
 				}
