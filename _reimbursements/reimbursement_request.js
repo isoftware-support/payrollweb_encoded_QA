@@ -498,11 +498,11 @@ const reimDetail = Vue.createApp({
 			url = url + (`&vcd=${this.verify.verifierCode}`)
 
 			xxhrGet( url, (res)=>{
-				
-				// console.log( 'res', res)
+								
 				const ret = JSON.parse(res);
 				const detail = ret.res;
-				// console.log('detail', detail)
+				
+				// console.log('detail', ret, url)
 
 				this.payee = detail.payee_name
 				this.payee_no = detail.payee_no
@@ -529,7 +529,7 @@ const reimDetail = Vue.createApp({
 
 					// pic viewer
 					const src = rootURI + `/reimbursephoto.php?h=1&rd=${encoded_detail_no}&rn=${encoded_reim_no}`;				
-					console.log( 'src', src)
+
 					const params = { prefix: 'view-img', rootFolder: rootURI, src: src, outsideButtons: true};
 					const view_att_file = new PicViewer( params );			
 					view_att_file.showOnClickOf( 'att_file_link')

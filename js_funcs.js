@@ -40,6 +40,18 @@
 
     }
 
+    function replaceParent( childId, parentId) {
+
+      const child = getById(childId);
+
+      const newParent = getById(parentId);      
+      newParent.appendChild(child);
+
+      // Replace the old parent with the new parent in the DOM
+      const oldParent = childElement.parentNode;
+      oldParent.parentNode.replaceChild(newParent, oldParent);
+    }
+
     function getChildren(element, children = []) {
           
       // Iterate over the children of the current element
@@ -1067,14 +1079,88 @@ function overrideFormEnterKey( formID, elementID, runFunc = "" )
 
 function resizeImageQuality(file, maxSizeKB, callback) {
 
-    const maxSize = maxSizeKB / 1024;  // convert to MB, setting is in KB
+    const isImage = file.type.indexOf('image') > -1
+    const kb = file.size / 1024 
+    if ( ! isImage || kb < maxSizeKB ) {
+        callback( null )
+        return;
+    }
+
+    // add canvas for redrawing in html body
+    let canvasId = 'resizeCanvas'
+    const body = getById("wrapper");            
+    if (body){
+
+        let e = getById(canvasId);
+        if ( ! e ){
+
+            let canvas = document.createElement('canvas');
+            canvas.id = canvasId;   
+            // canvas.style.display = "none";
+            body.appendChild(canvas);
+            console.log( 'canvas created')
+        }
+    }
+
+    const reader = new FileReader();
+    reader.onload = (event) => {
+    
+        const img = new Image();
+        img.onload = () => {
+
+            const canvas = document.getElementById( canvasId);
+            const ctx = canvas.getContext('2d');
+
+            // Calculate the new dimensions
+            const width = img.width;
+            const height = img.height;
+            let resize_percent = .95;
+
+            // Set the canvas dimensions and draw the image
+            const resizeIt = () => {
+
+                const w = width * resize_percent
+                const h = height * resize_percent
+
+                canvas.width = w
+                canvas.height = h
+                ctx.drawImage(img, 0, 0, w, h)
+
+                // Convert the canvas to a Blob and pass it to the callback
+                canvas.toBlob( (blob) => {
+
+                    const kb = blob.size / 1024;
+                    console.log( 'resized ', ' kb:', kb, ' max:', maxSizeKB , 'resize percent:', resize_percent * 100, "%")
+
+                    if ( kb <= maxSizeKB || resize_percent <= 0 ){
+                        callback(blob, resize_percent )
+                    }else{
+                        resize_percent -= 0.05
+                        resize_percent = Math.floor(resize_percent * 100) / 100
+                        resizeIt();
+                    }
+
+                }, file.type );
+            }
+
+            resizeIt()
+        }
+
+        img.src = event.target.result
+    }
+
+    reader.readAsDataURL(file);
+}
+
+/*
+function resizeImageQuality(file, maxSizeKB, callback) {
+
+    // const maxSize = maxSizeKB / 1024;  // convert to MB, setting is in KB
 
     const isImage = file.type.indexOf('image') > -1
-    const mb = file.size / (1024 * 1024) 
-    if ( ! isImage || mb < maxSize) {
+    const kb = file.size / 1024 
+    if ( ! isImage || kb < maxSizeKB ) {
         callback( null )
-        // console.log('isImage:', isImage, 'image mb:', mb, 
-        //     'max mb:', maxSize, 'nothing to resize')
         return;
     }
 
@@ -1089,7 +1175,7 @@ function resizeImageQuality(file, maxSizeKB, callback) {
         if ( ! e ){
             let canvas = document.createElement('canvas');
             canvas.id = canvasId;   
-            canvas.style.display = "none";
+            // canvas.style.display = "none";
             body.appendChild(canvas);
             console.log( 'canvas created')
         }
@@ -1106,7 +1192,6 @@ function resizeImageQuality(file, maxSizeKB, callback) {
             var height = image.height;
 
             var canvas = document.getElementById( canvasId );
-            // console.log( canvas);
             var context = canvas.getContext('2d');
 
             canvas.width = width;
@@ -1119,19 +1204,19 @@ function resizeImageQuality(file, maxSizeKB, callback) {
 
             const repeatOrDone = (blob) => {
 
-                const mb = blob.size / (1024 * 1024);
-                console.log( 'resize or done', 'mb:', mb, 'size:', blob.size, 'quality:', quality)
+                const kb = blob.size / 1024;
+                console.log( 'resized ', ' kb:', kb, ' max:', maxSizeKB , 'quality:', quality * 100, "%")
 
-                if ( mb <= maxSize ){
-                    // console.log('call back')
-                    callback(blob)
+                if ( kb <= maxSizeKB || quality <= 0 ){
+                    callback(blob, quality )
                 }else{
-                    quality -= 0.05
+                    quality -= 0.02
+                    quality = Math.floor(quality * 100) / 100
                     resizeIt();
                 }
             }
 
-            var quality = 0.95
+            var quality = 0.98
             resizeIt()
 
         };
@@ -1141,7 +1226,7 @@ function resizeImageQuality(file, maxSizeKB, callback) {
 
     reader.readAsDataURL(file);
 }
-
+*/
 // --------------- auto complete ------------
 
 function autocomplete(inputId, values, callBack = "") {

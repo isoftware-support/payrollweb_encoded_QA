@@ -101,7 +101,7 @@ const app = Vue.createApp({
 					this.doc.description = ret.data.description
 
 					dimBack(true, 'dim_back', () => this.cancel() )
-					CenterDiv('#doc_box', -150 )						
+					CenterItem('doc_box')						
 				}
 
 				busy.hide()
@@ -411,7 +411,10 @@ const app = Vue.createApp({
 			
 			// employee list
 			this.$refs._employees.innerHTML = emps_select_items
+
 		}
+
+		replaceParent( "doc_box", "edit_doc_parent")
 
 	},
 	

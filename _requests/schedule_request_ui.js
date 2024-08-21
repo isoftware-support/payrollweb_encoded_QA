@@ -421,7 +421,8 @@ const reimDetail = Vue.createApp({
 			this.vars = req_vars
 
 			// console.log( 'rules',this.rules)
-			// console.log( 'vars', this.vars)
+			// console.log( 'vars', this.vars.maxImageFileSize)
+			// console.log( ' max size: ', this.vars.maxImageFileSize / 1024);
 
 			// submit mode
 			this.submit_mode = req_vars.submit_mode
@@ -685,11 +686,11 @@ const reimDetail = Vue.createApp({
 				const att = file.files[0];
 				p.att_file = att
 
-				resizeImageQuality(att, this.vars.maxImageFileSize, (blob) => {
+				resizeImageQuality(att, this.vars.maxImageFileSize, (blob) => {				
 
 					if (blob != null ){
 						p.att_file = new File([blob], att.name, { type: blob.type });						
-					}
+					}					
 					postIt()						
 				})
 
