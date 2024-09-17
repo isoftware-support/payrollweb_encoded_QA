@@ -363,7 +363,7 @@ label, .CheckBoxLabel, .label, .label-i {
 }
 
 
-.label-i{
+.label-i, .italic{
 	font-style: italic;
 }
 
@@ -510,6 +510,11 @@ label, .CheckBoxLabel, .label, .label-i {
 .d-hide{
 	display: none;
 }
+
+.d-999{
+	left: -999;
+}
+
 .scroll-y{
 	overflow-y: auto !important; 
 }
@@ -712,6 +717,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .mt-5  { margin-top: 5px !important; }
 .mt-10 { margin-top: 10px !important; }
 .mt-20 { margin-top: 20px !important; }
+.mt-30 { margin-top: 30px !important; }
 .mt-50 { margin-top: 50px !important; }
 .mt-80 { margin-top: 80px !important; }
 .mt-100 { margin-top: 100px !important; }
@@ -1774,6 +1780,8 @@ table{
 	.bold{
 		font-weight:bold;	
 	}
+
+
 
 	
 	.button_ticket{

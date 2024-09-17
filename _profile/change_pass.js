@@ -29,7 +29,6 @@ function changePass()
         return;
     }
 
-
     // check old pass
     let p = {func: 'ConfirmOldPass', v:currPass, i:userId }
     xxhrPost( root_uri + "/ajax_calls.php", p, (res) => {

@@ -1,6 +1,8 @@
 
 var timer_filter  
 
+var _filter_busy = new BusyGif();
+
 function filterBox( param = {parentId:'', row_name:"", select_name:"", div_id:"", minRows: 0} ){
 
 	// remove form entry key submit
@@ -27,6 +29,7 @@ function filterBox( param = {parentId:'', row_name:"", select_name:"", div_id:""
 	if (typeof minRows == 'undefined') minRows = 0
 	if (typeof div_id == 'undefined') div_id = ""
 
+	
 	// hideFilterBox()
 
 	// vue component
@@ -51,11 +54,12 @@ function filterBox( param = {parentId:'', row_name:"", select_name:"", div_id:""
 			return {
 				text: '',
 				filter_text_id: parentId + "_txt",
+				busy: new BusyGif(),
 			}
 		},
 
 		beforeMount(){
-			this._hideFilterBox()
+			this._hideFilterBox()			
 		},
 
 		mounted(){
@@ -96,65 +100,83 @@ function filterBox( param = {parentId:'', row_name:"", select_name:"", div_id:""
 			},
 
 			_filterRows( text=""  ){
-					
-				let all = []
-				if ( row_name ){
-					all = getAll(`tr[name='${row_name}']`)
-
-				}else if( select_name){
-
-					const e = getByName(select_name)					
-					all = Object.values(e[0].options)
-
-				}else if( div_id ){
-
-					const e = getById( div_id )
-					all = e.children
-
-					console.log('filter div', div_id)
-				}
+											
 				
-				for( const item of all ){
-				
-					let isFound = true
-					if ( row_name ){														
+				const filter = async () =>{
 
-						const tds = item.children;   // all td of tr
+				  return new Promise( resolve => {
 
-						if ( String(text).length > 0 ){
+				  	setTimeout( () => { 
 
-							isFound = false
-							for (let i = 0; i < tds.length; i++) {
-								const td = tds[i]		
-								const txt = td.innerText.toLowerCase();
-								if ( txt.indexOf( text.toLowerCase() ) > -1 ){
-									isFound = true
-									break
-								}
+							let all = []
+							if ( row_name ){
+								all = getAll(`tr[name='${row_name}']`)
+
+							}else if( select_name){
+
+								const e = getByName(select_name)					
+								all = Object.values(e[0].options)
+
+							}else if( div_id ){
+
+								const e = getById( div_id )
+								all = e.children
+
+								console.log('filter div', div_id)
 							}
-						}				
-					
-					}else if( select_name ){
+							
+							for( const item of all ){
+							
+								let isFound = true
+								if ( row_name ){														
 
-						const txt = item.innerText.toLowerCase()
-						isFound = txt.indexOf( text.toLowerCase() ) > -1 ? true : false
+									const tds = item.children;   // all td of tr
 
-					}else if( div_id ){
+									if ( String(text).length > 0 ){
 
-						const txt = item.dataset.title.toLowerCase()
-						isFound = txt.indexOf( text.toLowerCase() ) > -1 ? true : false
+										isFound = false
+										for (let i = 0; i < tds.length; i++) {
+											const td = tds[i]		
+											const txt = td.innerText.toLowerCase();
+											if ( txt.indexOf( text.toLowerCase() ) > -1 ){
+												isFound = true
+												break
+											}
+										}
+									}				
+								
+								}else if( select_name ){
 
-						if ( isFound ){
-							item.classList.remove("d-none");
-						}else{
-							item.classList.add("d-none");
-						}
-						continue;
-					}
+									const txt = item.innerText.toLowerCase()
+									isFound = txt.indexOf( text.toLowerCase() ) > -1 ? true : false
 
-					item.hidden = ! isFound;
+								}else if( div_id ){
+
+									const txt = item.dataset.title.toLowerCase()
+									isFound = txt.indexOf( text.toLowerCase() ) > -1 ? true : false
+
+									if ( isFound ){
+										item.classList.remove("d-none");
+									}else{
+										item.classList.add("d-none");
+									}
+									continue;
+								}
+
+								item.hidden = ! isFound;
+							}
+
+							
+							_filter_busy.hide() 
+
+						}, 0 )			
+
+					})
 
 				}
+
+				_filter_busy.show2()
+				filter()
 
 			},
 
@@ -221,5 +243,4 @@ function filterBox( param = {parentId:'', row_name:"", select_name:"", div_id:""
 
 	return app
 }
-
 

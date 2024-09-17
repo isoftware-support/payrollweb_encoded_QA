@@ -43,12 +43,13 @@
     function replaceParent( childId, parentId) {
 
       const child = getById(childId);
+      if ( ! child ) return
 
       const newParent = getById(parentId);      
       newParent.appendChild(child);
 
       // Replace the old parent with the new parent in the DOM
-      const oldParent = childElement.parentNode;
+      const oldParent = child.parentNode;
       oldParent.parentNode.replaceChild(newParent, oldParent);
     }
 
@@ -374,13 +375,21 @@
         }
         
         CenterItem( id);
-        
+
         if ( options.persistent ){            
             dimBack2( {dimIt: true, id:'msgdim', zIndex: z_index - 2} )            
 
         }else{
             dimBack2( {dimIt: true, id:'msgdim', 
                 hideCallback: _hide, zIndex: z_index - 2} )            
+        }
+
+        // focus  button
+        e = getById( "msg-box-button-cancel" )
+        if ( e ){
+            e.focus()
+        }else{
+            getById("msg-box-button-ok").focus()
         }
 
     }
@@ -851,7 +860,9 @@ function CenterDiv(id, topAdj = 0) {
 function hideItem(id, isMoveOffScreenOnly = true){
     
     if ( id.indexOf("#") == -1 ) id = "#" + id;
+    
     const e = get(id);
+    if( ! e ) return
 
     if ( isMoveOffScreenOnly ){
         e.style.left = -999;

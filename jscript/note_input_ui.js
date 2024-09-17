@@ -352,7 +352,7 @@ Vue.createApp({
 			e.forEach((el) => {
 
 				const tr = el.parentElement.parentElement
-				console.log('tr',tr)
+				// console.log('tr',tr)
 				el.onclick = () => {
 					
 					this.owner = "SUPERVISOR_NOTES"

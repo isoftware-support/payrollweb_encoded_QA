@@ -38,7 +38,7 @@ const reimDetail = Vue.createApp({
 
 					<div v-if="submit_mode == SUBMIT_ADD || submit_mode == SUBMIT_APPROVER_ADD" 
 						class="w-200 ">
-						<select v-model="type">
+						<select v-model="type" @change="consecutive_leave_filing_setting" >
 							<option v-if="rules.coa_filing_active" value="5" >COA</option>
 							<option v-if="rules.ot_filing_active" value="0" >Overtime</option>
 							<option v-if="rules.can_avail_leave && rules.leave_filing_active" value="1" >Leave</option>
@@ -77,7 +77,7 @@ const reimDetail = Vue.createApp({
 				</div>
 				<div class="req-data ">
 					<div class="w-200">
-						<select v-model="leave.type">
+						<select v-model="leave.type" @change="consecutive_leave_filing_setting">
 							<option v-for="item in vars.leave_types" :value="item.code">{{item.description}}</option>
 						</select>
 					</div>
@@ -87,7 +87,7 @@ const reimDetail = Vue.createApp({
 			<!-- leave filing mode -->
 			<div v-if="type == TYPE_LEAVE"class="flex ml-5">
 
-				<div class="req-label ">
+				<div class="req-label py-10">
 					
 					<div class="ml-20">
 						<div v-if="rules.can_shift_mode" class="flex flex-align-right">
@@ -105,7 +105,7 @@ const reimDetail = Vue.createApp({
 							<input type="radio" id="leave-selective" class="m-0 ml-5" name="leave-file-mode" v-model="leave.mode" value="2">
 						</div>
 
-						<div v-if="rules.can_consecutive_days_mode" class="flex mt-5 flex-align-right">
+						<div v-if="rules.can_consecutive_days_mode && leave.is_consecutive_leave_type_valid " class="flex mt-5 flex-align-right">
 							<label for="leave-consecutive" >Consecutive</label>
 							<input type="radio" id="leave-consecutive" class="m-0 ml-5" name="leave-file-mode" v-model="leave.mode" value="3">
 						</div>
@@ -164,7 +164,7 @@ const reimDetail = Vue.createApp({
 					</div>
 
 					<!-- consecutive mode -->
-					<div v-if="leave.mode == LEAVE_CONSECUTIVE" >
+					<div v-if="leave.mode == LEAVE_CONSECUTIVE && leave.is_consecutive_leave_type_valid " >
 
 						<div class="aligner">
 							<label class="fw-50">Days</label>	
@@ -382,6 +382,7 @@ const reimDetail = Vue.createApp({
 				batch_dates: '',
 				consecutive_days: 0,
 				consecutive_type: 3,  // 3 : schedule days, 4 : calendar days
+				is_consecutive_leave_type_valid: false,
 			},
 
 			ob: {
@@ -399,6 +400,7 @@ const reimDetail = Vue.createApp({
 
 			rules: {},
 			vars: {},
+
 			
 			TYPE_OT: 0, TYPE_LEAVE: 1, TYPE_SC: 2, TYPE_TOIL: 3, TYPE_OB: 4, TYPE_COA: 5,
 
@@ -853,6 +855,17 @@ const reimDetail = Vue.createApp({
 				
 				busy.hide();
 			})
+		},
+
+		consecutive_leave_filing_setting(){
+
+			const valid = this.rules.consecutive_valid_leaves_types.includes( this.leave.type )
+
+			// update leave request mode
+			if ( ! valid ) this.leave.mode = req_vars.leave_mode
+
+			this.leave.is_consecutive_leave_type_valid = valid
+			
 		},
 
 		_show( isClickDim = false){

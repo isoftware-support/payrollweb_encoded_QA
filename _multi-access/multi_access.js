@@ -38,17 +38,19 @@
 			efirst: remote_payrollweb_access.efirst,			
 			emiddle: remote_payrollweb_access.emiddle,			
 			}
-			
+
 		const logoItems = [];
 		for( const link of links){		
 
-			xxhrPost(link, p, res => {	
 
+			xxhrPost(link, p, res => {	
+				
 				cnt ++;
 
 				const ret = JSON.parse( res);
 				console.log( 'ret', ret);
 
+				let html = "";
 				if ( ret.status == "success" ){
 					
 					// #9028 - remove caching
@@ -77,16 +79,27 @@
 						const params = { func: 'SC', p: `${ret.data.userid}|${ret.data.userpass}|${ret.data.owner}` }
 						const url = ret.data.link + "?" + urlParams( params )
 
-						const html = 
+						html = 
 						`<a href="${url}" >
 	            <img class="icon-logo" src="${ret.data.logo}" title="${ret.data.name}" name='logo-icon' 
 							>
 	          </a>`
-
-						logoItems.push( html )					
 					}
 
+				}else{
+
+					// ----------------
+					// off-line icons
+					// ----------------
+					
+					const url = link.replace("_multi-access/multi_access_api.php", '')
+
+					html = `<img class="icon-logo" src="img/offline-site.jpg" title="OFF-LINE : ${url}" 
+							name='logo-icon' >`												
+
 				}
+
+				logoItems.push( html )					
 
 				if ( cnt == links.length  ){			
 

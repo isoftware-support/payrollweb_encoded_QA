@@ -20,7 +20,7 @@ function upload_ot_template(){
             busy.hide();
 
             const ret = JSON.parse(xhr.response);
-            console.log('ret', ret);
+            // console.log('ret', ret);
             
             let msg = [], errors = [], less_errors = [];
             let _title, _class = "w-500";
@@ -306,9 +306,9 @@ function ajaxCall(approves, array_countx, approve_rqno, approve_lvlno,
 
         busy.hide()
         
-        console.log('res',res)
+        // console.log('res',res)
         const ret = JSON.parse(res);
-        console.log('ret requests', ret)
+        // console.log('ret requests', ret)
                
         if ( ret.is_refresh_browser ){
             location.reload();
@@ -316,7 +316,7 @@ function ajaxCall(approves, array_countx, approve_rqno, approve_lvlno,
         }
 
         const approvals = ret.approvals;
-        console.log( 'approvals', approvals)
+        // console.log( 'approvals', approvals)
         for (var i = 0; i < approvals.length; i++) {
 
             const item = approvals[i]
