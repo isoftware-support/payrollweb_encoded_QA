@@ -40,8 +40,9 @@
 			}
 
 		const logoItems = [];
-		for( const link of links){		
+		let isWithSuccess = false
 
+		for( const link of links){		
 
 			xxhrPost(link, p, res => {	
 				
@@ -84,24 +85,27 @@
 	            <img class="icon-logo" src="${ret.data.logo}" title="${ret.data.name}" name='logo-icon' 
 							>
 	          </a>`
-					}
+
+	          isWithSuccess = true;
+					}				
 
 				}else{
 
 					// ----------------
 					// off-line icons
 					// ----------------
+					if ( ret.status != "failed"){
+
+						const url = link.replace("_multi-access/multi_access_api.php", '')
+
+						html = `<img class="icon-logo" src="img/offline-site.jpg" title="OFF-LINE : ${url}" 
+								name='logo-icon' >`												
+					}
 					
-					const url = link.replace("_multi-access/multi_access_api.php", '')
-
-					html = `<img class="icon-logo" src="img/offline-site.jpg" title="OFF-LINE : ${url}" 
-							name='logo-icon' >`												
-
 				}
-
 				logoItems.push( html )					
 
-				if ( cnt == links.length  ){			
+				if ( cnt == links.length && isWithSuccess ){			
 
 					// load_multi_payrollweb_access()		
 
