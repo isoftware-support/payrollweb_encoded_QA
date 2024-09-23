@@ -624,8 +624,8 @@ PAYROLL MASTER`
 	  	const p = { func: 'doc-notify', id: ids.join(), json:1}
 	  	xxhrPost("mailer.php", p, (ret) => {
 
-	  		console.log(ret)
-
+	  		console.log('doc notif', ret)
+	  		
 	  		busy.hide()
 	  		this.sending = false
 	  		this.cancel()
