@@ -309,7 +309,7 @@ const app = Vue.createApp({
 	    	xxhrPost("ajax_calls.php", p, (ret) => {
 
 	    		console.log( ret);
-	    		if (ret.status == "success"){
+	    		if (ret.status == "success" && ! this.is_team_mode){
 	    			
 	    			busy.hide()
 
