@@ -1121,6 +1121,11 @@ const reimDetail = Vue.createApp({
 				}	
 			}
 
+			// #9873 - disallow COA paired filing
+			if ( this.rules.coa_no_paired_filing && dttm_from && dttm_to ){
+				msg = "Filing of paired COA request is not allowed."
+			}
+
 			// OB batch filing mode
 			if ( type == this.TYPE_OB && this.ob.mode == this.OB_BATCH ){
 
