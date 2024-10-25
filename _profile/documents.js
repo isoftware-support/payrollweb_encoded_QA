@@ -30,7 +30,8 @@ const app = Vue.createApp({
       <center v-if="is_team_mode" class="mt-20">
       	<button class="button w-130" @click="pick_docs">Upload Documents</button>
       	<button class="button w-130 mx-5" @click="delete_docs">Delete Documents</button>
-      	<button class="button w-130" @click="notify_owner_ui">Notify Owner</button>
+      	<button v-if="is_mailer_active" class="button w-130" @click="notify_owner_ui">Notify Owner</button>
+
       </center>
     </div>
 
@@ -116,6 +117,7 @@ const app = Vue.createApp({
 		init(){
 			return {
 				is_team_mode: false,
+				is_mailer_active: false,
 				title: 'My Team Documents',
 				rows: 50,
 				offset: 0,
@@ -390,8 +392,13 @@ const app = Vue.createApp({
 
 	    					let title = ''
 	    					const statuses = {"0": '', '1': 'seen', '2': 'sent', '3':'seen, sent'}	    					
-	    					const stat_no = file.status;
-	    					const status = statuses[ stat_no ];	    					
+	    					const stat_no = file.status
+	    					let status = statuses[ stat_no ];	    					
+
+	    					if ( file.for_sending == "1" ){
+	    						if ( status) status += ", "
+	    						status += "sending"
+	    					}
 	    					
 	    					if ( file.status_date){
 	    						title = 'Date Seen: ' + DateFormat( file.status_date, "d-M-Y")	    							    						
@@ -621,9 +628,25 @@ PAYROLL MASTER`
 
 			busy.show2()
 
+			/* 9920 - aborted
+	  	const p = { func: 'doc', no: ids.join(), axn:'notify', json:1}
+	  	xxhrPost("ajax_calls.php", p, (ret) => {
+
+	  		console.log('doc notif', ret)
+	  		
+	  		busy.hide()
+	  		this.sending = false
+	  		this.cancel()
+
+	  		this.load_documents()
+	  	})
+	  	*/
+
+	  	console.log('ddddd');
 	  	const p = { func: 'doc-notify', id: ids.join(), json:1}
 	  	xxhrPost("mailer.php", p, (ret) => {
 
+	  		console.log('xxxx')
 	  		console.log('doc notif', ret)
 	  		
 	  		busy.hide()
@@ -656,6 +679,7 @@ PAYROLL MASTER`
 
 		this.rows = page_rows		
 		this.is_team_mode = is_team_mode
+		this.is_mailer_active = is_mailer_active
 
 		this.title = is_team_mode ? "My Team Documents" : "My Documents"
 
