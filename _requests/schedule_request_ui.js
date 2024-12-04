@@ -1081,7 +1081,7 @@ const reimDetail = Vue.createApp({
 			}
 
 			// reason			
-			if ( ! this.reason ) msg = "Please input reson for this request."				
+			if ( ! this.reason ) msg = "Please input reason for this request."				
 			if ( this.submit_mode == this.SUBMIT_APPROVER_UPDATE && ! this.approver.reason)
 				msg = "Please input override comment.";			
 

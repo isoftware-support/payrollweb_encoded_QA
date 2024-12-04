@@ -171,11 +171,12 @@ a.ContentTextLink:hover { font-weight: bold; font-size: 11px; color: #ed2140; te
 
 .DataHeading {
 	font-size:11px;
-    font-weight:normal;
+  font-weight:normal;
 	background:#d72202;
-    color:#FFFFFF;
-    vertical-align: middle;
-    height:20px;        
+  color:#FFFFFF;
+  vertical-align: middle;
+  height:22px;        
+  border-style: none;
 }
 
 .DataHeadingLink{
@@ -247,7 +248,8 @@ a.ContentTextLink:hover { font-weight: bold; font-size: 11px; color: #ed2140; te
 .DataRow, .DataRowHover{
 	background-color: white;	
 	border-bottom: solid 1px;
-  border-color: #D8D1D1;	 	
+  border-color: var(--lightgrey-3);
+  /*#D8D1D1;	 	*/
 }
 
 .DataRowHover:hover{
@@ -289,6 +291,30 @@ a.ContentTextLink:hover { font-weight: bold; font-size: 11px; color: #ed2140; te
 	/*background-color: rgba(255, 255, 255,.6);  */
 }
 
+
+/* team leave schedule - restrict date */
+.block-btn{
+	color: rgba(0, 0, 0, .1);
+	background-color: rgba(0, 0, 0, .002);
+	border-radius: 5px;
+	margin: 0 2px;
+	
+	text-align: center;
+	padding: 5px;
+	cursor: pointer;	
+	height: fit-content;
+}
+
+.block-btn:hover {
+	color: white;
+	background-color: rgba(190, 0, 0, .8);
+	box-shadow: 2px 2px 2px #aaaaaa;	
+	transition: 0.3s;
+}
+
+.anim-3{
+	transition: 0.3s;	
+}
 
 /*
 a.PageOption:active { font-weight: bold; font-size: 11px; color: #ed2140; text-decoration: none  }
@@ -534,9 +560,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .flex-align-right{ justify-content: flex-end !important; }
 .flex-align-center{ align-items: flex-center; }
 
-
-
-.flex-wrap { flex-wrap: wrap }
+.flex-wrap { flex-wrap: wrap; }
 
 .flex-gap-2{ gap: 2px; }
 .flex-gap-3{ gap: 3px; }
@@ -572,6 +596,7 @@ label, .CheckBoxLabel, .label, .label-i {
 
 .p-0   { padding: 0 !important; }
 .p-2   { padding: 2px; }
+.p-3   { padding: 3px; }
 .p-5   { padding: 5px; }
 .p-15   { padding: 15px !important; }
 .p-10   { padding: 10px !important; }
@@ -925,12 +950,12 @@ label, .CheckBoxLabel, .label, .label-i {
 .c-yellow{ color: #c7a430 !important; }
 .c-orange  {color: orange !important;} 
 .c-orange2 {color: #e88538 !important; }
-.c-cyan  {color: cyan; }
-.c-green {color: green; }
+.c-cyan  {color: cyan !important; }
+.c-green {color: green !important; }
 .c-grey { color: rgba(107, 107, 107, 1) !important;}
 .c-grey2 { color: rgba(107, 107, 107, 0.8) !important;}
 .c-black-05 { color: rgba(0, 0, 0, 0.5) !important;}
-.c-icon-dark  {color: #292929;}
+.c-icon-dark  {color: #292929 !important;}
 .c-disabled {color: silver !important;}
 .c-blue {color: #1576d1 !important;}
 .disabled{ color: silver; }
@@ -976,6 +1001,9 @@ label, .CheckBoxLabel, .label, .label-i {
   display:inline-block;
  }
 
+ .cr-pointer{ cursor: pointer; }
+ .cr-alias{ cursor: alias; }
+
 /* ----------------------------- */
 
 .hover-grey-01:hover{
@@ -990,8 +1018,8 @@ label, .CheckBoxLabel, .label, .label-i {
 	border: 1px solid grey;
 }
 /* border radius */
-.br-2{ border-radius: 2px; }
-.br-3{ border-radius: 3px; }
+.br-2{ border-radius: 2px !important; }
+.br-3{ border-radius: 3px !important; }
 .br-5{ border-radius: 5px !important; }
 .br-10{ border-radius: 10px !important;  }
 .br-20{ border-radius: 20px; }
@@ -1778,7 +1806,7 @@ table{
  	.resizeNo{resize: none;}
     
 	.bold{
-		font-weight:bold;	
+		font-weight:bold !important;	
 	}
 
 
@@ -2704,6 +2732,7 @@ a.jobs-link-sub{
     padding: 4px 6px;
     font-family: Arial, sans-serif;
     box-shadow: 2px 2px 6px #aaaaaa;	
+    width: fit-content;
 }
 .chip.approved{
 	background-color: rgba(0,160,0, 0.8);

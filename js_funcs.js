@@ -1,10 +1,14 @@
     
+    // geo lat and long
+    if (typeof geo_lat !== 'undefined') var geo_lat = 0
+    if (typeof geo_long !== 'undefined') var geo_long = 0    
+
     // ------------------
     // prevent post refresh 
     // -------------------
     if ( window.history.replaceState ) {
         window.history.replaceState( null, null, window.location.href );
-    }
+    }    
 
     // row stripes
     var trs = $('tr.row-stripe:odd');
@@ -602,6 +606,7 @@
 
     }
 
+
 //------------------class ------------------
 
 
@@ -903,8 +908,7 @@ function CenterItem(id){
     }
 
     e.style.top = y 
-    e.style.left = x
-
+    e.style.left = x   
 }
 
 function focusItem(id){
@@ -927,7 +931,7 @@ function CalendarDateTime(imgID, inputTextID, showTime, dateFormat){
 //-------------------------------
 
 function ShowHideByID(id, show, duration, fuctionName){
-        
+    
     if(typeof show == "undefined" || show === null) show = true;
     if(typeof duration == "undefined" || duration === null) duration = "normal";
     if(typeof functionName == "undefined" || functionName === null) functionName = null;
@@ -1361,6 +1365,59 @@ function autocomplete(inputId, values, callBack = "") {
 // ---------------- end - auto complete list  --------------
 
 
+function GPS_Address( type, api_key, callBack ){
+
+    if (navigator.geolocation) {    
+
+        navigator.geolocation.getCurrentPosition(             
+        (position) => {
+            
+            const lat = position.coords.latitude 
+            const long = position.coords.longitude
+            let url, addres_key
+
+            if ( type == "nominatim"){
+                url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${long}`
+
+            }else if( type == "geocode"){
+                url = `https://geocode.maps.co/reverse?lat=${lat}&lon=${long}&api_key=${api_key}`
+            }
+
+            xxhrGet(url, (res) => {
+                callBack( res, false)
+            })
+            
+        }, 
+        (error) => {
+            const url = new URL( window.location.href )
+
+            let err;
+            if( url.protocol == "http:" ){
+                err = "Geolocation is not avaiable via HTTP protocol."
+
+            }else if (error.code == error.PERMISSION_DENIED){
+                err = "User denied the request for Geolocation."
+            
+            }else if (error.code == error.POSITION_UNAVAILABLE){
+                err = "Location information is unavailable."
+
+            }else if (error.code == error.TIMEOUT ){
+                err = "The request to get user location timed out."
+            
+            }else if(error.code == error.UNKNOWN_ERROR){
+                err = "An unknown error occurred."                
+            }
+            callBack( null, err);
+        })
+
+    } else { 
+        callBack( null, "Geolocation is not supported by this browser.");
+    }        
+}
+
+
+
+
 function xxhr(method, path, func, id_contentHolder = ""){
     
     //ex:  xxhr("GET", 'xhtml_response.php?q=myRecEntry&id='+ e.dataset.id, show);
@@ -1378,13 +1435,14 @@ function xxhr(method, path, func, id_contentHolder = ""){
 
         if (this.status == 200){        
 
-            if (func) func(this.responseText);                     
 
             // put returned html to element id 
             if ( id_contentHolder ){
                 const e = getById(id_contentHolder);
                 if ( e ) e.innerHTML = this.responseText;
             }
+
+            if (func) func(this.responseText);                     
 
         // }else if( this.status == 404){
         //  p.innerHTML = " not found";

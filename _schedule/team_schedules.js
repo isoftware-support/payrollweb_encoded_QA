@@ -11,6 +11,7 @@ loadTeamSchedule();
 
 function loadTeamSchedule( cbf = undefined ){
 
+    
     const week =  getById('weeks').value;
     const teamNo = getById('dd_teamname').value;        
     const year = getById("week_year").value;

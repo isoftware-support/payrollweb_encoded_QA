@@ -14,15 +14,18 @@ if ( busy == undefined)
 var timer;
 
 
-Vue.createApp({
+const note_ui = Vue.createApp({
 
 	template: `
 
-	<div :id='box_id' class='modal-box bg-white w-270 br-5' style="left:-999">		
+	<div :id='box_id' class='modal-box bg-white w-270 br-5 ' style="left:-999">		
 		
 		<p class="h4 p-5 pl-10 c-white" :class="title.color"  >{{ title.title }}</p>
 
 		<div class="py-10 px-15 mb-5 ">	
+
+			<p v-if='description' class='py-5'>{{ description }}</p>
+
 			<p v-if="show_id_line"
 				class="py-5 ta-l p-0" id="remarks" >Request No.: {{ id.toString().padStart(4, "0") }}
 			</p>
@@ -51,6 +54,7 @@ Vue.createApp({
 				title: {},
 				id: -1,
 				reason: '',
+				description: '',
 				owner: 'DISAPPROVAL',
 				update_done: {notes: false, status: false},
 				cnt: 0,
@@ -58,6 +62,7 @@ Vue.createApp({
 				save_button: {caption: 'Save', width: 'w-60'},
 				show_id_line: false,
 				ajax_notes: '',
+				block_filing: { date: '', team: '', team_name: '' },
 		  }
 		},
 
@@ -186,7 +191,22 @@ Vue.createApp({
 				btn_disapprove(this.reason);			
 				this.cancel()
 
-	  	}	  	
+	  	}else if( this.owner == "BLOCK_LEAVE_FILING"){
+
+				const p = {func: 'notes', type: 50, date: this.block_filing.date, id: date.block_filing.team,
+					note: uriString(this.reason) 
+				}
+
+	  		this.cancel()
+				xxhrPost( url, p, (res) => {
+					
+					busy.hide()					
+					msgBox( "COE request sent successfully.")
+					// const ret = JSON.parse(res);
+					// console.log( 'add notes', ret)
+				})	  			  		
+
+	  	}
 
 	  },
 
@@ -244,17 +264,21 @@ Vue.createApp({
 	  show(){	  	
 
 	  	const titles = {	  		
-	  		DISAPPROVAL: 			{title: 'Disapproval of Request', color: 'bg-red-2' },
-	  		CANCEL_APPROVALS: {title: 'Cancel Approved Request', color: 'bg-menu' },
-	  		REQUEST_COE: 			{title: 'Request Certificate of Employment', color: 'bg-deep-green'},
+	  		DISAPPROVAL: 			  {title: 'Disapproval of Request', color: 'bg-red-2' },
+	  		CANCEL_APPROVALS:   {title: 'Cancel Approved Request', color: 'bg-menu' },
+	  		REQUEST_COE: 			  {title: 'Request Certificate of Employment', color: 'bg-deep-green'},
 	  		SUPERVISOR_NOTES: 	{title: 'Add Request Notes', color: 'bg-deep-green', label: 'Note:'},
+	  		BLOCK_LEAVE_FILING: {title: 'Block Leave Filing Schedule', color: 'bg-red-2', label: 'Reason:' },
 	  	}
+
 	  	this.title = titles[this.owner]	  	
 	  	if ( ! this.title.label ) this.title.label = "Reason:"
 
 	  	const show_me = () => {
+
 		  	dimBack(true, 'dim_back', () => this.cancel() );
 				CenterItem(this.box_id);
+
 				this.$refs._reason.focus()
 			}
 
@@ -306,65 +330,94 @@ Vue.createApp({
 	  	hideItem(this.box_id);
 
 	  },
-	  
+
+	  block_leave_filing_set(team, team_name){
+	  	this.block_filing.team = team
+	  	this.block_filing.team_name = team_name
+	  },
+
+		bind_events(){
+
+			// add click event to cancel buttons
+			let e = getAll("img.cancel_approvals")
+			if ( e ){
+				
+				e.forEach( (el) => {
+			
+					el.onclick = () => {
+						this.id = el.dataset.id
+						this.owner = "CANCEL_APPROVALS"
+						this.show_id_line = true
+						this.show()
+					}	
+				})			
+			}
+
+			// request disapproval
+			e = getById('disapprove_x')
+			if ( e ){
+				e.onclick = () => {
+					this.owner = "DISAPPROVAL"
+					this.show()
+				}
+			}
+
+			// request COE
+			e = getById('request-coe')
+			if ( e ){
+				e.onclick = () => {
+					this.id = emp_no
+					this.owner = "REQUEST_COE"
+					this.save_button = {caption: "Send Request", width: 'w-100'}
+					this.show()
+				}
+			}
+
+			// block schedule date
+			e = getAll('div.block-sched-date')
+			if ( e ){
+
+				e.forEach((el) => {
+					el.onclick = (event) => {
+
+						const div = event.target
+						this.block_filing.date = div.id												
+
+						this.owner = "BLOCK_LEAVE_FILING"						
+						this.description = "Disallow Leave Request filing on "+ DateFormat( div.id, 'M d, Y') +
+							" for team members of "+ this.block_filing.team_name 
+
+						this.show()
+						return false  //prevent
+					}
+				})
+
+			}
+
+			e = getAll("a[name='add-note']")
+			if ( e ){
+				e.forEach((el) => {
+
+					const tr = el.parentElement.parentElement
+					// console.log('tr',tr)
+					el.onclick = () => {						
+						this.owner = "SUPERVISOR_NOTES"
+						this.id = tr.dataset.id
+						this.show_id_line = true
+						this.show()
+						return false  //prevent
+					}
+				})
+			}
+
+
+	  },
+
 	},
 
 	beforeMount(){
-
-
-		// add click event to cancel buttons
-		let e = getAll("img.cancel_approvals")
-		if ( e ){
-			
-			e.forEach( (el) => {
-		
-				el.onclick = () => {
-					this.id = el.dataset.id
-					this.owner = "CANCEL_APPROVALS"
-					this.show_id_line = true
-					this.show()
-				}	
-			})			
-		}
-
-		// request disapproval
-		e = getById('disapprove_x')
-		if ( e ){
-			e.onclick = () => {
-				this.owner = "DISAPPROVAL"
-				this.show()
-			}
-		}
-
-		// request COE
-		e = getById('request-coe')
-		if ( e ){
-			e.onclick = () => {
-				this.id = emp_no
-				this.owner = "REQUEST_COE"
-				this.save_button = {caption: "Send Request", width: 'w-100'}
-				this.show()
-			}
-		}
-
-		e = getAll("a[name='add-note']")
-		if ( e ){
-			e.forEach((el) => {
-
-				const tr = el.parentElement.parentElement
-				// console.log('tr',tr)
-				el.onclick = () => {
-					
-					this.owner = "SUPERVISOR_NOTES"
-					this.id = tr.dataset.id
-					this.show_id_line = true
-					this.show()
-					return false  //prevent
-				}
-			})
-		}
-
-
-  }
+		this.bind_events()
+	},
 
 }).mount('#input-note-area')
+

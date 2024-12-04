@@ -394,11 +394,6 @@ const app = Vue.createApp({
 	    					const statuses = {"0": '', '1': 'seen', '2': 'sent', '3':'seen, sent'}	    					
 	    					const stat_no = file.status
 	    					let status = statuses[ stat_no ];	    					
-
-	    					if ( file.for_sending == "1" ){
-	    						if ( status) status += ", "
-	    						status += "sending"
-	    					}
 	    					
 	    					if ( file.status_date){
 	    						title = 'Date Seen: ' + DateFormat( file.status_date, "d-M-Y")	    							    						

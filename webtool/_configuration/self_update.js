@@ -32,6 +32,13 @@
 			return
 		}
 
+		// validate email address
+		if ( 'email_address' in el.dataset ){
+			if ( ! isEmailValid( el.value ) ){
+				return msgBox("Invalid email address. Field data not saved.");
+			}
+		}
+
 		// call function
 		if ( "cf" in el.dataset){					
 			const fn = new Function("param", el.dataset.cf + "(param)");
@@ -132,7 +139,7 @@
     	
     	// console.log('res', res)
     	const ret = JSON.parse(res)
-    	console.log('self update', ret)
+    	// console.log('self update', ret)
 
     	busy.hide()
     	delete busy

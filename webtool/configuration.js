@@ -1,6 +1,5 @@
 
 
-
 	//UPDATE Ticket Rule	
 	$(document).ready(function(){
 		
@@ -46,7 +45,7 @@
 		}
 
 		//put setting value
-		const e = $("input#coa_max");
+		let e = $("input#coa_max");
 		if (e.length){
 			
 			$.post('../ajax_calls.php', {func:'GetMultiRecs', t:1, f:"code|value1|value2|value3", k:"value2",
@@ -134,6 +133,10 @@
 				// =========================
 
 			}
+
+		// hide sub items
+			getById('leave_consecutive_mode').onchange()
+			getById('disallow_no_att').onchange()
 
 
 	});
@@ -310,38 +313,99 @@ function request_group_status_event( is_init_event = true){
 
 }
 
-function GeoLocationTest_ipinfo()
-{
+function GeoLocationTest(type){
+
+	const busy = new BusyGif()
+	busy.show2()
+
+	let msg = []
+
+	const status_message = (msg) => {
+
+		let html = msg.join(" ")
+		let e = getById('ipinfo_message')
+		e.innerHTML = html;
+
+		setTimeout( ()=>{ e.innerHTML = "" }, 10000);
+		busy.hide()
+	}
+
+	if ( type == "ipinfo"){
 
 		const url = payrollwebURI + "/ajax_calls.php";
 		xxhrPost( url, {func: 'geoloc'}, (res) => {
 			
-			console.log( res );
 			const ret = JSON.parse(res)
 
+			const msg = []
 			let status = ret.status
-
-			let msg = [];
-						
+			
 			if (status == "error"){
 				msg.push( `<p>Status: <label class='c-red'>${status.toUpperCase()} - ${ret.msg}</label></p>` )
 
 			}else{
+				msg.push(`<br>` )
 				msg.push(`<p>Status: ${status.toUpperCase()} </p>` )
+				msg.push(`<p>Via: ipinfo.io API </p>`)
 				msg.push(`<p>IP: ${ret.ip} </p>`)
 				msg.push(`<p>Location: ${ret.city}, ${ret.region}, ${ret.country} </p>`)
 				msg.push(`<p>Latitude: ${ret.latitude} </p>`)
 				msg.push(`<p>Longitude: ${ret.longitude} </p>`)				
+				msg.push(`<br>` )
 			}
 
-
-			let html = msg.join(" ")
-			let e = getById('ipinfo_message')
-			e.innerHTML = html;
-
-			setTimeout( ()=>{ e.innerHTML = ""; console.log('cleared') }, 10000);
-
+			console.log( msg)
+			status_message(msg)
 		})
+
+	}else if( type == "geocode"){
+
+		const token = getById("geocode_key").value
+		GPS_Address("geocode", token, ( json, error) => {
+
+			const ret = JSON.parse(json)
+			console.log('ret',ret)
+			const msg = []
+
+			if (error){
+				msg.push( `<p>Status: <label class='c-red'>${error}</label></p>` )
+
+			}else{
+
+				const ret = JSON.parse(json)
+				msg.push(`<br>` )
+				msg.push(`<p>Status: SUCCESS </p>` )
+				msg.push(`<p>Via: geocode.maps.co API </p>`)
+				msg.push(`<p>Address: ${ret.display_name} </p>`)
+				msg.push(`<br>` )
+			}		
+
+			status_message(msg)
+		})
+		
+
+	}else if( type == "nominatim"){
+
+
+		GPS_Address("nominatim", '', ( json, error) => {
+
+			const msg = []
+			if (error){
+				msg.push( `<p>Status: <label class='c-red'>${error}</label></p>` )
+
+			}else{
+
+				const ret = JSON.parse(json)
+				msg.push(`<br>` )
+				msg.push(`<p>Status: SUCCESS </p>` )
+				msg.push(`<p>Via: nominatim.openstreetmap.org API </p>`)
+				msg.push(`<p>Address: ${ret.display_name} </p>`)
+				msg.push(`<br>` )
+			}
+
+			status_message(msg)
+		});
+	}
 
 }
 
@@ -392,6 +456,7 @@ function passwordRuleLabel( e ){
 }
 
 function alerts_items_status(){
+
 
 	// send alerts immediately
 	let el = get("#send_imd")
