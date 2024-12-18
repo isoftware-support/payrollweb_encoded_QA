@@ -62,7 +62,7 @@ const note_ui = Vue.createApp({
 				save_button: {caption: 'Save', width: 'w-60'},
 				show_id_line: false,
 				ajax_notes: '',
-				block_filing: { date: '', team: '', team_name: '' },
+				block_filing: { date: '', team: '', team_name: '', reload_func: null },
 		  }
 		},
 
@@ -193,17 +193,17 @@ const note_ui = Vue.createApp({
 
 	  	}else if( this.owner == "BLOCK_LEAVE_FILING"){
 
-				const p = {func: 'notes', type: 50, date: this.block_filing.date, id: date.block_filing.team,
-					note: uriString(this.reason) 
+	  		busy.show2()
+				const p = {func: 'notes', type: 50, 'date': this.block_filing.date, id: this.block_filing.team,
+					note: uriString(this.reason), json:1 
 				}
-
-	  		this.cancel()
-				xxhrPost( url, p, (res) => {
-					
+				xxhrPost( url, p, (ret) => {
+										
+					console.log('blocked date', ret)
+					this.block_filing.reload_func()
 					busy.hide()					
-					msgBox( "COE request sent successfully.")
-					// const ret = JSON.parse(res);
-					// console.log( 'add notes', ret)
+					this.cancel()
+
 				})	  			  		
 
 	  	}
@@ -331,9 +331,36 @@ const note_ui = Vue.createApp({
 
 	  },
 
-	  block_leave_filing_set(team, team_name){
+	  block_leave_filing_set(team, team_name, reload_func){
 	  	this.block_filing.team = team
 	  	this.block_filing.team_name = team_name
+	  	this.block_filing.reload_func = reload_func
+	  },
+
+	  unblock_filing(){
+			
+			const unblock = () => {
+				const p = {func: '-notes', type: 50, 'date': this.block_filing.date, 
+					id: this.block_filing.team, json:1 
+				}
+
+				busy.show2()
+
+				xxhrPost( "ajax_calls.php", p, (ret) => {														
+					this.block_filing.reload_func()
+					busy.hide()
+				})
+			}
+
+			msgBox("Unblock date "+ DateFormat( this.block_filing.date, "M d, Y") + " to allow Leave filing?", 
+				{	
+					okCallBack: () => {
+						unblock()
+					},
+					cancelButton: true,
+				}
+			)
+
 	  },
 
 		bind_events(){
@@ -374,25 +401,34 @@ const note_ui = Vue.createApp({
 			}
 
 			// block schedule date
-			e = getAll('div.block-sched-date')
-			if ( e ){
+				e = getAll('div.block-sched-date')
+				if ( e ){
 
-				e.forEach((el) => {
-					el.onclick = (event) => {
+					e.forEach((el) => {
+						el.onclick = (event) => {
 
-						const div = event.target
-						this.block_filing.date = div.id												
+							const div = event.target
+							this.block_filing.date = div.id												
 
-						this.owner = "BLOCK_LEAVE_FILING"						
-						this.description = "Disallow Leave Request filing on "+ DateFormat( div.id, 'M d, Y') +
-							" for team members of "+ this.block_filing.team_name 
+							this.owner = "BLOCK_LEAVE_FILING"						
+							this.description = "Disallow Leave Request filing on "+ DateFormat( div.id, 'M d, Y') +
+								" for team members of "+ this.block_filing.team_name 
 
-						this.show()
-						return false  //prevent
-					}
-				})
+							this.show()
+							return false  //prevent
+						}
+					})
+				}
 
-			}
+				e = getAll('div.blocked-date')
+				if ( e ){
+					e.forEach( (el) => {
+						el.onclick = (event) => {
+							this.block_filing.date = event.target.dataset.dt
+							this.unblock_filing()
+						}
+					})
+				}
 
 			e = getAll("a[name='add-note']")
 			if ( e ){

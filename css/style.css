@@ -283,6 +283,7 @@ a.ContentTextLink:hover { font-weight: bold; font-size: 11px; color: #ed2140; te
 	padding: 2px;
 
 }
+
 .PageOption:hover { 
 	text-decoration: underline !important; 
 	font-weight: normal !important; 
@@ -293,6 +294,23 @@ a.ContentTextLink:hover { font-weight: bold; font-size: 11px; color: #ed2140; te
 
 
 /* team leave schedule - restrict date */
+.unblock-btn{
+	color: white;
+	background-color: rgba(0, 180, 100, .8);
+	text-align: center;
+	padding: 10px 10px;
+	cursor: pointer;	
+
+}
+
+.unblock-btn:hover{
+
+	background-color: rgba(0, 180, 100, .3);
+	color: white;
+	/*background-color: white;*/
+	transition: .3s;
+}
+
 .block-btn{
 	color: rgba(0, 0, 0, .1);
 	background-color: rgba(0, 0, 0, .002);
@@ -552,7 +570,15 @@ label, .CheckBoxLabel, .label, .label-i {
 }
 
 .flex{ display: flex; }
-.flex-column{ flex-direction: column; }
+.flex-column{ 
+	display: flex; 
+	flex-direction: column; 
+}
+.flex-column-nowrap{ 
+	display: flex; 
+	flex-flow: column nowrap; 
+}
+
 .flex-justify-center{ justify-content: center; }
 .flex-justify-left{ justify-content: flex-start; }
 .flex-space-between{ justify-content: space-between !important; }
@@ -570,6 +596,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .flex-gap-20{ gap: 20px; }
 .flex-gap-col-2( column-gap: 2px)
 .flex-grow{ 	flex-grow: 1; }
+.flex-grow-2{ 	flex-grow: 2; }
 .flex-1{ flex: 1; }
 
 .flex-2{ flex: 2; }
@@ -580,7 +607,6 @@ label, .CheckBoxLabel, .label, .label-i {
 	display: flex;
 	align-items: center;
 }
-
 
 
 /* ---- generics ------ */
@@ -894,6 +920,8 @@ label, .CheckBoxLabel, .label, .label-i {
 .h-600 { height: 600px;}
 
 .hp-50 {height: 50% !important;}
+.hp-80 {height: 80% !important;}
+.hp-85 {height: 85% !important;}
 .hp-90 {height: 90% !important;}
 .hp-100 {height: 100% !important;}
 
