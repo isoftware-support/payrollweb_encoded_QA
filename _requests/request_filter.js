@@ -242,6 +242,8 @@ const app = Vue.createApp({
 
 			p = {func: 'GetRec', t:17, f:'*', xp:`f10 ='${uid}' and section = '${this._section}'`}
 			xxhrPost( root_uri + "/ajax_calls.php", p, (res) => {
+		
+				// console.log('load_RememberedUserFilter()', res)
 
 				const ret = JSON.parse(res)				
 

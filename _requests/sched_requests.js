@@ -292,7 +292,6 @@ function findCheckBox() {
 function ajaxCall(approves, array_countx, approve_rqno, approve_lvlno,
     userno, teamnos, stats, disapproval_reason = ""){
 	
-
     // if disapproval - get remarks text
     // let _remarks = ""
     // if ( stats == -1) _remarks = uriString( getById('dis_remark').value);  
