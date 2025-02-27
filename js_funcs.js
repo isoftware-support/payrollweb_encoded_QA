@@ -481,18 +481,22 @@
 
         let time = new Date( anyDate + sTime);
 
-        let hour = String(time.getHours()).padStart(2, "0");
-        let minute = String(time.getMinutes()).padStart(2, "0");
-        let sec = String(time.getSeconds()).padStart(2, "0");
+        let hour = time.getHours();
+        let minute = time.getMinutes();
+        let sec = time.getSeconds();
 
         let ap = "AM";
-        if ( format.indexOf("ap") > -1 ){
-            
-            if ( hour > 12 ){
-                hour = hour - 12;
-                ap = "PM";
-            }
+        if ( format.indexOf("ap") > -1 ){           
+            if ( parseInt(hour) > 11 ) ap = "PM";
+            if ( parseInt(hour) > 12 ) hour = parseInt(hour) - 12;
+
+            if (hour == 0) hour = 12;
         }
+
+        hour = String(hour).padStart(2, "0");
+        minute = String(minute).padStart(2, "0");
+        sec = String(sec).padStart(2, "0");
+
 
         let ret = format;
         ret = ret.replace("h", hour);
@@ -1369,12 +1373,19 @@ function GPS_Address( type, api_key, callBack ){
 
     if (navigator.geolocation) {    
 
+        console.log("1");
         navigator.geolocation.getCurrentPosition(             
         (position) => {
             
             const lat = position.coords.latitude 
             const long = position.coords.longitude
             let url, addres_key
+
+            // check if location is active in device
+            if (api_key == "check_geolocation"){
+                callBack(null, "success")
+                return
+            }
 
             if ( type == "nominatim"){
                 url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${long}`
@@ -1391,12 +1402,10 @@ function GPS_Address( type, api_key, callBack ){
         (error) => {
             const url = new URL( window.location.href )
 
-            let err;
-            if( url.protocol == "http:" ){
-                err = "Geolocation is not avaiable via HTTP protocol."
+            let err = "Unknown error.";
 
-            }else if (error.code == error.PERMISSION_DENIED){
-                err = "User denied the request for Geolocation."
+            if (error.code == error.PERMISSION_DENIED){
+                err = "Please accept the 'Location' permission prompt.<br>Press F5 to retry.<br> "
             
             }else if (error.code == error.POSITION_UNAVAILABLE){
                 err = "Location information is unavailable."
@@ -1406,6 +1415,9 @@ function GPS_Address( type, api_key, callBack ){
             
             }else if(error.code == error.UNKNOWN_ERROR){
                 err = "An unknown error occurred."                
+
+            }else if( url.protocol == "http:" ){
+                err = "Geolocation is not avaiable via HTTP protocol."
             }
             callBack( null, err);
         })

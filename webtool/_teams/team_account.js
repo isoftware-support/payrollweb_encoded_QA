@@ -70,7 +70,12 @@ const team_account = Vue.createApp({
 
 			xxhrPost( rootURI + "/ajax_calls.php", p, (res)=>{
 
-				// console.log( res);
+				console.log( 'update team', res);
+				
+				const ret = JSON.parse(res);
+				console.log('update team', ret)
+				return;
+
 				location.reload()
 			});
 		},

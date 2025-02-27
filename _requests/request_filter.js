@@ -211,9 +211,11 @@ const app = Vue.createApp({
 
 			const p = {func: 'myTeams', db: this.CONSLDT.db }
 			xxhrPost( root_uri + "/ajax_calls.php", p, (res) => {
-				
+
+				console.log( 'teams', res);
+
 				const ret = JSON.parse(res);
-				// console.log( ret);
+				console.log( ret);
 
 				this.CONSLDT.err_msg = "";  // default
 
