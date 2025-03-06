@@ -135,8 +135,10 @@
 			}
 
 		// hide sub items
-			getById('leave_consecutive_mode').onchange()
-			getById('disallow_no_att').onchange()
+			e = getById('leave_consecutive_mode')
+			if ( e ) e.onchange()
+			e = getById('disallow_no_att')
+		  if ( e ) e.onchange()
 
 
 	});

@@ -661,7 +661,7 @@ const reimDetail = Vue.createApp({
 			const postIt = () => xxhrPost("_requests/schedule_request_api.php", p, (res)=>{
 			
 				const ret = JSON.parse(res)
-				// console.log('ret', ret );
+				console.log('ret', ret );
 				
 				busy.hide()
 			

@@ -133,13 +133,13 @@
 			return;
 		}
 
-		console.log( 'selfupdate p', p)
+		console.log( 'selfupdate p', p, url)
 
     xxhrPost(url, p, (res)=>{
     	
-    	// console.log('res', res)
+    	console.log('res', res)
     	const ret = JSON.parse(res)
-    	// console.log('self update', ret)
+    	console.log('self update', ret)
 
     	busy.hide()
     	delete busy

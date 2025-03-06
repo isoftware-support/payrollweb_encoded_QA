@@ -113,6 +113,7 @@ function js_getcheck() {
 
 function btn_approve(){ // APPROVE
 
+
     // GET REQUEST NO.
     // var userno = <?php echo json_encode($tl_approver); ?>;
     // var teamnox =<?php echo json_encode($gt_team_nox); ?>; 
