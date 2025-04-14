@@ -62,7 +62,7 @@ const app = Vue.createApp({
 					</div>
 				</div>
 
-				<div class="mb-2">
+				<div v-if="isApprover" class="mb-2">
 					<div class="aligner">
 						<label class="flex-1">Employee Name:</label>						
 						<div class="flex-2 ">
@@ -102,7 +102,7 @@ const app = Vue.createApp({
 					</div>
 				</div>
 
-				<div class="mb-2">
+				<div v-if="isApprover" class="mb-2">
 					<div class="aligner">
 						<label class="flex-1">Team:</label>						
 						<div class="flex-2 ">
@@ -130,6 +130,7 @@ const app = Vue.createApp({
 			isReim: false,
 			isRequest: false,
 			isTicket: false,
+			isApprover: true,
 			date_req_start: null,
 			date_req_end: null,
 			date_target_start: null,
@@ -139,7 +140,7 @@ const app = Vue.createApp({
 			type: -1,
 			team: -1,
 			teams: [],
-			CONSLDT: { dbs: [], active: false, db: '', err_msg: ''},
+			CONSLDT: { dbs: [], active: false, db: '', err_msg: ''},			
 		}
 	},
 
@@ -207,6 +208,8 @@ const app = Vue.createApp({
 
 		load_MyTeams(){
 
+			if ( ! this.isApprover ) return;
+
 			// console.log('3', this.CONSLDT, 'xx');
 
 			const p = {func: 'myTeams', db: this.CONSLDT.db }
@@ -241,13 +244,13 @@ const app = Vue.createApp({
 		},
 
 		load_RememberedUserFilter(){
-
-			p = {func: 'GetRec', t:17, f:'*', xp:`f10 ='${uid}' and section = '${this._section}'`}
-			xxhrPost( root_uri + "/ajax_calls.php", p, (res) => {
-		
-				// console.log('load_RememberedUserFilter()', res)
+			
+			p = {func: 'GetRec', t:17, xp:`f10 ='${uid}' and section = '${this._section}'`}
+			xxhrPost( root_uri + "/ajax_calls.php", p, (res) => {	
 
 				const ret = JSON.parse(res)				
+
+				console.log('load_RememberedUserFilter()', ret)
 
 				if ( Object.keys(ret).length){
 
@@ -293,6 +296,8 @@ const app = Vue.createApp({
 		this.CONSLDT.active = CONSLDT_active;
 		this.CONSLDT.dbs = CONSLDT_dbs;
 
+		this.isApprover = true;
+
 		const url = location.href;
 		let section
 		if ( url.indexOf("09b") > -1){
@@ -306,6 +311,11 @@ const app = Vue.createApp({
 		}else if( url.indexOf("09") > -1){
 			this._section = "REQ"
 			this.isRequest = true
+
+		}else if( url.indexOf("07") > -1){
+			this._section = "MYREQ"
+			this.isRequest = true;
+			this.isApprover = false;
 		}
 		// console.log( this._section, 'req', this.isRequest, 'reim', this.isReim, 'ticket', this.isTicket)
 		
@@ -316,7 +326,7 @@ const app = Vue.createApp({
     	{no: 0, title: 'Overtime'},
     	{no: 1, title: 'Leave'},
     	{no: 2, title: 'Schedule'},
-    	{no: 3, title: 'TOIL'},
+    	{no: 3, title: 'TOIL Credit'},
     	{no: 4, title: 'Official Business'},
     	{no: 5, title: 'Official COA'},
     ]

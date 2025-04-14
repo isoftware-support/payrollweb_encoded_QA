@@ -74,7 +74,6 @@ const team_account = Vue.createApp({
 				
 				const ret = JSON.parse(res);
 				console.log('update team', ret)
-				return;
 
 				location.reload()
 			});
