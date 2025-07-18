@@ -566,7 +566,8 @@ label, .CheckBoxLabel, .label, .label-i {
 	overflow-x: auto !important; 
 }
 .scroll-a{
-	overflow: auto !important;
+	overflow-x: auto !important;
+	overflow-y: auto !important;
 }
 
 .flex{ display: flex; }
@@ -1043,7 +1044,7 @@ label, .CheckBoxLabel, .label, .label-i {
 }
 
 .border-1{
-	border: 1px solid grey;
+	border: 1px solid silver;
 }
 /* border radius */
 .br-2{ border-radius: 2px !important; }

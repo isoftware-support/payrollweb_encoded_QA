@@ -59,7 +59,9 @@ function loginAttempt()
 
     _post['browser_info'] = uriString(navigator.appVersion)
 
-    xxhrPost( PAYROLLWEB_URI + "/_home/home_login.php", _post, (res)=>{
+    console.log(PAYROLLWEB_URI);
+
+    xxhrPost("_home/home_login.php", _post, (res)=>{
         
         console.log( 'res',res)               
         let ret = JSON.parse(res);
@@ -70,7 +72,7 @@ function loginAttempt()
         
         if ( status == "success") {
             
-            window.location.replace( PAYROLLWEB_URI +"/index.php?qid=01");
+            window.location.replace("index.php?qid=01");
 
         }else{
             

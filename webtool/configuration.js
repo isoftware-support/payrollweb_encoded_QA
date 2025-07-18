@@ -143,7 +143,10 @@
 
 	});
 
-// ===== multi payroll web access ===============
+
+// -------------------------------------------
+// multi payroll web access 
+// -------------------------------------------
 	
 		function multiWebItem_load_items(){
 
@@ -411,9 +414,9 @@ function GeoLocationTest(type){
 
 }
 
-function collect_attd_types_tktreq(){
+function collect_attd_types_tktreq( chk = 'tktrq_attd_types', code_key = 2, rate_key = 3){
 
-	const chks = getAll("[name='attdtypes']:checked");
+	const chks = getAll(`[name='${chk}']:checked`);
 	const codes = []
 	const rates = []
 	chks.forEach( (chk) => {
@@ -425,16 +428,18 @@ function collect_attd_types_tktreq(){
 	// update attd types
 	
 		// codes
-		const e = get("#tktrq_attd_types")
+		const e = get("#" + chk)
 		e.value = codes.join(',')
-		e.dataset.c = '2'
+		e.dataset.c = code_key
 		e.onchange(e)
 
 		// rates
 		e.value = rates.join(',')
-		e.dataset.c = '3'
+		e.dataset.c = rate_key
 		e.onchange(e)
+		
 
+		console.log('collec', chks, codes, rates);
 	// ------------------
 }
 

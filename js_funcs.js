@@ -1069,6 +1069,17 @@ function popWindowResize()
     }
 }
 
+function isLinkValid( url )
+{
+  
+  try {
+    new URL(url);
+    return true;
+  } catch (e) {
+    return false;
+  }
+
+}
 
 function isEmailValid( email )
 {
