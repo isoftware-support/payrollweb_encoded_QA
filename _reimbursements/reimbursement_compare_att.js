@@ -40,7 +40,7 @@
 					<div id="img-top"></div>
 				</div>
 
-				<div id="bottom-wrapper">
+				<div id="bottom-wrapper" class='mt-5'>
 
 						<div class="top-text">
 						<label id="rec-no">
@@ -140,9 +140,9 @@
 			div.style.left = -9999;
 		}
 
-	 },
+ 	},
 
-	 mounted(){
+	mounted(){
 
 		const h = Math.min(
 		  document.body.scrollHeight,
@@ -152,35 +152,31 @@
 		  document.documentElement.offsetHeight
 		);
 
-	 
-	 	 // console.log('detailNos', recDetailNos)
-	 	 	// console.log(encoded_detail_no, ' - ', encoded_reim_no)
+		let params = { prefix: 'top-img', rootFolder: 
+			rootURI, withClose: false, parent: '#img-top',
+			nav: 'left', width:'99.5%', height: '42%'};   // `${h*.35}px` '42%'
+		topPicViewer = new PicViewer( params );
 
-	 	 	
-			let params = { prefix: 'top-img', rootFolder: 
-				rootURI, withClose: false, parent: '#img-top',
-				nav: 'left', width:'100%', height: `${h*.35}px`};
-			topPicViewer = new PicViewer( params );
+		// bottom image
+		params.prefix = "bottom-img"
+		params.parent = '#img-bottom'
+		bottomPicViewer = new PicViewer( params);
 
-			// bottom image
-			params.prefix = "bottom-img"
-			params.parent = '#img-bottom'
-			bottomPicViewer = new PicViewer( params);
+		// compare button
+		let e = getById('btn-compare')
+		if ( e ){
+			e.onclick = ()=>{
 
-			// compare button
-			let e = getById('btn-compare')
-			if ( e ){
-				e.onclick = ()=>{
+				this.imgIndex = -1
+				let src = rootURI + `/reimbursephoto.php?h=1&rn=${encoded_reim_no}&rd=${encoded_detail_no}`;
+				topPicViewer.changeImageSource( src )
 
-					this.imgIndex = -1
-					let src = rootURI + `/reimbursephoto.php?h=1&rn=${encoded_reim_no}&rd=${encoded_detail_no}`;
-					topPicViewer.changeImageSource( src )
-
-					this.getDetail(1)
-					this.compareImage()
-				}
+				this.getDetail(1)
+				this.compareImage()
 			}
-	 }
+		}
+
+	}
 
 }).mount("#reimb-compare");
 

@@ -14,9 +14,10 @@
 
  			if ( type != 4){  // if not team add request 
  				
-	 			var elem = $(f);	 			
-	 			bln = isOnScreen(elem);	 			
-	 			if (bln) $(div).fadeOut();
+	 			bln = isOnScreen(f);	 			
+	 			if (bln) {
+	 				$(div).fadeOut();
+	 			}
 
 			}else{
 				bln = false;		// always false if type 4 or with add OT, dont hide floating buttons

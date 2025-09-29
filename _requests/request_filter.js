@@ -215,10 +215,10 @@ const app = Vue.createApp({
 			const p = {func: 'myTeams', db: this.CONSLDT.db }
 			xxhrPost( root_uri + "/ajax_calls.php", p, (res) => {
 
-				console.log( 'teams', res);
+				// console.log( 'teams', res);
 
 				const ret = JSON.parse(res);
-				console.log( ret);
+				// console.log( ret);
 
 				this.CONSLDT.err_msg = "";  // default
 
@@ -250,7 +250,7 @@ const app = Vue.createApp({
 
 				const ret = JSON.parse(res)				
 
-				console.log('load_RememberedUserFilter()', ret)
+				// console.log('load_RememberedUserFilter()', ret)
 
 				if ( Object.keys(ret).length){
 

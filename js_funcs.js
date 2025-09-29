@@ -204,6 +204,18 @@
         el[prop] = value
     }
 
+    function getProp( selectorFilter, prop){
+        
+        // returns array of prperty or attribute values
+
+        const chks = getAll( selectorFilter )
+        const props = []
+        for(const chk of chks){
+           props.push( chk.getAttribute( prop) )
+        }
+        return props
+    }
+
     function combine( any, sep = ", ", lastOccurence = " and")
     {
 
@@ -881,7 +893,7 @@ function hideItem(id, isMoveOffScreenOnly = true){
 }
 
 
-function CenterItem(id){
+function CenterItem(id, callback = ''){
 
     if ( id.indexOf("#") == -1 ) id = "#" + id;
 
@@ -913,6 +925,8 @@ function CenterItem(id){
 
     e.style.top = y 
     e.style.left = x   
+
+    if ( callback ) callback();
 }
 
 function focusItem(id){
@@ -969,7 +983,7 @@ function padLeft(sNum, sChar, num){
 }
 
 function isOnScreen(elem)
-{
+{   
 
     var elem = $(elem);
     var scr = $(window);
@@ -984,7 +998,6 @@ function isOnScreen(elem)
             elemTop = $(elem).offset().top;
             elemBottom = elemTop + $(elem).height();
         }
-
         return ((elemBottom <= docViewBottom) && (elemTop >= docViewTop));
     }else{
         return false;
@@ -1107,6 +1120,22 @@ function overrideFormEnterKey( formID, elementID, runFunc = "" )
     }
 }
 
+function getInputFile( id ){
+
+    const file = getById(id)                                
+    let is_with_file = false;
+
+    if ( file !== null){
+        is_with_file = file.files.length
+    }
+
+    if ( is_with_file ){
+        return  file.files[0];
+    }else{
+        return false
+    }   
+}
+
 function resizeImageQuality(file, maxSizeKB, callback) {
 
     const isImage = file.type.indexOf('image') > -1
@@ -1126,7 +1155,7 @@ function resizeImageQuality(file, maxSizeKB, callback) {
 
             let canvas = document.createElement('canvas');
             canvas.id = canvasId;   
-            // canvas.style.display = "none";
+            canvas.style.display = "none";
             body.appendChild(canvas);
             console.log( 'canvas created')
         }
@@ -1164,6 +1193,7 @@ function resizeImageQuality(file, maxSizeKB, callback) {
 
                     if ( kb <= maxSizeKB || resize_percent <= 0 ){
                         callback(blob, resize_percent )
+                        // canvas.remove()
                     }else{
                         resize_percent -= 0.05
                         resize_percent = Math.floor(resize_percent * 100) / 100
@@ -1438,8 +1468,17 @@ function GPS_Address( type, api_key, callBack ){
     }        
 }
 
+function localData( key, value = "", def = "" ){
+    // if value is not empty, it will set value to key
 
-
+    if ( value ){
+        localStorage.setItem(key, value);
+    }else{
+        let ret = localStorage.getItem(key);
+        if ( isEmpty(ret) ) ret = def;
+        return ret;
+    }
+}
 
 function xxhr(method, path, func, id_contentHolder = ""){
     
@@ -1502,7 +1541,11 @@ function xxhrPost(url, data=[], callBackFunc = ""){
 
                 if ( 'json' in data){
                     if ( data.json == 1){
-                        ret = JSON.parse(ret)                        
+                        try{
+                            ret = JSON.parse(ret)                        
+                        }catch(error){
+                            console.log('error json convert', ret)
+                        }
                     }
                 }                
                 callBackFunc(ret);                                                     

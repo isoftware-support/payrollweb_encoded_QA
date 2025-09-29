@@ -559,8 +559,14 @@ label, .CheckBoxLabel, .label, .label-i {
 	left: -999;
 }
 
+.scroll-none{
+	overflow-x: none !important;
+	overflow-y: none !important;
+}
+
 .scroll-y{
 	overflow-y: auto !important; 
+	scroll-behavior: smooth;
 }
 .scroll-x{
 	overflow-x: auto !important; 
@@ -609,6 +615,7 @@ label, .CheckBoxLabel, .label, .label-i {
 	align-items: center;
 }
 
+.self-right{ align-self: flex-end; }
 
 /* ---- generics ------ */
 
@@ -625,8 +632,9 @@ label, .CheckBoxLabel, .label, .label-i {
 .p-2   { padding: 2px; }
 .p-3   { padding: 3px; }
 .p-5   { padding: 5px; }
-.p-15   { padding: 15px !important; }
+.p-8   { padding: 8px !important; }
 .p-10   { padding: 10px !important; }
+.p-15   { padding: 15px !important; }
 .p-20   { padding: 20px; }
 .p-30   { padding: 30px; }
 .p-40   { padding: 40px; }
@@ -754,6 +762,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .mr-10 { margin-right: 10px !important; }
 .mr-20 { margin-right: 20px !important; }
 
+.mb-1  { margin-bottom: 1px !important; }
 .mb-2  { margin-bottom: 2px !important; }
 .mb-3  { margin-bottom: 3px !important; }
 .mb-5  { margin-bottom: 5px !important; }
@@ -767,6 +776,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .mt-2  { margin-top: 2px !important; }
 .mt-3  { margin-top: 3px !important; }
 .mt-5  { margin-top: 5px !important; }
+.mt-7  { margin-top: 7px !important; }
 .mt-10 { margin-top: 10px !important; }
 .mt-20 { margin-top: 20px !important; }
 .mt-30 { margin-top: 30px !important; }
@@ -776,6 +786,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .mt-200 { margin-top: 200px !important; }
 
 /*---- widths --- fixwidths ----*/
+
 .w-0 {width: 0px !important; }
 .w-10, .fw-10 {width: 10px !important; }
 .w-20, .fw-20 {width: 20px !important; }
@@ -819,7 +830,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .w-230 {width: 230px !important; }
 .w-240 {width: 230px !important; }
 .w-250 {width: 230px !important; }
-
+.w-320 {width: 320px !important; }
 
 .wp-min-5 {min-width: : 5% !important; }
 .wp-min-15 {min-width: : 10% !important; }
@@ -830,11 +841,11 @@ label, .CheckBoxLabel, .label, .label-i {
 .fw-10,  .fw-20,
 .fw-30,  .fw-40,  .fw-50,  .fw-60,  .fw-70,  .fw-80,  .fw-90,  .fw-100,
 .fw-110, .fw-115, .fw-120, .fw-130, .fw-140, .fw-150, .fw-200, .fw-250,
-.fw-300{
+.fw-300 {
 	display:inline-block;					
 }	
 
-.wp-100{width: 100%; }
+.wp-100{width: 100% !important; }
 .wp-10 { width: 10%; }
 .wp-20 { width: 20%  }
 .wp-25 { width: 25%  }
@@ -855,6 +866,8 @@ label, .CheckBoxLabel, .label, .label-i {
 .wp-95 { width: 95%; }
 .wp-97 { width: 97%; }
 .wp-98 { width: 98%; }
+
+
 
 /* min widths */
 .wm-500 {min-width: 500; }
@@ -900,7 +913,7 @@ label, .CheckBoxLabel, .label, .label-i {
 .wmx-20 {max-width: 20; }
 
 .h-0 {height: 0;}
-.h-a {height: auto;}
+.h-a {height: auto !important; }
 .h-all {height: 100%;}
 .h-5   {height: 5px;}
 .h-10  {height: 10px !important;}
@@ -916,11 +929,13 @@ label, .CheckBoxLabel, .label, .label-i {
 .h-200 { height: 200px;}
 .h-250 { height: 250px;}
 .h-300 { height: 300px;}
+.h-350 { height: 350px;}
 .h-400 { height: 400px;}
 .h-450 { height: 450px;}
 .h-600 { height: 600px;}
 
 .hp-50 {height: 50% !important;}
+.hp-60 {height: 60% !important;}
 .hp-80 {height: 80% !important;}
 .hp-85 {height: 85% !important;}
 .hp-90 {height: 90% !important;}
@@ -1007,9 +1022,13 @@ label, .CheckBoxLabel, .label, .label-i {
 .bg-red{ background-color: red !important; }
 .bg-red-2{ background-color: #d72202 !important;}
 .bg-red-08{ background-color: rgba(200, 0, 0, .8 ) !important; }
-.bg-deep-green{ background-color: rgba(0, 100, 0, .8) !important; }
 .bg-row-stripe{ background-color: var(--row-stripe); }
 
+.bg-green-1{ background-color: #9DEB8E !important; }
+.bg-deep-green{ background-color: rgba(0, 100, 0, .8) !important; }
+
+.opacity-5{ opacity: .5; }
+.opacity-7{ opacity: .7; }
 
 /* --- font size ---------*/
 .fs-8{ font-size: 8px !important; }
@@ -1052,16 +1071,26 @@ label, .CheckBoxLabel, .label, .label-i {
 .br-5{ border-radius: 5px !important; }
 .br-10{ border-radius: 10px !important;  }
 .br-20{ border-radius: 20px; }
+
 .brtl-20{ border-top-left-radius: 20px; }
-.br-b-10{ 
-	border-bottom-left-radius: 10px; 
-	border-bottom-right-radius: 10px; 
+
+.br-l-5{ 
+	border-top-left-radius: 5px; 
+	border-bottom-left-radius: 5px; 
 }
+.br-l-10{ 
+	border-top-left-radius: 10px; 
+	border-bottom-left-radius: 10px; 
+}
+
 .br-b-5{ 
 	border-bottom-left-radius: 5px; 
 	border-bottom-right-radius: 5px; 
 }
-
+.br-b-10{ 
+	border-bottom-left-radius: 10px; 
+	border-bottom-right-radius: 10px; 
+}
 /*  attendance status */
 .attd-owner{
 	display: flex;
@@ -1832,7 +1861,7 @@ table{
 	}
 	.resizeHor{resize: horizontal;}
 	.resizeVer{resize: vertical;}
- 	.resizeNo{resize: none;}
+ 	.resizeNo{resize: none !important;}
     
 	.bold{
 		font-weight:bold !important;	
@@ -2200,7 +2229,7 @@ input[type='datetime-local']{
 	width: 35%;
 }
 #rec_details{
-	width: 55%;
+	width: 60%;
 }
 #div_info{
 	display: block;	
@@ -2401,20 +2430,22 @@ a.jobs-link-sub{
 #div_compare{
 	position : absolute;
 	display: block;	
-	/*height: 95vh;*/
+	height: 95vh;
 	top: 0;
 	background: #E7E4E4;
 	left: -9999;
 	z-index: 200;
 }
-.compare-width{ width: 80%; }
+.compare-width{ width: 80vw; }
 
 .compare-body{
 	padding:10px;
 }
 .compare-body #top-wrapper,#bottom-wrapper{
+	display: block;	
 	background: white ;
 	padding: 5px;
+	padding-bottom: 10px;
 	border-radius: 5px;
 }
 
@@ -2425,9 +2456,11 @@ a.jobs-link-sub{
 	padding-right: 10px;
 	font-size: 12px;
 }
-.compare-body #img-top, #img-bottom{
-	height: 41%;
-}
+
+/*#img-top, #img-bottom{
+	height: 40%;
+	width: 99%;
+*/}
 
 #bottom-wrapper{
 	margin-top: 10px;
@@ -2838,7 +2871,7 @@ a.jobs-link-sub{
 	.pic_width  {	width: 90%;	}
 	.pic_height { height: 90%; }
 
-	.compare-width{ width: 90%; }
+	.compare-width{ width: 90vw; }
 }
 
 /*
@@ -2894,7 +2927,7 @@ a.jobs-link-sub{
   .reimb-detail-width{
   	width: 98%;
   }
-  .compare-width{ width: 98%; }
+  .compare-width{ width: 98vw; }
 
 	.ss-wp{ width: 100%; }
 	.ss-wmx{ width: 100% !important; max-width: 100% !important; }

@@ -17,6 +17,7 @@ function PicViewer( params ){
 
 	xViewer.params = params;
 	xViewer.dimId = 'dimBack';
+	xViewer.FirstRun = true;
 
 	// delete div
 	const div = getById( xViewer.params.prefix + "pic_viewer");
@@ -131,8 +132,15 @@ function PicViewer( params ){
 
 	this.changeImageSource = function(src){
 		// console.log( src)
+		xViewer.img.src = "";
 		xViewer.img.src = src;
-		// console.log('image id', xViewer.img.id)
+
+		if ( ! xViewer.FirstRun ) return;
+		xViewer.FirstRun = false;
+
+		const zoom = localData("pic_viewer_zoom", "", "fit");		
+		setTimeout( () => viewerZoom(zoom, xViewer), 100);
+				
 	}
 
 	this.showNow = () => show();	
@@ -161,7 +169,7 @@ function PicViewer( params ){
 
 		setTimeout( ()=> {
 			if ( ! img_centered(xViewer) ){
-				call_centered();
+				img_centered(xViewer);
 			} 
 		}, 100)
 	}
@@ -246,6 +254,8 @@ function viewerZoom(key, xViewer){
 	}
 
 	img_centered(xViewer);
+
+	localData('pic_viewer_zoom', key);	
 
 }	
 
