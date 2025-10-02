@@ -125,6 +125,8 @@ const note_ui = Vue.createApp({
 
 	  	this.base_url = mem.base_url
 	  	this.request.count = mem.request.count
+	  	this.request.id = mem.request.id
+	  	this.request.type = mem.request.type
 
 		},
 
@@ -297,7 +299,7 @@ const note_ui = Vue.createApp({
 	  			const btn = get("input[id='-1']")
 	  			approveButtonClick(btn)
 
-	  		}else if( note_vars.req_type == 2){  // reimbursement disapproval
+	  		}else if( note_vars.req_type == 2){  // main reimbursement disapproval
 
 	  			// collect all selected 
 	  			const ids = getProp("input[type='checkbox'][no]:checked", 'no')
@@ -315,6 +317,25 @@ const note_ui = Vue.createApp({
 
 					})	  		
 	  			btn_disapprove()
+
+	  		}else if( note_vars.req_type == 2.9){	// reimbursement detail disapproval
+
+	  			// collect all selected 
+	  			const ids = getProp("input[type='checkbox'][no]:checked", 'no')
+		  		let p = {func: 'notes', section: 'RembursementRequestDetails', type: 40, table: 2, 
+		  			m_ids: ids.join(","), note: uriString(this.reason), str: 'DISAPPROVAL', 
+		  			json: 1 }
+
+					xxhrPost( url, p, (ret) => {
+						
+						console.log('saved notes', ret)						
+						
+						// no need to send note mail alert to employee, per reim disapproval already sending mail
+						// this.note.id = ret.note_id
+						// this.send_mail()
+
+					})	  		
+	  			buttonClick( getById('disapprove_x') );
 
 	  		}else{
 					btn_disapprove(this.reason);			
@@ -356,7 +377,6 @@ const note_ui = Vue.createApp({
 						console.log('note notification #' + id, ret);
 					})
 				}
-				console.log('all sent')
 
 			}else{
 	  	
@@ -482,7 +502,7 @@ const note_ui = Vue.createApp({
 
 			  	note_busy.hide();
 
-			  	console.log('show notes',ret);
+			  	console.log('show notes',ret, p);
 
 			  	this.request.history = "";
 
@@ -514,7 +534,8 @@ const note_ui = Vue.createApp({
 						// scroll to bottom
 						setTimeout(() => {
 					    this.$refs._notes.scrollTop = this.$refs._notes.scrollHeight;
-					    this.refresh_notes()
+
+					    if ( ! this.note_refresh_active ) this.refresh_notes()
 						}, 300)
 
 						this.attachement_clear()
@@ -533,6 +554,8 @@ const note_ui = Vue.createApp({
 	  refresh_notes(){
 
 	  	if ( ! this.request.add_note && ! this.request.history ) return
+	  
+	  	this.note_refresh_active = true;
 
 	  	setTimeout( () => {
 
@@ -545,7 +568,7 @@ const note_ui = Vue.createApp({
 
 			  	this.request.notes_realtime = true
 
-			  	console.log( 'refresh notes', ret, this.request.notes_count )
+			  	console.log( 'refresh notes', ret, this.request.notes_count, p )
 			  	if ( ret.count != this.request.notes_count){
 			  		note_busy.hide()
 			  		this.show()
@@ -597,6 +620,7 @@ const note_ui = Vue.createApp({
 	  	dimBack(false, 'dim_back');
 	  	hideItem(this.box_id);
 
+	  	this.note_refresh_active = false
 	  },
 
 	  block_leave_filing_set(team, team_name, reload_func){

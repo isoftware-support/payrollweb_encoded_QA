@@ -63,12 +63,10 @@ function loginAttempt()
 
     xxhrPost("_home/home_login.php", _post, (res)=>{
         
-        console.log( 'res',res)               
         let ret = JSON.parse(res);
         const status = ret.ret
 
         console.log( 'ret', ret);
-        // return
         
         if ( status == "success") {
             
