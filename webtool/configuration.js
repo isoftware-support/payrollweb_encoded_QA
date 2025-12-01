@@ -140,6 +140,21 @@
 			e = getById('disallow_no_att')
 		  if ( e ) e.onchange()
 
+		// attendance - import logs rules
+			e = getById('allow_import_logs')
+			if ( e ){
+				e.onchange = () => {
+
+					let bln = getById('allow_import_logs').checked
+
+					const divs = getAll(`div[group='allow_import_logs']`)
+					divs.forEach( (div) =>{
+						disableChildren( div, ! bln )
+					})	
+				}
+
+				e.onchange()
+			}
 
 	});
 

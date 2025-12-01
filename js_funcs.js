@@ -77,7 +77,7 @@
         for( let index in children){
 
             const el = children[index]      
-            if ( ["INPUT", "LABEL"].includes(el.tagName) ){
+            if ( ["INPUT", "LABEL", "SELECT"].includes(el.tagName) ){
 
                 if ( disabled ){
                     el.disabled = true
