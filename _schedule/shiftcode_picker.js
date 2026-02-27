@@ -51,14 +51,17 @@ const shiftcode_picker = Vue.createApp({
 	beforeMount(){
 
 
-    let p = { func: 'GetMultiRecs', t: 13, f: "shiftCode|shiftName|timeStart|timeEnd", xp:1 }
-    xxhrPost(`${rootURI}/ajax_calls.php`, p, res => {
-
+    // let p = { func: 'GetMultiRecs', t: 13, f: "shiftCode|shiftName|timeStart|timeEnd", xp:1 }
+    // xxhrPost(`${rootURI}/ajax_calls.php`, p, res => {
+    
+    let p = { fn: 'shiftcodes_ui', func: 'aaaa' };
+    xxhrPost(`${rootURI}/_schedule/team_schedules_ajax.php`, p, res => {
+      
         const ret = JSON.parse(res);
 
         // console.log('ret', ret)
-        
-        Object.values(ret).forEach( (item, i) => {
+
+        Object.values(ret.data).forEach( (item, i) => {
 
           if ( 'shiftCode' in item ){
   					const start = TimeFormat( item.timeStart);

@@ -493,7 +493,7 @@ const reimDetail = Vue.createApp({
 			xxhrPost('_requests/schedule_request_api.php', p, (res) =>{		
 
 				const ret = JSON.parse(res)
-				// console.log(ret);				
+				console.log(ret);				
 
 				const type = ret.type
 				

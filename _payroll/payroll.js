@@ -88,7 +88,7 @@ function email_ajax(){
 }
 
 
-function generatePayroll(){
+function generatePayroll( view_full = 0){
 
     busy.show2()  ;
 
@@ -97,6 +97,7 @@ function generatePayroll(){
     var posts = [];
     posts['ds'] = generated_cutoff_date;
     posts['de'] = get('#cutoff_nav_end').value;
+    posts['vf'] = view_full;
 
     var e = get("select[name='team_emp']");
     if ( e )
@@ -119,7 +120,7 @@ function generatePayroll(){
         // console.log(res);
         let data = JSON.parse(res);
 
-        // console.log('data', data);
+        console.log('data', data);
         
         pdfParams = data.pdfParams;
 
