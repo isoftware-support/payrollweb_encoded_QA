@@ -50,15 +50,19 @@
         //     return;  
         // } 
 
+        
+
+
         busy.show2();      
 
         let xhr = new XMLHttpRequest();
         let formData = new FormData();
+        let memberNo = 0;
 
         // team mode upload
         if ( isTeamMode ){
             
-            let memberNo = getById("attd_team_members").value;
+            memberNo = getById("attd_team_members").value;
 
             formData.append('tm',1);
             formData.append('tmm', memberNo);            
@@ -67,14 +71,33 @@
         // debug
         // formData.append('debug', 1);
 
+        const attd_mail_notif = () =>{
+
+            // only personal upload
+            if ( isTeamMode ) return;
+
+            const p = {func: 'upload-attd-notify', dt: start, json:1}
+            xxhrPost("mailer.php", p, (res) => {
+                console.log('res', res);
+            })
+        }
+
         formData.append("import-log-file", file); 
         formData.append("dt", start);
+
         xhr.open("POST", 'xhtml_response.php?q=UploadAttdLogs' + _session_vars, true);
         xhr.onload = function( res ){
             
             console.log( this.responseText);            
 
-            if (this.status == 200) showUploadedAttdLogs(this.responseText);                     
+            if (this.status == 200){
+
+                // mail approver notification
+                attd_mail_notif();
+                
+                // load uploaded attds
+                showUploadedAttdLogs(this.responseText);                     
+            }
         };
         xhr.send(formData);
 
@@ -310,6 +333,7 @@
         xxhrPost(PAYROLLWEB_URI + "/_approvals/attendance_approval.php?"+ _session_vars, data, 
         function(res){
                        
+            console.log( res)
             let ret = JSON.parse(res);
             
             let data = ret.data;
